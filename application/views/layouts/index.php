@@ -7,6 +7,7 @@
     <title>Library</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    	<link rel="alternate stylesheet" type="text/css" media="all" href="../skins/calendar-system.css" title="system" />
     <!-- Bootstrap 3.3.4 -->
     <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -249,20 +250,24 @@
     <!-- REQUIRED JS SCRIPTS -->
 
     <!-- jQuery 2.1.4 -->
-    <script src="<?=base_url()?>assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <!-- Bootstrap 3.3.4 -->
+
     <script src="<?=base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?=base_url()?>assets/dist/js/app.min.js"></script>
 	<script src="<?=base_url()?>assets/dist/js/datatables.min.js"></script>
     
-
+<link rel="stylesheet" href="<?php echo base_url() ?>assets/treeview/css/bootstrap-treeview.min.css" />
+<script type="text/javascript" charset="utf8" src="<?php echo base_url() ?>assets/treeview/js/bootstrap-treeview.min.js"></script>
 
   <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/dist/css/jquery-ui.min.css">
   <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/dist/css/bootstrap-tokenfield.min.css">
+  
+   <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/dist/css/calendar-system.css">
+  
 
   <script src="<?=base_url()?>assets/dist/js/bootstrap-tokenfield.js"></script>
-
+<!-- import the Jalali Date Class script -->
+	
 
   </body>
 </html>

@@ -10,7 +10,7 @@
             <div class="box-header">
                 <h3 class="box-title"> الأقسام</h3>
                 <div class="box-tools">
-                    <a href="<?php echo site_url('section/add'); ?>" class="btn btn-success btn-sm">Add</a> 
+                    <a href="<?php echo site_url('section/add'); ?>" class="btn btn-success btn-sm">اضافة قسم</a> 
                 </div>
             </div>
             <div class="box-body">
@@ -21,7 +21,7 @@
                             <th>اسم القسم</th>
                             <th>رقم الاب</th>
                        
-                            <th>الاحداث</th>
+<!--                            <th>الاحداث</th>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -31,10 +31,10 @@
                                 <td><?php echo $s->section_name; ?></td>
                                 <td><?php echo $s->parent_id; ?></td>
                             
-                                <td>
-                                    <a href="<?php echo site_url('section/edit/' . $s->section_id); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> تحرير</a> 
-                                    <a href="<?php echo site_url('section/remove/' . $s->section_id); ?>" class="btn btn-danger btn-xs delete"><span class="fa fa-trash"></span> حذف</a>
-                                </td>
+<!--                                <td>
+                                    <a href="<php echo site_url('section/edit/' . $s->section_id); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> تحرير</a> 
+                                    <a href="<php echo site_url('section/remove/' . $s->section_id); ?>" class="btn btn-danger btn-xs delete"><span class="fa fa-trash"></span> حذف</a>
+                                </td>-->
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -44,7 +44,7 @@
                             <th>اسم القسم</th>
                             <th>رقم الاب</th>
                    
-                            <th>الاحداث</th>
+<!--                            <th>الاحداث</th>-->
                         </tr>
                     </tfoot>
                 </table>

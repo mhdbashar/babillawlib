@@ -28,3 +28,7 @@ background-color: #ecf0f5;
     background-color: #4587ae;
     border-color: #4587ae;
 }
+.treeview .list-group-item {
+    cursor: pointer;
+    padding: 1px;
+}

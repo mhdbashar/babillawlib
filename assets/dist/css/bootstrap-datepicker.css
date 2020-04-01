@@ -10,6 +10,9 @@
   -moz-border-radius: 4px;
   border-radius: 4px;
   direction: ltr;
+  position: absolute; 
+  margin-right: -140px; 
+  margin-bottom: 90px;
 }
 .datepicker-inline {
   width: 220px;

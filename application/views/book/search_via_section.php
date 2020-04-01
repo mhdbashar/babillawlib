@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Book Listing</h3>
+                <h3 class="box-title">لائحة الكتب</h3>
 
             </div>
             <div class="box-body">
@@ -14,7 +14,7 @@
                         <tr>
                             <th>رقم الكتاب</th>
                         
-                            <th>اسم الكتاب</th>
+                            <th>عنوان الكتاب</th>
                             <th>تصفح الكتاب</th>
 
                         </tr>
@@ -24,7 +24,7 @@
                             <tr>
                                 <td><?php echo $b['book_id']; ?></td>
                             
-                                <td><?php echo $b['book_name']; ?></td>
+                                <td><?php echo $b['book_title']; ?></td>
                                     <td> <a href="<?php echo base_url('uploads/images/')?><?php echo $b['file']; ?>">تصفح الكتاب</a></td>
 
                                 <td>
@@ -38,7 +38,7 @@
                         <tr>
                                 <th>رقم الكتاب</th>
                         
-                            <th>اسم الكتاب</th>
+                            <th>عنوان الكتاب</th>
                             <th>تصفح الكتاب</th>
 
 

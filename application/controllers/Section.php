@@ -92,4 +92,54 @@ class Section extends Front_end{
             show_error('The section you are trying to delete does not exist.');
     }
     
+    public function getItem()
+    {
+          $data = [];
+          $parent_key = '0';
+          $row = $this->db->query('SELECT section_id, section_name from section');
+            
+          if($row->num_rows() > 0)
+          {
+              $data = $this->membersTree($parent_key);
+          }else{
+              $data=["section_id"=>"0","section_name"=>"No Members presnt in list","text"=>"No Members is presnt in list","nodes"=>[]];
+          }
+          $sql="select * from section where parent_id !=0 and section_id  not in (select parent_id from section)";
+          $query=$this->db->query($sql);
+          $data['result']=$query->result();
+   
+          echo json_encode($data,JSON_UNESCAPED_UNICODE);
+    }
+   
+    /**
+     * Get All Data from this method.
+     *
+     * @return Response
+    */
+    public function membersTree($parent_key)
+    {
+        $row1 = [];
+        $row = $this->db->query('SELECT section_id, section_name from section WHERE parent_id="'.$parent_key.'"')->result_array();
+    
+        foreach($row as $key => $value)
+        {
+           $id = $value['section_id'];
+           $row1[$key]['id'] = $value['section_id'];
+           $row1[$key]['name'] = $value['section_name'];
+           $row1[$key]['text'] = $value['section_name'];
+           $row1[$key]['nodes'] = array_values($this->membersTree($value['section_id']));
+        }
+  
+        return $row1;
+    }
+    public function testtree() {
+        $this->load->view('section');
+    }
+    
+    
+
+    
+    
+    
+    
 }

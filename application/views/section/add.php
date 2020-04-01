@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">Section Add</h3>
+                <h3 class="box-title">اضافة قسم</h3>
             </div>
             <?php echo form_open('section/add'); ?>
             <div class="box-body">
@@ -41,7 +41,7 @@
             </div>
             <div class="box-footer">
                 <button type="submit" class="btn btn-success">
-                    <i class="fa fa-check"></i> Save
+                    <i class="fa fa-check"></i> حفظ
                 </button>
             </div>
             <?php echo form_close(); ?>
