@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">Book Add</h3>
+                <h3 class="box-title">بحث عن الكتاب حسب الوسم</h3>
             </div>
           
             <div class="box-body">
@@ -72,7 +72,7 @@
                       html += '<tr>'+      
                               '<td>اسم الكتاب</td>'+
                                  
-                               '<td>'+data[i].book_name+'</td>'+
+                               '<td>'+data[i].book_title+'</td>'+
                                 '<td> اسم القسم</td>'+
                                  
                                '<td>'+data[i].section_name+'</td>'+
