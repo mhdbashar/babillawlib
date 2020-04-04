@@ -17,11 +17,11 @@
                 <table class="table table-bordered table-striped" id="mytable">
                     <thead>
                         <tr>
-                            <th>رقم القسم</th>
+                            <th> القسم</th>
                             <th>اسم القسم</th>
-                            <th>رقم الاب</th>
+                            <th> اسم الاب</th>
                        
-<!--                            <th>الاحداث</th>-->
+                           <th>الاحداث</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,12 +29,12 @@
                             <tr>
                                 <td><?php echo $s->section_id; ?></td>
                                 <td><?php echo $s->section_name; ?></td>
-                                <td><?php echo $s->parent_id; ?></td>
+                                <td><?php echo $s->a; ?></td>
                             
-<!--                                <td>
-                                    <a href="<php echo site_url('section/edit/' . $s->section_id); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> تحرير</a> 
-                                    <a href="<php echo site_url('section/remove/' . $s->section_id); ?>" class="btn btn-danger btn-xs delete"><span class="fa fa-trash"></span> حذف</a>
-                                </td>-->
+                              <td>
+                                  <a href="<?php echo site_url('section/edit/' . $s->section_id); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> تحرير</a> 
+                                    <a href="<?php echo site_url('section/remove/' . $s->section_id); ?>" class="btn btn-danger btn-xs delete"><span class="fa fa-trash"></span> حذف</a>
+                              </td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -44,7 +44,7 @@
                             <th>اسم القسم</th>
                             <th>رقم الاب</th>
                    
-<!--                            <th>الاحداث</th>-->
+                            <th>الاحداث</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -83,6 +83,8 @@ return true;
       }
     });
 </script>
+
+<script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
 
 
 

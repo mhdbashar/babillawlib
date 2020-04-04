@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2020 at 12:50 AM
+-- Generation Time: Apr 04, 2020 at 08:34 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -91,12 +91,17 @@ INSERT INTO `section` (`section_id`, `section_name`, `parent_id`, `section_discr
 (32, 'الأنظمة السعودية', 0, ''),
 (33, 'نماذج وعقود', 0, ''),
 (34, 'الكتب القانونية والأبحاث', 0, ''),
-(36, 'القوانين', 34, ''),
-(37, 'الاحكام', 30, ''),
-(46, 'نظام1', 32, ''),
-(47, 'مدونة1', 31, ''),
-(48, 'كتب قانونية 1', 34, ''),
-(49, 'نماذج وعقود 1', 33, '');
+(115, 'أحكام واحد', 30, ''),
+(116, 'مدونة1', 31, ''),
+(117, 'نظام1', 32, ''),
+(118, 'نموذج عقد1', 33, ''),
+(119, 'كتب قانونية واحد', 34, ''),
+(120, 'أحكام واحد فرعي', 115, ''),
+(121, 'مدونة واحد فرعي', 116, ''),
+(122, 'نظام واحد فرعي', 117, ''),
+(123, 'نموذج عقد واحد فرعي', 118, ''),
+(124, 'كتب قانونية واحد فرعي', 119, ''),
+(125, 'مدونة فرعي 2', 121, '');
 
 -- --------------------------------------------------------
 
@@ -145,25 +150,25 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
 
 --
 -- AUTO_INCREMENT for table `book_tag`
 --
 ALTER TABLE `book_tag`
-  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=242;
 
 --
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

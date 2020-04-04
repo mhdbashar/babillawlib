@@ -32,3 +32,8 @@ background-color: #ecf0f5;
     cursor: pointer;
     padding: 1px;
 }
+.datepicker {
+   
+    padding: 10px;
+    background-color: #e9edf2;
+}

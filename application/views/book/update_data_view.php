@@ -23,13 +23,13 @@
 
 
             <form method="post" action="<?php echo base_url('book/update/' . $book['book_id']) ?>">
-                <input type="hidden" name="sub_section" value="<?php echo $book['section_id']; ?>" id="sub_section" class="sub_section" required=""/>
+                <input type="hidden" name="sub_section" value="<?php echo $book['section_id']; ?>" id="sub_section" class="sub_section" />
                 <div class="box-body">
                     <div class="row clearfix">
                         <div class="col-md-6">
                             <label for="section_id" class="control-label">إختر القـــســـــم</label>
                             <div class="form-group">
-                                <select  name="section_name" value="" class="form-control" style="border-bottom: 2px #3c8dbc solid;" id="sel_section"   >
+                                <select  name="section_name" value="" class="form-control" style="border-bottom: 2px #3c8dbc solid;" id="sel_section"    >
 
 
 
@@ -39,6 +39,7 @@
                                         if ($book['main_section'] == $v->section_id) {
                                             $select = "selected";
                                             $main_section = $v->section_name;
+                                            $section_id = $v->section_id;
                                         } else {
                                             $select = "";
                                         }
@@ -62,7 +63,7 @@
 
 
                     </div>
-                    <div style="background-color:#9cd8fb;margin-bottom: 10px; width: 50% ">   إختر القـــسســم الفرعي <?php echo validation_errors(); ?>  </div>
+                    <div style="background-color:#9cd8fb;margin-bottom: 10px; width: 50% ">   إختر القـــسســم الفرعي   </div>
 
 
 
@@ -80,11 +81,6 @@
                                 <textarea id="tin" style="border:2px solid black" name="dis" value="<?php echo $book['dis']; ?>">  <?php echo $book['dis']; ?></textarea>
                             </div>
                         </div>
-
-
-
-
-
 
                         <div class="col-md-6">
                             <label for="book_title" class="control-label">  عنوان الكتاب</label>
@@ -112,31 +108,11 @@
                             <label for="book_name" class="control-label"> أدخل رابط</label>
                             <div class="form-group">
 
-                                <input class="form-control" type="url" name="url" value="<?php echo $book['url']; ?>" required data-errormessage-value-missing="Please input something"  />
+                                <input class="form-control" type="url" name="url" value="<?php echo $book['url']; ?>"  />
                             </div>
                         </div>
 
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                     <div id="fm">
@@ -147,7 +123,7 @@
 
                 </div>
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-success save">
                         <i class="fa fa-check"></i> حفظ
                     </button>
                 </div>
@@ -156,7 +132,7 @@
     </div>
 </div>
 
-<script src="<?= base_url() ?>assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/dist/css/bootstrap-tokenfield.min.css">
 
 <script src="<?= base_url() ?>assets/dist/js/bootstrap-tokenfield.js"></script>
@@ -165,24 +141,24 @@
 <script>
     $(document).ready(function () {
         var section_name = "<?php echo $main_section; ?>";
+        var section_id = "<?php echo $section_id; ?>";
 
 
 
-
-  function date_publication_h() {
+        function date_publication_h() {
 
 
             $("#date_publication_h").hijriDatePicker({
-                 hijri:true,
+                hijri: true,
                 showSwitcher: false
             });
         }
 
- function date_publication_m() {
+        function date_publication_m() {
 
             $("#date_publication_m").hijriDatePicker({
-                  format: "DD-MM-YYYY",
-                hijriFormat:"iYYYY-iMM-iDD",
+                format: "DD-MM-YYYY",
+                hijriFormat: "iYYYY-iMM-iDD",
                 dayViewHeaderFormat: "MMMM YYYY",
                 hijriDayViewHeaderFormat: "iMMMM iYYYY",
             });
@@ -196,14 +172,14 @@
             });
         }
 
-      
 
-       
+
+
         function history_system_m() {
 
             $("#history_system_m").hijriDatePicker({
-                 format: "DD-MM-YYYY",
-                hijriFormat:"iYYYY-iMM-iDD",
+                format: "DD-MM-YYYY",
+                hijriFormat: "iYYYY-iMM-iDD",
                 dayViewHeaderFormat: "MMMM YYYY",
                 hijriDayViewHeaderFormat: "iMMMM iYYYY",
             });
@@ -211,20 +187,9 @@
 
 
 
-
-
-
-
-
-
-
-
-        var treeData = '';
-
-
         $.ajax({
             type: "GET",
-            url: "<?php echo base_url() ?>section/getItem",
+            url: "<?php echo base_url() ?>section/getItem/" + section_id,
             dataType: "json",
             success: function (response)
             {
@@ -247,24 +212,42 @@
                 //initTree(response);
 
                 $('#treeview_json').treeview({data: response});
-
+                t = section_id;
                 $('#treeview_json').on('nodeSelected', function (event, data) {
-
+                    t = '';
+                    $("#sub_section").val(t);
                     for (j = 0; j < r.length; j++) {
 
                         if (r[j] === data.id) {
                             //  alert(data.id);
                             t = data.id;
-
+                            $("#sub_section").val(t);
+                            break;
                         }
 
                     }
 
 
 
-                    // alert(t);
-                    $("#sub_section").val(t);
+
+
                     //alert($("#sub_section").val());
+
+                });
+
+
+                $(".save").click(function () {
+
+                    if (t === '') {
+                        alert("اخترالقسم");
+                        $("#format").trigger("reset");
+
+                    } else {
+
+
+                        return true;
+                    }
+
 
                 });
 
@@ -291,7 +274,7 @@
             txt1 += "<div class='col-md-6'>";
             txt1 += "<label for='year' class='control-label'>السنة</label>";
             txt1 += "<div class='form-group'>";
-            txt1 += "<input type='text' name='year' value='<?php echo $book['year']; ?>' class='form-control' id='year' />";
+            txt1 += "<input type='number' min='1900' max='2099' step='1' value='<?php echo $book['year']; ?>' name='year' class='form-control'  id='year'/>";
             txt1 += "</div>";
             txt1 += "</div>";
             txt1 += "<div class='col-md-6'>";
@@ -320,7 +303,7 @@
             txt2 += "<div class='col-md-6'>";
             txt2 += "<label for='year' class='control-label'>السنة</label>";
             txt2 += "<div class='form-group'>";
-            txt2 += "<input type='number' min='1900' max='2099' step='1' value='<?php echo $book['year']; ?>' name='year'  />";
+            txt2 += "<input type='number' min='1900' max='2099' step='1' value='<?php echo $book['year']; ?>' name='year' class='form-control' id='year' />";
             txt2 += "</div>";
             txt2 += "</div>";
             txt2 += "<div class='col-md-6'>";
@@ -363,7 +346,7 @@
             txt2 += "<label for='year_publication' class='control-label'>سنة النشر</label>";
             txt2 += "<div class='form-group'>";
 
-            txt2 += "<input type='number' min='1900' max='2099' step='1' value='<?php echo $book['year_publication']; ?>'' name='year_publication'/>";
+            txt2 += "<input type='number' min='1900' max='2099' step='1' value='<?php echo $book['year_publication']; ?>'' name='year_publication'class='form-control' />";
             txt2 += "</div>";
             txt2 += "</div>";
 
@@ -412,12 +395,13 @@
             txt2 += "<div class='col-md-6'>";
             txt2 += "<label for='date_publication_m' class='control-label'> تاريخ النشر الميلادي</label>";
             txt2 += "<div class='form-group'>";
-            txt2 += "<input type='text' name='date_publication_m' value='<?php echo $book['date_publication_m']; ?>' class='form-control' id='date_publication_m' style='width:50%'  />";
+            txt2 += "<input type='text' name='date_publication_m' value='<?php echo $book['date_publication_m']; ?>' class='form-control' id='date_publication_m'   />";
             txt2 += "</div>";
             txt2 += "</div>";
+              txt2 += "<div class='col-md-6'>";
             txt2 += "<label for='date_publication' class='control-label' >تاريخ النشر بالهجري</label>";
             txt2 += "<div class='form-group'>";
-            txt2 += "<input type='text' name='date_publication_h' value='<?php echo $book['date_publication_h']; ?>' class='form-control' id='date_publication_h'  style='text-align:right;width:50%'/>";
+            txt2 += "<input type='text' name='date_publication_h' value='<?php echo $book['date_publication_h']; ?>' class='form-control' id='date_publication_h' />";
             txt2 += "</div>";
             txt2 += "</div>";
 
@@ -433,17 +417,17 @@
             txt2 += "</div>";
             txt2 += "</div>";
             $("#fm").html(txt2);
-            
-            
-             date_publication_h();
-              history_system_h();
-                date_publication_m();
-                
+
+
+            date_publication_h();
+            history_system_h();
+            date_publication_m();
+
             history_system_m();
-               
-             
-               
-           
+
+
+
+
 
 
         } else if (section_name === 'نماذج وعقود') {
@@ -486,7 +470,7 @@
     tinymce.init({
         selector: 'textarea', // change this value according to your HTML
         language: 'ar'
-        
+
     });
 
 

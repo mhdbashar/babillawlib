@@ -39,15 +39,14 @@
                     <div class="col-md-6">
                         <label for="section_id" class="control-label">إختر القـــســـــم</label>
                         <div class="form-group">
-                            <select  name="section_name" value="" class="form-control" style="border-bottom: 2px #3c8dbc solid;" id="sel_section" >
-
-
+                            <select  name="section_id"  class="form-control section" style="border-bottom: 2px #3c8dbc solid;" id="sel_section" >
+                                <option value="-1">اختر القسم</option>
 
                                 <?php
                                 foreach ($get_main_section as $value) {
                                     ?>
-                                    <option value="<?php echo $value->section_name; ?>"><?php echo $value->section_name; ?></option>
-
+                                    <option value="<?php echo $value->section_id; ?>"><?php echo $value->section_name; ?></option>
+ 
 
                                     <?php
                                 }
@@ -72,19 +71,24 @@
                 </div>
 
 
+           
 
 
 
 
 
-                <?php echo validation_errors(); ?> 
+
+
+<!--                <php
+                echo validation_errors();
+                ?> -->
 <!--                <input type="hidden" name="sub_section" value="" id="sub_section">-->
                 <div class="row clearfix" id="hide">
-                  
+
                     <div class="col-md-6">
                         <label for="dis" class="control-label">  أدخل الوصف</label>
                         <div class="form-group">
-                            <textarea style="border:2px solid black" name="dis">أدخل الوصف هنا</textarea>
+                            <textarea style="border:2px solid black" name="dis">  </textarea>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -95,27 +99,27 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="book_name" class="control-label">الكلمات الدلالية  </label>
+                        <label for="book_name" class="control-label" >الكلمات الدلالية  </label>
                         <div class="form-group">
-                            <input type="text" name="tag_name" value="" class="form-control" id="tag"  required=""/>
+                            <input type="text" name="tag_name" value="" class="form-control" id="tag"  />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label for="book_name" class="control-label">تحميل الكتاب</label>
                         <div class="form-group">
 
-                            <input class="form-control" type="file" name="picture" required data-errormessage-value-missing="Please input something"  />
+                            <input class="form-control" type="file" name="picture" id="picture"   />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label for="book_name" class="control-label"> أدخل رابط</label>
                         <div class="form-group">
 
-                            <input class="form-control" type="url" name="url" required data-errormessage-value-missing="Please input something"  />
+                            <input class="form-control" type="url" name="url" />
                         </div>
                     </div>
 
-               
+
 
 
                 </div>
@@ -130,7 +134,7 @@
 
             </div>
             <div class="box-footer">
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success save">
                     <i class="fa fa-check"></i> حفظ
                 </button>
             </div>
@@ -148,119 +152,111 @@
 
 <script>
     $(document).ready(function () {
+        var change = 'no';
+        var main_section_id = '';
+        $("select.section").change(function () {
+
+            main_section_id = $(this).children("option:selected").val();
+            var section_name = $("#sel_section option:selected").html();
+           
 
 
-        var treeData = '';
+            $.ajax({
+                type: "GET",
+                url: "<?php echo base_url() ?>section/getItem/" + main_section_id,
+                dataType: "json",
+
+                success: function (response)
+                {
+
+                    change = 'yes';
+                    var i = 0;
+                    var j = 0;
+                    var r = [];
+                    var t = '';
+                    var k = '';
+                    for (i = 0; i < response.result.length; i++) {
 
 
-        $.ajax({
-            type: "GET",
-            url: "<?php echo base_url() ?>section/getItem",
-            dataType: "json",
-            success: function (response)
-            {
-                var i = 0;
-                var j = 0;
-                var r = [];
-                var t = '';
-                for (i = 0; i < response.result.length; i++) {
-
-
-                    r[i] = response.result[i].section_id;
-
-                }
-                //  alert(r[0]);
-
-
-
-
-
-                //initTree(response);
-
-                $('#treeview_json').treeview({data: response});
-
-                $('#treeview_json').on('nodeSelected', function (event, data) {
-
-                    for (j = 0; j < r.length; j++) {
-
-                        if (r[j] === data.id) {
-                            //  alert(data.id);
-                            t = data.id;
-
-                        }
+                        r[i] = response.result[i].section_id;
 
                     }
 
-                    $("#sub_section").val(t);
+
+                    $('#treeview_json').treeview({data: response});
+
+                    $('#treeview_json').on('nodeSelected', function (event, data) {
+                        t = '';
+                        $("#sub_section").val(t);
+                        for (j = 0; j < r.length; j++) {
 
 
-                });
+                            if (r[j] === data.id) {
+                                //  alert(data.id);
+                                t = data.id;
+                                //  alert(data.id);
+                                $("#sub_section").val(t);
+                                break;
+
+                            }
+
+                        }
+
+                    });
+
+                    $(".save").click(function () {
+
+                        if (t === '') {
+                            alert("اخترالقسم");
+                             $("#format").trigger("reset");
+                         //return false;
+
+                        } else {
+
+                            $("#picture").prop('required',true);
+                            return true;
+                        }
 
 
-            }
-        });
+                    });
 
 
+                }
+            });
+        
 
+            var txt4 = '';
 
+            txt4 += "<div class=}'col-md-6'>";
+            txt4 += "<label for='year' class='control-label' >السنة</label>";
+            txt4 += "<div class='form-group'>";
+            txt4 += "<input type='number' min='1900' max='2099' step='1' value='2016' name='year' style='width:50%' />";
+            txt4 += "</div>";
+            txt4 += "</div>";
+            txt4 += "<div class='col-md-6'>";
+            txt4 += "<label for='volume_number' class='control-label'>رقم المجلد</label>";
+            txt4 += "<div class='form-group'>";
+            txt4 += "<input type='text' name='volume_number' value='' class='form-control' id='volume_number' />";
+            txt4 += "</div>";
+            txt4 += "</div>";
+            txt4 += "<div class='col-md-6'>";
+            txt4 += "<label for='subject' class='control-label'>الموضوع</label>";
+            txt4 += "<div class='form-group'>";
+            txt4 += "<input type='text' name='subject' value='' class='form-control' id='subject' />";
+            txt4 += "</div>";
+            txt4 += "</div>";
+            $("#fm").html(txt4);
 
+            $('#tag').tokenfield({
 
-
-
-
-
-
-        var txt4 = '';
-
-        txt4 += "<div class=}'col-md-6'>";
-        txt4 += "<label for='year' class='control-label' >السنة</label>";
-        txt4 += "<div class='form-group'>";
-        txt4 += "<input type='number' min='1900' max='2099' step='1' value='2016' name='year' style='width:50%' />";
-        txt4 += "</div>";
-        txt4 += "</div>";
-        txt4 += "<div class='col-md-6'>";
-        txt4 += "<label for='volume_number' class='control-label'>رقم المجلد</label>";
-        txt4 += "<div class='form-group'>";
-        txt4 += "<input type='text' name='volume_number' value='' class='form-control' id='volume_number' />";
-        txt4 += "</div>";
-        txt4 += "</div>";
-        txt4 += "<div class='col-md-6'>";
-        txt4 += "<label for='subject' class='control-label'>الموضوع</label>";
-        txt4 += "<div class='form-group'>";
-        txt4 += "<input type='text' name='subject' value='' class='form-control' id='subject' />";
-        txt4 += "</div>";
-        txt4 += "</div>";
-        $("#fm").html(txt4);
-
-
-
-
-        $('#tag').tokenfield({
-
-        });
-
-
-
-
-
-
-
-
-
-
-
-        $('#sel_section').change(function () {
-
-
-
-
+            });
 
 
 
             var txt1 = '';
             var txt2 = '';
 
-            var section_name = $(this).val();
+
             if (section_name === 'مجلدات الأحكام') {
 
 
@@ -270,7 +266,8 @@
                 txt1 += "<div class='col-md-6'>";
                 txt1 += "<label for='year' class='control-label'>السنة</label>";
                 txt1 += "<div class='form-group'>";
-                txt1 += "<input type='number' min='1900' max='2099' step='1' value='2016' name='year' style='width:50%' />";
+                
+                txt1 += "<input type='number' min='1900' max='2099' step='1' value='2016' name='year' class='form-control'  />";
                 txt1 += "</div>";
                 txt1 += "</div>";
                 txt1 += "<div class='col-md-6'>";
@@ -295,7 +292,7 @@
                 txt2 += "<div class='col-md-6'>";
                 txt2 += "<label for='year' class='control-label'>السنة</label>";
                 txt2 += "<div class='form-group'>";
-                txt2 += "<input type='number' min='1900' max='2099' step='1' value='2016' name='year' style='width:50%' />";
+                txt2 += "<input type='number' min='1900' max='2099' step='1' value='2016' name='year' class='form-control' />";
                 txt2 += "</div>";
                 txt2 += "</div>";
                 txt2 += "<div class='col-md-6'>";
@@ -333,7 +330,7 @@
                 txt2 += "<label for='year_publication' class='control-label'>سنة النشر</label>";
                 txt2 += "<div class='form-group'>";
 
-                txt2 += "<input type='number' min='1900' max='2099' step='1' value='2016' name='year_publication' style='width:50%'/>";
+                txt2 += "<input type='number' min='1900' max='2099' step='1' value='2016' name='year_publication' class='form-control'/>";
                 txt2 += "</div>";
                 txt2 += "</div>";
 
@@ -344,9 +341,9 @@
 
                 $("#fm").empty();
 
-               
-           
-              
+
+
+
 
 
                 txt2 += "<div class='col-md-6'>";
@@ -370,7 +367,7 @@
                 txt2 += "<div class='col-md-6'>";
                 txt2 += "<label for='date_publication_m' class='control-label'> تاريخ النشر الميلادي</label>";
                 txt2 += "<div class='form-group'>";
-                txt2 += "<input type='text' name='date_publication_m' value='' class='form-control' id='date_publication_m' style='width:50%' />";
+                txt2 += "<input type='text' name='date_publication_m' value='' class='form-control' id='date_publication_m'  />";
                 txt2 += "</div>";
                 txt2 += "</div>";
                 txt2 += "<label for='date_publication' class='control-label' >تاريخ النشر بالهجري</label>";
@@ -409,8 +406,24 @@
                 $("#fm").empty();
             }
 
+
+
         });
 
+        $(".save").click(function () {
+
+            if (change === 'no') {
+                alert("اختر القسم في البداية");
+                $("#format").trigger("reset");
+               window.location.reload();
+            } else {
+
+
+                return true;
+            }
+
+
+        });
     });
 
 </script>
@@ -472,7 +485,7 @@
     function date_publication_m() {
 
         $("#date_publication_m").hijriDatePicker({
-           // hijri: true,
+            // hijri: true,
             showSwitcher: false
         });
     }
@@ -492,7 +505,7 @@
 
 
         $("#date_publication_h").hijriDatePicker({
-             hijri:true,
+            hijri: true,
             showSwitcher: false
         });
     }

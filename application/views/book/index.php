@@ -34,9 +34,9 @@
               </div> 
         </div> 
     </div>
-    <script src="<?= base_url() ?>assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+ 
     <script src="<?= base_url() ?>assets/dist/js/datatables.min.js"></script>
-    <script src="<?= base_url() ?>assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+   <script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/dist/css/bootstrap-tokenfield.min.css">
 
     <script src="<?= base_url() ?>assets/dist/js/bootstrap-tokenfield.js"></script>

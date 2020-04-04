@@ -52,7 +52,7 @@
 </div>
 
 
-<script src="<?= base_url() ?>assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
 <script src="<?= base_url() ?>assets/dist/js/datatables.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {

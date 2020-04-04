@@ -4430,3 +4430,14 @@ ul.wysihtml5-toolbar > li {
     right: -230px;
   }
 }
+.form-control {
+    border-radius: 0;
+    box-shadow: none;
+    border-color: #d2d6de;
+    border-bottom: 1px #3c8dbc solid;
+}
+.mce-rtl .mce-flow-layout {
+    text-align: right;
+    direction: rtl;
+    border-bottom: 1px solid #3c8dbc;
+}
