@@ -100,6 +100,10 @@
                                 <input class="form-control" type="url" name="url" />
                             </div>
                         </div>
+                                <div id="fm">
+
+
+                        </div>
                            <div class="col-md-6">
                             <label for="dis" class="control-label">  أدخل الوصف</label>
                             <div class="form-group">
@@ -108,10 +112,7 @@
                         </div>
 
 
-                        <div id="fm">
-
-
-                        </div>
+                
 
                     </div>
 
