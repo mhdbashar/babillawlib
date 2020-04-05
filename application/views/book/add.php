@@ -30,114 +30,102 @@
             </div>
 
 
-            <form method="post" action="<?php echo base_url() ?>book/add" enctype="multipart/form-data" id="format" />
+            <form method="post" action="<?php echo base_url() ?>book/add" enctype="multipart/form-data" id="format" >
 
-            <input type="hidden" name="sub_section" value="" id="sub_section" class="sub_section" />
+                <input type="hidden" name="sub_section" value="" id="sub_section" class="sub_section" />
 
-            <div class="box-body">
-                <div class="row clearfix">
-                    <div class="col-md-6">
-                        <label for="section_id" class="control-label">إختر القـــســـــم</label>
-                        <div class="form-group">
-                            <select  name="section_id"  class="form-control section" style="border-bottom: 2px #3c8dbc solid;" id="sel_section" >
-                                <option value="-1">اختر القسم</option>
-
-                                <?php
-                                foreach ($get_main_section as $value) {
-                                    ?>
-                                    <option value="<?php echo $value->section_id; ?>"><?php echo $value->section_name; ?></option>
- 
+                <div class="box-body">
+                    <div class="row clearfix">
+                        <div class="col-md-6">
+                            <label for="section_id" class="control-label">إختر القـــســـــم</label>
+                            <div class="form-group">
+                                <select  name="section_id"  class="form-control section" style="border-bottom: 2px #3c8dbc solid;" id="sel_section" >
+                                    <option value="-1">اختر القسم</option>
 
                                     <?php
-                                }
-                                ?>
+                                    foreach ($get_main_section as $value) {
+                                        ?>
+                                        <option value="<?php echo $value->section_id; ?>"><?php echo $value->section_name; ?></option>
+
+
+                                        <?php
+                                    }
+                                    ?>
 
 
 
 
-                            </select>
+                                </select>
+                            </div>
                         </div>
+
+
+
                     </div>
+
+                    <div style="background-color:#9cd8fb;margin-bottom: 10px; width: 50% ">   إختر القـــسســم الفرعي <?php echo validation_errors(); ?>  </div>
+
+
+                    <div class="col-md-8" id="treeview_json">
+
+                    </div>
+
+                    <div class="row clearfix" id="hide">
+
+                     
+                        <div class="col-md-6">
+                            <label for="book_title" class="control-label">  عنوان الكتاب</label>
+                            <div class="form-group">
+                                <input type="text" name="book_title" value="" class="form-control" id="book_title" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="book_name" class="control-label" >الكلمات الدلالية  </label>
+                            <div class="form-group">
+                                <input type="text" name="tag_name" value="" class="form-control" id="tag"  />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="book_name" class="control-label">تحميل الكتاب</label>
+                            <div class="form-group">
+
+                                <input class="form-control" type="file" name="picture" id="picture"   />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="book_name" class="control-label"> أدخل رابط</label>
+                            <div class="form-group">
+
+                                <input class="form-control" type="url" name="url" />
+                            </div>
+                        </div>
+                           <div class="col-md-6">
+                            <label for="dis" class="control-label">  أدخل الوصف</label>
+                            <div class="form-group">
+                                <textarea style="border:2px solid black" name="dis">  </textarea>
+                            </div>
+                        </div>
+
+
+                        <div id="fm">
+
+
+                        </div>
+
+                    </div>
+
+
+
 
 
 
                 </div>
-
-                <div style="background-color:#9cd8fb;margin-bottom: 10px; width: 50% ">   إختر القـــسســم الفرعي <?php echo validation_errors(); ?>  </div>
-
-
-                <div class="col-md-8" id="treeview_json">
-
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-success save">
+                        <i class="fa fa-check"></i> حفظ
+                    </button>
                 </div>
-
-
-           
-
-
-
-
-
-
-
-<!--                <php
-                echo validation_errors();
-                ?> -->
-<!--                <input type="hidden" name="sub_section" value="" id="sub_section">-->
-                <div class="row clearfix" id="hide">
-
-                    <div class="col-md-6">
-                        <label for="dis" class="control-label">  أدخل الوصف</label>
-                        <div class="form-group">
-                            <textarea style="border:2px solid black" name="dis">  </textarea>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="book_title" class="control-label">  عنوان الكتاب</label>
-                        <div class="form-group">
-                            <input type="text" name="book_title" value="" class="form-control" id="book_title" />
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="book_name" class="control-label" >الكلمات الدلالية  </label>
-                        <div class="form-group">
-                            <input type="text" name="tag_name" value="" class="form-control" id="tag"  />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="book_name" class="control-label">تحميل الكتاب</label>
-                        <div class="form-group">
-
-                            <input class="form-control" type="file" name="picture" id="picture"   />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="book_name" class="control-label"> أدخل رابط</label>
-                        <div class="form-group">
-
-                            <input class="form-control" type="url" name="url" />
-                        </div>
-                    </div>
-
-
-
-
-                </div>
-
-
-
-                <div id="fm">
-
-
-                </div>
-
-
-            </div>
-            <div class="box-footer">
-                <button type="submit" class="btn btn-success save">
-                    <i class="fa fa-check"></i> حفظ
-                </button>
-            </div>
             </form>
         </div>
     </div>
@@ -158,7 +146,7 @@
 
             main_section_id = $(this).children("option:selected").val();
             var section_name = $("#sel_section option:selected").html();
-           
+
 
 
             $.ajax({
@@ -208,12 +196,12 @@
 
                         if (t === '') {
                             alert("اخترالقسم");
-                             $("#format").trigger("reset");
-                         //return false;
+                            $("#format").trigger("reset");
+                            //return false;
 
                         } else {
 
-                            $("#picture").prop('required',true);
+                            $("#picture").prop('required', true);
                             return true;
                         }
 
@@ -223,7 +211,7 @@
 
                 }
             });
-        
+
 
             var txt4 = '';
 
@@ -266,7 +254,7 @@
                 txt1 += "<div class='col-md-6'>";
                 txt1 += "<label for='year' class='control-label'>السنة</label>";
                 txt1 += "<div class='form-group'>";
-                
+
                 txt1 += "<input type='number' min='1900' max='2099' step='1' value='2016' name='year' class='form-control'  />";
                 txt1 += "</div>";
                 txt1 += "</div>";
@@ -370,9 +358,10 @@
                 txt2 += "<input type='text' name='date_publication_m' value='' class='form-control' id='date_publication_m'  />";
                 txt2 += "</div>";
                 txt2 += "</div>";
+                  txt2 += "<div class='col-md-6'>";
                 txt2 += "<label for='date_publication' class='control-label' >تاريخ النشر بالهجري</label>";
                 txt2 += "<div class='form-group'>";
-                txt2 += "<input type='text' name='date_publication_h' value='' class='form-control' id='date_publication_h' style='text-align:right;width:50%'  />";
+                txt2 += "<input type='text' name='date_publication_h' value='' class='form-control' id='date_publication_h' style='text-align:right;  />";
                 txt2 += "</div>";
                 txt2 += "</div>";
 
@@ -415,7 +404,7 @@
             if (change === 'no') {
                 alert("اختر القسم في البداية");
                 $("#format").trigger("reset");
-               window.location.reload();
+                window.location.reload();
             } else {
 
 
