@@ -455,13 +455,6 @@ class Book extends Front_end {
                 $tag_name_name_name = $this->input->post('tag_name');
 
 
-//                  $sql2="delete from book_tag using book,book_tag,tag where  book.book_id=book_tag.book_id and  book_tag.tag_id=tag.tag_id and tag_name not in ('" . $tag_name_name_name . "') and book.book_id='".$book_id."' ";
-//        $this->db->query($sql2);
-//        
-//                $sql1 = "delete from book_tag using book_tag where tag_id in (select tag_id from book_tag where  book_id='".$book_id."') and tag_id NOT IN "
-//        . "(SELECT tag_id FROM book_tag WHERE book_id != '".$book_id."') and "
-//                       . "tag_name not in ('" . $tag_name_name_name . "')" ;
-//               $this->db->query($sql1);
 
 
                 if ($tag_name_name_name) {
@@ -471,38 +464,35 @@ class Book extends Front_end {
 
                     for ($i = 0; $i < count($tag_name); $i++) {
 
-                        $sql = "select * from tag where tag_name='" . $tag_name[$i] . "'";
+                        $sql = "select * from tag where tag_name='" . $tag_name[$i] . "' and tag_id not in(select book_tag.tag_id from book_tag where  book_tag.book_id='" . $book_id . "')";
                         $query = $this->db->query($sql);
                         $result = $query->row();
-                        if (!$result) {
-
-                            $paramss = array(
-                                'tag_name' => $tag_name[$i]
-                            );
-
-                            $tag_id = $this->Tag_model->add_tag($paramss);
+                        if ($result) {
 
                             $tag_book = array(
                                 'book_id' => $book_id,
-                                'tag_id' => $tag_id
+                                'tag_id' => $result->tag_id
                             );
                             $this->Book_tag_model->add_book_tag($tag_book);
-                        }
+                        } else {
+                            $sql = "select * from tag where tag_name='" . $tag_name[$i] . "'";
+                            $query = $this->db->query($sql);
+                            $result = $query->row();
+                            if (!$result) {
 
-//                        elseif($result) {
-// $sql2 = "select * from tag,book_tag,book where tag_name='" . $tag_name[$i] . "' and tag.tag_id=book_tag.tag_id and book.book_id=book_tag.book_id and book.book_id='".$book_id."'";
-//$query2 = $this->db->query($sql2);
-//                        $result_rr = $query2->row();
-//
-//
-//
-//                                $tag_book = array(
-//                                    'book_id' => $book_id,
-//                                    'tag_id' => $result_rr->tag_id
-//                                );
-//                                $this->Book_tag_model->add_book_tag($tag_book);
-//                            
-//                        }
+                                $paramss = array(
+                                    'tag_name' => $tag_name[$i]
+                                );
+
+                                $tag_id = $this->Tag_model->add_tag($paramss);
+
+                                $tag_book = array(
+                                    'book_id' => $book_id,
+                                    'tag_id' => $tag_id
+                                );
+                                $this->Book_tag_model->add_book_tag($tag_book);
+                            }
+                        }
                     }
                 }
                 redirect('book/index');
@@ -537,24 +527,36 @@ class Book extends Front_end {
                     $tag_name_name = explode(",", $tag_name_name_name);
                     $tag_name = str_replace(' ', '', $tag_name_name);
 
-                    for ($i = 0; $i < count($tag_name); $i++) {
+               for ($i = 0; $i < count($tag_name); $i++) {
 
-                        $sql = "select * from tag where tag_name='" . $tag_name[$i] . "'";
+                        $sql = "select * from tag where tag_name='" . $tag_name[$i] . "' and tag_id not in(select book_tag.tag_id from book_tag where  book_tag.book_id='" . $book_id . "')";
                         $query = $this->db->query($sql);
                         $result = $query->row();
-                        if (!$result) {
-
-                            $paramss = array(
-                                'tag_name' => $tag_name[$i]
-                            );
-
-                            $tag_id = $this->Tag_model->add_tag($paramss);
+                        if ($result) {
 
                             $tag_book = array(
                                 'book_id' => $book_id,
-                                'tag_id' => $tag_id
+                                'tag_id' => $result->tag_id
                             );
                             $this->Book_tag_model->add_book_tag($tag_book);
+                        } else {
+                            $sql = "select * from tag where tag_name='" . $tag_name[$i] . "'";
+                            $query = $this->db->query($sql);
+                            $result = $query->row();
+                            if (!$result) {
+
+                                $paramss = array(
+                                    'tag_name' => $tag_name[$i]
+                                );
+
+                                $tag_id = $this->Tag_model->add_tag($paramss);
+
+                                $tag_book = array(
+                                    'book_id' => $book_id,
+                                    'tag_id' => $tag_id
+                                );
+                                $this->Book_tag_model->add_book_tag($tag_book);
+                            }
                         }
                     }
                 }
@@ -592,24 +594,36 @@ class Book extends Front_end {
                     $tag_name_name = explode(",", $tag_name_name_name);
                     $tag_name = str_replace(' ', '', $tag_name_name);
 
-                    for ($i = 0; $i < count($tag_name); $i++) {
+             for ($i = 0; $i < count($tag_name); $i++) {
 
-                        $sql = "select * from tag where tag_name='" . $tag_name[$i] . "'";
+                        $sql = "select * from tag where tag_name='" . $tag_name[$i] . "' and tag_id not in(select book_tag.tag_id from book_tag where  book_tag.book_id='" . $book_id . "')";
                         $query = $this->db->query($sql);
                         $result = $query->row();
-                        if (!$result) {
-
-                            $paramss = array(
-                                'tag_name' => $tag_name[$i]
-                            );
-
-                            $tag_id = $this->Tag_model->add_tag($paramss);
+                        if ($result) {
 
                             $tag_book = array(
                                 'book_id' => $book_id,
-                                'tag_id' => $tag_id
+                                'tag_id' => $result->tag_id
                             );
                             $this->Book_tag_model->add_book_tag($tag_book);
+                        } else {
+                            $sql = "select * from tag where tag_name='" . $tag_name[$i] . "'";
+                            $query = $this->db->query($sql);
+                            $result = $query->row();
+                            if (!$result) {
+
+                                $paramss = array(
+                                    'tag_name' => $tag_name[$i]
+                                );
+
+                                $tag_id = $this->Tag_model->add_tag($paramss);
+
+                                $tag_book = array(
+                                    'book_id' => $book_id,
+                                    'tag_id' => $tag_id
+                                );
+                                $this->Book_tag_model->add_book_tag($tag_book);
+                            }
                         }
                     }
                 }
@@ -650,24 +664,36 @@ class Book extends Front_end {
                     $tag_name_name = explode(",", $tag_name_name_name);
                     $tag_name = str_replace(' ', '', $tag_name_name);
 
-                    for ($i = 0; $i < count($tag_name); $i++) {
+                for ($i = 0; $i < count($tag_name); $i++) {
 
-                        $sql = "select * from tag where tag_name='" . $tag_name[$i] . "'";
+                        $sql = "select * from tag where tag_name='" . $tag_name[$i] . "' and tag_id not in(select book_tag.tag_id from book_tag where  book_tag.book_id='" . $book_id . "')";
                         $query = $this->db->query($sql);
                         $result = $query->row();
-                        if (!$result) {
-
-                            $paramss = array(
-                                'tag_name' => $tag_name[$i]
-                            );
-
-                            $tag_id = $this->Tag_model->add_tag($paramss);
+                        if ($result) {
 
                             $tag_book = array(
                                 'book_id' => $book_id,
-                                'tag_id' => $tag_id
+                                'tag_id' => $result->tag_id
                             );
                             $this->Book_tag_model->add_book_tag($tag_book);
+                        } else {
+                            $sql = "select * from tag where tag_name='" . $tag_name[$i] . "'";
+                            $query = $this->db->query($sql);
+                            $result = $query->row();
+                            if (!$result) {
+
+                                $paramss = array(
+                                    'tag_name' => $tag_name[$i]
+                                );
+
+                                $tag_id = $this->Tag_model->add_tag($paramss);
+
+                                $tag_book = array(
+                                    'book_id' => $book_id,
+                                    'tag_id' => $tag_id
+                                );
+                                $this->Book_tag_model->add_book_tag($tag_book);
+                            }
                         }
                     }
                 }
@@ -702,24 +728,36 @@ class Book extends Front_end {
                     $tag_name_name = explode(",", $tag_name_name_name);
                     $tag_name = str_replace(' ', '', $tag_name_name);
 
-                    for ($i = 0; $i < count($tag_name); $i++) {
+              for ($i = 0; $i < count($tag_name); $i++) {
 
-                        $sql = "select * from tag where tag_name='" . $tag_name[$i] . "'";
+                        $sql = "select * from tag where tag_name='" . $tag_name[$i] . "' and tag_id not in(select book_tag.tag_id from book_tag where  book_tag.book_id='" . $book_id . "')";
                         $query = $this->db->query($sql);
                         $result = $query->row();
-                        if (!$result) {
-
-                            $paramss = array(
-                                'tag_name' => $tag_name[$i]
-                            );
-
-                            $tag_id = $this->Tag_model->add_tag($paramss);
+                        if ($result) {
 
                             $tag_book = array(
                                 'book_id' => $book_id,
-                                'tag_id' => $tag_id
+                                'tag_id' => $result->tag_id
                             );
                             $this->Book_tag_model->add_book_tag($tag_book);
+                        } else {
+                            $sql = "select * from tag where tag_name='" . $tag_name[$i] . "'";
+                            $query = $this->db->query($sql);
+                            $result = $query->row();
+                            if (!$result) {
+
+                                $paramss = array(
+                                    'tag_name' => $tag_name[$i]
+                                );
+
+                                $tag_id = $this->Tag_model->add_tag($paramss);
+
+                                $tag_book = array(
+                                    'book_id' => $book_id,
+                                    'tag_id' => $tag_id
+                                );
+                                $this->Book_tag_model->add_book_tag($tag_book);
+                            }
                         }
                     }
                 }
@@ -857,24 +895,7 @@ class Book extends Front_end {
         $this->layout->view('section');
     }
 
-    function testsql() {
 
-        $sql = "SELECT MAX( section_id )as d,parent_id
-FROM section
-WHERE section_id NOT IN
-  (SELECT parent_id
-      FROM section
-      WHERE parent_id IS NOT NULL
-  )
-GROUP BY parent_id";
-        $query = $this->db->query($sql);
-        $result = $query->result();
-        foreach ($result as $row) {
-            echo $row->d;
-            echo '&nbsp';
-            echo $row->parent_id;
-            echo '<br>';
-        }
-    }
+
 
 }

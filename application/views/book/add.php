@@ -202,7 +202,7 @@
 
                         } else {
 
-                            $("#picture").prop('required', true);
+                            
                             return true;
                         }
 
