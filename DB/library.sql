@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2020 at 11:59 PM
+-- Generation Time: Apr 21, 2020 at 01:52 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -58,15 +58,6 @@ CREATE TABLE `book` (
   `pdf` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `book`
---
-
-INSERT INTO `book` (`book_id`, `book_name`, `jurisdiction`, `author`, `publisher`, `year_publication`, `subject`, `volume_number`, `year`, `book_title`, `the_main_domain`, `subdomain`, `history_system_m`, `accreditation`, `date_publication_m`, `adjustments`, `accessories`, `pass`, `section_id`, `file`, `main_section`, `url`, `dis`, `history_system_h`, `date_publication_h`, `mini`, `pdf`) VALUES
-(33, '', '', '', '', 0000, '', 0, 0000, '', '', '', '21-04-2020', 'jkljkl', '', '', '', 'ساري', 160, '', 32, '', '', '0000-00-00', '0000-00-00', '', NULL),
-(34, '', '', '', '', 0000, '', 0, 0000, '', '', '', '15-04-2020', 'jkljkl', '21-04-2020', '', '', 'ساري', 161, '', 32, '', '', '0000-00-00', '0000-00-00', '', NULL),
-(35, '', '', '', '', 0000, '', 0, 0000, NULL, '', '', '21-04-2020', 'jkljkl', '21-04-2020', '', '', 'ساري', 161, '1c77216128b7592405fd266bc65065ce.png', 32, '', '', '0000-00-00', '0000-00-00', '', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -78,15 +69,6 @@ CREATE TABLE `book_tag` (
   `book_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `book_tag`
---
-
-INSERT INTO `book_tag` (`book_tag_id`, `book_id`, `tag_id`) VALUES
-(57, 33, 36),
-(58, 34, 36),
-(59, 35, 36);
 
 -- --------------------------------------------------------
 
@@ -100,16 +82,6 @@ CREATE TABLE `materials` (
   `description` varchar(4000) NOT NULL,
   `book_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `materials`
---
-
-INSERT INTO `materials` (`material_id`, `material_number`, `description`, `book_id`) VALUES
-(48, '', '<p>jkljk</p>', 33),
-(49, '2', '<p>jkljkl</p>', 33),
-(50, 'jkl', '<p>jklj</p>', 34),
-(51, '', '<p>jkljkl</p>', 35);
 
 -- --------------------------------------------------------
 
@@ -159,13 +131,6 @@ CREATE TABLE `tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tag`
---
-
-INSERT INTO `tag` (`tag_id`, `tag_name`) VALUES
-(36, '1');
-
---
 -- Indexes for dumped tables
 --
 
@@ -207,19 +172,19 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `book_tag`
 --
 ALTER TABLE `book_tag`
-  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `section`
@@ -231,7 +196,7 @@ ALTER TABLE `section`
 -- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

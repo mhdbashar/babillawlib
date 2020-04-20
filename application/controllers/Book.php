@@ -844,10 +844,10 @@ class Book extends Front_end {
                 return false;
             }
         }
-        $sql = "SELECT section_id,book_title,file,COUNT(book_title) AS relevance FROM
+        $sql = "SELECT section_id,book_title,file,COUNT(file) AS relevance FROM
   (SELECT book.section_id,file, book_title FROM book,book_tag,section 
     WHERE book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
-  GROUP BY book_title ORDER BY relevance DESC";
+  GROUP BY  file ORDER BY relevance DESC";
         $query = $this->db->query($sql);
         $result = $query->result();
 
@@ -925,14 +925,50 @@ class Book extends Front_end {
                 return false;
             }
         }
-        $sql = "SELECT section_name,book_title,file,COUNT(book_title) AS relevance FROM
-  (SELECT section_name,file, book_title FROM book,book_tag,section 
-    WHERE book.book_id=book_tag.book_id and book.main_section=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
-  GROUP BY book_title ORDER BY relevance DESC";
+       $sql = "SELECT section_id,book_title,file,COUNT(file) AS relevance FROM
+  (SELECT book.section_id,file, book_title FROM book,book_tag,section 
+    WHERE book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
+  GROUP BY  file ORDER BY relevance DESC";
         $query = $this->db->query($sql);
         $result = $query->result();
 
-        $data = $result;
+
+        $html = '';
+        foreach ($result as $value) {
+
+            $html .= '<tr>';
+
+            $html .= '<td><a href="' . base_url() . 'uploads/images/' . $value->file . '">استعراض الكتاب</a> </td>';
+
+            $html .= '<td> اسم القسم</td>';
+
+            $sql2 = "SELECT c.*
+    FROM (
+        SELECT
+            @r AS _id,
+            (SELECT @r := parent_id FROM section WHERE section_id = _id) AS parent_id,
+            @l := @l + 1 AS level
+        FROM
+            (SELECT @r := " . $value->section_id . ", @l := 0) vars, section m
+        WHERE @r <> 0) d
+    JOIN section c
+    ON d._id = c.section_id ORDER BY section_id ASC";
+
+            $query2 = $this->db->query($sql2);
+
+            $result2 = $query2->result();
+            foreach ($result2 as $value2) {
+
+                $html .= '<td>&nbsp&nbsp</td>';
+                $html .= '<td><a class="cc"  href="' . base_url() . 'book/search_all_book_in_sub_section/?section_id=' . $value2->section_id . '">' . $value2->section_name . '</a> </td>';
+                // $html .='<td><a href="' .base_url() . 'uploads/images/' .$value->file. '">استعراض الكتاب</a> </td>';
+                $html .= '<td>/</td>';
+            }
+            $value2->parent_id = -1;
+            $html .= '</tr>';
+        }
+
+        $data = $html;
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
     }
 
