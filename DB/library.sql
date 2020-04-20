@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2020 at 11:35 PM
+-- Generation Time: Apr 20, 2020 at 11:59 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -38,7 +38,7 @@ CREATE TABLE `book` (
   `subject` varchar(20) NOT NULL,
   `volume_number` int(11) NOT NULL,
   `year` year(4) NOT NULL,
-  `book_title` varchar(500) NOT NULL,
+  `book_title` varchar(500) DEFAULT NULL,
   `the_main_domain` varchar(100) NOT NULL,
   `subdomain` varchar(100) NOT NULL,
   `history_system_m` varchar(100) NOT NULL,
@@ -63,7 +63,9 @@ CREATE TABLE `book` (
 --
 
 INSERT INTO `book` (`book_id`, `book_name`, `jurisdiction`, `author`, `publisher`, `year_publication`, `subject`, `volume_number`, `year`, `book_title`, `the_main_domain`, `subdomain`, `history_system_m`, `accreditation`, `date_publication_m`, `adjustments`, `accessories`, `pass`, `section_id`, `file`, `main_section`, `url`, `dis`, `history_system_h`, `date_publication_h`, `mini`, `pdf`) VALUES
-(25, '', '', '', '', 0000, '', 0, 0000, '', '', '', '21-04-2020', '', '1441-08-22', '', '', 'ساري', 160, '', 32, '', '', '0000-00-00', '0000-00-00', '', NULL);
+(33, '', '', '', '', 0000, '', 0, 0000, '', '', '', '21-04-2020', 'jkljkl', '', '', '', 'ساري', 160, '', 32, '', '', '0000-00-00', '0000-00-00', '', NULL),
+(34, '', '', '', '', 0000, '', 0, 0000, '', '', '', '15-04-2020', 'jkljkl', '21-04-2020', '', '', 'ساري', 161, '', 32, '', '', '0000-00-00', '0000-00-00', '', NULL),
+(35, '', '', '', '', 0000, '', 0, 0000, NULL, '', '', '21-04-2020', 'jkljkl', '21-04-2020', '', '', 'ساري', 161, '1c77216128b7592405fd266bc65065ce.png', 32, '', '', '0000-00-00', '0000-00-00', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -82,7 +84,9 @@ CREATE TABLE `book_tag` (
 --
 
 INSERT INTO `book_tag` (`book_tag_id`, `book_id`, `tag_id`) VALUES
-(49, 25, 34);
+(57, 33, 36),
+(58, 34, 36),
+(59, 35, 36);
 
 -- --------------------------------------------------------
 
@@ -102,8 +106,10 @@ CREATE TABLE `materials` (
 --
 
 INSERT INTO `materials` (`material_id`, `material_number`, `description`, `book_id`) VALUES
-(33, '6', '<p>غيغغ</p>', 25),
-(34, '2', '<p>صثقصقص</p>', 25);
+(48, '', '<p>jkljk</p>', 33),
+(49, '2', '<p>jkljkl</p>', 33),
+(50, 'jkl', '<p>jklj</p>', 34),
+(51, '', '<p>jkljkl</p>', 35);
 
 -- --------------------------------------------------------
 
@@ -157,7 +163,7 @@ CREATE TABLE `tag` (
 --
 
 INSERT INTO `tag` (`tag_id`, `tag_name`) VALUES
-(34, '1');
+(36, '1');
 
 --
 -- Indexes for dumped tables
@@ -201,19 +207,19 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `book_tag`
 --
 ALTER TABLE `book_tag`
-  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `section`
@@ -225,7 +231,7 @@ ALTER TABLE `section`
 -- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
