@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2020 at 08:34 PM
+-- Generation Time: Apr 19, 2020 at 05:35 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -38,7 +38,7 @@ CREATE TABLE `book` (
   `subject` varchar(20) NOT NULL,
   `volume_number` int(11) NOT NULL,
   `year` year(4) NOT NULL,
-  `book_title` varchar(20) NOT NULL,
+  `book_title` varchar(500) NOT NULL,
   `the_main_domain` varchar(20) NOT NULL,
   `subdomain` varchar(20) NOT NULL,
   `history_system_m` varchar(100) NOT NULL,
@@ -53,7 +53,9 @@ CREATE TABLE `book` (
   `url` varchar(100) NOT NULL,
   `dis` varchar(200) NOT NULL,
   `history_system_h` date NOT NULL,
-  `date_publication_h` date NOT NULL
+  `date_publication_h` date NOT NULL,
+  `mini` varchar(100) NOT NULL,
+  `pdf` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -66,6 +68,19 @@ CREATE TABLE `book_tag` (
   `book_tag_id` int(11) NOT NULL,
   `book_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `materials`
+--
+
+CREATE TABLE `materials` (
+  `material_id` int(11) NOT NULL,
+  `material_number` varchar(50) NOT NULL,
+  `description` varchar(4000) NOT NULL,
+  `book_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -86,22 +101,23 @@ CREATE TABLE `section` (
 --
 
 INSERT INTO `section` (`section_id`, `section_name`, `parent_id`, `section_discription`) VALUES
-(30, 'مجلدات الأحكام', 0, ''),
-(31, 'المدونات القضائية', 0, ''),
+(31, 'السوابق القضائية', 0, ''),
 (32, 'الأنظمة السعودية', 0, ''),
 (33, 'نماذج وعقود', 0, ''),
 (34, 'الكتب القانونية والأبحاث', 0, ''),
-(115, 'أحكام واحد', 30, ''),
-(116, 'مدونة1', 31, ''),
-(117, 'نظام1', 32, ''),
-(118, 'نموذج عقد1', 33, ''),
-(119, 'كتب قانونية واحد', 34, ''),
-(120, 'أحكام واحد فرعي', 115, ''),
-(121, 'مدونة واحد فرعي', 116, ''),
-(122, 'نظام واحد فرعي', 117, ''),
-(123, 'نموذج عقد واحد فرعي', 118, ''),
-(124, 'كتب قانونية واحد فرعي', 119, ''),
-(125, 'مدونة فرعي 2', 121, '');
+(129, 'الأحكام والمبادئ الإدارية للأعوام ١٤٠٢-١٤٢٦', 31, ''),
+(130, 'المجلد الاول', 129, ''),
+(131, 'اختصاص', 130, ''),
+(132, 'دعوى', 130, ''),
+(133, 'المجلد الثاني', 129, ''),
+(134, 'اختصاص', 133, ''),
+(135, 'دعوى', 133, ''),
+(160, 'نظام التجارة الالكترونية', 32, ''),
+(161, 'نظام العمل', 32, ''),
+(162, 'نظام الحوافز', 32, ''),
+(163, 'نظام المكافئات', 32, ''),
+(164, 'العقد الجزئي', 33, ''),
+(165, 'البحث السادس', 34, '');
 
 -- --------------------------------------------------------
 
@@ -131,6 +147,12 @@ ALTER TABLE `book_tag`
   ADD PRIMARY KEY (`book_tag_id`);
 
 --
+-- Indexes for table `materials`
+--
+ALTER TABLE `materials`
+  ADD PRIMARY KEY (`material_id`);
+
+--
 -- Indexes for table `section`
 --
 ALTER TABLE `section`
@@ -150,25 +172,31 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT for table `book_tag`
 --
 ALTER TABLE `book_tag`
-  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=242;
+  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+
+--
+-- AUTO_INCREMENT for table `materials`
+--
+ALTER TABLE `materials`
+  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 
 --
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
 
 --
 -- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

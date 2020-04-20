@@ -4,7 +4,7 @@
  * www.crudigniter.com
  */
  
-class Dashboard extends Front_end{
+class Main_section_view extends Front_end{
     function __construct()
     {
         parent::__construct();
@@ -19,10 +19,11 @@ class Dashboard extends Front_end{
     function index()
     {
         
+        
        $data['book'] = $this->Book_model->get_all_book();
         
-               $data['book'] = $this->Book_model->get_all_book();
-       // $data['get_sub_section'] = $this->Section_model->get_sub_section();
+       $data['book'] = $this->Book_model->get_all_book();
+        $data['get_sub_section'] = $this->Section_model->get_sub_section();
         $this->layout->view('book/index',$data);
     }
 }

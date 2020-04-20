@@ -1,7 +1,7 @@
 
 <?= $this->layout->block('book_view') ?>
 
-<!--<style>
+<style>
 
     .btn {
         border: none;
@@ -19,7 +19,7 @@
         background-color: #3c8dbc;
         color: white;
     }
-</style>-->
+</style>
 
 
 <div class="row">
@@ -30,7 +30,7 @@
                 <span id="u"></span>
             </div>
 
-<!--            <div class="container">
+            <div class="container">
 
                 <center>
                     <div id="myDIV">
@@ -43,7 +43,7 @@
                     </div>    
                 </center>
             </div>
-            <div id="treeview_json">-->
+            <div id="treeview_json">
 
             </div>
             <!--<table class="table table-bordered table-striped table-condensed" id="mytable">
@@ -208,7 +208,26 @@
                     });
 
                 }
-            } 
+            } else if (main_section_id == 32) {
+
+                $('#treeview_json').html('');
+
+                var html1 = '';
+                html1 += '<center>';
+                html1 += '<div class="form-group" style="margin-top: 40px;margin-bottom: 30px;">';
+                html1 += '<label  class="control-label">ادخل  النظام للبحث عنه</label>';
+                html1 += '<input type="text" name="search">';
+                html1 += '</center>';
+                html1 += '</div>';
+                $('#treeview_json').html(html1);
+
+
+function search_book_system_sua(){
+    
+    
+}
+
+            }
 
 
 

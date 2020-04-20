@@ -1,0 +1,14 @@
+insert into category values
+  (1, 'shoes', 0),
+  (2, 'blue shoes', 1),
+  (3, 'men blue shoes', 2),
+  (4, 'men blue shoe small', 3),
+  (5, 'red shoes', 1),
+  (6, 'men red shoes', 5),
+  (7, 'shirts', 0);
+
+SELECT GROUP_CONCAT(lv SEPARATOR ',') FROM (
+SELECT @pv:=(SELECT GROUP_CONCAT(id SEPARATOR ',') FROM category WHERE
+FIND_IN_SET(parent_id, @pv)) AS lv FROM category
+JOIN (SELECT @pv:=1)tmp
+WHERE parent_id IN (@pv)) a;

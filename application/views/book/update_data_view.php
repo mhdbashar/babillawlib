@@ -27,9 +27,9 @@
                 <div class="box-body">
                     <div class="row clearfix">
                         <div class="col-md-6">
-                            <label for="section_id" class="control-label">إختر القـــســـــم</label>
+                            <label for="section_id" class="control-label"> القســــم الرئيسي</label>
                             <div class="form-group">
-                                <select  name="section_name" value="" class="form-control" style="border-bottom: 2px #3c8dbc solid;" id="sel_section"    >
+<!--                                <select  name="section_name" value="" class="form-control" style="border-bottom: 2px #3c8dbc solid;" id="sel_section" disabled=""   >-->
 
 
 
@@ -46,7 +46,7 @@
                                         ?>
 
 
-                                        <option <?php echo $select ?> value="<?php echo $v->section_name; ?>" ><?php echo $v->section_name; ?></option>
+<!--                                        <option <php echo $select ?> value="<php echo $v->section_name; ?>" ><php echo $v->section_name; ?></option>-->
 
 
                                         <?php
@@ -56,7 +56,9 @@
 
 
 
-                                </select>
+                                <!--</select>-->
+                                <input type="text" name="section_name" value="<?php echo $main_section; ?>" class="form-control" id="book_title" readonly="" />
+                                
                             </div>
                         </div>
 
@@ -75,12 +77,6 @@
                     <div class="row clearfix" id="hide">
 
 
-                        <div class="col-md-6">
-                            <label for="dis" class="control-label">  أدخل الوصف</label>
-                            <div class="form-group">
-                                <textarea id="tin" style="border:2px solid black" name="dis" value="<?php echo $book['dis']; ?>">  <?php echo $book['dis']; ?></textarea>
-                            </div>
-                        </div>
 
                         <div class="col-md-6">
                             <label for="book_title" class="control-label">  عنوان الكتاب</label>
@@ -90,19 +86,13 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="tag_name" class="control-label">ادخل وسم </label>
+                            <label for="tag_name" class="control-label">الكلمات الدلالية </label>
                             <div class="form-group">
                                 <input type="text" name="tag_name" value="<?php echo $tag_name; ?>" class="form-control" id="tag"  />
                             </div>
                         </div>
 
-                        <!--                        <div class="col-md-6">
-                                                    <label for="book_name" class="control-label">تحميل الكتاب</label>
-                                                    <div class="form-group">
-                        
-                                                        <input class="form-control" type="file" name="picture" required data-errormessage-value-missing="Please input something"  />
-                                                    </div>
-                                                     </div>-->
+                       
 
                         <div class="col-md-6">
                             <label for="book_name" class="control-label"> أدخل رابط</label>
@@ -111,14 +101,20 @@
                                 <input class="form-control" type="url" name="url" value="<?php echo $book['url']; ?>"  />
                             </div>
                         </div>
-
-                    </div>
-
-
-                    <div id="fm">
+   <div id="fm">
 
 
                     </div>
+                        <div class="col-md-6">
+                            <label for="dis" class="control-label">  أدخل الوصف</label>
+                            <div class="form-group">
+                                <textarea id="tin" style="border:2px solid black" name="dis" value="<?php echo $book['dis']; ?>">  <?php echo $book['dis']; ?></textarea>
+                            </div>
+                        </div>
+                 
+                    </div>
+
+
 
 
                 </div>
