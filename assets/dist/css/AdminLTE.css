@@ -142,7 +142,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: 'WMitra', sans-serif;
+
   font-weight: bold;
 }
 /* General Links */
@@ -2364,6 +2364,7 @@ a:focus {
 }
 .nav-pills > li.active > a {
   font-weight: 600;
+  background-color: red;
 }
 /* NAV STACKED */
 .nav-stacked > li > a {
@@ -4441,3 +4442,4 @@ ul.wysihtml5-toolbar > li {
     direction: rtl;
     border-bottom: 1px solid #3c8dbc;
 }
+

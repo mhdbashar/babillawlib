@@ -9,7 +9,7 @@
             </div>
 
 
-            <form method="post" action="<?php echo base_url() ?>book/search_via_section" />
+            <form method="post" action="<?php echo base_url() ?>book/search_via_section_to_edit" />
             <input type="hidden" name="sub_section" value="" id="sub_section" class="sub_section" />
             <div class="box-body">
                 <div class="row clearfix">

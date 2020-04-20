@@ -61,12 +61,37 @@ class Section_model extends CI_Model {
         return $query->result();
     }
 
+    function get_main_section_via_id($section_id) {
+        
+        
+   if (isset($section_id)) {
+  $sql = "select * from section where section_id='" . $section_id . "'";
+
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+    
+    }
+    
+
     function get_sub_section() {
 
         $sql = "select * from section where parent_id != 0";
         $query = $this->db->query($sql);
         return $query->result();
     }
+    
+    function  get_section_via_parent($parent_id){
+        
+      $sql = "select * from section where parent_id = '".$parent_id."'";
+        $query = $this->db->query($sql);
+        return $query->result();
+        
+    }
+            
+    
+    
+    
 
     function get_parent_name() {
 
@@ -77,6 +102,7 @@ ORDER BY   c.section_name ASC;";
 
         $query = $this->db->query($sql);
         return $query->result();
+    
+    
     }
-
 }

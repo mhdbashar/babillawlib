@@ -1,6 +1,6 @@
 
 <?= $this->layout->block('update_data_view') ?>
-<link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="<?= base_url() ?>assets/convert_date/css/bootstrap-datetimepicker.css">
 
 
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/dist/css/calendar-system.css">
@@ -78,7 +78,7 @@
 
 
 
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="title">
                             <label for="book_title" class="control-label">  عنوان الكتاب</label>
                             <div class="form-group">
                                 <input type="text" name="book_title" value="<?php echo $book['book_title']; ?>" class="form-control" id="book_title" />
@@ -105,13 +105,36 @@
 
 
                     </div>
-                        <div class="col-md-6">
+                        
+                        
+                        
+                        <?php
+                        
+                        
+                         $m = 0;
+                    foreach($book_material as $b)
+                    {
+                      $m = $m + 1;
+                    ?> 
+                     <div class="col-md-6">
                             <label for="dis" class="control-label">  أدخل الوصف</label>
                             <div class="form-group">
-                                <textarea id="tin" style="border:2px solid black" name="dis" value="<?php echo $book['dis']; ?>">  <?php echo $book['dis']; ?></textarea>
+                                <textarea id="tin" style="border:2px solid black" name="dis[]" value="<?php echo $b['description']; ?>">  <?php echo $b['description']; ?></textarea>
                             </div>
                         </div>
-                 
+                         <div class="col-md-6" id="mat">
+                            <label for='material_number' class='control-label'> رقم  المادة</label>
+                            <div class='form-group'>
+                                <input type='text' name='material_number[]' value="<?php echo $b['material_number']; ?>" class='form-control' id='mat1' />
+                                 <input type="hidden" name="material_id[]" value="<?php echo $b['material_id']; ?>">
+                            </div>
+                        </div>
+                       
+                    <?php
+                    }
+                    ?>
+                         <input type="hidden" name="mmm" value="<?php echo $m; ?>">
+                  
                     </div>
 
 
@@ -138,48 +161,48 @@
     $(document).ready(function () {
         var section_name = "<?php echo $main_section; ?>";
         var section_id = "<?php echo $section_id; ?>";
+ addTinyMCE();
+
+
+//        function date_publication_h() {
+//
+//
+//            $("#date_publication_h").hijriDatePicker({
+//                hijri: true,
+//                showSwitcher: false
+//            });
+//        }
+
+//        function date_publication_m() {
+//
+//            $("#date_publication_m").hijriDatePicker({
+//                format: "DD-MM-YYYY",
+//                hijriFormat: "iYYYY-iMM-iDD",
+//                dayViewHeaderFormat: "MMMM YYYY",
+//                hijriDayViewHeaderFormat: "iMMMM iYYYY",
+//            });
+//        }
+//        function history_system_h() {
+//
+//            $("#history_system_h").hijriDatePicker({
+//
+//                hijri: true,
+//                showSwitcher: false
+//            });
+//        }
 
 
 
-        function date_publication_h() {
 
-
-            $("#date_publication_h").hijriDatePicker({
-                hijri: true,
-                showSwitcher: false
-            });
-        }
-
-        function date_publication_m() {
-
-            $("#date_publication_m").hijriDatePicker({
-                format: "DD-MM-YYYY",
-                hijriFormat: "iYYYY-iMM-iDD",
-                dayViewHeaderFormat: "MMMM YYYY",
-                hijriDayViewHeaderFormat: "iMMMM iYYYY",
-            });
-        }
-        function history_system_h() {
-
-            $("#history_system_h").hijriDatePicker({
-
-                hijri: true,
-                showSwitcher: false
-            });
-        }
-
-
-
-
-        function history_system_m() {
-
-            $("#history_system_m").hijriDatePicker({
-                format: "DD-MM-YYYY",
-                hijriFormat: "iYYYY-iMM-iDD",
-                dayViewHeaderFormat: "MMMM YYYY",
-                hijriDayViewHeaderFormat: "iMMMM iYYYY",
-            });
-        }
+//        function history_system_m() {
+//
+//            $("#history_system_m").hijriDatePicker({
+//                format: "DD-MM-YYYY",
+//                hijriFormat: "iYYYY-iMM-iDD",
+//                dayViewHeaderFormat: "MMMM YYYY",
+//                hijriDayViewHeaderFormat: "iMMMM iYYYY",
+//            });
+//        }
 
 
 
@@ -263,57 +286,13 @@
         var txt2 = '';
 
 
-        if (section_name === 'مجلدات الأحكام') {
-            $("#fm").empty();
-
-
-            txt1 += "<div class='col-md-6'>";
-            txt1 += "<label for='year' class='control-label'>السنة</label>";
-            txt1 += "<div class='form-group'>";
-            txt1 += "<input type='number' min='1900' max='2099' step='1' value='<?php echo $book['year']; ?>' name='year' class='form-control'  id='year'/>";
-            txt1 += "</div>";
-            txt1 += "</div>";
-            txt1 += "<div class='col-md-6'>";
-            txt1 += "<label for='volume_number' class='control-label'>رقم المجلد</label>";
-            txt1 += "<div class='form-group'>";
-            txt1 += "<input type='text' name='volume_number' value='<?php echo $book['volume_number']; ?>' class='form-control' id='volume_number' />";
-            txt1 += "</div>";
-            txt1 += "</div>";
-            txt1 += "<div class='col-md-6'>";
-            txt1 += "<label for='subject' class='control-label'>الموضوع</label>";
-            txt1 += "<div class='form-group'>";
-            txt1 += "<input type='text' name='subject' value='<?php echo $book['subject']; ?>' class='form-control' id='subject' />";
-            txt1 += "</div>";
-            txt1 += "</div>";
-
-
-
-            $("#fm").html(txt1);
-
-        } else if (section_name === 'المدونات القضائية') {
+ if (section_name === 'السوابق القضائية') {
 
             $("#fm").empty();
 
+$("#mat").hide();
 
-
-            txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='year' class='control-label'>السنة</label>";
-            txt2 += "<div class='form-group'>";
-            txt2 += "<input type='number' min='1900' max='2099' step='1' value='<?php echo $book['year']; ?>' name='year' class='form-control' id='year' />";
-            txt2 += "</div>";
-            txt2 += "</div>";
-            txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='volume_number' class='control-label'>رقم المجلد</label>";
-            txt2 += "<div class='form-group'>";
-            txt2 += "<input type='text' name='volume_number' value='<?php echo $book['volume_number']; ?>' class='form-control' id='volume_number' />";
-            txt2 += "</div>";
-            txt2 += "</div>";
-            txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='subject' class='control-label'>الموضوع</label>";
-            txt2 += "<div class='form-group'>";
-            txt2 += "<input type='text' name='subject' value='<?php echo $book['subject']; ?>' class='form-control' id='subject' />";
-            txt2 += "</div>";
-            txt2 += "</div>";
+          
 
             $("#fm").html(txt2);
 
@@ -322,7 +301,7 @@
 
             $("#fm").empty();
 
-
+$("#mat").hide();
 
 
 
@@ -352,12 +331,6 @@
 
 
 
-
-
-
-
-
-
             $("#fm").html(txt2);
 
 
@@ -365,23 +338,23 @@
 
             $("#fm").empty();
 
-
-
+   $("#title").hide();
+  initHijrDatePickerDefault();
 
 
 
             txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='history_system_m' class='control-label'> تاريخ النظام الميلادي</label>";
+            txt2 += "<label for='history_system_m' class='control-label'> تاريخ النظام </label>";
             txt2 += "<div class='form-group'>";
-            txt2 += "<input type='text' name='history_system_m' value='<?php echo $book['history_system_m']; ?>' class='form-control' id='history_system_m' style='text-align:right' />";
+            txt2 += "<input type='text' name='history_system_m' value='<?php echo $book['history_system_m']; ?>' class='form-control hijri-date-input'  style='text-align:right' />";
             txt2 += "</div>";
             txt2 += "</div>";
-            txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='history_system' class='control-label'> تاريخ النظام الهجري</label>";
-            txt2 += "<div class='form-group'>";
-            txt2 += "<input type='text' name='history_system_h' value='<?php echo $book['history_system_h']; ?>' class='form-control' id='history_system_h' style='text-align:right'/>";
-            txt2 += "</div>";
-            txt2 += "</div>";
+//            txt2 += "<div class='col-md-6'>";
+//            txt2 += "<label for='history_system' class='control-label'> تاريخ النظام الهجري</label>";
+//            txt2 += "<div class='form-group'>";
+//            txt2 += "<input type='text' name='history_system_h' value='<php echo $book['history_system_h']; ?>' class='form-control' id='history_system_h' style='text-align:right'/>";
+//            txt2 += "</div>";
+//            txt2 += "</div>";
             txt2 += "<div class='col-md-6'>";
             txt2 += "<label for='accreditation' class='control-label'>الاعتماد</label>";
             txt2 += "<div class='form-group'>";
@@ -389,17 +362,17 @@
             txt2 += "</div>";
             txt2 += "</div>";
             txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='date_publication_m' class='control-label'> تاريخ النشر الميلادي</label>";
+            txt2 += "<label for='date_publication_m' class='control-label'> تاريخ النشر </label>";
             txt2 += "<div class='form-group'>";
-            txt2 += "<input type='text' name='date_publication_m' value='<?php echo $book['date_publication_m']; ?>' class='form-control' id='date_publication_m'   />";
+            txt2 += "<input type='text' name='date_publication_m' value='<?php echo $book['date_publication_m']; ?>' class='form-control hijri-date-input'    />";
             txt2 += "</div>";
             txt2 += "</div>";
-              txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='date_publication' class='control-label' >تاريخ النشر بالهجري</label>";
-            txt2 += "<div class='form-group'>";
-            txt2 += "<input type='text' name='date_publication_h' value='<?php echo $book['date_publication_h']; ?>' class='form-control' id='date_publication_h' />";
-            txt2 += "</div>";
-            txt2 += "</div>";
+//              txt2 += "<div class='col-md-6'>";
+//            txt2 += "<label for='date_publication' class='control-label' >تاريخ النشر بالهجري</label>";
+//            txt2 += "<div class='form-group'>";
+//            txt2 += "<input type='text' name='date_publication_h' value='<php echo $book['date_publication_h']; ?>' class='form-control' id='date_publication_h' />";
+//            txt2 += "</div>";
+//            txt2 += "</div>";
 
 
             txt2 += "<div class='col-md-6'>";
@@ -415,12 +388,7 @@
             $("#fm").html(txt2);
 
 
-            date_publication_h();
-            history_system_h();
-            date_publication_m();
-
-            history_system_m();
-
+             initHijrDatePickerDefault();
 
 
 
@@ -431,7 +399,7 @@
             $("#fm").empty();
 
 
-
+$("#mat").hide();
 
 
 
@@ -448,10 +416,18 @@
     });
 
 </script>
-<script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
-<script src="<?= base_url() ?>assets/dist/js/moment.min.js"></script>
-<script src="<?= base_url() ?>assets/dist/js/bootstrap-hijri-datetimepickermin.js"></script>
 
+
+
+
+
+
+<script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
+<!--<script src="<= base_url() ?>assets/dist/js/moment.min.js"></script>-->
+<script src="<?= base_url() ?>assets/convert_date/js/momentjs.js"></script>
+<script src="<?= base_url() ?>assets/convert_date/js/moment-with-locales.js"></script>
+<script src="<?= base_url() ?>assets/convert_date/js/moment-hijri.js"></script>
+<script src="<?= base_url() ?>assets/convert_date/js/bootstrap-hijri-datetimepicker.js"></script>
 
 
 
@@ -463,17 +439,42 @@
 <script>
 
     //tinymce.init({selector:'textarea'});
-    tinymce.init({
-        selector: 'textarea', // change this value according to your HTML
-        language: 'ar'
+
+    function addTinyMCE() {
+        tinymce.init({
+            selector: 'textarea', // change this value according to your HTML
+            language: 'ar'
+
+
+
+        });
+    }
+
+</script>
+<script type="text/javascript">
+
+
+    $(function () {
+
+        //initHijrDatePicker();
+
+        initHijrDatePickerDefault();
+
+
 
     });
 
 
+
+    function initHijrDatePickerDefault() {
+
+        $(".hijri-date-input").hijriDatePicker();
+    }
+
+
 </script>
 
-
-<link href="<?= base_url() ?>assets/dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<!--<link href="<? base_url() ?>assets/dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />-->
 
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2020 at 04:09 AM
+-- Generation Time: Apr 20, 2020 at 11:35 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -30,31 +30,40 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `book` (
   `book_id` int(11) NOT NULL,
-  `book_name` varchar(20) NOT NULL,
-  `jurisdiction` varchar(20) NOT NULL,
-  `author` varchar(20) NOT NULL,
-  `publisher` varchar(20) NOT NULL,
+  `book_name` varchar(100) NOT NULL,
+  `jurisdiction` varchar(100) NOT NULL,
+  `author` varchar(100) NOT NULL,
+  `publisher` varchar(100) NOT NULL,
   `year_publication` year(4) NOT NULL,
   `subject` varchar(20) NOT NULL,
   `volume_number` int(11) NOT NULL,
   `year` year(4) NOT NULL,
-  `book_title` varchar(20) NOT NULL,
-  `the_main_domain` varchar(20) NOT NULL,
-  `subdomain` varchar(20) NOT NULL,
+  `book_title` varchar(500) NOT NULL,
+  `the_main_domain` varchar(100) NOT NULL,
+  `subdomain` varchar(100) NOT NULL,
   `history_system_m` varchar(100) NOT NULL,
-  `accreditation` varchar(20) NOT NULL,
+  `accreditation` varchar(100) NOT NULL,
   `date_publication_m` varchar(100) NOT NULL,
-  `adjustments` varchar(20) NOT NULL,
-  `accessories` varchar(20) NOT NULL,
-  `pass` varchar(20) NOT NULL,
+  `adjustments` varchar(100) NOT NULL,
+  `accessories` varchar(100) NOT NULL,
+  `pass` varchar(100) NOT NULL,
   `section_id` int(11) NOT NULL,
   `file` varchar(100) NOT NULL,
   `main_section` int(11) NOT NULL,
   `url` varchar(100) NOT NULL,
   `dis` varchar(200) NOT NULL,
   `history_system_h` date NOT NULL,
-  `date_publication_h` date NOT NULL
+  `date_publication_h` date NOT NULL,
+  `mini` varchar(100) NOT NULL,
+  `pdf` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `book`
+--
+
+INSERT INTO `book` (`book_id`, `book_name`, `jurisdiction`, `author`, `publisher`, `year_publication`, `subject`, `volume_number`, `year`, `book_title`, `the_main_domain`, `subdomain`, `history_system_m`, `accreditation`, `date_publication_m`, `adjustments`, `accessories`, `pass`, `section_id`, `file`, `main_section`, `url`, `dis`, `history_system_h`, `date_publication_h`, `mini`, `pdf`) VALUES
+(25, '', '', '', '', 0000, '', 0, 0000, '', '', '', '21-04-2020', '', '1441-08-22', '', '', 'ساري', 160, '', 32, '', '', '0000-00-00', '0000-00-00', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -67,6 +76,34 @@ CREATE TABLE `book_tag` (
   `book_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `book_tag`
+--
+
+INSERT INTO `book_tag` (`book_tag_id`, `book_id`, `tag_id`) VALUES
+(49, 25, 34);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `materials`
+--
+
+CREATE TABLE `materials` (
+  `material_id` int(11) NOT NULL,
+  `material_number` varchar(50) NOT NULL,
+  `description` varchar(4000) NOT NULL,
+  `book_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `materials`
+--
+
+INSERT INTO `materials` (`material_id`, `material_number`, `description`, `book_id`) VALUES
+(33, '6', '<p>غيغغ</p>', 25),
+(34, '2', '<p>صثقصقص</p>', 25);
 
 -- --------------------------------------------------------
 
@@ -86,24 +123,23 @@ CREATE TABLE `section` (
 --
 
 INSERT INTO `section` (`section_id`, `section_name`, `parent_id`, `section_discription`) VALUES
-(30, 'مجلدات الأحكام', 0, ''),
-(31, 'المدونات القضائية', 0, ''),
+(31, 'السوابق القضائية', 0, ''),
 (32, 'الأنظمة السعودية', 0, ''),
 (33, 'نماذج وعقود', 0, ''),
 (34, 'الكتب القانونية والأبحاث', 0, ''),
-(115, 'أحكام واحد', 30, ''),
-(116, 'مدونة1', 31, ''),
-(117, 'نظام1', 32, ''),
-(118, 'نموذج عقد1', 33, ''),
-(119, 'كتب قانونية واحد', 34, ''),
-(120, 'أحكام واحد فرعي', 115, ''),
-(121, 'مدونة واحد فرعي', 116, ''),
-(122, 'نظام واحد فرعي', 117, ''),
-(123, 'نموذج عقد واحد فرعي', 118, ''),
-(124, 'كتب قانونية واحد فرعي', 119, ''),
-(125, 'مدونة فرعي 2', 121, ''),
-(126, 'غغغغغغ', 30, ''),
-(127, '000000', 115, '');
+(129, 'الأحكام والمبادئ الإدارية للأعوام ١٤٠٢-١٤٢٦', 31, ''),
+(130, 'المجلد الاول', 129, ''),
+(131, 'اختصاص', 130, ''),
+(132, 'دعوى', 130, ''),
+(133, 'المجلد الثاني', 129, ''),
+(134, 'اختصاص', 133, ''),
+(135, 'دعوى', 133, ''),
+(160, 'نظام التجارة الالكترونية', 32, ''),
+(161, 'نظام العمل', 32, ''),
+(162, 'نظام الحوافز', 32, ''),
+(163, 'نظام المكافئات', 32, ''),
+(164, 'العقد الجزئي', 33, ''),
+(165, 'البحث السادس', 34, '');
 
 -- --------------------------------------------------------
 
@@ -113,8 +149,15 @@ INSERT INTO `section` (`section_id`, `section_name`, `parent_id`, `section_discr
 
 CREATE TABLE `tag` (
   `tag_id` int(11) NOT NULL,
-  `tag_name` varchar(20) NOT NULL
+  `tag_name` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tag`
+--
+
+INSERT INTO `tag` (`tag_id`, `tag_name`) VALUES
+(34, '1');
 
 --
 -- Indexes for dumped tables
@@ -131,6 +174,12 @@ ALTER TABLE `book`
 --
 ALTER TABLE `book_tag`
   ADD PRIMARY KEY (`book_tag_id`);
+
+--
+-- Indexes for table `materials`
+--
+ALTER TABLE `materials`
+  ADD PRIMARY KEY (`material_id`);
 
 --
 -- Indexes for table `section`
@@ -152,25 +201,31 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `book_tag`
 --
 ALTER TABLE `book_tag`
-  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+
+--
+-- AUTO_INCREMENT for table `materials`
+--
+ALTER TABLE `materials`
+  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
 
 --
 -- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
