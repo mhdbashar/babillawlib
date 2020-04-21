@@ -756,6 +756,20 @@ class Book extends Front_end {
         } else
             show_error('The book you are trying to delete does not exist.');
     }
+    
+      function remove_contracts() {
+    $book = $this->Book_model->get_book($this->input->post('book_id'));
+
+        // check if the book exists before trying to delete it
+        if (isset($book['book_id'])) {
+
+            $this->Book_model->delete_book($this->input->post('book_id'));
+            $this->Material_model->delete_material($this->input->post('book_id'));
+
+            redirect('book/index');
+        } else
+            show_error('The book you are trying to delete does not exist.');
+    }
 
     function search_book() {
 

@@ -7,11 +7,11 @@
         <title>Library</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <link rel="alternate stylesheet" type="text/css" media="all" href="../skins/calendar-system.css" title="system" />
+<!--        <link rel="alternate stylesheet" type="text/css" media="all" href="../skins/calendar-system.css" title="system" />-->
         <!-- Bootstrap 3.3.4 -->
         <link rel="stylesheet" href="<?= base_url() ?>assets/bootstrap/css/bootstrap.min.css">
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/font-awesome.min.css">
+<!--        <link rel="stylesheet" href="<= base_url() ?>assets/dist/css/font-awesome.min.css">-->
         <!-- Ionicons -->
         <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/ionicons.min.css">
         <!-- Theme style -->
@@ -29,10 +29,10 @@
         <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/bootstrap-rtl.min.css">
         <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/rtl.css">
         <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/cairo.css">
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
+<!--
+         HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries 
+         WARNING: Respond.js doesn't work if you view the page via file:// 
+        [if lt IE 9]>
             <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->

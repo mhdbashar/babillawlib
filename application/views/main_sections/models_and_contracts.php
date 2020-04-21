@@ -302,7 +302,7 @@
             if (confirm("Are you sure you want to delete this?"))
             {
                 $.ajax({
-                    url: "<?php echo base_url(); ?>book/remove",
+                    url: "<?php echo base_url(); ?>book/remove_contracts",
                     method: "POST",
                     data: {book_id: book_id},
                     success: function (data) {

@@ -410,14 +410,6 @@ class Book extends Front_end {
 
         $section_name = $this->input->post('section_name');
 
-
-
-
-
-
-
-
-
         if ($this->input->post('sub_section')) {
             $sub_section = $this->input->post('sub_section');
             $sql2 = "select * from section where section_id='" . $sub_section . "'";
@@ -803,8 +795,23 @@ class Book extends Front_end {
      * Deleting book
      */
 
-    function remove() {
+    function remove($book_id) {
 
+
+        $book = $this->Book_model->get_book($book_id);
+
+        // check if the book exists before trying to delete it
+        if (isset($book['book_id'])) {
+
+            $this->Book_model->delete_book($book_id);
+            $this->Material_model->delete_material($book_id);
+
+            redirect('book/index');
+        } else
+            show_error('The book you are trying to delete does not exist.');
+    }
+    
+    function remove_contracts() {
 
         $book = $this->Book_model->get_book($this->input->post('book_id'));
 
