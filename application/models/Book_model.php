@@ -80,7 +80,7 @@ class Book_model extends CI_Model {
     function search_via_section($section_id) {
 
 
-        $sql = "select * from book where   section_id='" . $section_id . "'";
+        $sql = "select * from book where book.file IS NOT NULL and   section_id='" . $section_id . "' ";
 
 
         $query = $this->db->query($sql);

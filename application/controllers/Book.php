@@ -40,12 +40,8 @@ class Book extends Front_end {
             if ($this->upload->do_upload('picture')) {
                 $uploadData = $this->upload->data();
                 $picture = $uploadData['file_name'];
-            } else {
-                $picture = '';
-            }
-        } else {
-            $picture = '';
-        }
+            } 
+        } 
 
 
         $section_id = $this->input->post('section_id');
@@ -844,9 +840,17 @@ class Book extends Front_end {
                 return false;
             }
         }
-        $sql = "SELECT section_id,book_title,file,COUNT(file) AS relevance FROM
+		
+		
+		 /*  $sql = "SELECT section_id,book_title,file,COUNT(file) AS relevance FROM
   (SELECT book.section_id,file, book_title FROM book,book_tag,section 
     WHERE book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
+  GROUP BY  file ORDER BY relevance DESC"; */
+		
+		
+        $sql = "SELECT section_id,book_title,file,COUNT(file) AS relevance FROM
+  (SELECT book.section_id,file, book_title FROM book,book_tag,section 
+    where book.file IS NOT NULL and book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches 
   GROUP BY  file ORDER BY relevance DESC";
         $query = $this->db->query($sql);
         $result = $query->result();
@@ -927,7 +931,7 @@ class Book extends Front_end {
         }
        $sql = "SELECT section_id,book_title,file,COUNT(file) AS relevance FROM
   (SELECT book.section_id,file, book_title FROM book,book_tag,section 
-    WHERE book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
+    WHERE book.file IS NOT NULL and book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
   GROUP BY  file ORDER BY relevance DESC";
         $query = $this->db->query($sql);
         $result = $query->result();
