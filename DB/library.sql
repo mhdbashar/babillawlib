@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2020 at 09:27 AM
+-- Generation Time: Apr 23, 2020 at 05:38 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -51,7 +51,7 @@ CREATE TABLE `book` (
   `file` varchar(500) DEFAULT NULL,
   `main_section` int(11) NOT NULL,
   `url` varchar(100) NOT NULL,
-  `dis` varchar(200) NOT NULL,
+  `dis` varchar(1000) NOT NULL,
   `history_system_h` date NOT NULL,
   `date_publication_h` date NOT NULL,
   `mini` varchar(100) NOT NULL,
@@ -70,6 +70,30 @@ CREATE TABLE `book_tag` (
   `book_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `book_tag`
+--
+
+INSERT INTO `book_tag` (`book_tag_id`, `book_id`, `tag_id`) VALUES
+(370, 248, 122),
+(371, 249, 122),
+(372, 250, 122),
+(373, 251, 122),
+(374, 252, 122),
+(375, 253, 122),
+(377, 255, 122),
+(378, 256, 122),
+(379, 257, 122),
+(380, 258, 122),
+(381, 231, 126),
+(382, 259, 126),
+(383, 260, 122),
+(384, 261, 122),
+(385, 262, 122),
+(386, 263, 122),
+(387, 264, 122),
+(388, 265, 122);
 
 -- --------------------------------------------------------
 
@@ -132,6 +156,19 @@ CREATE TABLE `tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `tag`
+--
+
+INSERT INTO `tag` (`tag_id`, `tag_name`) VALUES
+(119, 'ر'),
+(121, 'ؤ'),
+(122, ''),
+(123, 'ب'),
+(124, 'بلت'),
+(125, 'للل'),
+(126, '1');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -173,31 +210,31 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=220;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=266;
 
 --
 -- AUTO_INCREMENT for table `book_tag`
 --
 ALTER TABLE `book_tag`
-  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=342;
+  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=389;
 
 --
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
+  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=287;
 
 --
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
 
 --
 -- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

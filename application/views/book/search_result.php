@@ -30,7 +30,7 @@
              <div class="col-md-6">
                         <label for="book_name" class="control-label"> </label>
                          <label for="book_name" class="control-label"> اسم الكتاب<?php  echo $r->book_name; ?></label>
-                        <label for="book_name" class="control-label"> <a href="<?php echo base_url('uploads/images/')?><?php  echo $r->file; ?>">تصفح الكتاب</a></label>
+                         <label for="book_name" class="control-label"> <a target="_blank" href="<?php echo base_url('uploads/images/')?><?php  echo $r->file; ?>">تصفح الكتاب</a></label>
                         
                     </div>
        

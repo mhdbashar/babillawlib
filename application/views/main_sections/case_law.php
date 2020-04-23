@@ -122,7 +122,7 @@
                 $('#treeview_json').treeview({data: response});
 
                 $('#treeview_json').on('nodeSelected', function (event, data) {
-                 
+                
                     t = 0;
                     for (j = 0; j < r.length; j++) {
 
@@ -150,7 +150,9 @@
 
 
                     // $("#sub_section").val(t);
+               
 
+//$(html).appendTo("<li>").text();
 
                 });
 

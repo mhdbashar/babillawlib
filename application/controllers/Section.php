@@ -113,10 +113,27 @@ class Section extends Front_end {
         $row2 = $this->db->query('SELECT section.section_id, section.section_name,book.section_id,book.file  from section,book 
              WHERE section.section_id=book.section_id')->result_array();
         foreach ($row as $key => $value) {
+            
+            
             $id = $value['section_id'];
-            $row1[$key]['id'] = $value['section_id'];
+              $row1[$key]['id'] = $value['section_id'];
             $row1[$key]['name'] = $value['section_name'];
             $row1[$key]['text'] = $value['section_name'];
+            $sql="select * from book where  section_id='".$value['section_id']."'";
+            $query=$this->db->query($sql);
+            $result=$query->result();
+            $count=0;
+            foreach ($result as $v) {
+                $count++;
+                if($v->book_id !== 0){
+                    
+                    $row1[$key]['text'] = '<span style="color:red;">'.$value['section_name'].'</span><span  class="numberCircle">'.$count.'</span>';
+                    
+                }
+            }
+            
+          
+            
             // $row1[$key]['file'] = $value['section_name'];
             $row1[$key]['nodes'] = array_values($this->membersTree($value['section_id']));
         }
