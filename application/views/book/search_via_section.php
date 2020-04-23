@@ -25,7 +25,7 @@
                                 <td><?php echo $b['book_id']; ?></td>
                             
                                 <td><?php echo $b['book_title']; ?></td>
-                                    <td> <a href="<?php echo base_url('uploads/images/')?><?php echo $b['file']; ?>">تصفح الكتاب</a></td>
+                                    <td> <a target="_blank" href="<?php echo base_url('uploads/images/')?><?php echo $b['file']; ?>">تصفح الكتاب</a></td>
 
                                 <td>
                                     <a  href="<?php echo site_url('book/edit/' . $b['book_id']); ?>" class="btn btn-info btn-xs "><span class="fa fa-pencil"></span> تحرير</a> 
