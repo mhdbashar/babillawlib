@@ -13,9 +13,10 @@
                     <thead>
                         <tr>
                             <th>رقم الكتاب</th>
-                        
+
                             <th>عنوان الكتاب</th>
-                            <th>تصفح الكتاب</th>
+                            <th> تحرير</th>
+                            <th> حذف</th>
 
                         </tr>
                     </thead>
@@ -23,23 +24,24 @@
                         <?php foreach ($book as $b) { ?>
                             <tr>
                                 <td><?php echo $b['book_id']; ?></td>
-                            
+
                                 <td><?php echo $b['book_title']; ?></td>
-                                    <td> <a target="_blank" href="<?php echo base_url('uploads/images/')?><?php echo $b['file']; ?>">تصفح الكتاب</a></td>
+                           
 
                                 <td>
-                                    <a  href="<?php echo site_url('book/edit/' . $b['book_id']); ?>" class="btn btn-info btn-xs "><span class="fa fa-pencil"></span> تحرير</a> 
-                                    <a href="<?php echo site_url('book/remove/' . $b['book_id']); ?>" class="btn btn-danger btn-xs delete"><span class="fa fa-trash"></span> حذف</a>
+                                    <a  href="<?php echo site_url('book/edit/' . $b['book_id']); ?>" class="btn btn-info btn-xs "><span class="fa fa-pencil"></span> تحرير</a>  </td>
+                                <td> <a href="<?php echo site_url('book/remove/' . $b['book_id']); ?>" class="btn btn-danger btn-xs delete"><span class="fa fa-trash"></span> حذف</a>
                                 </td>
                             </tr>
                         <?php } ?>
                     </tbody>
                     <tfoot>
                         <tr>
-                                <th>رقم الكتاب</th>
-                        
+                            <th>رقم الكتاب</th>
+
                             <th>عنوان الكتاب</th>
-                            <th>تصفح الكتاب</th>
+                           <th> تحرير</th>
+                            <th> حذف</th>
 
 
                         </tr>
@@ -66,30 +68,17 @@
         });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     });
-      $(document).on('click', '.delete', function(){
+    $(document).on('click', '.delete', function () {
 
-      if(confirm(" هل متاكد من الحذف"))
-      {
-//        window.location.href="invoice.php?delete=1&id="+id;
-return true;
-      }
-      else
-      {
-        return false;
-      }
+        if (confirm(" هل متاكد من الحذف"))
+        {
+
+            return true;
+        } else
+        {
+            return false;
+        }
     });
 
 </script>
