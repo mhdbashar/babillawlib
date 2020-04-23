@@ -123,7 +123,7 @@
 
                 $('#treeview_json').on('nodeSelected', function (event, data) {
                  
-                    t = '';
+                    t = 0;
                     for (j = 0; j < r.length; j++) {
 
                         if (r[j] === data.id) {
@@ -137,7 +137,7 @@
                     }
                   
 
-                    if (t !== '') {
+                    if (t !== 0) {
                         $('.node-selected').empty();
                         load_book(t);
 
@@ -184,7 +184,7 @@
 
 
 
-                        html += '<li   class= " list-group-item  "><button target="_blank"  style="color:black;float:left;margin-top:-25px" type="submit" onclick=location.href="' + base_url + 'uploads/images/' + data[i].file + '"><span class="glyphicon">&#xe025;</span></button></li>';
+                        html += '<li   class= " list-group-item  "><button target="_blank"  style="color:black;float:left;margin-top:-25px"  onclick=javascript:window.open("' + base_url + 'uploads/images/' + data[i].file + '")><span class="glyphicon">&#xe025;</span></button></li>';
 
 
 

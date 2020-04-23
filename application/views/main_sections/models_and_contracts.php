@@ -192,7 +192,7 @@
 
                         $.ajax({
 
-                            url: "<?php echo base_url() ?>book/book_pagination/" + pagno,
+                            url: "<?php echo base_url() ?>book/book_pagination_modal/" + pagno,
                             type: 'post',
                             dataType: 'json',
                             data: {section_id: section_id},
@@ -236,7 +236,15 @@
                             html += '<td class="table_data" data-row_id="' + result[index].book_id + '" data-column_name="book_title" contenteditable>' + result[index].book_title + '</td>';
                             html += '<td class="table_data" data-row_id="' + result[index].book_id + '" data-column_name="url" contenteditable>' + result[index].url + '</td>';
                             html += '<td id="description" class="table_data" data-row_id="' + result[index].book_id + '" data-description="description"  contenteditable>' + result[index].description + '</td>';
-                             html += '<td><a  href="' + base_url + 'uploads/images/' + result[index].file + '" target="_blank">رابط الكتاب</a></td>';
+                            if(result[index].file !==null){
+                               html += '<td><a  href="' + base_url + 'uploads/images/' + result[index].file + '" target="_blank">رابط الكتاب</a></td>';  
+                            }
+                            else{
+                             html += '<td><a  href="#" > لا يوجد كتاب</a></td>';     
+                                
+                            }
+                            
+                             
                             html += '<td><button type="button" name="delete_btn" id="' + result[index].book_id + '" class="btn btn-xs btn-danger btn_delete"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
 
                

@@ -218,7 +218,7 @@
                             output += '<li class="item col-lg-2 col-md-4 col-sm-6 col-xs-6 "></a>';
                             output += '<a target="_blank" href="' + base_url + 'uploads/images/' + file + '"><img src="' + base_url + 'uploads/images/' + mini + '" width="120" height="150"  >';
 
-                            output += book_title;
+                            output += '<div>'+book_title+'</div>';
 
                             output += '</li>';
 

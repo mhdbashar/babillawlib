@@ -7,11 +7,11 @@
         <title>Library</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<!--        <link rel="alternate stylesheet" type="text/css" media="all" href="../skins/calendar-system.css" title="system" />-->
+        <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
         <!-- Bootstrap 3.3.4 -->
         <link rel="stylesheet" href="<?= base_url() ?>assets/bootstrap/css/bootstrap.min.css">
         <!-- Font Awesome -->
-<!--        <link rel="stylesheet" href="<= base_url() ?>assets/dist/css/font-awesome.min.css">-->
+        <!--        <link rel="stylesheet" href="<= base_url() ?>assets/dist/css/font-awesome.min.css">-->
         <!-- Ionicons -->
         <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/ionicons.min.css">
         <!-- Theme style -->
@@ -28,14 +28,14 @@
         <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/skins/skin-blue.min.css">
         <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/bootstrap-rtl.min.css">
         <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/rtl.css">
-        <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/cairo.css">
-<!--
-         HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries 
-         WARNING: Respond.js doesn't work if you view the page via file:// 
-        [if lt IE 9]>
-            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+
+        <!--
+                 HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries 
+                 WARNING: Respond.js doesn't work if you view the page via file:// 
+                [if lt IE 9]>
+                    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+                    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+                <![endif]-->
     </head>
 
     <body class="skin-blue sidebar-mini">
@@ -117,24 +117,22 @@
                             </a>
                             <ul class="treeview-menu">
                                 <?php
-                                
-                                $get_main_section_via_id='';
-                                
-                                $i=0;
-                               $arr=['case_law','saudi_regulations','models_and_contracts','searches_law_books'];
+                                $get_main_section_via_id = '';
+
+                                $i = 0;
+                                $arr = ['case_law', 'saudi_regulations', 'models_and_contracts', 'searches_law_books'];
                                 $result = get_main_section();
                                 foreach ($result as $value) {
-                                    
                                     ?>
 
                                     <li>
                                         <a href="<?php echo site_url('section'); ?>/<?php echo $arr[$i] ?>?section_id=<?php echo $value->section_id; ?>"><i class="fa fa-list-ul"></i>  <?php echo $value->section_name ?></a>
                                     </li>
 
-                                    <?php
-                                    $i++;
-                                }
-                                ?>
+    <?php
+    $i++;
+}
+?>
                             </ul>
                         </li>
 
@@ -214,7 +212,7 @@
 
 
 
-                    <?= $content_for_layout ?>
+<?= $content_for_layout ?>
 
                     <?= $this->layout->block('book_view') ?>
 
@@ -229,33 +227,33 @@
                     <?= $this->layout->block() ?>
 
 
-                    <?= $this->layout->block('tag_add_view') ?>
+<?= $this->layout->block('tag_add_view') ?>
                     <?= $this->layout->block('') ?>
 
                     <?= $this->layout->block('tag_edit_view') ?>
                     <?= $this->layout->block('') ?>
 
 
-                    <?= $this->layout->block('tag_view') ?>
+<?= $this->layout->block('tag_view') ?>
                     <?= $this->layout->block('') ?>
 
 
-                    <?= $this->layout->block('section_add_view') ?>
+<?= $this->layout->block('section_add_view') ?>
                     <?= $this->layout->block('') ?>
 
                     <?= $this->layout->block('section_edit_view') ?>
                     <?= $this->layout->block('') ?>
 
 
-                    <?= $this->layout->block('section_view') ?>
+<?= $this->layout->block('section_view') ?>
                     <?= $this->layout->block('') ?>
 
 
-                    <?= $this->layout->block('tag_view_d') ?>
+<?= $this->layout->block('tag_view_d') ?>
                     <?= $this->layout->block('') ?>
 
 
-                    <?= $this->layout->block('search') ?>
+<?= $this->layout->block('search') ?>
                     <?= $this->layout->block('') ?>
                     <?= $this->layout->block('search_result') ?>
                     <?= $this->layout->block('') ?>
@@ -275,7 +273,7 @@
 
                     <?= $this->layout->block('searches_law_books') ?>
                     <?= $this->layout->block('') ?>
-                      <?= $this->layout->block('dashboard') ?>
+                    <?= $this->layout->block('dashboard') ?>
                     <?= $this->layout->block('') ?>
 
 

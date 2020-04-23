@@ -12,10 +12,10 @@
 
 
 
-<link rel="stylesheet" href="<?= base_url() ?>assets/tinymce/skin.min.css">
+<!--<link rel="stylesheet" href="<? base_url() ?>assets/tinymce/skin.min.css">-->
 
-<script src="<?= base_url() ?>assets/tinymce/modern/theme.js" referrerpolicy="origin"></script>
-<script src="<?= base_url() ?>assets/tinymce/modern/theme.min.js" referrerpolicy="origin"></script>
+<!--<script src="<= base_url() ?>assets/tinymce/modern/theme.js" referrerpolicy="origin"></script>
+<script src="<= base_url() ?>assets/tinymce/modern/theme.min.js" referrerpolicy="origin"></script>-->
 
 
 <script src="<?= base_url() ?>assets/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
@@ -129,12 +129,12 @@
                                 <input class="form-control" type="url" name="url" />
                             </div>
                         </div>
-                        <div class="col-md-6" id="pdf_div">
+<!--                        <div class="col-md-6" id="pdf_div">
                             <label for='pdf' class='control-label'>   عرض ك ملف الكتروني</label>
                             <div class='form-group'>
                                 <input type="checkbox" name="pdf">
                             </div>
-                        </div>
+                        </div>-->
 
                         <div id="fm">
 
@@ -200,7 +200,7 @@
 
 <script>
     $(document).ready(function () {
-
+ var t = 0;
         $(".mini").hide();
 
         $("#pdf_div").hide();
@@ -222,8 +222,8 @@
 
             $(".uploadForm").html('');
 
-  $(".mini").hide();
-          
+            $(".mini").hide();
+
 
             main_section_id = $(this).children("option:selected").val();
             var section_name = $("#sel_section option:selected").html();
@@ -242,7 +242,7 @@
                     var i = 0;
                     var j = 0;
                     var r = [];
-                    var t = '';
+                   
                     var k = '';
                     for (i = 0; i < response.result.length; i++) {
 
@@ -253,10 +253,11 @@
 
 
                     $('#treeview_json').treeview({data: response});
-
+                    t = 0;
+                    $("#sub_section").val(t);
                     $('#treeview_json').on('nodeSelected', function (event, data) {
 
-                        t = '';
+                        t = 0;
                         $("#sub_section").val(t);
                         for (j = 0; j < r.length; j++) {
 
@@ -268,6 +269,7 @@
                                 $("#sub_section").val(t);
                                 break;
 
+
                             }
 
                         }
@@ -276,8 +278,8 @@
 
                     $(".save").click(function () {
 
-                        if (t === '') {
-                            alert("اخترالقسم");
+                        if (t === 0) {
+                            alert("  اختر اخر عقدة في كل قسم رئيسي");
                             $("#format").trigger("reset");
                             //return false;
 
@@ -332,7 +334,7 @@
 
                 $("#fm").empty();
 
-               
+
                 $("#title").show();
 
 //                txt2 += "<div class='col-md-6'>";
@@ -393,7 +395,7 @@
             } else if (section_name === 'الأنظمة السعودية') {
                 $("#mat").show();
                 $("#fm").empty();
-               
+
                 $("#title").hide();
 //                $("#mor_textarea").empty();
 //                $("#mor_textarea").show();
@@ -425,9 +427,9 @@
                 txt2 += "</div>";
                 txt2 += "</div>";
                 txt2 += "<div class='col-md-6'>";
-                txt2 += "<label for='date_publication' class='control-label' >  </label>";
+                txt2 += "<label for='date_publication' class='control-label' > المقدمة </label>";
                 txt2 += "<div class='form-group'>";
-                txt2 += "<input type='text' name='' value='' class='form-control ' id='' style='text-align:right;  />";
+                txt2 += "<input type='text' name='interview' value='' class='form-control ' id='' style='text-align:right;  />";
                 txt2 += "</div>";
                 txt2 += "</div>";
 
@@ -460,7 +462,7 @@
 
                 $("#fm").empty();
 
-              
+
                 $("#pdf_div").hide();
 
 
@@ -537,13 +539,28 @@
         });
 
 
-
+//
+//        $(".save").click(function () {
+//
+//            if (change === 'no') {
+//                alert("اختر القسم في البداية");
+//                $("#format").trigger("reset");
+//                window.location.reload();
+//            } else {
+//
+//
+//                return true;
+//            }
+//
+//
+//        });
         $(".save").click(function () {
 
-            if (change === 'no') {
-                alert("اختر القسم في البداية");
+            if (t === 0 || t==='') {
+                alert("إختر القسم الرئيسي");
                 $("#format").trigger("reset");
-                window.location.reload();
+                //return false;
+
             } else {
 
 
@@ -552,6 +569,7 @@
 
 
         });
+
     });
 
 </script>
@@ -625,25 +643,6 @@
 
 </script>
 
-<script type="text/javascript">
-
-
-//    $(function () {
-//
-//        date_publication_h();
-//
-//    });
-
-//    function date_publication_h() {
-//
-//
-//        $("#date_publication_h").hijriDatePicker({
-//            hijri: true,
-//            showSwitcher: false
-//        });
-//    }
-
-</script>
 
 <script>
 

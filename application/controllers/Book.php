@@ -40,8 +40,12 @@ class Book extends Front_end {
             if ($this->upload->do_upload('picture')) {
                 $uploadData = $this->upload->data();
                 $picture = $uploadData['file_name'];
-            } 
-        } 
+            } else {
+                $picture = null;
+            }
+        } else {
+            $picture = null;
+        }
 
 
         $section_id = $this->input->post('section_id');
@@ -68,7 +72,7 @@ class Book extends Front_end {
             $d = $result_result->section_id;
 
 
-            if (isset($section_name)) {
+            if (isset($section_name) && !empty($section_name)) {
 
 
 
@@ -83,64 +87,65 @@ class Book extends Front_end {
                             'url' => $this->input->post('url'),
                             'file' => $picture
                         );
-                    }
 
 
 
-                    $book_id = $this->Book_model->add_book($params);
 
-                    for ($count = 0; $count < $_POST["total_item"]; $count++) {
-                        $data = array(
-                            'description' => $_POST["dis"][$count],
-                            'book_id' => $book_id,
-                        );
-                    }
-                    $this->Material_model->add_material($data);
+                        $book_id = $this->Book_model->add_book($params);
 
-
-                    $tag_name_name_name = $this->input->post('tag_name');
-
-                    $tag_name_name = explode(", ", $tag_name_name_name);
-                    $tag_name = str_replace(' ', '', $tag_name_name);
-
-
-                    for ($i = 0; $i < count($tag_name); $i++) {
-
-                        $sql = "select * from tag where tag_name='" . $tag_name[$i] . "'";
-                        $query = $this->db->query($sql);
-                        $result = $query->row();
-
-                        if ($result) {
-
-                            $tag_book = array(
+                        for ($count = 0; $count < $_POST["total_item"]; $count++) {
+                            $data = array(
+                                'description' => $_POST["dis"][$count],
                                 'book_id' => $book_id,
-                                'tag_id' => $result->tag_id
                             );
-                            $this->Book_tag_model->add_book_tag($tag_book);
-                        } else {
-                            // echo $tag_name[$i];
-
-                            $paramss = array(
-                                'tag_name' => $tag_name[$i]
-                            );
-
-                            $tag_id = $this->Tag_model->add_tag($paramss);
-
-                            $tag_book = array(
-                                'book_id' => $book_id,
-                                'tag_id' => $tag_id
-                            );
-                            $this->Book_tag_model->add_book_tag($tag_book);
                         }
-                    }
+                        $this->Material_model->add_material($data);
 
-                    redirect('book/index');
+
+                        $tag_name_name_name = $this->input->post('tag_name');
+
+                        $tag_name_name = explode(", ", $tag_name_name_name);
+                        $tag_name = str_replace(' ', '', $tag_name_name);
+
+
+                        for ($i = 0; $i < count($tag_name); $i++) {
+
+                            $sql = "select * from tag where tag_name='" . $tag_name[$i] . "'";
+                            $query = $this->db->query($sql);
+                            $result = $query->row();
+
+                            if ($result) {
+
+                                $tag_book = array(
+                                    'book_id' => $book_id,
+                                    'tag_id' => $result->tag_id
+                                );
+                                $this->Book_tag_model->add_book_tag($tag_book);
+                            } else {
+                                // echo $tag_name[$i];
+
+                                $paramss = array(
+                                    'tag_name' => $tag_name[$i]
+                                );
+
+                                $tag_id = $this->Tag_model->add_tag($paramss);
+
+                                $tag_book = array(
+                                    'book_id' => $book_id,
+                                    'tag_id' => $tag_id
+                                );
+                                $this->Book_tag_model->add_book_tag($tag_book);
+                            }
+                        }
+
+                        redirect('book/index');
+                    }
                 } elseif ($section_name == 'الكتب القانونية والأبحاث') {
 
 
 
 
-                    if (!empty($_FILES['mini']['name'])) {
+                    if (isset($_FILES['mini']['name'])) {
                         $config['upload_path'] = 'uploads/images/';
                         $config['allowed_types'] = 'gif|jpg|png';
                         $config['encrypt_name'] = TRUE;
@@ -360,7 +365,8 @@ class Book extends Front_end {
                     redirect('book/index');
                 }
             } else {
-                return false;
+
+                redirect('book/add');
             }
         } else {
             $this->load->model('Section_model');
@@ -434,9 +440,9 @@ class Book extends Front_end {
 
 
             $this->Book_model->update_book($book_id, $params);
-            
-            
-               $count = 0;
+
+
+            $count = 0;
 
             $m = $this->input->post("mmm");
 
@@ -448,8 +454,8 @@ class Book extends Front_end {
                 );
                 $this->Material_model->update_material_book($_POST["material_id"][$count], $data);
             }
-            
-            
+
+
 
             $tag_name_name_name = $this->input->post('tag_name');
 //                $sql1 = "delete from tag,book_tag using tag,book_tag ,book where "
@@ -595,10 +601,9 @@ class Book extends Front_end {
                     'url' => $this->input->post('url'),
                     //'dis' => $this->input->post('dis'),
                     'history_system_m' => $this->input->post('history_system_m'),
-                    'history_system_h' => $this->input->post('history_system_h'),
                     'accreditation' => $this->input->post('accreditation'),
                     'date_publication_m' => $this->input->post('date_publication_m'),
-                    'date_publication_h' => $this->input->post('date_publication_h'),
+                    'interview' => $this->input->post('interview'),
                     'pass' => $this->input->post('pass'),
                         //'file' => $picture
                 );
@@ -684,7 +689,7 @@ class Book extends Front_end {
 
                 $this->Book_model->update_book($book_id, $params);
             } elseif ($this->input->post('description_value')) {
-                
+
 
                 $data = array(
                     $this->input->post('description') => $this->input->post('description_value')
@@ -695,7 +700,7 @@ class Book extends Front_end {
 
 
             if ($_POST["dis"][0]) {
-               
+
                 $params = array(
                     'section_id' => $result_result->section_id,
                     'book_title' => $this->input->post('book_title'),
@@ -708,7 +713,7 @@ class Book extends Front_end {
 
                 $data = array(
                     'description' => $_POST["dis"][0],
-                  'material_number' => 0,
+                    'material_number' => 0,
                     'book_id' => $book_id,
                 );
                 $this->Material_model->update_material_book_contracts($book_id, $data);
@@ -810,7 +815,7 @@ class Book extends Front_end {
         } else
             show_error('The book you are trying to delete does not exist.');
     }
-    
+
     function remove_contracts() {
 
         $book = $this->Book_model->get_book($this->input->post('book_id'));
@@ -847,14 +852,14 @@ class Book extends Front_end {
                 return false;
             }
         }
-		
-		
-		 /*  $sql = "SELECT section_id,book_title,file,COUNT(file) AS relevance FROM
-  (SELECT book.section_id,file, book_title FROM book,book_tag,section 
-    WHERE book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
-  GROUP BY  file ORDER BY relevance DESC"; */
-		
-		
+
+
+        /*  $sql = "SELECT section_id,book_title,file,COUNT(file) AS relevance FROM
+          (SELECT book.section_id,file, book_title FROM book,book_tag,section
+          WHERE book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
+          GROUP BY  file ORDER BY relevance DESC"; */
+
+
         $sql = "SELECT section_id,book_title,file,COUNT(file) AS relevance FROM
   (SELECT book.section_id,file, book_title FROM book,book_tag,section 
     where book.file IS NOT NULL and book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches 
@@ -936,7 +941,7 @@ class Book extends Front_end {
                 return false;
             }
         }
-       $sql = "SELECT section_id,book_title,file,COUNT(file) AS relevance FROM
+        $sql = "SELECT section_id,book_title,file,COUNT(file) AS relevance FROM
   (SELECT book.section_id,file, book_title FROM book,book_tag,section 
     WHERE book.file IS NOT NULL and book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
   GROUP BY  file ORDER BY relevance DESC";
@@ -1076,6 +1081,72 @@ class Book extends Front_end {
         $data['get_main_section'] = $this->Section_model->get_main_section();
         echo json_encode($data);
     }
+    
+    
+    function book_pagination_modal($rowno = 0) {
+
+        $section_id = $this->input->post("section_id");
+        // Row per page
+        $rowperpage = 6;
+
+        // Row position
+        if ($rowno != 0) {
+            $rowno = ($rowno - 1) * $rowperpage;
+        }
+
+        // All records count
+        $allcount = $this->Book_model->getbooksCount_modal($section_id);
+
+        // Get  records
+        $users_record = $this->Book_model->books_modal($rowno, $rowperpage, $section_id);
+
+        // Pagination Configuration
+        $config['base_url'] = base_url() . 'book/book_pagination';
+        $config['use_page_numbers'] = TRUE;
+        $config['total_rows'] = $allcount;
+        $config['per_page'] = $rowperpage;
+
+
+        //styling
+        $config['full_tag_open'] = '<ul class="pagination-area">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = false;
+        $config['last_link'] = false;
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['prev_link'] = '&laquo';
+        $config['prev_tag_open'] = '<li class="previous">';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_link'] = '&raquo';
+        $config['next_tag_open'] = '<li class="next">';
+        $config['next_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+
+
+
+        // Initialize
+        $this->pagination->initialize($config);
+
+        // Initialize $data Array
+        if ($users_record) {
+            $data['pagination'] = $this->pagination->create_links();
+        } else {
+            $data['pagination'] = '';
+        }
+
+        $data['result'] = $users_record;
+        $data['row '] = $rowno;
+        $data['get_main_section'] = $this->Section_model->get_main_section();
+        echo json_encode($data);
+    }
+
+    
+    
 
     function search_book_via_section() {
 

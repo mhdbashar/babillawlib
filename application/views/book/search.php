@@ -136,7 +136,7 @@
        htm+= data.result[k].book_title;
       
             htm+= '</td>';
-        htm +='<td><a href="' +base_url+ 'uploads/images/' +data.result[k].file+ '">استعراض الكتاب</a> </td>';
+        htm +='<td><a target="_blank" href="' +base_url+ 'uploads/images/' +data.result[k].file+ '">استعراض الكتاب</a> </td>';
         
      
         htm+= '</tr>';

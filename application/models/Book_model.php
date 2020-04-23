@@ -119,7 +119,7 @@ class Book_model extends CI_Model {
 
     public function getbooksCount($section_id) {
 
-        $sql = "select count(book.section_id) as allcount from book where   section_id='" . $section_id . "'";
+        $sql = "select count(book.section_id) as allcount from book where file is NOT NULL and  section_id='" . $section_id . "'";
 
         $query = $this->db->query($sql);
 
@@ -136,7 +136,9 @@ class Book_model extends CI_Model {
 
         $this->db->select('*');
         $this->db->from('book b ,materials m');
-        $this->db->where('(b.section_id="' . $section_id . '") and (b.book_id=m.book_id) ');
+        $this->db->where('(b.section_id="' . $section_id . '") and (b.book_id=m.book_id) and (b.file  is NOT NULL) ');
+        
+        
         $this->db->limit($rowperpage, $rowno);
         $query = $this->db->get();
         if ($query) {
@@ -146,6 +148,49 @@ class Book_model extends CI_Model {
             return false;
         }
     }
+    
+    
+    
+    
+    public function getbooksCount_modal($section_id) {
+
+        $sql = "select count(book.section_id) as allcount from book where   section_id='" . $section_id . "'";
+
+        $query = $this->db->query($sql);
+
+        $result = $query->result_array();
+        if ($result) {
+
+            return $result[0]['allcount'];
+        } else {
+            return false;
+        }
+    }
+
+    public function books_modal($rowno, $rowperpage, $section_id) {
+
+        $this->db->select('*');
+        $this->db->from('book b ,materials m');
+        $this->db->where('(b.section_id="' . $section_id . '") and (b.book_id=m.book_id) ');
+        
+        
+        $this->db->limit($rowperpage, $rowno);
+        $query = $this->db->get();
+        if ($query) {
+
+            return $query->result_array();
+        } else {
+            return false;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     function getgeneration() {
         $sql="BEGIN
     DECLARE rv VARCHAR(1024);
