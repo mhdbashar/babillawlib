@@ -241,6 +241,7 @@ class Book extends Front_end {
                             'date_publication_m' => $this->input->post('date_publication_m'),
                             //'date_publication_h' => $this->input->post('date_publication_h'),
                             'pass' => $this->input->post('pass'),
+                            'interview' => $this->input->post('interview'),
                             'file' => $picture
                         );
                     }

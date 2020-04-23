@@ -95,6 +95,10 @@
 
                             echo '</tr>';
                             
+                            
+                            
+                            
+                            
                             echo '<tr>';
                                   echo '<td>';
                             echo "تاريخ النشر ";
@@ -121,6 +125,17 @@
                             
                             
                            
+                               echo '<tr>';
+                                echo '<td>';
+                            echo "المقدمة";
+                            echo '</td>';
+                            echo '<td>';
+                            echo $result->interview;
+                            echo '</td>';
+
+                            echo '</tr>';
+                            
+                            
                             
                             
                             

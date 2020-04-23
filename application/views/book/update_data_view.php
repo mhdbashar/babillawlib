@@ -101,6 +101,14 @@
                                 <input class="form-control" type="url" name="url" value="<?php echo $book['url']; ?>"  />
                             </div>
                         </div>
+                        
+                           <div class="col-md-6">
+                            <label for="interview" class="control-label"> المقدمة</label>
+                            <div class="form-group">
+
+                                <input class="form-control" type="text" name="interview" value="<?php echo $book['interview']; ?>"  />
+                            </div>
+                        </div>
    <div id="fm">
 
 
