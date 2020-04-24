@@ -648,7 +648,7 @@ class Book extends Front_end {
                 $params = array(
                     // 'main_section' => $result->section_id,
                     'section_id' => $result_result->section_id,
-                    'book_title' => $this->input->post('book_title'),
+                  //  'book_title' => $this->input->post('book_title'),
                     'url' => $this->input->post('url'),
                     //'dis' => $this->input->post('dis'),
                     'history_system_m' => $this->input->post('history_system_m'),

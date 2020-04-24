@@ -1,6 +1,6 @@
 
 <?= $this->layout->block('saudi_regulations') ?>
-    <style>
+<style>
 
     .btnh {
         border: none;
@@ -12,24 +12,24 @@
         color: white;
         margin-bottom: 25px;
     }
-  .btnh:hover {
-      background-color: deepskyblue;
+    .btnh:hover {
+        background-color: deepskyblue;
         color: white;
     }
-   
+
 </style>
-      <center>
-                    <div id="myDIV">
+<center>
+    <div id="myDIV">
 
-                     
-                                    <a   href="<?php echo base_url() ?>section/case_law?section_id=31" class="btnh" >السوابق القضائية</a>
-                        <a href="<?php echo base_url() ?>section/saudi_regulations?section_id=32" class="btnh">الانظمة السعودية</a>
-                            <a href="<?php echo base_url() ?>section/models_and_contracts?section_id=33" class="btnh">نماذج وعقود</a>
-                        <a  href="<?php echo base_url() ?>section/searches_law_books?section_id=34"class="btnh" >الكتب القانونية والأبحاث</a>
-                    
 
-                    </div>    
-                </center>
+        <a   href="<?php echo base_url() ?>section/case_law?section_id=31" class="btnh" >السوابق القضائية</a>
+        <a href="<?php echo base_url() ?>section/saudi_regulations?section_id=32" class="btnh">الانظمة السعودية</a>
+        <a href="<?php echo base_url() ?>section/models_and_contracts?section_id=33" class="btnh">نماذج وعقود</a>
+        <a  href="<?php echo base_url() ?>section/searches_law_books?section_id=34"class="btnh" >الكتب القانونية والأبحاث</a>
+
+
+    </div>    
+</center>
 
 <style>
 
@@ -44,27 +44,28 @@
             <div class="box-header with-border">
                 <h3 class="box-title">  </h3>
                 <div>
-
+                 <div class="col-md-4" id="treeview_json"></div>
                     <form method="post" action="<?php echo base_url() ?>book/book_search_via_section">
+
                         <center>
 
+   
 
-
-                            <select  id="select_system" name="section_id" class="form-control  system" style="border-bottom: 2px #3c8dbc solid;width:50%;height: 42px;">;
+<!--                            <select  id="select_system" name="section_id" class="form-control  system" style="border-bottom: 2px #3c8dbc solid;width:50%;height: 42px;">;
                                 <option value="">اختر النظام</option>
-                                <?php
+                                <php
                                 foreach ($result1 as $value) {
                                     ?>
-                                    <option value="<?php echo $value->section_id ?>"><?php echo $value->section_name ?></option>
+                                    <option value="<php echo $value->section_id ?>"><php echo $value->section_name ?></option>
 
-                                    <?php
+                                    <php
                                 }
                                 ?>
-                            </select>  
+                            </select>  -->
 
+                            <input type="hidden" name="section_id" id="section_id" value="">
 
-
-                            <div class="box-footer">
+                            <div class="box-footer" style="text-align: right;">
                                 <button type="submit" class="btn btn-success save">
                                     <i class="fa fa-check"></i> بحث
                                 </button>
@@ -86,7 +87,7 @@
                         <?php
                         if (isset($result) && !empty($result)) {
                             echo '<tr>';
-                                echo '<td>';
+                            echo '<td>';
                             echo "الاعتماد";
                             echo '</td>';
                             echo '<td>';
@@ -94,39 +95,39 @@
                             echo '</td>';
 
                             echo '</tr>';
-                            
-                            
-                            
-                            
-                            
+
+
+
+
+
                             echo '<tr>';
-                                  echo '<td>';
+                            echo '<td>';
                             echo "تاريخ النشر ";
                             echo '</td>';
                             echo '<td>';
                             echo $result->date_publication_m;
                             echo '</td>';
                             echo '</tr>';
-                            
-                            
-                   
-                            
-                            
-                            
-                            
-                                  echo '<td>';
-                             echo "تاريخ النظام ";
+
+
+
+
+
+
+
+                            echo '<td>';
+                            echo "تاريخ النظام ";
                             echo '</td>';
                             echo '<td>';
                             echo $result->history_system_m;
                             echo '</td>';
                             echo '</tr>';
-                            
-                            
-                            
-                           
-                               echo '<tr>';
-                                echo '<td>';
+
+
+
+
+                            echo '<tr>';
+                            echo '<td>';
                             echo "المقدمة";
                             echo '</td>';
                             echo '<td>';
@@ -134,29 +135,28 @@
                             echo '</td>';
 
                             echo '</tr>';
-                            
-                            
-                            
-                            
-                            
-                            
+
+
+
+
+
+
                             echo '<tr>';
-                                      echo '<td>';
-                             echo "النفاذ";
+                            echo '<td>';
+                            echo "النفاذ";
                             echo '</td>';
                             echo '<td>';
                             echo $result->pass;
                             echo '</td>';
                             echo '</tr>';
                             echo '<tr>';
-                               echo '<td>';
+                            echo '<td>';
                             echo "الرابط";
                             echo '</td>';
                             echo '<td>';
                             echo $result->url;
                             echo '</td>';
                             echo '</tr>';
-                       
                             ?>
 
 
@@ -169,7 +169,7 @@
                 </center>
                 <center>
 
-              
+
 
                     <table style="border-radius: 5px;">
 
@@ -185,22 +185,22 @@
 
 
                                 echo '<div style="text-align: right;  color: #4587ae; font-weight: 900;  font-size: 12px;">';
-  
-   
-  
+
+
+
                                 echo 'رقم المادة :';
                                 echo $value->material_number;
                                 echo '</div>';
-                              echo '<div style="text-align: right;  color: #4587ae; font-weight: 900;  font-size: 12px;">';
+                                echo '<div style="text-align: right;  color: #4587ae; font-weight: 900;  font-size: 12px;">';
                                 echo '<br>';
                                 echo 'الوصف';
-                                         echo '</div>';
+                                echo '</div>';
 
 
-                               
-                                
-                              echo htmlspecialchars_decode(stripslashes($value->description));
-                             echo '<br>';
+
+
+                                echo htmlspecialchars_decode(stripslashes($value->description));
+                                echo '<br>';
                                 ?>
 
 
@@ -240,8 +240,117 @@
 
 
 
+<script>
+    var base_url = '<?php echo base_url(); ?>';
+    $(document).ready(function () {
+
+
+        var getUrlParameter = function getUrlParameter(sParam) {
+
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+
+
+            for (i = 0; i < sURLVariables.length; i++) {
+
+                sParameterName = sURLVariables[i].split('=');
+
+
+                if (sParameterName[0] === sParam) {
+
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+
+                }
+            }
+        };
+
+
+        var main_section_id = getUrlParameter('section_id');
+
+        //alert(main_section_id);
+
+
+
+        var t = '';
+        var html = '';
+
+
+
+
+
+
+        $.ajax({
+            type: "GET",
+            url: "<?php echo base_url() ?>section/getItem/" + 32,
+            dataType: "json",
+            success: function (response)
+            {
+
+                var i = 0;
+                var j = 0;
+                var r = [];
+
+
+                for (i = 0; i < response.result.length; i++) {
+
+
+                    r[i] = response.result[i].section_id;
+
+                }
+
+                $('#treeview_json').treeview({data: response});
+
+                $('#treeview_json').on('nodeSelected', function (event, data) {
+
+                    t = 0;
+                    for (j = 0; j < r.length; j++) {
+
+                        if (r[j] === data.id) {
+
+
+
+                            t = data.id;
+
+                        }
+
+                    }
+
+
+                    if (t !== 0) {
+
+
+
+                        $("#section_id").val(t);
+                 
+                  
+                
+
+
+                    }
+
+
+
+
+
+
+
+
+                });
+
+            }
+        });
+
+
+
+
+
+
+    });
 
 </script>
+
 
 
 
