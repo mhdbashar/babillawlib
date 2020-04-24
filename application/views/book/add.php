@@ -651,7 +651,9 @@
     function addTinyMCE() {
         tinymce.init({
             selector: 'textarea', // change this value according to your HTML
-            language: 'ar'
+            language: 'ar',
+            allow_unsafe_link_target: true,
+            convert_fonts_to_spans : false
 
 
 

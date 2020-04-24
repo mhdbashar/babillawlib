@@ -22,7 +22,7 @@
 
 
 
-            <form method="post" action="<?php echo base_url('book/update/' . $book['book_id']) ?>">
+            <form method="post" action="<?php echo base_url('book/update/' . $book['book_id']) ?>" enctype="multipart/form-data">
                 <input type="hidden" name="sub_section" value="<?php echo $book['section_id']; ?>" id="sub_section" class="sub_section" />
                 <div class="box-body">
                     <div class="row clearfix">
@@ -33,32 +33,32 @@
 
 
 
-                                    <?php
-                                    foreach ($get_main_section as $v) {
+                                <?php
+                                foreach ($get_main_section as $v) {
 
-                                        if ($book['main_section'] == $v->section_id) {
-                                            $select = "selected";
-                                            $main_section = $v->section_name;
-                                            $section_id = $v->section_id;
-                                        } else {
-                                            $select = "";
-                                        }
-                                        ?>
-
-
-<!--                                        <option <php echo $select ?> value="<php echo $v->section_name; ?>" ><php echo $v->section_name; ?></option>-->
-
-
-                                        <?php
+                                    if ($book['main_section'] == $v->section_id) {
+                                        $select = "selected";
+                                        $main_section = $v->section_name;
+                                        $section_id = $v->section_id;
+                                    } else {
+                                        $select = "";
                                     }
                                     ?>
+
+
+        <!--                                        <option <php echo $select ?> value="<php echo $v->section_name; ?>" ><php echo $v->section_name; ?></option>-->
+
+
+                                    <?php
+                                }
+                                ?>
 
 
 
 
                                 <!--</select>-->
                                 <input type="text" name="section_name" value="<?php echo $main_section; ?>" class="form-control" id="book_title" readonly="" />
-                                
+
                             </div>
                         </div>
 
@@ -92,7 +92,23 @@
                             </div>
                         </div>
 
-                       
+
+                        <div class="col-md-6">
+                            <label for="picture" class="control-label">تحميل الكتاب</label>
+                            <div class="form-group">
+
+                                <input class="form-control m" type="file" name="picture" id="picture" value=""   />
+                            </div>
+                        </div>
+
+                        <div class='col-md-6 mini'>
+                            <label for='mini' class='control-label'>تحميل الصورة</label>
+                            <div class='form-group'>
+                                <input class='form-control' type='file' name='mini' id='mini'/>
+                            </div>
+                            <div class='uploadForm'>
+                            </div>
+                        </div>
 
                         <div class="col-md-6">
                             <label for="book_name" class="control-label"> أدخل رابط</label>
@@ -101,48 +117,39 @@
                                 <input class="form-control" type="url" name="url" value="<?php echo $book['url']; ?>"  />
                             </div>
                         </div>
-                        
-                           <div class="col-md-6">
-                            <label for="interview" class="control-label"> المقدمة</label>
-                            <div class="form-group">
 
-                                <input class="form-control" type="text" name="interview" value="<?php echo $book['interview']; ?>"  />
-                            </div>
+                    
+                        <div id="fm">
+
+
                         </div>
-   <div id="fm">
 
 
-                    </div>
-                        
-                        
-                        
+
                         <?php
-                        
-                        
-                         $m = 0;
-                    foreach($book_material as $b)
-                    {
-                      $m = $m + 1;
-                    ?> 
-                     <div class="col-md-6">
-                            <label for="dis" class="control-label">  أدخل الوصف</label>
-                            <div class="form-group">
-                                <textarea id="tin" style="border:2px solid black" name="dis[]" value="<?php echo $b['description']; ?>">  <?php echo $b['description']; ?></textarea>
+                        $m = 0;
+                        foreach ($book_material as $b) {
+                            $m = $m + 1;
+                            ?> 
+                            <div class="col-md-6">
+                                <label for="dis" class="control-label">  أدخل الوصف</label>
+                                <div class="form-group">
+                                    <textarea id="tin" style="border:2px solid black" name="dis[]" value="">  <?php echo $b['description']; ?></textarea>
+                                </div>
                             </div>
-                        </div>
-                         <div class="col-md-6" id="mat">
-                            <label for='material_number' class='control-label'> رقم  المادة</label>
-                            <div class='form-group'>
-                                <input type='text' name='material_number[]' value="<?php echo $b['material_number']; ?>" class='form-control' id='mat1' />
-                                 <input type="hidden" name="material_id[]" value="<?php echo $b['material_id']; ?>">
+                            <div class="col-md-6" id="mat">
+                                <label for='material_number' class='control-label'> رقم  المادة</label>
+                                <div class='form-group'>
+                                    <input type='text' name='material_number[]' value="<?php echo $b['material_number']; ?>" class='form-control' id='mat1' />
+                                    <input type="hidden" name="material_id[]" value="<?php echo $b['material_id']; ?>">
+                                </div>
                             </div>
-                        </div>
-                       
-                    <?php
-                    }
-                    ?>
-                         <input type="hidden" name="mmm" value="<?php echo $m; ?>">
-                  
+
+                            <?php
+                        }
+                        ?>
+                        <input type="hidden" name="mmm" value="<?php echo $m; ?>">
+
                     </div>
 
 
@@ -169,8 +176,10 @@
     $(document).ready(function () {
         var section_name = "<?php echo $main_section; ?>";
         var section_id = "<?php echo $section_id; ?>";
- addTinyMCE();
-
+        addTinyMCE();
+        //$("#mat").hide();
+        $("#add_row").hide();
+         $(".mini").hide();
 
 //        function date_publication_h() {
 //
@@ -294,13 +303,13 @@
         var txt2 = '';
 
 
- if (section_name === 'السوابق القضائية') {
+        if (section_name === 'السوابق القضائية') {
 
             $("#fm").empty();
 
-$("#mat").hide();
+            $("#mat").hide();
+            $("#title").show();
 
-          
 
             $("#fm").html(txt2);
 
@@ -309,8 +318,8 @@ $("#mat").hide();
 
             $("#fm").empty();
 
-$("#mat").hide();
-
+            $("#mat").hide();
+  $(".mini").show();
 
 
             txt2 += "<div class='col-md-6'>";
@@ -346,8 +355,8 @@ $("#mat").hide();
 
             $("#fm").empty();
 
-   $("#title").hide();
-  initHijrDatePickerDefault();
+            $("#title").hide();
+            initHijrDatePickerDefault();
 
 
 
@@ -375,12 +384,14 @@ $("#mat").hide();
             txt2 += "<input type='text' name='date_publication_m' value='<?php echo $book['date_publication_m']; ?>' class='form-control hijri-date-input'    />";
             txt2 += "</div>";
             txt2 += "</div>";
-//              txt2 += "<div class='col-md-6'>";
-//            txt2 += "<label for='date_publication' class='control-label' >تاريخ النشر بالهجري</label>";
-//            txt2 += "<div class='form-group'>";
-//            txt2 += "<input type='text' name='date_publication_h' value='<php echo $book['date_publication_h']; ?>' class='form-control' id='date_publication_h' />";
-//            txt2 += "</div>";
-//            txt2 += "</div>";
+            
+            
+            txt2 += "<div class='col-md-6'>";
+            txt2 += "<label for='date_publication' class='control-label' > المقدمة </label>";
+            txt2 += "<div class='form-group'>";
+            txt2 += "<input type='text' name='interview' value='<?php echo $book['interview']; ?>' class='form-control ' id='' style='text-align:right;  />";
+            txt2 += "</div>";
+            txt2 += "</div>";
 
 
             txt2 += "<div class='col-md-6'>";
@@ -388,18 +399,18 @@ $("#mat").hide();
             txt2 += "<div class='form-group'>";
             txt2 += "<select  name='pass' value='<?php echo $book['pass']; ?>' class='form-control' id='pass'>";
 
-            txt2 += "<option value='valid'>ساري</option>";
-            txt2 += "<option value='notvalid'>غير ساري</option>";
+            txt2 += "<option value='ساري'>ساري</option>";
+            txt2 += "<option value='غير ساري'>غير ساري</option>";
             txt2 += "</select>";
             txt2 += "</div>";
             txt2 += "</div>";
             $("#fm").html(txt2);
 
 
-             initHijrDatePickerDefault();
+            initHijrDatePickerDefault();
 
 
-
+addTinyMCE();
 
 
         } else if (section_name === 'نماذج وعقود') {
@@ -407,7 +418,7 @@ $("#mat").hide();
             $("#fm").empty();
 
 
-$("#mat").hide();
+            $("#mat").hide();
 
 
 
@@ -417,7 +428,21 @@ $("#mat").hide();
             $("#fm").empty();
         }
 
+   function filePreview(input) {
 
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.uploadForm + img').remove();
+                    $('.uploadForm').after('<img src="' + e.target.result + '" width="120" height="150"/>');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#mini").change(function () {
+
+            filePreview(this);
+        });
 
 
 

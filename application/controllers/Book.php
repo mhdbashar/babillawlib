@@ -414,6 +414,33 @@ class Book extends Front_end {
     }
 
     public function update($book_id) {
+        
+        
+        
+          if (!empty($_FILES['picture']['name'])) {
+            $config['upload_path'] = 'uploads/images/';
+            $config['allowed_types'] = '*';
+            $config['encrypt_name'] = TRUE;
+            $config['file_name'] = $_FILES['picture']['name'];
+
+            //Load upload library and initialize configuration
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('picture')) {
+                $uploadData = $this->upload->data();
+                $picture = $uploadData['file_name'];
+            } else {
+                $picture = null;
+            }
+        } else {
+            $picture = null;
+        }
+        
+        
+        
+        
+        
 
         $section_name = $this->input->post('section_name');
 
@@ -435,6 +462,7 @@ class Book extends Front_end {
                 $params = array(
                     'section_id' => $result_result->section_id,
                     'book_title' => $this->input->post('book_title'),
+                    'file' => $picture,
                     'url' => $this->input->post('url'),
                 );
             }
@@ -507,6 +535,27 @@ class Book extends Front_end {
 
             redirect('book/index');
         } else if ($section_name == 'الكتب القانونية والأبحاث') {
+            
+            
+                 if (isset($_FILES['mini']['name'])) {
+                        $config['upload_path'] = 'uploads/images/';
+                        $config['allowed_types'] = 'gif|jpg|png';
+                        $config['encrypt_name'] = TRUE;
+                        $config['file_name'] = $_FILES['mini']['name'];
+
+                        //Load upload library and initialize configuration
+                        $this->load->library('upload', $config);
+                        $this->upload->initialize($config);
+
+                        if ($this->upload->do_upload('mini')) {
+                            $uploadData = $this->upload->data();
+                            $mini = $uploadData['file_name'];
+                        } else {
+                            $mini = '';
+                        }
+                    } else {
+                        $mini = '';
+                    }
 
             if (isset($_POST) && count($_POST) > 0) {
 
@@ -518,7 +567,8 @@ class Book extends Front_end {
                     'author' => $this->input->post('author'),
                     'publisher' => $this->input->post('publisher'),
                     'year_publication' => $this->input->post('year_publication'),
-                        // 'file' => $picture
+                      'file' => $picture,
+                       'mini'=>$mini
                 );
             }
 
@@ -606,7 +656,7 @@ class Book extends Front_end {
                     'date_publication_m' => $this->input->post('date_publication_m'),
                     'interview' => $this->input->post('interview'),
                     'pass' => $this->input->post('pass'),
-                        //'file' => $picture
+                        'file' => $picture
                 );
             }
 
@@ -706,6 +756,7 @@ class Book extends Front_end {
                     'section_id' => $result_result->section_id,
                     'book_title' => $this->input->post('book_title'),
                     'url' => $this->input->post('url'),
+                     'file' => $picture,
                 );
 
 

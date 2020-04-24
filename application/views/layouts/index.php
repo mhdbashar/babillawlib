@@ -44,7 +44,7 @@
     color: #3c8dbc;
     text-align: center;
 
-    font: 17px cairo, sans-serif;
+    font: 14px cairo, sans-serif;
 }
             
         </style>
