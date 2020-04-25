@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2020 at 02:43 PM
+-- Generation Time: Apr 25, 2020 at 09:02 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -42,7 +42,7 @@ CREATE TABLE `book` (
   `the_main_domain` varchar(100) NOT NULL,
   `subdomain` varchar(100) NOT NULL,
   `history_system_m` varchar(100) NOT NULL,
-  `accreditation` varchar(100) NOT NULL,
+  `accreditation` varchar(500) NOT NULL,
   `date_publication_m` varchar(100) NOT NULL,
   `adjustments` varchar(100) NOT NULL,
   `accessories` varchar(100) NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE `book` (
   `dis` varchar(1000) NOT NULL,
   `history_system_h` date NOT NULL,
   `date_publication_h` date NOT NULL,
-  `mini` varchar(100) NOT NULL,
+  `mini` varchar(500) NOT NULL,
   `pdf` varchar(100) DEFAULT NULL,
   `interview` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -173,31 +173,31 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=314;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=320;
 
 --
 -- AUTO_INCREMENT for table `book_tag`
 --
 ALTER TABLE `book_tag`
-  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=452;
+  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=458;
 
 --
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=360;
+  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=366;
 
 --
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
+  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
 
 --
 -- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
