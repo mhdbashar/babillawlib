@@ -1210,7 +1210,7 @@ $html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
 
         for ($i = 0; $i < count($tag_name); $i++) {
 
-            $sql = "select * from tag where tag_name='" . $tag_name[$i] . "'";
+            $sql = "select * from tag where  tag_name  like '%" . $tag_name[$i] . "%' ";
             $query = $this->db->query($sql);
             $result = $query->row();
             if ($result) {
@@ -1219,21 +1219,62 @@ $html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
                 return false;
             }
         }
-        $sql = "SELECT section_id,book_title,file,COUNT(file) AS relevance FROM
-  (SELECT book.section_id,file, book_title FROM book,book_tag,section 
-    WHERE book.file IS NOT NULL and book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
-  GROUP BY  file ORDER BY relevance DESC";
+
+
+        /*  $sql = "SELECT section_id,book_title,file,COUNT(file) AS relevance FROM
+          (SELECT book.section_id,file, book_title FROM book,book_tag,section
+          WHERE book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
+          GROUP BY  file ORDER BY relevance DESC"; */
+
+        //        $sql = "SELECT section_id,book_title,url,file,book_id,COUNT(file) AS relevance FROM
+//  (SELECT book.section_id,file, url,book_title,materials.book_id FROM materials,book,book_tag,section 
+//    where  materials.book_id=book.book_id and    book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches 
+//  GROUP BY  url,file,book_id ORDER BY relevance DESC";
+
+        $sql = "SELECT section_id,book_id,book_title,url,file,COUNT(book_title) AS relevance FROM
+  (SELECT book.section_id,book.book_id,file,url, book_title FROM book,book_tag,section 
+    WHERE  book.book_id=book_tag.book_id and book.main_section=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
+  GROUP BY book_id, book_title,file,book_id,url ORDER BY relevance DESC";
+
+
         $query = $this->db->query($sql);
         $result = $query->result();
 
 
         $html = '';
         foreach ($result as $value) {
+            $url = $value->url;
+            $file = $value->file;
+            //$description = $value->description;
 
-            $html .= '<tr>';
+            $html .= '<tr  style="border-bottom:1px dotted gray;margin-top:20px;">';
+            if ($file != null) {
+                $html .= '<td>عنوان الكتاب</td>';
+                $html .= '<td>' . $value->book_title . '</td>';
+                $html .= '<td><a target="_blank" href="' . base_url() . 'uploads/images/' . $value->file . '">  رابط الملف</a> </td>';
+                $html .= '<td><a target="_blank" href="' . base_url() . 'book/edit/' . $value->book_id . '"> رابط الى محتوى حقول الكتاب</a> </td>';
+            }
 
-            $html .= '<td><a href="' . base_url() . 'uploads/images/' . $value->file . '">استعراض الكتاب</a> </td>';
 
+
+            if ($file == null && $url == null ) {
+                $html .= '<td>عنوان الكتاب</td>';
+                $html .= '<td>' . $value->book_title . '</td>';
+                $html .= '<td><a target="_blank" href="' . base_url() . 'book/edit/' . $value->book_id . '"> رابط الى محتوى حقول الكتاب</a> </td>';
+            }
+
+
+            if ($file == null && $url != null) {
+                $html .= '<td>عنوان الكتاب</td>';
+                $html .= '<td>' . $value->book_title . '</td>';
+                $html .= '<td><a target="_blank" href="' . $url . '"> الرابط</a></td>';
+                $html .= '<td><a target="_blank" href="' . base_url() . 'book/edit/' . $value->book_id . '"> رابط الى محتوى حقول الكتاب</a> </td>';
+            }
+
+        
+
+            $html .= '</tr>';
+$html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
             $html .= '<td> اسم القسم</td>';
 
             $sql2 = "SELECT c.*
@@ -1255,12 +1296,13 @@ $html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
 
                 $html .= '<td>&nbsp&nbsp</td>';
                 $html .= '<td><a class="cc"  href="' . base_url() . 'book/search_all_book_in_sub_section/?section_id=' . $value2->section_id . '">' . $value2->section_name . '</a> </td>';
-                // $html .='<td><a href="' .base_url() . 'uploads/images/' .$value->file. '">استعراض الكتاب</a> </td>';
+
                 $html .= '<td>/</td>';
             }
             $value2->parent_id = -1;
             $html .= '</tr>';
         }
+
 
         $data = $html;
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
