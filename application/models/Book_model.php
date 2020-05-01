@@ -141,7 +141,7 @@ class Book_model extends CI_Model {
 
         $this->db->select('*');
         $this->db->from('book b ,materials m');
-        $this->db->where('(b.section_id="' . $section_id . '") and (b.book_id=m.book_id) and (b.file  is NOT NULL) ');
+        $this->db->where('(b.section_id="' . $section_id . '") and (b.book_id=m.book_id) ');
         
         
         $this->db->limit($rowperpage, $rowno);

@@ -84,131 +84,144 @@
 <script>
     var base_url = '<?php echo base_url(); ?>';
     $(document).ready(function () {
-    var section_id = '';
-    var getUrlParameter = function getUrlParameter(sParam) {
+        var section_id = '';
+        var getUrlParameter = function getUrlParameter(sParam) {
 
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-            sURLVariables = sPageURL.split('&'),
-            sParameterName,
-            i;
-    for (i = 0; i < sURLVariables.length; i++) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+            for (i = 0; i < sURLVariables.length; i++) {
 
-    sParameterName = sURLVariables[i].split('=');
-    if (sParameterName[0] === sParam) {
+                sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] === sParam) {
 
-    return sParameterName[1] === undefined ? true : sParameterName[1];
-    }
-    }
-    };
-    var main_section_id = getUrlParameter('section_id');
-    //alert(main_section_id);
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+        var main_section_id = getUrlParameter('section_id');
+        //alert(main_section_id);
 
 
 
-    var t = '';
-    $.ajax({
-    type: "GET",
+        var t = '';
+        $.ajax({
+            type: "GET",
             url: "<?php echo base_url() ?>section/getItem/" + main_section_id,
             dataType: "json",
             success: function (response)
             {
 
-            var i = 0;
-            var j = 0;
-            var r = [];
-            for (i = 0; i < response.result.length; i++) {
+                var i = 0;
+                var j = 0;
+                var r = [];
+                for (i = 0; i < response.result.length; i++) {
 
 
-            r[i] = response.result[i].section_id;
-            }
+                    r[i] = response.result[i].section_id;
+                }
 
-            $('#treeview_json').treeview({data: response});
-            $('#treeview_json').on('nodeSelected', function (event, data) {
-            t = '';
-            html = '';
-            for (j = 0; j < r.length; j++) {
+                $('#treeview_json').treeview({data: response});
+                $('#treeview_json').on('nodeSelected', function (event, data) {
+                    t = '';
+                    html = '';
+                    for (j = 0; j < r.length; j++) {
 
-            if (r[j] === data.id) {
-
-
-
-            t = data.id;
-            }
-
-            }
-
-            // alert(t);
+                        if (r[j] === data.id) {
 
 
-            section_id = t;
-            function loadPagination(pagno, section_id) {
+
+                            t = data.id;
+                        }
+
+                    }
+
+                    // alert(t);
 
 
-            $.ajax({
+                    section_id = t;
+                    function loadPagination(pagno, section_id) {
 
-            url: "<?php echo base_url() ?>book/book_pagination/" + pagno,
-                    type: 'post',
-                    dataType: 'json',
-                    data: {section_id: section_id},
-                    beforeSend: function () {
 
-                    $("#loader").show();
-                    },
-                    success: function (response) {
+                        $.ajax({
 
-                    //  alert(response.pagination);
+                            url: "<?php echo base_url() ?>book/book_pagination/" + pagno,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {section_id: section_id},
+                            beforeSend: function () {
 
-                    $('#pagination_in_section').html(response.pagination);
-                    createTable(response.result, response.row);
-                    },
-                    complete:function(data){
-                    // Hide image container
-                    $("#loader").hide();
-                    },
+                                $("#loader").show();
+                            },
+                            success: function (response) {
 
-            error: function () {
-            alert("error in loadPagination");
-            }
-            });
-            }
+                                //  alert(response.pagination);
+
+                                $('#pagination_in_section').html(response.pagination);
+                                createTable(response.result, response.row);
+                            },
+                            complete: function (data) {
+                                // Hide image container
+                                $("#loader").hide();
+                            },
+
+                            error: function () {
+                                alert("error in loadPagination");
+                            }
+                        });
+                    }
 
 
 
 
 
 //  Create table list';
-            function createTable(result, sno) {
-            sno = Number(sno);
-            $('#books_in_section').empty();
-            var output = '';
-            for (index in result) {
+                    function createTable(result, sno) {
+                        sno = Number(sno);
+                        $('#books_in_section').empty();
+                        var output = '';
+                        for (index in result) {
 
 
 
-            var book_title = result[index].book_title;
-            var file = result[index].file;
-            var mini = result[index].mini;
-            sno += 1;
-            output += '<li class="item col-lg-2 col-md-4 col-sm-6 col-xs-6 "></a>';
-            output += '<a target="_blank" href="' + base_url + 'uploads/images/' + file + '"><img src="' + base_url + 'uploads/images/' + mini + '" width="120" height="150"  >';
-            output += '<div>' + book_title + '</div>';
-            output += '</li>';
+                            var book_title = result[index].book_title;
+                            var file = result[index].file;
+                            var mini = result[index].mini;
+                            var url = result[index].url;
+
+
+
+
+
+                            sno += 1;
+                            output += '<li class="item col-lg-2 col-md-4 col-sm-6 col-xs-6 "></a>';
+                            if (file !== null) {
+                                output += '<a target="_blank" href="' + base_url + 'uploads/images/' + file + '"><img src="' + base_url + 'uploads/images/' + mini + '" width="120" height="150"  >';
+                            } else {
+                                output += '<a target="_blank" href="' + url + '"><img src="' + base_url + 'uploads/images/' + mini + '" width="120" height="150"  >';
+                            }
+
+
+
+                            output += '<div>' + book_title + '</div>';
+                            output += '</li>';
+                        }
+                        $('#books_in_section').append(output);
+                    }
+
+
+
+
+                    loadPagination(0, section_id);
+                    $('#pagination_in_section').on('click', 'a', function (e) {
+                        e.preventDefault();
+                        var pageno = $(this).attr('data-ci-pagination-page');
+                        loadPagination(pageno, section_id);
+                    });
+                });
             }
-            $('#books_in_section').append(output);
-            }
-
-
-
-
-            loadPagination(0, section_id);
-            $('#pagination_in_section').on('click', 'a', function (e) {
-            e.preventDefault();
-            var pageno = $(this).attr('data-ci-pagination-page');
-            loadPagination(pageno, section_id);
-            });
-            });
-            }
-    });
+        });
 //            function load_book(tt) {
 //
 //
