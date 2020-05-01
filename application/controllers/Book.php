@@ -10,6 +10,7 @@ class Book extends Front_end {
         $this->load->library('upload');
         $this->load->model('Section_model');
         $this->load->model('Material_model');
+        $this->load->model('Version_model');
 
         $this->load->library('form_validation');
     }
@@ -25,8 +26,7 @@ class Book extends Front_end {
         $this->layout->view('book/index', $data);
     }
 
-    function add() {
-
+    function _upload() {
         if (!empty($_FILES['picture']['name'])) {
             $config['upload_path'] = 'uploads/images/';
             $config['allowed_types'] = '*';
@@ -46,6 +46,36 @@ class Book extends Front_end {
         } else {
             $picture = null;
         }
+        return $picture;
+    }
+
+    function _upload_image() {
+        if (isset($_FILES['mini']['name'])) {
+            $config['upload_path'] = 'uploads/images/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['encrypt_name'] = TRUE;
+            $config['file_name'] = $_FILES['mini']['name'];
+
+            //Load upload library and initialize configuration
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('mini')) {
+                $uploadData = $this->upload->data();
+                $mini = $uploadData['file_name'];
+            } else {
+                $mini = '';
+            }
+        } else {
+            $mini = '';
+        }
+        return $mini;
+    }
+
+    function add() {
+
+
+
 
 
         $section_id = $this->input->post('section_id');
@@ -85,7 +115,7 @@ class Book extends Front_end {
                             'section_id' => $result_result->section_id,
                             'book_title' => $this->input->post('book_title'),
                             'url' => $this->input->post('url'),
-                            'file' => $picture
+                            'file' => $this->_upload()
                         );
 
 
@@ -174,7 +204,7 @@ class Book extends Front_end {
                             'author' => $this->input->post('author'),
                             'publisher' => $this->input->post('publisher'),
                             'year_publication' => $this->input->post('year_publication'),
-                            'file' => $picture,
+                            'file' => $this->_upload(),
                             'mini' => $mini
                         );
                     }
@@ -241,8 +271,8 @@ class Book extends Front_end {
                             'date_publication_m' => $this->input->post('date_publication_m'),
                             //'date_publication_h' => $this->input->post('date_publication_h'),
                             'pass' => $this->input->post('pass'),
-                            'interview' => $this->input->post('interview'),
-                            'file' => $picture
+//                              'version' => $this->input->post('version'),
+                            'file' => $this->_upload()
                         );
                     }
 
@@ -257,14 +287,22 @@ class Book extends Front_end {
                         );
                         $this->Material_model->add_material($data);
                     }
+                    for ($count_ver = 0; $count_ver < $_POST["total_item_ver"]; $count_ver++) {
 
-
-                    for ($count = 0; $count < $_POST["total_item"]; $count++) {
                         $data = array(
-                            'dis' => $_POST["dis"][$count],
+                            'version' => $_POST["version"][$count_ver],
                             'book_id' => $book_id,
                         );
+                        $this->Version_model->add_version($data);
                     }
+
+//
+//                    for ($count = 0; $count < $_POST["total_item"]; $count++) {
+//                        $data = array(
+//                            'dis' => $_POST["dis"][$count],
+//                            'book_id' => $book_id,
+//                        );
+//                    }
 
 
 
@@ -314,7 +352,7 @@ class Book extends Front_end {
                             'url' => $this->input->post('url'),
                             'pdf' => $this->input->post('pdf'),
                             //'dis'=>$_POST["dis"][0],
-                            'file' => $picture
+                            'file' => $this->_upload()
                         );
                     }
 
@@ -392,6 +430,7 @@ class Book extends Front_end {
         // check if the book exists before trying to edit it
         $data['book'] = $this->Book_model->get_book($book_id);
         $data['book_material'] = $this->Material_model->get_material_book($book_id);
+        $data['book_version'] = $this->Version_model->get_version_book($book_id);
 //$data['get_tag_book']=$this->Book_model->get_tag_book($book_id);
 
         $data['get_main_section'] = $this->Section_model->get_main_section();
@@ -414,33 +453,6 @@ class Book extends Front_end {
     }
 
     public function update($book_id) {
-        
-        
-        
-          if (!empty($_FILES['picture']['name'])) {
-            $config['upload_path'] = 'uploads/images/';
-            $config['allowed_types'] = '*';
-            $config['encrypt_name'] = TRUE;
-            $config['file_name'] = $_FILES['picture']['name'];
-
-            //Load upload library and initialize configuration
-            $this->load->library('upload', $config);
-            $this->upload->initialize($config);
-
-            if ($this->upload->do_upload('picture')) {
-                $uploadData = $this->upload->data();
-                $picture = $uploadData['file_name'];
-            } else {
-                $picture = null;
-            }
-        } else {
-            $picture = null;
-        }
-        
-        
-        
-        
-        
 
         $section_name = $this->input->post('section_name');
 
@@ -457,12 +469,51 @@ class Book extends Front_end {
 
         if ($section_name == 'السوابق القضائية') {
 
+
+
+            $data = array();
+
+            if ($this->input->post('remove_photo')) {
+
+                if (file_exists('uploads/images/' . $this->input->post('remove_photo'))) {
+
+                    unlink('uploads/images/' . $this->input->post('remove_photo'));
+                }
+
+                $data['file'] = null;
+            }
+
+
+            if (!empty($_FILES['picture']['name'])) {
+
+                $upload = $this->_upload();
+
+                //delete file
+                $add_book = $this->Book_model->get_book($book_id);
+                if (file_exists('uploads/images/' . $add_book['file']) && $add_book['file'])
+                    unlink('uploads/images/' . $add_book['file']);
+
+                $data['file'] = $upload;
+                $this->Book_model->update_book($book_id, $data);
+            }
+            
+
+
+
+
             if (isset($_POST) && count($_POST) > 0) {
+
+
+
+
+
+
+
 
                 $params = array(
                     'section_id' => $result_result->section_id,
                     'book_title' => $this->input->post('book_title'),
-                    'file' => $picture,
+                    //'file' => $picture,
                     'url' => $this->input->post('url'),
                 );
             }
@@ -535,27 +586,55 @@ class Book extends Front_end {
 
             redirect('book/index');
         } else if ($section_name == 'الكتب القانونية والأبحاث') {
-            
-            
-                 if (isset($_FILES['mini']['name'])) {
-                        $config['upload_path'] = 'uploads/images/';
-                        $config['allowed_types'] = 'gif|jpg|png';
-                        $config['encrypt_name'] = TRUE;
-                        $config['file_name'] = $_FILES['mini']['name'];
 
-                        //Load upload library and initialize configuration
-                        $this->load->library('upload', $config);
-                        $this->upload->initialize($config);
 
-                        if ($this->upload->do_upload('mini')) {
-                            $uploadData = $this->upload->data();
-                            $mini = $uploadData['file_name'];
-                        } else {
-                            $mini = '';
-                        }
-                    } else {
-                        $mini = '';
-                    }
+
+
+
+            $data = array();
+
+            if ($this->input->post('remove_photo')) {
+
+                if (file_exists('uploads/images/' . $this->input->post('remove_photo'))) {
+
+                    unlink('uploads/images/' . $this->input->post('remove_photo'));
+                }
+
+                $data['file'] = null;
+
+                $this->Book_model->update_book($book_id, $data);
+            }
+
+
+            if (!empty($_FILES['picture']['name'])) {
+
+                $upload = $this->_upload();
+
+                //delete file
+                $add_book = $this->Book_model->get_book($book_id);
+                if (file_exists('uploads/images/' . $add_book['file']) && $add_book['file'])
+                    unlink('uploads/images/' . $add_book['file']);
+
+                $data['file'] = $upload;
+
+                $this->Book_model->update_book($book_id, $data);
+            }
+
+
+            $data_image = array();
+
+            if (!empty($_FILES['mini']['name'])) {
+
+                $upload_mini = $this->_upload_image();
+
+                //delete file
+                $add_book = $this->Book_model->get_book($book_id);
+                if (file_exists('uploads/images/' . $add_book['mini']) && $add_book['mini'])
+                    unlink('uploads/images/' . $add_book['mini']);
+
+                $data_image['mini'] = $upload_mini;
+                $this->Book_model->update_book($book_id, $data_image);
+            }
 
             if (isset($_POST) && count($_POST) > 0) {
 
@@ -567,8 +646,8 @@ class Book extends Front_end {
                     'author' => $this->input->post('author'),
                     'publisher' => $this->input->post('publisher'),
                     'year_publication' => $this->input->post('year_publication'),
-                      'file' => $picture,
-                       'mini'=>$mini
+                        //'file' => $picture,
+                        //'mini' => $this->_upload_image()
                 );
             }
 
@@ -643,20 +722,52 @@ class Book extends Front_end {
             redirect('book/index');
         } elseif ($section_name == 'الأنظمة السعودية') {
 
+
+
+
+            $data = array();
+
+            if ($this->input->post('remove_photo')) {
+
+                if (file_exists('uploads/images/' . $this->input->post('remove_photo'))) {
+
+                    unlink('uploads/images/' . $this->input->post('remove_photo'));
+                }
+
+                $data['file'] = null;
+
+                $this->Book_model->update_book($book_id, $data);
+            }
+
+
+            if (!empty($_FILES['picture']['name'])) {
+
+                $upload = $this->_upload();
+
+                //delete file
+                $add_book = $this->Book_model->get_book($book_id);
+                if (file_exists('uploads/images/' . $add_book['file']) && $add_book['file'])
+                    unlink('uploads/images/' . $add_book['file']);
+
+                $data['file'] = $upload;
+
+                $this->Book_model->update_book($book_id, $data);
+            }
+
+
+
+
+
+
             if (isset($_POST) && count($_POST) > 0) {
 
                 $params = array(
-                    // 'main_section' => $result->section_id,
                     'section_id' => $result_result->section_id,
-                  //  'book_title' => $this->input->post('book_title'),
                     'url' => $this->input->post('url'),
-                    //'dis' => $this->input->post('dis'),
                     'history_system_m' => $this->input->post('history_system_m'),
                     'accreditation' => $this->input->post('accreditation'),
                     'date_publication_m' => $this->input->post('date_publication_m'),
-                    'interview' => $this->input->post('interview'),
                     'pass' => $this->input->post('pass'),
-                        'file' => $picture
                 );
             }
 
@@ -673,6 +784,54 @@ class Book extends Front_end {
                 );
                 $this->Material_model->update_material_book($_POST["material_id"][$count], $data);
             }
+
+
+
+
+            for ($i = 0; $i < $_POST["total_item"]; $i++) {
+                $data1 = array(
+                    'description' => $_POST["dis1"][$i],
+                    'material_number' => $_POST["material_number1"][$i],
+                    'book_id' => $book_id,
+                );
+                $this->Material_model->add_material($data1);
+            }
+
+
+
+
+
+
+
+
+
+
+            $count_ver = 0;
+
+            $vv = $this->input->post("vv");
+
+            for ($count_ver = 0; $count_ver < $vv; $count_ver++) {
+
+                $data_ver = array(
+                    'version' => $_POST["version"][$count_ver],
+                );
+                $this->Version_model->update_version_book($_POST["version_id"][$count_ver], $data_ver);
+            }
+
+
+
+
+            for ($j = 0; $j < $_POST["total_item_ver"]; $j++) {
+                $data2 = array(
+                    'version' => $_POST["version1"][$j],
+                    'book_id' => $book_id,
+                );
+                $this->Version_model->add_version($data2);
+            }
+
+
+
+
 
 
 
@@ -728,6 +887,41 @@ class Book extends Front_end {
             redirect('book/index');
         } elseif ($section_name == 'نماذج وعقود') {
 
+            $data = array();
+
+            if ($this->input->post('remove_photo')) {
+
+                if (file_exists('uploads/images/' . $this->input->post('remove_photo'))) {
+
+                    unlink('uploads/images/' . $this->input->post('remove_photo'));
+                }
+
+                $data['file'] = null;
+                $this->Book_model->update_book($book_id, $data);
+            }
+
+
+            if (!empty($_FILES['picture']['name'])) {
+
+                $upload = $this->_upload();
+
+                //delete file
+                $add_book = $this->Book_model->get_book($book_id);
+                if (file_exists('uploads/images/' . $add_book['file']) && $add_book['file'])
+                    unlink('uploads/images/' . $add_book['file']);
+
+                $data['file'] = $upload;
+
+                $this->Book_model->update_book($book_id, $data);
+            }
+
+
+
+
+
+
+
+
             if ($this->input->post('table_column')) {
 
                 $params = array(
@@ -756,7 +950,7 @@ class Book extends Front_end {
                     'section_id' => $result_result->section_id,
                     'book_title' => $this->input->post('book_title'),
                     'url' => $this->input->post('url'),
-                     'file' => $picture,
+                        //'file' => $picture,
                 );
 
 
@@ -886,8 +1080,7 @@ class Book extends Front_end {
     function search_book() {
 
         $tag_name_name = $this->input->post('query');
-        //$tag_name_name = "n";
-//$this->input->post('query')
+
 
         $new_tag_name = str_replace(' ', '', $tag_name_name);
         $tag_name = explode(",", $new_tag_name);
@@ -895,7 +1088,7 @@ class Book extends Front_end {
 
         for ($i = 0; $i < count($tag_name); $i++) {
 
-            $sql = "select * from tag where tag_name='" . $tag_name[$i] . "'";
+            $sql = "select * from tag where  tag_name  like '%" . $tag_name[$i] . "%' ";
             $query = $this->db->query($sql);
             $result = $query->row();
             if ($result) {
@@ -911,22 +1104,55 @@ class Book extends Front_end {
           WHERE book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
           GROUP BY  file ORDER BY relevance DESC"; */
 
+        //        $sql = "SELECT section_id,book_title,url,file,book_id,COUNT(file) AS relevance FROM
+//  (SELECT book.section_id,file, url,book_title,materials.book_id FROM materials,book,book_tag,section 
+//    where  materials.book_id=book.book_id and    book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches 
+//  GROUP BY  url,file,book_id ORDER BY relevance DESC";
 
-        $sql = "SELECT section_id,book_title,file,COUNT(file) AS relevance FROM
-  (SELECT book.section_id,file, book_title FROM book,book_tag,section 
-    where book.file IS NOT NULL and book.book_id=book_tag.book_id and book.section_id=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches 
-  GROUP BY  file ORDER BY relevance DESC";
+        $sql = "SELECT section_id,book_id,book_title,url,file,COUNT(book_title) AS relevance FROM
+  (SELECT book.section_id,book.book_id,file,url, book_title FROM book,book_tag,section 
+    WHERE  book.book_id=book_tag.book_id and book.main_section=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
+  GROUP BY book_id, book_title,file,book_id,url ORDER BY relevance DESC";
+
+
         $query = $this->db->query($sql);
         $result = $query->result();
 
 
         $html = '';
         foreach ($result as $value) {
+            $url = $value->url;
+            $file = $value->file;
+            //$description = $value->description;
 
-            $html .= '<tr>';
+            $html .= '<tr  style="border-bottom:1px dotted gray;margin-top:20px;">';
+            if ($file != null) {
+                $html .= '<td>عنوان الكتاب</td>';
+                $html .= '<td>' . $value->book_title . '</td>';
+                $html .= '<td><a target="_blank" href="' . base_url() . 'uploads/images/' . $value->file . '">  رابط الملف</a> </td>';
+                $html .= '<td><a target="_blank" href="' . base_url() . 'book/edit/' . $value->book_id . '"> رابط الى محتوى حقول الكتاب</a> </td>';
+            }
 
-            $html .= '<td><a href="' . base_url() . 'uploads/images/' . $value->file . '">استعراض الكتاب</a> </td>';
 
+
+            if ($file == null && $url == null ) {
+                $html .= '<td>عنوان الكتاب</td>';
+                $html .= '<td>' . $value->book_title . '</td>';
+                $html .= '<td><a target="_blank" href="' . base_url() . 'book/edit/' . $value->book_id . '"> رابط الى محتوى حقول الكتاب</a> </td>';
+            }
+
+
+            if ($file == null && $url != null) {
+                $html .= '<td>عنوان الكتاب</td>';
+                $html .= '<td>' . $value->book_title . '</td>';
+                $html .= '<td><a target="_blank" href="' . $url . '"> الرابط</a></td>';
+                $html .= '<td><a target="_blank" href="' . base_url() . 'book/edit/' . $value->book_id . '"> رابط الى محتوى حقول الكتاب</a> </td>';
+            }
+
+        
+
+            $html .= '</tr>';
+$html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
             $html .= '<td> اسم القسم</td>';
 
             $sql2 = "SELECT c.*
@@ -948,7 +1174,7 @@ class Book extends Front_end {
 
                 $html .= '<td>&nbsp&nbsp</td>';
                 $html .= '<td><a class="cc"  href="' . base_url() . 'book/search_all_book_in_sub_section/?section_id=' . $value2->section_id . '">' . $value2->section_name . '</a> </td>';
-                // $html .='<td><a href="' .base_url() . 'uploads/images/' .$value->file. '">استعراض الكتاب</a> </td>';
+
                 $html .= '<td>/</td>';
             }
             $value2->parent_id = -1;
@@ -1068,6 +1294,22 @@ class Book extends Front_end {
 
         $data['result'] = $this->Book_model->search_via_section_k($section_id);
         $data['result2'] = $this->Book_model->search_material_book_via_section($section_id);
+        $data['result3'] = $this->Book_model->search_version_book_via_section($section_id);
+        
+
+        $this->layout->view('main_sections/saudi_regulations', $data);
+    }
+
+    function book_page_for_saudi_regulations() {
+
+
+        $data['result1'] = $this->Section_model->get_section_via_parent(32);
+
+        $section_id = $this->input->get('section_id');
+
+
+        $data['result'] = $this->Book_model->search_via_section_k($section_id);
+        $data['result2'] = $this->Book_model->search_material_book_via_section($section_id);
 
         $this->layout->view('main_sections/saudi_regulations', $data);
     }
@@ -1133,8 +1375,7 @@ class Book extends Front_end {
         $data['get_main_section'] = $this->Section_model->get_main_section();
         echo json_encode($data);
     }
-    
-    
+
     function book_pagination_modal($rowno = 0) {
 
         $section_id = $this->input->post("section_id");
@@ -1196,9 +1437,6 @@ class Book extends Front_end {
         $data['get_main_section'] = $this->Section_model->get_main_section();
         echo json_encode($data);
     }
-
-    
-    
 
     function search_book_via_section() {
 

@@ -16,6 +16,11 @@
         background-color: deepskyblue;
         color: white;
     }
+    td{
+       padding: 10px; 
+        
+    }
+   
 
 </style>
 <center>
@@ -35,6 +40,10 @@
 
     tr {
         border-bottom: 1px dashed #ddd;
+    }
+    .h{
+      font-weight: bold;  
+        
     }
 </style>
 
@@ -87,8 +96,8 @@
                         <?php
                         if (isset($result) && !empty($result)) {
                             echo '<tr>';
-                            echo '<td>';
-                            echo "الاعتماد";
+                            echo '<td class="h">';
+                            echo "الاعتماد:";
                             echo '</td>';
                             echo '<td>';
                             echo $result->accreditation;
@@ -101,8 +110,8 @@
 
 
                             echo '<tr>';
-                            echo '<td>';
-                            echo "تاريخ النشر ";
+                            echo '<td class="h">';
+                            echo "تاريخ النشر :";
                             echo '</td>';
                             echo '<td>';
                             echo $result->date_publication_m;
@@ -115,8 +124,8 @@
 
 
 
-                            echo '<td>';
-                            echo "تاريخ النظام ";
+                            echo '<td class="h">';
+                            echo "تاريخ النظام :";
                             echo '</td>';
                             echo '<td>';
                             echo $result->history_system_m;
@@ -126,15 +135,32 @@
 
 
 
-                            echo '<tr>';
-                            echo '<td>';
-                            echo "المقدمة";
+            
+                      
+                          
+                            
+                              if (isset($result3) && !empty($result3)) {
+                            $c=0;
+                                 foreach ($result3 as $value) {
+                                     $c++;
+                                         echo '<tr>';
+                                      echo '<td class="h">';
+                            echo "الإصدار";
+                            echo '&nbsp'; 
+                            echo $c;
+                            echo ':';
                             echo '</td>';
-                            echo '<td>';
-                            echo $result->interview;
+                                 
+                                       echo '<td>';
+                                     echo $value->version;
                             echo '</td>';
-
-                            echo '</tr>';
+echo '</tr>';
+                     
+                                  
+                                 }
+                                 }
+                                   
+                            
 
 
 
@@ -142,16 +168,16 @@
 
 
                             echo '<tr>';
-                            echo '<td>';
-                            echo "النفاذ";
+                            echo '<td class="h">';
+                            echo "النفاذ:";
                             echo '</td>';
                             echo '<td>';
                             echo $result->pass;
                             echo '</td>';
                             echo '</tr>';
                             echo '<tr>';
-                            echo '<td>';
-                            echo "الرابط";
+                            echo '<td class="h">';
+                            echo "الرابط:";
                             echo '</td>';
                             echo '<td>';
                             echo $result->url;
@@ -167,11 +193,12 @@
 
                     </table>
                 </center>
+                <br><br><br><br>
                 <center>
 
 
 
-                    <table style="border-radius: 5px;">
+                    <table>
 
 
 
@@ -192,8 +219,7 @@
                                 echo $value->material_number;
                                 echo '</div>';
                                 echo '<div style="text-align: right;  color: #4587ae; font-weight: 900;  font-size: 12px;">';
-                                echo '<br>';
-                                echo 'الوصف';
+                               
                                 echo '</div>';
 
 

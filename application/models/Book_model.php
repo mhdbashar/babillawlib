@@ -80,7 +80,7 @@ class Book_model extends CI_Model {
     function search_via_section($section_id) {
 
 
-        $sql = "select * from book where book.file IS NOT NULL and   section_id='" . $section_id . "' ";
+        $sql = "select * from book   where section_id='" . $section_id . "' ";
 
 
         $query = $this->db->query($sql);
@@ -113,6 +113,11 @@ class Book_model extends CI_Model {
 
     function search_material_book_via_section($section_id) {
         $sql = "select * from book,materials where book.section_id='" . $section_id . "' and book.book_id=materials.book_id ";
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+     function search_version_book_via_section($section_id) {
+        $sql = "select * from book,version where book.section_id='" . $section_id . "' and book.book_id=version.book_id ";
         $query = $this->db->query($sql);
         return $query->result();
     }

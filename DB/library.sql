@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2020 at 09:02 AM
+-- Generation Time: May 01, 2020 at 07:42 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -33,12 +33,12 @@ CREATE TABLE `book` (
   `book_name` varchar(100) NOT NULL,
   `jurisdiction` varchar(100) NOT NULL,
   `author` varchar(100) NOT NULL,
-  `publisher` varchar(100) NOT NULL,
+  `publisher` varchar(500) NOT NULL,
   `year_publication` year(4) NOT NULL,
   `subject` varchar(20) NOT NULL,
   `volume_number` int(11) NOT NULL,
   `year` year(4) NOT NULL,
-  `book_title` varchar(500) DEFAULT NULL,
+  `book_title` varchar(500) DEFAULT 'لا يوجد عنوان',
   `the_main_domain` varchar(100) NOT NULL,
   `subdomain` varchar(100) NOT NULL,
   `history_system_m` varchar(100) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE `book` (
   `section_id` int(11) NOT NULL,
   `file` varchar(500) DEFAULT NULL,
   `main_section` int(11) NOT NULL,
-  `url` varchar(100) NOT NULL,
+  `url` varchar(100) DEFAULT NULL,
   `dis` varchar(1000) NOT NULL,
   `history_system_h` date NOT NULL,
   `date_publication_h` date NOT NULL,
@@ -79,8 +79,8 @@ CREATE TABLE `book_tag` (
 
 CREATE TABLE `materials` (
   `material_id` int(11) NOT NULL,
-  `material_number` varchar(50) NOT NULL,
-  `description` varchar(4000) NOT NULL,
+  `material_number` varchar(500) NOT NULL,
+  `description` mediumtext NOT NULL,
   `book_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -92,7 +92,7 @@ CREATE TABLE `materials` (
 
 CREATE TABLE `section` (
   `section_id` int(11) NOT NULL,
-  `section_name` varchar(100) NOT NULL,
+  `section_name` varchar(500) NOT NULL,
   `parent_id` int(11) NOT NULL,
   `section_discription` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -128,7 +128,19 @@ INSERT INTO `section` (`section_id`, `section_name`, `parent_id`, `section_discr
 
 CREATE TABLE `tag` (
   `tag_id` int(11) NOT NULL,
-  `tag_name` varchar(500) NOT NULL
+  `tag_name` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `version`
+--
+
+CREATE TABLE `version` (
+  `version_id` int(11) NOT NULL,
+  `version` varchar(1200) NOT NULL,
+  `book_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -166,6 +178,12 @@ ALTER TABLE `tag`
   ADD PRIMARY KEY (`tag_id`);
 
 --
+-- Indexes for table `version`
+--
+ALTER TABLE `version`
+  ADD PRIMARY KEY (`version_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -173,19 +191,19 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=320;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=451;
 
 --
 -- AUTO_INCREMENT for table `book_tag`
 --
 ALTER TABLE `book_tag`
-  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=458;
+  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=700;
 
 --
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=366;
+  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=614;
 
 --
 -- AUTO_INCREMENT for table `section`
@@ -197,7 +215,13 @@ ALTER TABLE `section`
 -- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=280;
+
+--
+-- AUTO_INCREMENT for table `version`
+--
+ALTER TABLE `version`
+  MODIFY `version_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -2,7 +2,14 @@
 <?= $this->layout->block('search') ?>
 <link rel="stylesheet" href="<?=base_url()?>assets/dist/css/bootstrap-datepicker.css">
    
+<style>
+    td{
+        
+        height: 25px;
+    }
     
+    
+</style>
    
 
 <div class="row">
@@ -27,10 +34,10 @@
                 </div>
              
                     
-                <table id="result"  class="table-bordered stripe border border-primary table themed-grid-col" style="width: 70%">
+                <table id="result"  class="table-bordered stripe border border-primary table themed-grid-col" >
                         
                     </table>
-                  <table id="result_all_books"  class="table-bordered stripe border border-primary table themed-grid-col " style="width: 35%">
+                  <table id="result_all_books"  class="table-bordered stripe border border-primary table themed-grid-col " >
                         
                     </table>
                 
@@ -136,8 +143,12 @@
        htm+= data.result[k].book_title;
       
             htm+= '</td>';
-        htm +='<td><a target="_blank" href="' +base_url+ 'uploads/images/' +data.result[k].file+ '">استعراض الكتاب</a> </td>';
         
+           
+              htm += '<td><a target="_blank" href="' + base_url + 'book/edit/' + data.result[k].book_id + '"> رابط الى محتوى حقول الكتاب</a> </td>'; 
+                
+         
+       
      
         htm+= '</tr>';
       }

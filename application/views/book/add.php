@@ -46,7 +46,11 @@
             <form method="post" action="<?php echo base_url() ?>book/add" enctype="multipart/form-data" id="format"  >
 
                 <input type="hidden" name="sub_section" value="" id="sub_section" class="sub_section" />
+
                 <input type="hidden" name="total_item" id="total_item" value="1" />
+
+                <input type="hidden" name="total_item_ver" id="total_item_ver" value="1" />
+
                 <div class="box-body" id="box-body">
                     <div class="row clearfix">
                         <div class="col-md-6">
@@ -129,12 +133,12 @@
                                 <input class="form-control" type="url" name="url" />
                             </div>
                         </div>
-<!--                        <div class="col-md-6" id="pdf_div">
-                            <label for='pdf' class='control-label'>   عرض ك ملف الكتروني</label>
-                            <div class='form-group'>
-                                <input type="checkbox" name="pdf">
-                            </div>
-                        </div>-->
+                        <!--                        <div class="col-md-6" id="pdf_div">
+                                                    <label for='pdf' class='control-label'>   عرض ك ملف الكتروني</label>
+                                                    <div class='form-group'>
+                                                        <input type="checkbox" name="pdf">
+                                                    </div>
+                                                </div>-->
 
                         <div id="fm">
 
@@ -143,12 +147,42 @@
                         <div id="new_row">
 
                         </div>
+
+                        <div id="ver_ver">
+                        <div class="col-md-12" >
+                            <label for="version" class="control-label">الإصدار</label>
+                            <div class="form-group">
+                                <input type='text' name='version[]' value='' class='form-control' id='version' />
+                            </div>
+                        </div>
+                         </div>
+                        
+                        
+                        
+                        
+                              <div class="col-md-12" >
+                        <div class="form-group">
+                            <div align="right">
+                                <button type="button" name="add_row_ver" id="add_row_ver" class="btn btn-success btn-s">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
                         <div class="col-md-6" id="mat">
                             <label for='material_number' class='control-label'> رقم  المادة</label>
                             <div class='form-group'>
                                 <input type='text' name='material_number[]' value='' class='form-control' id='mat1' />
                             </div>
                         </div>
+
+
+
+
+
+
 
                         <div class="col-md-6" id="dis" >
                             <label for="dis" class="control-label">  أدخل الوصف</label>
@@ -200,9 +234,9 @@
 
 <script>
     $(document).ready(function () {
- var t = 0;
+        var t = 0;
         $(".mini").hide();
-
+        $("#ver_ver").hide();
         $("#pdf_div").hide();
 
 
@@ -211,6 +245,7 @@
         var main_section_id = '';
         $("#mat").hide();
         $("#add_row").hide();
+        $("#add_row_ver").hide();
 
         $("select.section").change(function () {
             addTinyMCE();
@@ -218,13 +253,15 @@
             $("#mat").hide();
 
             $("#add_row").hide();
+            $("#add_row_ver").hide();
             $(".collection").hide();
+            $(".coll").hide();
 
             $(".uploadForm").html('');
 
             $(".mini").hide();
 
-
+            $("#ver_ver").hide();
             main_section_id = $(this).children("option:selected").val();
             var section_name = $("#sel_section option:selected").html();
 
@@ -242,7 +279,7 @@
                     var i = 0;
                     var j = 0;
                     var r = [];
-                   
+
                     var k = '';
                     for (i = 0; i < response.result.length; i++) {
 
@@ -400,8 +437,9 @@
 //                $("#mor_textarea").empty();
 //                $("#mor_textarea").show();
                 $("#add_row").show();
+                $("#add_row_ver").show();
 
-
+                $("#ver_ver").show();
                 txt2 += "<div class='col-md-6'>";
                 txt2 += "<label for='history_system_m' class='control-label'> تاريخ النظام </label>";
                 txt2 += "<div class='form-group'>";
@@ -426,12 +464,7 @@
                 txt2 += "<input type='text' name='date_publication_m' value='' class='form-control hijri-date-input' id='date_publication_m'  />";
                 txt2 += "</div>";
                 txt2 += "</div>";
-                txt2 += "<div class='col-md-6'>";
-                txt2 += "<label for='date_publication' class='control-label' > المقدمة </label>";
-                txt2 += "<div class='form-group'>";
-                txt2 += "<input type='text' name='interview' value='' class='form-control ' id='' style='text-align:right;  />";
-                txt2 += "</div>";
-                txt2 += "</div>";
+
 
 
                 txt2 += "<div class='col-md-6'>";
@@ -476,7 +509,7 @@
         var count = 1;
 
         $(document).on('click', '#add_row', function () {
-
+addTinyMCE();
             count++;
             $('#total_item').val(count);
             var txt5 = '';
@@ -500,7 +533,7 @@
 
             txt5 += '</div>';
 
-
+addTinyMCE();
 
             $('#hide').append(txt5);
 
@@ -511,13 +544,48 @@
 
 
 
-        $(document).on('click', '.remove_row', function () {
+        var count_ver = 1;
 
+        $(document).on('click', '#add_row_ver', function () {
+ 
+            count_ver++;
+            $('#total_item_ver').val(count_ver);
+            var txt6 = '';
+
+            txt6 += ' <div class="coll" id="row_id_ver'+ count_ver+'"  >';
+             txt6 += ' <div class="col-md-12">';
+            
+            
+            txt6 += ' <label for="version" class="control-label">الإصدار</label>';
+            txt6 += ' <div class="form-group">';
+            txt6 += '<input type="text" name="version[]" value="" class="form-control" id="version'+count_ver+'" />';
+             txt6 += '<button type="button" name="remove_row_ver" data-id="' + count_ver + '"  class="btn btn-danger btn-s remove_row_ver">X</button>';
+            txt6 += '</div>';
+            txt6 += '</div>';
+ txt6 += '</div>';
+            $('#ver_ver').append(txt6);
+
+
+        });
+
+        $(document).on('click', '.remove_row', function () {
+ addTinyMCE();
             var row_id = $(this).attr("id");
 
             $('#row_id_' + row_id).remove();
             count--;
             $('#total_item').val(count);
+            addTinyMCE();
+        });
+        
+           $(document).on('click', '.remove_row_ver', function () {
+
+            var row_id_ver = $(this).attr("data-id");
+        
+
+            $('#row_id_ver' + row_id_ver).remove();
+            count_ver--;
+            $('#total_item_ver').val(count_ver);
         });
 
 
@@ -556,7 +624,7 @@
 //        });
         $(".save").click(function () {
 
-            if (t === 0 || t==='') {
+            if (t === 0 || t === '') {
                 alert("إختر القسم الرئيسي");
                 $("#format").trigger("reset");
                 //return false;
@@ -569,6 +637,10 @@
 
 
         });
+        
+        
+
+
 
     });
 
@@ -653,7 +725,7 @@
             selector: 'textarea', // change this value according to your HTML
             language: 'ar',
             allow_unsafe_link_target: true,
-            convert_fonts_to_spans : false
+            convert_fonts_to_spans: false
 
 
 

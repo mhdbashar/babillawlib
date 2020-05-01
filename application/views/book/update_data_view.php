@@ -5,10 +5,10 @@
 
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/dist/css/calendar-system.css">
 
-<link rel="stylesheet" href="<?= base_url() ?>assets/tinymce/skin.min.css">
+<!--<link rel="stylesheet" href="<?= base_url() ?>assets/tinymce/skin.min.css">
 
-<script src="<?= base_url() ?>assets/tinymce/modern/theme.js" referrerpolicy="origin"></script>
-<script src="<?= base_url() ?>assets/tinymce/modern/theme.min.js" referrerpolicy="origin"></script>
+<script src="<= base_url() ?>assets/tinymce/modern/theme.js" referrerpolicy="origin"></script>
+<script src="<= base_url() ?>assets/tinymce/modern/theme.min.js" referrerpolicy="origin"></script>-->
 
 
 <script src="<?= base_url() ?>assets/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
@@ -24,6 +24,8 @@
 
             <form method="post" action="<?php echo base_url('book/update/' . $book['book_id']) ?>" enctype="multipart/form-data">
                 <input type="hidden" name="sub_section" value="<?php echo $book['section_id']; ?>" id="sub_section" class="sub_section" />
+                <input type="hidden" name="total_item" id="total_item" value="0"  />
+                  <input type="hidden" name="total_item_ver" id="total_item_ver" value="0"  />
                 <div class="box-body">
                     <div class="row clearfix">
                         <div class="col-md-6">
@@ -46,7 +48,7 @@
                                     ?>
 
 
-        <!--                                        <option <php echo $select ?> value="<php echo $v->section_name; ?>" ><php echo $v->section_name; ?></option>-->
+                        <!--                                        <option <php echo $select ?> value="<php echo $v->section_name; ?>" ><php echo $v->section_name; ?></option>-->
 
 
                                     <?php
@@ -94,19 +96,50 @@
 
 
                         <div class="col-md-6">
-                            <label for="picture" class="control-label">تحميل الكتاب</label>
+                            <?php
+                            if (isset($book['file'])) {
+                                ?>
+                                <div style="margin-right:5px"><a target="_blank" href="<?php echo base_url() ?>uploads/images/<?php echo $book['file']; ?>">الملف القديم : <span style="font-size: 20px" class="glyphicon">&#xe025;</span></a></div> <br>
+                                <div> <input type="checkbox" name="remove_photo" value="<?php echo $book['file']; ?>"/>حذف الملف القديم</div><br>
+
+                                <?php
+                            }
+                            ?>
+
+
+
+
+                            <label for="picture" class="control-label"> تحميل الكتاب  :</label>
                             <div class="form-group">
 
-                                <input class="form-control m" type="file" name="picture" id="picture" value=""   />
+                                <input class="form-control m" type="file" name="picture" id="picture" value="<?php echo $book['file']; ?>"   />
                             </div>
                         </div>
 
+
                         <div class='col-md-6 mini'>
+
                             <label for='mini' class='control-label'>تحميل الصورة</label>
                             <div class='form-group'>
-                                <input class='form-control' type='file' name='mini' id='mini'/>
+                                <input class='form-control' type='file' name='mini' id='mini' value="<?php echo $book['mini']; ?>">
                             </div>
+
                             <div class='uploadForm'>
+
+                                <?php
+                                if (isset($book['mini'])) {
+                                    ?>
+                                    <img width="120" height="150" src="<?= site_url('uploads/images/') ?><?php echo $book['mini']; ?>"/>
+
+
+                                    <?php
+                                }
+                                ?>
+
+
+
+
+
                             </div>
                         </div>
 
@@ -114,398 +147,527 @@
                             <label for="book_name" class="control-label"> أدخل رابط</label>
                             <div class="form-group">
 
-                                <input class="form-control" type="url" name="url" value="<?php echo $book['url']; ?>"  />
+                                <input class="form-control" type="url" id="url" name="url" value="<?php echo $book['url']; ?>"  />
                             </div>
                         </div>
 
-                    
+
                         <div id="fm">
 
 
                         </div>
-
-
-
+   <div id="ver_ver">
                         <?php
-                        $m = 0;
-                        foreach ($book_material as $b) {
-                            $m = $m + 1;
+                        $v = 0;
+                        foreach ($book_version as $b) {
+                            $v = $v + 1;
                             ?> 
-                            <div class="col-md-6">
-                                <label for="dis" class="control-label">  أدخل الوصف</label>
+                     
+                                <div class="col-md-12" id="ver">
+                                    <label for='version' class='control-label'> الاصدار  </label>
+                                    <div class='form-group'>
+                                        <input type='text' name='version[]' value="<?php echo $b['version']; ?>" class='form-control' id='ver1' />
+                                        <input type="hidden" name="version_id[]" value="<?php echo $b['version_id']; ?>">
+                                    </div>
+                                </div>
+                            
+
+
+                                    <?php
+                                }
+                                ?>
+           </div>
+                                <div class="col-md-12" >
+                                    <div class="form-group">
+                                        <div align="right">
+                                            <button type="button" name="add_row_ver" id="add_row_ver" class="btn btn-success btn-s">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="vv" value="<?php echo $v; ?>">
+
+                                <?php
+                                $m = 0;
+                                foreach ($book_material as $b) {
+                                    $m = $m + 1;
+                                    ?> 
+
+                                    <div class="col-md-6" id="mat">
+                                        <label for='material_number' class='control-label'> رقم  المادة</label>
+                                        <div class='form-group'>
+                                            <input type='text' name='material_number[]' value="<?php echo $b['material_number']; ?>" class='form-control' id='mat1' />
+                                            <input type="hidden" name="material_id[]" value="<?php echo $b['material_id']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="dis" class="control-label">  أدخل الوصف</label>
+                                        <div class="form-group">
+                                            <textarea id="tin" style="border:2px solid black" name="dis[]" value="">  <?php echo $b['description']; ?></textarea>
+                                        </div>
+                                    </div>
+
+
+                                    <?php
+                                }
+                                ?>
+                                <input type="hidden" name="mmm" value="<?php echo $m; ?>">
+
+                            </div>
+                            <div class="col-md-6" >
                                 <div class="form-group">
-                                    <textarea id="tin" style="border:2px solid black" name="dis[]" value="">  <?php echo $b['description']; ?></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-6" id="mat">
-                                <label for='material_number' class='control-label'> رقم  المادة</label>
-                                <div class='form-group'>
-                                    <input type='text' name='material_number[]' value="<?php echo $b['material_number']; ?>" class='form-control' id='mat1' />
-                                    <input type="hidden" name="material_id[]" value="<?php echo $b['material_id']; ?>">
+                                    <div align="right">
+                                        <button type="button" name="add_row" id="add_row" class="btn btn-success btn-s">+</button>
+                                    </div>
                                 </div>
                             </div>
 
-                            <?php
-                        }
-                        ?>
-                        <input type="hidden" name="mmm" value="<?php echo $m; ?>">
 
+
+
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success save">
+                                <i class="fa fa-check"></i> حفظ
+                            </button>
+                        </div>
+                        </form>
                     </div>
-
-
-
-
                 </div>
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-success save">
-                        <i class="fa fa-check"></i> حفظ
-                    </button>
-                </div>
-            </form>
         </div>
-    </div>
-</div>
 
-<script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/dist/css/bootstrap-tokenfield.min.css">
+        <script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/dist/css/bootstrap-tokenfield.min.css">
 
-<script src="<?= base_url() ?>assets/dist/js/bootstrap-tokenfield.js"></script>
+        <script src="<?= base_url() ?>assets/dist/js/bootstrap-tokenfield.js"></script>
 
-<link rel="stylesheet" href="<?= base_url() ?>assets/tinymce/skin.min.css">
-<script>
-    $(document).ready(function () {
-        var section_name = "<?php echo $main_section; ?>";
-        var section_id = "<?php echo $section_id; ?>";
-        addTinyMCE();
-        //$("#mat").hide();
-        $("#add_row").hide();
-         $(".mini").hide();
+        <link rel="stylesheet" href="<?= base_url() ?>assets/tinymce/skin.min.css">
+        <script>
+            $(document).ready(function () {
+                var section_name = "<?php echo $main_section; ?>";
+                var section_id = "<?php echo $section_id; ?>";
+                addTinyMCE();
+                //$("#mat").hide();
+                $("#add_row").hide();
+                $(".mini").hide();
+                $("#add_row_ver").hide();
+                
+        //        function date_publication_h() {
+        //
+        //
+        //            $("#date_publication_h").hijriDatePicker({
+        //                hijri: true,
+        //                showSwitcher: false
+        //            });
+        //        }
 
-//        function date_publication_h() {
-//
-//
-//            $("#date_publication_h").hijriDatePicker({
-//                hijri: true,
-//                showSwitcher: false
-//            });
-//        }
-
-//        function date_publication_m() {
-//
-//            $("#date_publication_m").hijriDatePicker({
-//                format: "DD-MM-YYYY",
-//                hijriFormat: "iYYYY-iMM-iDD",
-//                dayViewHeaderFormat: "MMMM YYYY",
-//                hijriDayViewHeaderFormat: "iMMMM iYYYY",
-//            });
-//        }
-//        function history_system_h() {
-//
-//            $("#history_system_h").hijriDatePicker({
-//
-//                hijri: true,
-//                showSwitcher: false
-//            });
-//        }
-
-
-
-
-//        function history_system_m() {
-//
-//            $("#history_system_m").hijriDatePicker({
-//                format: "DD-MM-YYYY",
-//                hijriFormat: "iYYYY-iMM-iDD",
-//                dayViewHeaderFormat: "MMMM YYYY",
-//                hijriDayViewHeaderFormat: "iMMMM iYYYY",
-//            });
-//        }
-
-
-
-        $.ajax({
-            type: "GET",
-            url: "<?php echo base_url() ?>section/getItem/" + section_id,
-            dataType: "json",
-            success: function (response)
-            {
-                var i = 0;
-                var j = 0;
-                var r = [];
-                var t = '';
-                for (i = 0; i < response.result.length; i++) {
-
-
-                    r[i] = response.result[i].section_id;
-
-                }
-                //  alert(r[0]);
+        //        function date_publication_m() {
+        //
+        //            $("#date_publication_m").hijriDatePicker({
+        //                format: "DD-MM-YYYY",
+        //                hijriFormat: "iYYYY-iMM-iDD",
+        //                dayViewHeaderFormat: "MMMM YYYY",
+        //                hijriDayViewHeaderFormat: "iMMMM iYYYY",
+        //            });
+        //        }
+        //        function history_system_h() {
+        //
+        //            $("#history_system_h").hijriDatePicker({
+        //
+        //                hijri: true,
+        //                showSwitcher: false
+        //            });
+        //        }
 
 
 
 
+        //        function history_system_m() {
+        //
+        //            $("#history_system_m").hijriDatePicker({
+        //                format: "DD-MM-YYYY",
+        //                hijriFormat: "iYYYY-iMM-iDD",
+        //                dayViewHeaderFormat: "MMMM YYYY",
+        //                hijriDayViewHeaderFormat: "iMMMM iYYYY",
+        //            });
+        //        }
 
-                //initTree(response);
 
-                $('#treeview_json').treeview({data: response});
-                t = section_id;
-                $('#treeview_json').on('nodeSelected', function (event, data) {
-                    t = '';
-                    $("#sub_section").val(t);
-                    for (j = 0; j < r.length; j++) {
 
-                        if (r[j] === data.id) {
-                            //  alert(data.id);
-                            t = data.id;
-                            $("#sub_section").val(t);
-                            break;
+                $.ajax({
+                    type: "GET",
+                    url: "<?php echo base_url() ?>section/getItem/" + section_id,
+                    dataType: "json",
+                    success: function (response)
+                    {
+                        var i = 0;
+                        var j = 0;
+                        var r = [];
+                        var t = '';
+                        for (i = 0; i < response.result.length; i++) {
+
+
+                            r[i] = response.result[i].section_id;
+
                         }
+                        //  alert(r[0]);
+
+
+
+
+
+                        //initTree(response);
+
+                        $('#treeview_json').treeview({data: response});
+                        t = section_id;
+                        $('#treeview_json').on('nodeSelected', function (event, data) {
+                            t = '';
+                            $("#sub_section").val(t);
+                            for (j = 0; j < r.length; j++) {
+
+                                if (r[j] === data.id) {
+                                    //  alert(data.id);
+                                    t = data.id;
+                                    $("#sub_section").val(t);
+                                    break;
+                                }
+
+                            }
+
+
+
+
+
+                            //alert($("#sub_section").val());
+
+                        });
+
+
+                        $(".save").click(function () {
+
+                            if (t === '') {
+                                alert("اخترالقسم");
+                                $("#format").trigger("reset");
+
+                            } else {
+
+
+                                return true;
+                            }
+
+
+                        });
+
+
 
                     }
+                });
 
 
 
-
-
-                    //alert($("#sub_section").val());
+                $('#tag').tokenfield({
 
                 });
 
 
-                $(".save").click(function () {
-
-                    if (t === '') {
-                        alert("اخترالقسم");
-                        $("#format").trigger("reset");
-
-                    } else {
+                var txt1 = '';
+                var txt2 = '';
 
 
-                        return true;
-                    }
+                if (section_name === 'السوابق القضائية') {
 
+                    $("#fm").empty();
+
+                    $("#mat").hide();
+                    $("#title").show();
+
+
+                    $("#fm").html(txt2);
+
+
+                } else if (section_name === 'الكتب القانونية والأبحاث') {
+
+                    $("#fm").empty();
+
+                    $("#mat").hide();
+                    $(".mini").show();
+
+
+                    txt2 += "<div class='col-md-6'>";
+                    txt2 += "<label for='jurisdiction' class='control-label'>المؤلف</label>";
+                    txt2 += "<div class='form-group'>";
+                    txt2 += "<input type='text' name='author' value='<?php echo $book['author']; ?>'' class='form-control' id='author' />";
+                    txt2 += "</div>";
+                    txt2 += "</div>";
+                    txt2 += "<div class='col-md-6'>";
+                    txt2 += "<label for='publisher' class='control-label'>الناشر</label>";
+                    txt2 += "<div class='form-group'>";
+                    txt2 += "<input type='text' name='publisher' value='<?php echo $book['publisher']; ?>'' class='form-control' id='publisher' />";
+                    txt2 += "</div>";
+                    txt2 += "</div>";
+                    txt2 += "<div class='col-md-6'>";
+                    txt2 += "<label for='year_publication' class='control-label'>سنة النشر</label>";
+                    txt2 += "<div class='form-group'>";
+
+                    txt2 += "<input type='number' min='1900' max='2099' step='1' value='<?php echo $book['year_publication']; ?>'' name='year_publication'class='form-control' />";
+                    txt2 += "</div>";
+                    txt2 += "</div>";
+
+
+
+
+
+
+
+                    $("#fm").html(txt2);
+
+
+                } else if (section_name === 'الأنظمة السعودية') {
+
+                    $("#fm").empty();
+
+                    $("#title").hide();
+                    $("#add_row").show();
+                    $("#add_row_ver").show();
+                    initHijrDatePickerDefault();
+
+
+
+                    txt2 += "<div class='col-md-6'>";
+                    txt2 += "<label for='history_system_m' class='control-label'> تاريخ النظام </label>";
+                    txt2 += "<div class='form-group'>";
+                    txt2 += "<input type='text' name='history_system_m' value='<?php echo $book['history_system_m']; ?>' class='form-control hijri-date-input'  style='text-align:right' />";
+                    txt2 += "</div>";
+                    txt2 += "</div>";
+        //            txt2 += "<div class='col-md-6'>";
+        //            txt2 += "<label for='history_system' class='control-label'> تاريخ النظام الهجري</label>";
+        //            txt2 += "<div class='form-group'>";
+        //            txt2 += "<input type='text' name='history_system_h' value='<php echo $book['history_system_h']; ?>' class='form-control' id='history_system_h' style='text-align:right'/>";
+        //            txt2 += "</div>";
+        //            txt2 += "</div>";
+                    txt2 += "<div class='col-md-6'>";
+                    txt2 += "<label for='accreditation' class='control-label'>الاعتماد</label>";
+                    txt2 += "<div class='form-group'>";
+                    txt2 += "<input type='text' name='accreditation' value='<?php echo $book['accreditation']; ?>' class='form-control' id='accreditation' />";
+                    txt2 += "</div>";
+                    txt2 += "</div>";
+                    txt2 += "<div class='col-md-6'>";
+                    txt2 += "<label for='date_publication_m' class='control-label'> تاريخ النشر </label>";
+                    txt2 += "<div class='form-group'>";
+                    txt2 += "<input type='text' name='date_publication_m' value='<?php echo $book['date_publication_m']; ?>' class='form-control hijri-date-input'    />";
+                    txt2 += "</div>";
+                    txt2 += "</div>";
+
+
+//                    txt2 += "<div class='col-md-6'>";
+//                    txt2 += "<label for='date_publication' class='control-label' > المقدمة </label>";
+//                    txt2 += "<div class='form-group'>";
+//                    txt2 += "<input type='text' name='interview' value='<php echo $book['interview']; ?>' class='form-control ' id='' style='text-align:right;  />";
+//                    txt2 += "</div>";
+//                    txt2 += "</div>";
+
+
+                    txt2 += "<div class='col-md-6'>";
+                    txt2 += "<label for='pass' class='control-label'>النفاذ</label>";
+                    txt2 += "<div class='form-group'>";
+                    txt2 += "<select  name='pass' value='<?php echo $book['pass']; ?>' class='form-control' id='pass'>";
+
+                    txt2 += "<option value='ساري'>ساري</option>";
+                    txt2 += "<option value='غير ساري'>غير ساري</option>";
+                    txt2 += "</select>";
+                    txt2 += "</div>";
+                    txt2 += "</div>";
+                    $("#fm").html(txt2);
+
+
+                    initHijrDatePickerDefault();
+
+
+                    addTinyMCE();
+
+
+                } else if (section_name === 'نماذج وعقود') {
+
+                    $("#fm").empty();
+
+
+                    $("#mat").hide();
+
+
+
+
+                } else {
+
+                    $("#fm").empty();
+                }
+
+
+
+                var count = 0;
+
+                $(document).on('click', '#add_row', function () {
+
+                    count++;
+                    $('#total_item').val(count);
+                    var txt5 = '';
+                    txt5 += '<div class="collection" id="row_id_' + count + '" >';
+
+                    txt5 += '<div class="col-md-6">';
+                    txt5 += '<label for="material_number" class="control-label"> رقم  المادة</label>';
+                    txt5 += '<div class="form-group">';
+                    txt5 += '<input type="text" name="material_number1[]" value="" class="form-control"   id="mat' + count + '" />';
+                    txt5 += '</div>';
+                    txt5 += '<button type="button" name="remove_row" id="' + count + '" class="btn btn-danger btn-s remove_row">X</button>';
+                    txt5 += '</div>';
+
+
+                    txt5 += ' <div class="col-md-6" >';
+                    txt5 += ' <label for="dis" class="control-label">  أدخل الوصف</label>';
+                    txt5 += '<div class="form-group">';
+                    txt5 += '<textarea  style="border:2px solid black" name="dis1[]"  id="dis' + count + '">  </textarea>';
+                    txt5 += '</div>';
+                    txt5 += '</div>';
+
+                    txt5 += '</div>';
+
+
+
+                    $('#hide').append(txt5);
+
+                    addTinyMCE();
 
                 });
 
 
 
+
+                var count_ver = 0;
+
+                $(document).on('click', '#add_row_ver', function () {
+
+                    count_ver++;
+                    $('#total_item_ver').val(count_ver);
+                    var txt6 = '';
+
+                    txt6 += ' <div class="coll" id="row_id_ver' + count_ver + '"  >';
+                    txt6 += ' <div class="col-md-12">';
+
+
+                    txt6 += ' <label for="version" class="control-label">الإصدار</label>';
+                    txt6 += ' <div class="form-group">';
+                    txt6 += '<input type="text" name="version1[]" value="" class="form-control" id="version' + count_ver + '" />';
+                    txt6 += '<button type="button" name="remove_row_ver" data-id="' + count_ver + '"  class="btn btn-danger btn-s remove_row_ver">X</button>';
+                    txt6 += '</div>';
+                    txt6 += '</div>';
+                    txt6 += '</div>';
+                    $('#ver_ver').append(txt6);
+
+
+                });
+
+        $(document).on('click', '.remove_row', function () {
+ addTinyMCE();
+            var row_id = $(this).attr("id");
+
+            $('#row_id_' + row_id).remove();
+            count--;
+            $('#total_item').val(count);
+            addTinyMCE();
+        });
+        
+           $(document).on('click', '.remove_row_ver', function () {
+
+            var row_id_ver = $(this).attr("data-id");
+        
+
+            $('#row_id_ver' + row_id_ver).remove();
+            count_ver--;
+            $('#total_item_ver').val(count_ver);
+        });
+
+
+
+                function filePreview(input) {
+
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('.uploadForm').empty();
+                            $('.uploadForm + img').remove();
+                            $('.uploadForm').after('<img src="' + e.target.result + '" width="120" height="150"/>');
+                        };
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                $("#mini").change(function () {
+
+                    filePreview(this);
+                });
+
+
+
+
+
+
+            });
+
+        </script>
+
+
+
+
+
+
+        <script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
+        <!--<script src="<= base_url() ?>assets/dist/js/moment.min.js"></script>-->
+        <script src="<?= base_url() ?>assets/convert_date/js/momentjs.js"></script>
+        <script src="<?= base_url() ?>assets/convert_date/js/moment-with-locales.js"></script>
+        <script src="<?= base_url() ?>assets/convert_date/js/moment-hijri.js"></script>
+        <script src="<?= base_url() ?>assets/convert_date/js/bootstrap-hijri-datetimepicker.js"></script>
+
+
+
+
+
+
+
+
+        <script>
+
+            //tinymce.init({selector:'textarea'});
+
+            function addTinyMCE() {
+                tinymce.init({
+                    selector: 'textarea', // change this value according to your HTML
+                    language: 'ar'
+
+
+
+                });
             }
-        });
+
+        </script>
+        <script type="text/javascript">
+
+
+            $(function () {
+
+                //initHijrDatePicker();
+
+                initHijrDatePickerDefault();
 
 
 
-        $('#tag').tokenfield({
-
-        });
-
-
-        var txt1 = '';
-        var txt2 = '';
-
-
-        if (section_name === 'السوابق القضائية') {
-
-            $("#fm").empty();
-
-            $("#mat").hide();
-            $("#title").show();
-
-
-            $("#fm").html(txt2);
-
-
-        } else if (section_name === 'الكتب القانونية والأبحاث') {
-
-            $("#fm").empty();
-
-            $("#mat").hide();
-  $(".mini").show();
-
-
-            txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='jurisdiction' class='control-label'>المؤلف</label>";
-            txt2 += "<div class='form-group'>";
-            txt2 += "<input type='text' name='author' value='<?php echo $book['author']; ?>'' class='form-control' id='author' />";
-            txt2 += "</div>";
-            txt2 += "</div>";
-            txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='publisher' class='control-label'>الناشر</label>";
-            txt2 += "<div class='form-group'>";
-            txt2 += "<input type='text' name='publisher' value='<?php echo $book['publisher']; ?>'' class='form-control' id='publisher' />";
-            txt2 += "</div>";
-            txt2 += "</div>";
-            txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='year_publication' class='control-label'>سنة النشر</label>";
-            txt2 += "<div class='form-group'>";
-
-            txt2 += "<input type='number' min='1900' max='2099' step='1' value='<?php echo $book['year_publication']; ?>'' name='year_publication'class='form-control' />";
-            txt2 += "</div>";
-            txt2 += "</div>";
+            });
 
 
 
+            function initHijrDatePickerDefault() {
 
-
-
-
-            $("#fm").html(txt2);
-
-
-        } else if (section_name === 'الأنظمة السعودية') {
-
-            $("#fm").empty();
-
-            $("#title").hide();
-            initHijrDatePickerDefault();
-
-
-
-            txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='history_system_m' class='control-label'> تاريخ النظام </label>";
-            txt2 += "<div class='form-group'>";
-            txt2 += "<input type='text' name='history_system_m' value='<?php echo $book['history_system_m']; ?>' class='form-control hijri-date-input'  style='text-align:right' />";
-            txt2 += "</div>";
-            txt2 += "</div>";
-//            txt2 += "<div class='col-md-6'>";
-//            txt2 += "<label for='history_system' class='control-label'> تاريخ النظام الهجري</label>";
-//            txt2 += "<div class='form-group'>";
-//            txt2 += "<input type='text' name='history_system_h' value='<php echo $book['history_system_h']; ?>' class='form-control' id='history_system_h' style='text-align:right'/>";
-//            txt2 += "</div>";
-//            txt2 += "</div>";
-            txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='accreditation' class='control-label'>الاعتماد</label>";
-            txt2 += "<div class='form-group'>";
-            txt2 += "<input type='text' name='accreditation' value='<?php echo $book['accreditation']; ?>' class='form-control' id='accreditation' />";
-            txt2 += "</div>";
-            txt2 += "</div>";
-            txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='date_publication_m' class='control-label'> تاريخ النشر </label>";
-            txt2 += "<div class='form-group'>";
-            txt2 += "<input type='text' name='date_publication_m' value='<?php echo $book['date_publication_m']; ?>' class='form-control hijri-date-input'    />";
-            txt2 += "</div>";
-            txt2 += "</div>";
-            
-            
-            txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='date_publication' class='control-label' > المقدمة </label>";
-            txt2 += "<div class='form-group'>";
-            txt2 += "<input type='text' name='interview' value='<?php echo $book['interview']; ?>' class='form-control ' id='' style='text-align:right;  />";
-            txt2 += "</div>";
-            txt2 += "</div>";
-
-
-            txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='pass' class='control-label'>النفاذ</label>";
-            txt2 += "<div class='form-group'>";
-            txt2 += "<select  name='pass' value='<?php echo $book['pass']; ?>' class='form-control' id='pass'>";
-
-            txt2 += "<option value='ساري'>ساري</option>";
-            txt2 += "<option value='غير ساري'>غير ساري</option>";
-            txt2 += "</select>";
-            txt2 += "</div>";
-            txt2 += "</div>";
-            $("#fm").html(txt2);
-
-
-            initHijrDatePickerDefault();
-
-
-addTinyMCE();
-
-
-        } else if (section_name === 'نماذج وعقود') {
-
-            $("#fm").empty();
-
-
-            $("#mat").hide();
-
-
-
-
-        } else {
-
-            $("#fm").empty();
-        }
-
-   function filePreview(input) {
-
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('.uploadForm + img').remove();
-                    $('.uploadForm').after('<img src="' + e.target.result + '" width="120" height="150"/>');
-                };
-                reader.readAsDataURL(input.files[0]);
+                $(".hijri-date-input").hijriDatePicker();
             }
-        }
-        $("#mini").change(function () {
-
-            filePreview(this);
-        });
 
 
-
-    });
-
-</script>
-
-
-
-
-
-
-<script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
-<!--<script src="<= base_url() ?>assets/dist/js/moment.min.js"></script>-->
-<script src="<?= base_url() ?>assets/convert_date/js/momentjs.js"></script>
-<script src="<?= base_url() ?>assets/convert_date/js/moment-with-locales.js"></script>
-<script src="<?= base_url() ?>assets/convert_date/js/moment-hijri.js"></script>
-<script src="<?= base_url() ?>assets/convert_date/js/bootstrap-hijri-datetimepicker.js"></script>
-
-
-
-
-
-
-
-
-<script>
-
-    //tinymce.init({selector:'textarea'});
-
-    function addTinyMCE() {
-        tinymce.init({
-            selector: 'textarea', // change this value according to your HTML
-            language: 'ar'
-
-
-
-        });
-    }
-
-</script>
-<script type="text/javascript">
-
-
-    $(function () {
-
-        //initHijrDatePicker();
-
-        initHijrDatePickerDefault();
-
-
-
-    });
-
-
-
-    function initHijrDatePickerDefault() {
-
-        $(".hijri-date-input").hijriDatePicker();
-    }
-
-
-</script>
+        </script>
 
 <!--<link href="<? base_url() ?>assets/dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />-->
 
@@ -514,4 +676,4 @@ addTinyMCE();
 
 
 
-<?= $this->layout->block('') ?>
+        <?= $this->layout->block('') ?>
