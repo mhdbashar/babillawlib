@@ -469,7 +469,7 @@ class Book extends Front_end {
 
         if ($section_name == 'السوابق القضائية') {
 
-
+            
 
             $data = array();
 
@@ -481,6 +481,7 @@ class Book extends Front_end {
                 }
 
                 $data['file'] = null;
+                   $this->Book_model->update_book($book_id, $data);
             }
 
 
