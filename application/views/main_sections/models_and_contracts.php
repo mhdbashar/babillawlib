@@ -240,7 +240,7 @@
                                html += '<td><a  href="' + base_url + 'uploads/images/' + result[index].file + '" target="_blank">رابط الكتاب</a></td>';  
                             }
                             else{
-                             html += '<td><a  href="#" > لا يوجد كتاب</a></td>';     
+                             html += '<td><a  href="' + result[index].url + '"  target="_blank"> يوجد رابط لا يوجد كتاب</a></td>';     
                                 
                             }
                             
