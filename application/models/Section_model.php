@@ -51,6 +51,8 @@ class Section_model extends CI_Model {
      */
 
     function delete_section($section_id) {
+      
+       
         return $this->db->delete('section', array('section_id' => $section_id));
     }
 

@@ -195,28 +195,7 @@ class Book_model extends CI_Model {
     
     
     
-    
-    function getgeneration() {
-        $sql="BEGIN
-    DECLARE rv VARCHAR(1024);
-    DECLARE cm CHAR(1);
-    DECLARE ch INT;
-
-    SET rv = '';
-    SET cm = '';
-    SET ch = GivenID;
-    WHILE ch > 0 DO
-        SELECT IFNULL(parent_id,-1) INTO ch FROM
-        (SELECT parent_id FROM section WHERE section_id = ch) A;
-        IF ch > 0 THEN
-            SET rv = CONCAT(rv,cm,ch);
-            SET cm = ',';
-        END IF;
-    END WHILE;
-    RETURN rv;
-END";
-        
-    }
+ 
     
   
     

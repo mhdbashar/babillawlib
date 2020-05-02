@@ -1057,6 +1057,8 @@ class Book extends Front_end {
 
             $this->Book_model->delete_book($book_id);
             $this->Material_model->delete_material($book_id);
+             $this->Version_model->delete_version($book_id);
+            
 
             redirect('book/index');
         } else

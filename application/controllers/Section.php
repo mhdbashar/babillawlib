@@ -71,12 +71,27 @@ class Section extends Front_end {
      */
 
     function remove($section_id) {
+
+     
         $section = $this->Section_model->get_section($section_id);
 
         // check if the section exists before trying to delete it
         if (isset($section['section_id'])) {
-            $this->Section_model->delete_section($section_id);
-            redirect('section/index');
+            
+            
+        $sql = "select * from book where section_id='" . $section_id . "'";
+        $query = $this->db->query($sql);
+        $r=$query->result();
+            if ($r) {
+          echo "<script>alert('هذا القسم يحوي كتب لن يحذف حتى تحذف الكتب التي بداخله');</script>";
+             $data['section'] = $this->Section_model->get_parent_name();
+           $this->layout->view('section/index', $data);
+               
+                
+            } else {
+                $this->Section_model->delete_section($section_id);
+                redirect('section/index');
+            }
         } else
             show_error('The section you are trying to delete does not exist.');
     }
@@ -113,27 +128,26 @@ class Section extends Front_end {
         $row2 = $this->db->query('SELECT section.section_id, section.section_name,book.section_id,book.file  from section,book 
              WHERE section.section_id=book.section_id')->result_array();
         foreach ($row as $key => $value) {
-            
-            
+
+
             $id = $value['section_id'];
-              $row1[$key]['id'] = $value['section_id'];
+            $row1[$key]['id'] = $value['section_id'];
             $row1[$key]['name'] = $value['section_name'];
             $row1[$key]['text'] = $value['section_name'];
-            $sql="select * from book where  section_id='".$value['section_id']."'";
-            $query=$this->db->query($sql);
-            $result=$query->result();
-            $count=0;
+            $sql = "select * from book where  section_id='" . $value['section_id'] . "'";
+            $query = $this->db->query($sql);
+            $result = $query->result();
+            $count = 0;
             foreach ($result as $v) {
                 $count++;
-                if($v->book_id !== 0){
-                    
-                    $row1[$key]['text'] = '<span style="color:red;">'.$value['section_name'].'</span><span  class="numberCircle">'.$count.'</span>';
-                    
+                if ($v->book_id !== 0) {
+
+                    $row1[$key]['text'] = '<span style="color:red;">' . $value['section_name'] . '</span><span  class="numberCircle">' . $count . '</span>';
                 }
             }
-            
-          
-            
+
+
+
             // $row1[$key]['file'] = $value['section_name'];
             $row1[$key]['nodes'] = array_values($this->membersTree($value['section_id']));
         }
@@ -198,8 +212,6 @@ class Section extends Front_end {
         $d = $query->result();
     }
 
-
-
     public function getItem_2() {
 
         $parent_key = 33;
@@ -216,11 +228,10 @@ class Section extends Front_end {
         $query = $this->db->query($sql);
         $data2 = $query->result();
 
-       print_r($data) ;
-      
+        print_r($data);
     }
-    
-       public function membersTree_2($parent_key) {
+
+    public function membersTree_2($parent_key) {
         $row1 = [];
         $row = $this->db->query('SELECT section_id, section_name from section WHERE parent_id="' . $parent_key . '"')->result_array();
         $row2 = $this->db->query('SELECT section.section_id, section.section_name,book.section_id,book.file  from section,book 
@@ -236,7 +247,5 @@ class Section extends Front_end {
 
         return $row1;
     }
-    
-    
 
 }
