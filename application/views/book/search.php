@@ -143,6 +143,10 @@
                 method: "POST",
                 dataType: 'json',
                 data: {section_id: section_id},
+                beforeSend: function () {
+
+                    $("#loader").show();
+                },
                 success: function (data) {
                     var k = 0;
                     htm = '';
@@ -168,7 +172,11 @@
 
                     $('#result_all_books').append(htm);
 
-                }
+                },
+                complete: function (data) {
+                    // Hide image container
+                    $("#loader").hide();
+                },
             });
 
 
