@@ -43,7 +43,9 @@
             </div>
             <div class="product-grid-area">
                 <ul class="products-grid" style="list-style-type: none;">
-
+  <div id='loader' style='display: none;'>
+                            <img src='<?php echo base_url() ?>assets/dist/img/reload.gif' width='50px' height='50px'>
+                        </div>
 
                     <div id="books_in_section">
 
@@ -196,6 +198,11 @@
                             type: 'post',
                             dataType: 'json',
                             data: {section_id: section_id},
+                            
+                              beforeSend: function () {
+
+                                $("#loader").show();
+                            },
                             success: function (response) {
 
                                 //  alert(response.pagination);
@@ -205,6 +212,10 @@
                                 createTable(response.result, response.row);
 
 
+                            },
+                                      complete: function (data) {
+                                // Hide image container
+                                $("#loader").hide();
                             },
 
                             error: function () {

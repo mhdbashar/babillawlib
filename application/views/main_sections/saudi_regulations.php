@@ -217,6 +217,7 @@ echo '</tr>';
 
                                 echo 'رقم المادة :';
                                 echo $value->material_number;
+                                echo '<br>';
                                 echo '</div>';
                                 echo '<div style="text-align: right;  color: #4587ae; font-weight: 900;  font-size: 12px;">';
                                

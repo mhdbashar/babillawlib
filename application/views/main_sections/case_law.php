@@ -1,6 +1,6 @@
 
 <?= $this->layout->block('case_law') ?>
-    <style>
+<style>
 
     .btnh {
         border: none;
@@ -13,24 +13,24 @@
         margin-bottom: 25px;
     }
 
-   .btnh:hover {
-      background-color: deepskyblue;
+    .btnh:hover {
+        background-color: deepskyblue;
         color: white;
     }
 </style>
 
-      <center>
-                    <div id="myDIV">
+<center>
+    <div id="myDIV">
 
-                     
-                                    <a   href="<?php echo base_url() ?>section/case_law?section_id=31" class="btnh" >السوابق القضائية</a>
-                        <a href="<?php echo base_url() ?>section/saudi_regulations?section_id=32" class="btnh">الانظمة السعودية</a>
-                            <a href="<?php echo base_url() ?>section/models_and_contracts?section_id=33" class="btnh">نماذج وعقود</a>
-                        <a  href="<?php echo base_url() ?>section/searches_law_books?section_id=34"class="btnh" >الكتب القانونية والأبحاث</a>
-                    
 
-                    </div>    
-                </center>
+        <a   href="<?php echo base_url() ?>section/case_law?section_id=31" class="btnh" >السوابق القضائية</a>
+        <a href="<?php echo base_url() ?>section/saudi_regulations?section_id=32" class="btnh">الانظمة السعودية</a>
+        <a href="<?php echo base_url() ?>section/models_and_contracts?section_id=33" class="btnh">نماذج وعقود</a>
+        <a  href="<?php echo base_url() ?>section/searches_law_books?section_id=34"class="btnh" >الكتب القانونية والأبحاث</a>
+
+
+    </div>    
+</center>
 
 <div class="row">
     <div class="col-md-12">
@@ -38,6 +38,9 @@
             <div class="box-header with-border">
                 <h3 class="box-title">  </h3>
                 <div id="treeview_json"></div>
+                <div id='loader' style='display: none;'>
+                    <img src='<?php echo base_url() ?>assets/dist/img/reload.gif' width='50px' height='50px' style="margin-top: -80px;">
+                </div>
             </div>
 
 
@@ -106,7 +109,7 @@
             dataType: "json",
             success: function (response)
             {
-              
+
                 var i = 0;
                 var j = 0;
                 var r = [];
@@ -122,7 +125,7 @@
                 $('#treeview_json').treeview({data: response});
 
                 $('#treeview_json').on('nodeSelected', function (event, data) {
-                
+
                     t = 0;
                     for (j = 0; j < r.length; j++) {
 
@@ -135,7 +138,7 @@
                         }
 
                     }
-                  
+
 
                     if (t !== 0) {
                         $('.node-selected').empty();
@@ -150,7 +153,7 @@
 
 
                     // $("#sub_section").val(t);
-               
+
 
 //$(html).appendTo("<li>").text();
 
@@ -164,34 +167,37 @@
             $('.node-selected').html('');
 
             $.ajax({
-                type: "GET",
-                url: "<?php echo base_url() ?>book/search_via_section/" + tt,
-                dataType: "json",
-                success: function (data)
-                {
+            type: "GET",
+                    url: "<?php echo base_url() ?>book/search_via_section/" + tt,
+                    dataType: "json",
+                    beforeSend: function () {
+
+                    $("#loader").show();
+                    },
+                    success: function (data)
+                    {
 
 
 
                     var i;
-                    // html +='<ul class="list-inline">';
-                    for (i = 0; i < data.length; i++) {
-                        //  alert(data[i].book_title);
+                            // html +='<ul class="list-inline">';
+                            for (i = 0; i < data.length; i++) {
+                    //  alert(data[i].book_title);
 
 
 
 
 
 
-                        html += '<li  style="color:black;font-size:12px;padding: 10px;"  class= "list-group-item ">' + data[i].book_title + '</li>';
+                    html += '<li  style="color:black;font-size:12px;padding: 10px;"  class= "list-group-item ">' + data[i].book_title + '</li>';
+                            if (data[i].file !== null){
+                    html += '<li   class= " list-group-item  "><button target="_blank"  style="color:black;float:left;margin-top:-25px"  onclick=javascript:window.open("' + base_url + 'uploads/images/' + data[i].file + '")><span class="glyphicon">&#xe025;</span></button></li>';
+                            }
+                    else{
+                    html += '<li   class= " list-group-item  "><button target="_blank"  style="color:black;float:left;margin-top:-25px"  onclick=javascript:window.open("' + data[i].url + '")><span class="glyphicon">&#xe025;</span></button></li>';
+                            }
 
-if(data[i].file !== null ){
-     html += '<li   class= " list-group-item  "><button target="_blank"  style="color:black;float:left;margin-top:-25px"  onclick=javascript:window.open("' + base_url + 'uploads/images/' + data[i].file + '")><span class="glyphicon">&#xe025;</span></button></li>';
-}
-else{
-   html += '<li   class= " list-group-item  "><button target="_blank"  style="color:black;float:left;margin-top:-25px"  onclick=javascript:window.open("'  + data[i].url + '")><span class="glyphicon">&#xe025;</span></button></li>';  
-}
 
-                       
 
 
 
@@ -199,12 +205,15 @@ else{
                     // html +='</ul>';
 
                     $(html).appendTo(".node-selected").text();
-                    html = '';
+                            html = '';
+                            // $('.node-selected').html(html);
 
-                    // $('.node-selected').html(html);
-
-                    //$('#book_list').html(html);
-                }
+                            //$('#book_list').html(html);
+                    },
+            complete: function (data) {
+            // Hide image container
+            $("#loader").hide();
+            },
             });
 
         }

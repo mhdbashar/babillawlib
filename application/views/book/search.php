@@ -1,16 +1,16 @@
 
 <?= $this->layout->block('search') ?>
-<link rel="stylesheet" href="<?=base_url()?>assets/dist/css/bootstrap-datepicker.css">
-   
+<link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/bootstrap-datepicker.css">
+
 <style>
     td{
-        
+
         height: 25px;
     }
-    
-    
+
+
 </style>
-   
+
 
 <div class="row">
     <div class="col-md-12">
@@ -18,11 +18,11 @@
             <div class="box-header with-border">
                 <h3 class="box-title">بحث عن الكتاب حسب الوسم</h3>
             </div>
-          
+
             <div class="box-body">
-          
+
                 <div class="row clearfix" id="hide">
-          
+
 
                     <div class="col-md-6">
                         <label for="book_name" class="control-label">ادخل وسم </label>
@@ -32,17 +32,21 @@
                     </div>
 
                 </div>
-             
-                    
+
+
                 <table id="result"  class="table-bordered stripe border border-primary table themed-grid-col" >
-                        
-                    </table>
-                  <table id="result_all_books"  class="table-bordered stripe border border-primary table themed-grid-col " >
-                        
-                    </table>
-                
-           
-            
+
+                </table>
+                <table id="result_all_books"  class="table-bordered stripe border border-primary table themed-grid-col " >
+
+                    <div id='loader' style='display: none;'>
+                        <img src='<?php echo base_url() ?>assets/dist/img/reload.gif' width='50px' height='50px'>
+                    </div>
+
+                </table>
+
+
+
 
 
             </div>
@@ -51,22 +55,22 @@
                     <i class="fa fa-check"></i> بحث
                 </button>
             </div>
-          
+
         </div>
     </div>
 </div>
 
 <script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/dist/css/bootstrap-tokenfield.min.css">
+<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/dist/css/bootstrap-tokenfield.min.css">
 
-<script src="<?=base_url()?>assets/dist/js/bootstrap-tokenfield.js"></script>
+<script src="<?= base_url() ?>assets/dist/js/bootstrap-tokenfield.js"></script>
 <script>
-      var base_url = '<?php echo base_url(); ?>';
+    var base_url = '<?php echo base_url(); ?>';
     $(document).ready(function () {
         $('#result_all_books').html('');
-        
-        
-        
+
+
+
         var getUrlParameter = function getUrlParameter(sParam) {
 
             var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -91,87 +95,95 @@
 
         var section_id = getUrlParameter('section_id');
 
-        
-        
-        
-        
-        
-    $('#tag').tokenfield({
 
-    });
-     
-      
-      
-      
-      
 
-	function load_data(query)
-	{
-		$.ajax({
-			url:"<?php echo base_url(); ?>book/search_book",
-			method:"POST",
-                        dataType : 'json',
-			data:{query:query},
-			success:function(data){
-          
-             //alert(data);
-            
-          $('#result').html(data);
-				
-			}
-		});
-	}
-        
-        search_via_section(section_id);
-        function search_via_section(section_id){
-        var htm='';
-        $('#result_all_books').html('');
-        	$.ajax({
-			url:"<?php echo base_url(); ?>book/search_book_via_section",
-			method:"POST",
-                        dataType : 'json',
-			data:{section_id:section_id},
-			success:function(data){
-                            var k=0;
-                            htm='';
-                            
-      for(k=0;k<data.result.length;k++){
-              htm+= '<tr>';
-              
-                htm+= '<td>عنوان الكتاب</td>';
-                 htm+= '<td>';
-       htm+= data.result[k].book_title;
-      
-            htm+= '</td>';
-        
-           
-              htm += '<td><a target="_blank" href="' + base_url + 'book/edit/' + data.result[k].book_id + '"> رابط الى محتوى حقول الكتاب</a> </td>'; 
-                
-         
-       
-     
-        htm+= '</tr>';
-      }
-          
-            
-          $('#result_all_books').append(htm);
-				
-			}
-		});
-        
-        
+
+
+
+        $('#tag').tokenfield({
+
+        });
+
+
+
+
+
+
+        function load_data(query)
+        {
+            $.ajax({
+                url: "<?php echo base_url(); ?>book/search_book",
+                method: "POST",
+                dataType: 'json',
+                data: {query: query},
+                beforeSend: function () {
+
+                    $("#loader").show();
+                },
+                success: function (data) {
+
+                    //alert(data);
+
+                    $('#result').html(data);
+
+                },
+                complete: function (data) {
+                    // Hide image container
+                    $("#loader").hide();
+                },
+            });
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+        search_via_section(section_id);
+        function search_via_section(section_id) {
+            var htm = '';
+            $('#result_all_books').html('');
+            $.ajax({
+                url: "<?php echo base_url(); ?>book/search_book_via_section",
+                method: "POST",
+                dataType: 'json',
+                data: {section_id: section_id},
+                success: function (data) {
+                    var k = 0;
+                    htm = '';
+
+                    for (k = 0; k < data.result.length; k++) {
+                        htm += '<tr>';
+
+                        htm += '<td>عنوان الكتاب</td>';
+                        htm += '<td>';
+                        htm += data.result[k].book_title;
+
+                        htm += '</td>';
+
+
+                        htm += '<td><a target="_blank" href="' + base_url + 'book/edit/' + data.result[k].book_id + '"> رابط الى محتوى حقول الكتاب</a> </td>';
+
+
+
+
+                        htm += '</tr>';
+                    }
+
+
+                    $('#result_all_books').append(htm);
+
+                }
+            });
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
 //        function search_all_book_in_sub_section()
 //	{
 //		$.ajax({
@@ -189,30 +201,29 @@
 //			}
 //		});
 //	}
-        
-     
-      
-        
-        
-        
 
-	$('#c').click(function(){
-  $('#result_all_books').html('');
-		var search = $('#tag').val();
-             
-		if(search !== '')
-		{
-			load_data(search);
-		}
-		else
-		{
-			load_data();
-		}
-	});
-        
-    
-        
-        
+
+
+
+
+
+
+        $('#c').click(function () {
+            $('#result_all_books').html('');
+            var search = $('#tag').val();
+
+            if (search !== '')
+            {
+                load_data(search);
+            } else
+            {
+                load_data();
+            }
+        });
+
+
+
+
 //            function show_product(){
 //            $.ajax({
 //                type  : 'ajax',
@@ -238,9 +249,9 @@
 // 
 //            });
 //        }
-           
-   
-   
+
+
+
     });
 
 </script>
