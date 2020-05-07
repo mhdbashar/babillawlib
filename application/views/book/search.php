@@ -218,15 +218,18 @@
 
         $('#c').click(function () {
             $('#result_all_books').html('');
+             $('#result').html('');
             var search = $('#tag').val();
 
             if (search !== '')
             {
                 load_data(search);
-            } else
-            {
-                load_data();
-            }
+            } 
+//            
+//        else
+//            {
+//                load_data();
+//            }
         });
 
 
