@@ -1156,7 +1156,7 @@ class Book extends Front_end {
                 $html .= '<td><a target="_blank" href="' . base_url() . 'book/edit/' . $value->book_id . '"> رابط الى محتوى حقول الكتاب</a> </td>';
             }
 
-        
+
 
             $html .= '</tr>';
 $html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
@@ -1199,112 +1199,71 @@ $html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
         $this->layout->view("book/search");
     }
 
-    function search_book_api() {
+    function search_book_api()
+    {
+        if($this->input->post()){
+            $tags_array = $this->input->post();
+            if(isset($tags_array['tags']) && !empty($tags_array['tags'])){
+                $new_tag_name = str_replace(' ', '', $tags_array['tags']);
 
+                $tags_name = explode(',', $new_tag_name);
 
-        $json = file_get_contents('php://input');
+                foreach ($tags_name as $tag) {
+                    $this->db->like('tag_name', $tag);
+                    $result[] = $this->db->get('tag')->result();
+                }
+                if($result){
+                    foreach ($result as $value => $key) {
+                        foreach ($result[$value] as $item){
+                            $arr[] = $item->tag_id;
+                        }
+                    }
+                    $sql = "SELECT section_id,book_id,book_title,url,file,
+                        COUNT(book_title) AS relevance 
+                        FROM
+                        (SELECT book.section_id,book.book_id,file,url, book_title 
+                         FROM book,book_tag,section 
+                         WHERE  book.book_id = book_tag.book_id 
+                         AND book.main_section = section.section_id 
+                         AND tag_id IN('" . implode("','", $arr) . "')
+                         ) AS matches
+                         GROUP BY section_id, book_id, book_title, url, file 
+                         ORDER BY relevance DESC";
+                    $books = $this->db->query($sql)->result();
 
-        $data = json_decode($json, true);
-
-        $tag_name_post = $data['tag_name'];
-
-        $new_tag = $tag_name_post;
-
-
-        $new_tag_name = str_replace(' ', '', $new_tag);
-        $tag_name = explode(",", $new_tag_name);
-
-
-        for ($i = 0; $i < count($tag_name); $i++) {
-
-            $sql = "select * from tag where  tag_name  like '%".$tag_name[$i]."%'";
-            $query = $this->db->query($sql);
-           
-            $result=$query->result();
-            foreach ($result as $value) {
-                $arr[]=$value->tag_id;
-                
+                    foreach ($books as $book) {
+                        $sql2 = "SELECT c.*
+                            FROM (
+                                SELECT
+                                    @r AS _id,
+                                    (SELECT @r := parent_id FROM section WHERE section_id = _id) AS parent_id,
+                                    @l := @l + 1 AS level
+                                FROM
+                                    (SELECT @r := " . $book->section_id . ", @l := 0) vars, section m
+                                WHERE @r <> 0) d
+                            JOIN section c
+                            ON d._id = c.section_id ORDER BY section_id ASC";
+                        $sections = $this->db->query($sql2)->result();
+                        $book->sections = $sections;
+                    }
+                    // set response code - 200 OK
+                    http_response_code(200);
+                    echo json_encode(array("message" => "success", "books" => $books), JSON_UNESCAPED_UNICODE);
+                }else{
+                    // set response code - 503 service unavailable
+                    http_response_code(503);
+                    echo json_encode(array("message" => "No data found."));
+                }
+            }else{
+                // set response code - 400 bad request
+                http_response_code(400);
+                echo json_encode(array("message" => "Unable to read tags. The data is incomplete."));
             }
-            
+        }else{
+            // set response code - 405 method not allowed
+            http_response_code(405);
+            echo json_encode(array("message" => "Method Not Allowed"));
         }
-
-
-      
-
-        $sql = "SELECT section_id,book_id,book_title,url,file,COUNT(book_title) AS relevance FROM
-  (SELECT book.section_id,book.book_id,file,url, book_title FROM book,book_tag,section 
-    WHERE  book.book_id=book_tag.book_id and book.main_section=section.section_id AND tag_id  IN('" . implode("','", $arr) . "')) AS matches
-  GROUP BY book_id, book_title,file,book_id,url ORDER BY relevance DESC";
-
-
-        $query = $this->db->query($sql);
-        $result = $query->result();
-
-
-        $html = '';
-        foreach ($result as $value) {
-            $url = $value->url;
-            $file = $value->file;
-            //$description = $value->description;
-
-            $html .= '<tr  style="border-bottom:1px dotted gray;margin-top:20px;">';
-            if ($file != null) {
-                $html .= '<td>عنوان الكتاب</td>';
-                $html .= '<td>' . $value->book_title . '</td>';
-                $html .= '<td><a target="_blank" href="' . base_url() . 'uploads/images/' . $value->file . '">  رابط الملف</a> </td>';
-                $html .= '<td><a target="_blank" href="' . base_url() . 'book/edit/' . $value->book_id . '"> رابط الى محتوى حقول الكتاب</a> </td>';
-            }
-
-
-
-            if ($file == null && $url == null ) {
-                $html .= '<td>عنوان الكتاب</td>';
-                $html .= '<td>' . $value->book_title . '</td>';
-                $html .= '<td><a target="_blank" href="' . base_url() . 'book/edit/' . $value->book_id . '"> رابط الى محتوى حقول الكتاب</a> </td>';
-            }
-
-
-            if ($file == null && $url != null) {
-                $html .= '<td>عنوان الكتاب</td>';
-                $html .= '<td>' . $value->book_title . '</td>';
-                $html .= '<td><a target="_blank" href="' . $url . '"> الرابط</a></td>';
-                $html .= '<td><a target="_blank" href="' . base_url() . 'book/edit/' . $value->book_id . '"> رابط الى محتوى حقول الكتاب</a> </td>';
-            }
-
-        
-
-            $html .= '</tr>';
-$html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
-            $html .= '<td> اسم القسم</td>';
-
-            $sql2 = "SELECT c.*
-    FROM (
-        SELECT
-            @r AS _id,
-            (SELECT @r := parent_id FROM section WHERE section_id = _id) AS parent_id,
-            @l := @l + 1 AS level
-        FROM
-            (SELECT @r := " . $value->section_id . ", @l := 0) vars, section m
-        WHERE @r <> 0) d
-    JOIN section c
-    ON d._id = c.section_id ORDER BY section_id ASC";
-
-            $query2 = $this->db->query($sql2);
-
-            $result2 = $query2->result();
-            foreach ($result2 as $value2) {
-
-                $html .= '<td>&nbsp&nbsp</td>';
-                $html .= '<td><a class="cc"  href="' . base_url() . 'book/search_all_book_in_sub_section/?section_id=' . $value2->section_id . '">' . $value2->section_name . '</a> </td>';
-
-                $html .= '<td>/</td>';
-            }
-            $value2->parent_id = -1;
-            $html .= '</tr>';
-        }
-
-        $data = $html;
-        echo json_encode($data, JSON_UNESCAPED_UNICODE);
     }
 
     function search_via_section($section_id) {

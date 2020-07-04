@@ -4,7 +4,7 @@
  * www.crudigniter.com
  */
  
-class Dashboard extends Front_end{
+class Dashboard extends Front_end {
     function __construct()
     {
         parent::__construct();
