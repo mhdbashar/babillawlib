@@ -1205,7 +1205,6 @@ $html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
             $tags_array = $this->input->post();
             if(isset($tags_array['tags']) && !empty($tags_array['tags'])){
                 $new_tag_name = str_replace(' ', '', $tags_array['tags']);
-
                 $tags_name = explode(',', $new_tag_name);
 
                 foreach ($tags_name as $tag) {
@@ -1218,16 +1217,16 @@ $html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
                             $arr[] = $item->tag_id;
                         }
                     }
-                    $sql = "SELECT section_id,book_id,book_title,url,file,
+                    $sql = "SELECT section_id, main_section, book_id,book_title,url,file,
                         COUNT(book_title) AS relevance 
                         FROM
-                        (SELECT book.section_id,book.book_id,file,url, book_title 
+                        (SELECT book.section_id, book.main_section, book.book_id,file,url, book_title 
                          FROM book,book_tag,section 
                          WHERE  book.book_id = book_tag.book_id 
                          AND book.main_section = section.section_id 
                          AND tag_id IN('" . implode("','", $arr) . "')
                          ) AS matches
-                         GROUP BY section_id, book_id, book_title, url, file 
+                         GROUP BY section_id, main_section, book_id, book_title, url, file 
                          ORDER BY relevance DESC";
                     $books = $this->db->query($sql)->result();
 
