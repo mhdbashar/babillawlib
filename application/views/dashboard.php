@@ -19,6 +19,58 @@
         color: white;
     }
 </style>
+
+
+<div id="wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel_s">
+                    <div class="panel-body" style="background-color: white;">
+                        <h4 class="no-margin">
+                   بحث سريع
+                        </h4><br>
+                        <form  action="<?php echo base_url() ?>custom_fields/add_custom_field" method="post">
+                     
+
+
+                            <div class="col-md-12" id="title">
+                                <label for="field_label" class="control-label">   أدخل ماتريد البحث عنه هنا  </label>
+                                <div class="form-group">
+                                    <input type="text" name="field_label" value="" class="form-control" id="field_label" required="true" />
+                                </div>
+                            </div>
+
+
+
+
+                  
+
+
+
+
+                            <input type="submit" class="btn btn-primary">
+
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 <div class="row">
     <div class="col-md-12">
         <div class="box">
@@ -32,7 +84,7 @@
                     <div id="myDIV">
 
                      
-                                    <a   href="<?php echo base_url() ?>section/case_law?section_id=31" class="btnh" >السوابق القضائية</a>
+                                    <a   href="<?php echo base_url() ?>section/case_law?section_id=31" class="btnh" > الأحكام والسوابق القضائية</a>
                         <a href="<?php echo base_url() ?>section/saudi_regulations?section_id=32" class="btnh">الانظمة السعودية</a>
                             <a href="<?php echo base_url() ?>section/models_and_contracts?section_id=33" class="btnh">نماذج وعقود</a>
                         <a  href="<?php echo base_url() ?>section/searches_law_books?section_id=34"class="btnh" >الكتب القانونية والأبحاث</a>

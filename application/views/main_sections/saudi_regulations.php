@@ -23,8 +23,79 @@
    
 
 </style>
+
+
+
+
+<div id="wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-0">
+                <div>
+                    <div class="panel-body" style="background-color: white;">
+          
+                        <form>
+                     
+
+
+                            <div class="col-md-12" id="title">
+                                <label for="field_label" class="control-label">   أدخل ماتريد البحث عنه هنا  </label>
+                                <div class="form-group">
+                                    <input type="text" name="query" value="" class="form-control" id="field_search" required="true" />
+                                </div>
+                            </div>
+
+
+
+
+                  
+
+
+
+
+                            <input id="search_button" type="button" class="btn btn-primary" value="بحث">
+
+                        </form>
+<table class="table table-bordered table-sm" >
+    <thead>
+        <tr>
+            <th>التسلسل</th>
+               <th> الرابط </th>
+              <th> النفاذ </th>
+             <th>الوصف</th>
+          
+           
+            <th>تاريخ النظام</th>
+               
+                   <th>تاريخ النشر</th>
+                  <th>الاعتماد</th>
+ 
+
+
+
+
+        </tr>
+    </thead>
+    <tbody id="search_result">
+
+    </tbody>
+</table>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
 <center>
-    <div id="myDIV">
+   <div id="myDIV">
 
 
         <a   href="<?php echo base_url() ?>section/case_law?section_id=31" class="btnh" >السوابق القضائية</a>
@@ -370,6 +441,35 @@ echo '</tr>';
         });
 
 
+
+        $('#search_button').click(function () {
+            
+        var query = $('#field_search').val();
+          var section_id=32;
+           
+            $.ajax({
+
+                url: "<?php echo base_url(); ?>Search_section/inline_search",
+                method: "POST",
+                data: {query: query, section_id: section_id},
+                success: function (response)
+                {
+               
+                 //alert(response);
+                    $('#search_result').html(response);
+
+
+                },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        alert("error");
+                    }
+                
+            });
+
+
+
+
+        });
 
 
 

@@ -87,7 +87,8 @@ class Book_model extends CI_Model {
 
         return $query->result();
     }
-     function search_via_section_to_edit($section_id) {
+
+    function search_via_section_to_edit($section_id) {
 
 
         $sql = "select * from book where   section_id='" . $section_id . "'";
@@ -116,7 +117,8 @@ class Book_model extends CI_Model {
         $query = $this->db->query($sql);
         return $query->result();
     }
-     function search_version_book_via_section($section_id) {
+
+    function search_version_book_via_section($section_id) {
         $sql = "select * from book,version where book.section_id='" . $section_id . "' and book.book_id=version.book_id ";
         $query = $this->db->query($sql);
         return $query->result();
@@ -142,8 +144,8 @@ class Book_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('book b ,materials m');
         $this->db->where('(b.section_id="' . $section_id . '") and (b.book_id=m.book_id) ');
-        
-        
+
+
         $this->db->limit($rowperpage, $rowno);
         $query = $this->db->get();
         if ($query) {
@@ -153,10 +155,7 @@ class Book_model extends CI_Model {
             return false;
         }
     }
-    
-    
-    
-    
+
     public function getbooksCount_modal($section_id) {
 
         $sql = "select count(book.section_id) as allcount from book where   section_id='" . $section_id . "'";
@@ -177,8 +176,8 @@ class Book_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('book b ,materials m');
         $this->db->where('(b.section_id="' . $section_id . '") and (b.book_id=m.book_id) ');
-        
-        
+
+
         $this->db->limit($rowperpage, $rowno);
         $query = $this->db->get();
         if ($query) {
@@ -188,17 +187,95 @@ class Book_model extends CI_Model {
             return false;
         }
     }
-    
-    
-    
-    
-    
-    
-    
- 
-    
-  
-    
-    
+
+    function fetch_country() {
+        $this->db->order_by("country_name", "ASC");
+        $query = $this->db->get("country");
+        return $query->result();
+    }
+
+    function fetch_city($country_id) {
+        $this->db->where('country_id', $country_id);
+        $this->db->order_by('city_name', 'ASC');
+        $query = $this->db->get('city');
+        $output = '<option value="">Select City</option>';
+        foreach ($query->result() as $row) {
+            $output .= '<option value="' . $row->city_id . '">' . $row->city_name . '</option>';
+        }
+        return $output;
+    }
+
+    function fetch_data($query = '', $section_id) {
+
+          
+           
+
+        if (($query != '') && $section_id == 34) {
+            
+            $result = $this->db->query("select * from book k, fields_values a,custom_fields b  where a.field_id=b.id   and   b.section_id= '" . $section_id . "'")->result_array();
+            
+            
+            
+            
+            $this->db->select("*");
+            $this->db->from("book");
+            $this->db->where("main_section", $section_id);
+            $this->db->like('book_title', $query);
+            $this->db->or_like('url', $query);
+            $this->db->or_like('publisher', $query);
+            $this->db->or_like('author', $query);
+            $this->db->or_like('year_publication', $query);
+            $this->db->or_like('dis', $query);
+            $query = $this->db->get();
+            return $query->result();
+        } elseif (($query != '') && $section_id == 33) {
+            $this->db->select("*");
+            $this->db->from("book");
+            $this->db->where("main_section", $section_id);
+
+            $this->db->like('book_title', $query);
+            $this->db->or_like('url', $query);
+            $this->db->or_like('dis', $query);
+            $query = $this->db->get();
+            return $query->result();
+            
+        } elseif (($query != '') && $section_id == 32) {
+            $this->db->select("*");
+            $this->db->from("book");
+            $this->db->where("main_section", $section_id);
+                $this->db->like('pass', $query);
+            $this->db->or_like('dis', $query);
+
+            
+            $this->db->or_like('history_system_m', $query);
+            $this->db->or_like('date_publication_m', $query);
+            $this->db->or_like('accreditation', $query);
+            $this->db->or_like('url', $query);
+           //$this->db->or_like('version', $query);
+            
+            $query = $this->db->get();
+            return $query->result();
+            
+        } elseif (($query != '') && $section_id == 31) {
+            $this->db->select("*");
+            $this->db->from("book");
+            $this->db->where("main_section", $section_id);
+            $this->db->like('book_title', $query);
+            $this->db->or_like('url', $query);
+            $this->db->or_like('dis', $query);
+            $this->db->or_like('country', $query);
+            $this->db->or_like('city', $query);
+            $this->db->or_like('ruling_year', $query);
+            $this->db->or_like('volume_number', $query);
+            $this->db->or_like('issue_classification', $query);
+            $this->db->or_like('summary_of_judgment', $query);
+            $this->db->or_like('sentencing_text', $query);
+            $this->db->or_like('the_reasons', $query);
+            $this->db->or_like('the_legal_bond', $query);
+            $this->db->or_like('pronounced_judgment', $query);
+            $query = $this->db->get();
+            return $query->result();
+        }
+    }
 
 }

@@ -133,10 +133,11 @@
                                 $get_main_section_via_id = '';
 
                                 $i = 0;
-                                $arr = ['case_law', 'saudi_regulations', 'models_and_contracts', 'searches_law_books'];
+                                $arr = ['case_law', 'saudi_regulations', 'models_and_contracts', 'searches_law_books','regulations_legislation_and_laws'];
+
                                 $result = get_main_section();
                                 foreach ($result as $value) {
-                                    ?>
+                                    ?>0
 
                                     <li>
                                         <a href="<?php echo site_url('section'); ?>/<?php echo $arr[$i] ?>?section_id=<?php echo $value->section_id; ?>"><i class="fa fa-list-ul"></i>  <?php echo $value->section_name ?></a>
@@ -191,6 +192,31 @@
                                 </li>
                             </ul>
                         </li>
+                        
+                        
+                      <li>
+                            <a href="#">
+                                <i class="fa fa-desktop"></i> <span>الحقول المخصصة</span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="active">
+                                    <a href="<?php echo site_url('Custom_fields/add'); ?>"><i class="fa fa-plus"></i> اضافة</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('Custom_fields/index'); ?>"><i class="fa fa-list-ul"></i> عرض</a>
+                                </li>
+                            </ul>
+                          
+                        </li>
+                        
+                        
+                            <li>
+                            <a href="<?php echo site_url(); ?>book/datelias_searh">
+                                <i class="fa fa-dashboard"></i> <span>البحث التفصيلي</span>
+                            </a>
+                        </li>
+                        
+                        
                         <!--						<li>
                                                     <a href="#">
                                                         <i class="fa fa-desktop"></i> <span>الوسم</span>
@@ -289,9 +315,12 @@
                     <?= $this->layout->block('dashboard') ?>
                     <?= $this->layout->block('') ?>
 
-
-
-
+                    <?= $this->layout->block('field_add_view') ?>
+                    <?= $this->layout->block('') ?>
+                    <?= $this->layout->block('custom_field_view') ?>
+                    <?= $this->layout->block('') ?>
+                    <?= $this->layout->block('datelias_search') ?>
+                    <?= $this->layout->block('') ?>
                     <!-- Your Page Content Here -->
 
                 </section><!-- /.content -->

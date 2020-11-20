@@ -247,5 +247,11 @@ class Section extends Front_end {
 
         return $row1;
     }
+    function get_main_section() {
+        $sql="select * from section where parent_id=0";
+        $query=$this->db->query($sql);
+        return $query->result()  ;
+        
+    }
 
 }

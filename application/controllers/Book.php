@@ -11,6 +11,7 @@ class Book extends Front_end {
         $this->load->model('Section_model');
         $this->load->model('Material_model');
         $this->load->model('Version_model');
+        $this->load->model('Field_model');
 
         $this->load->library('form_validation');
     }
@@ -22,7 +23,7 @@ class Book extends Front_end {
     function index() {
         $data['book'] = $this->Book_model->get_all_book();
         $data['get_sub_section'] = $this->Section_model->get_sub_section();
-
+        $data['country'] = $this->Book_model->fetch_country();
         $this->layout->view('book/index', $data);
     }
 
@@ -74,10 +75,6 @@ class Book extends Front_end {
 
     function add() {
 
-
-
-
-
         $section_id = $this->input->post('section_id');
         if (isset($section_id)) {
 
@@ -107,7 +104,10 @@ class Book extends Front_end {
 
 
 
-                if ($section_name == 'السوابق القضائية') {
+                if ($section_name == 'الأحكام والسوابق القضائية') {
+
+
+
 
                     if (isset($_POST) && count($_POST) > 0) {
                         $params = array(
@@ -115,6 +115,17 @@ class Book extends Front_end {
                             'section_id' => $result_result->section_id,
                             'book_title' => $this->input->post('book_title'),
                             'url' => $this->input->post('url'),
+                            'country' => $this->input->post('country'),
+                            'city' => $this->input->post('city'),
+                            'ruling_year' => $this->input->post('ruling_year'),
+                            'pronounced_judgment' => $this->input->post('pronounced_judgment'),
+                            'volume_number' => $this->input->post('volume_number'),
+                            'issue_classification' => $this->input->post('issue_classification'),
+                            'summary_of_judgment' => $this->input->post('summary_of_judgment'),
+                            'sentencing_text' => $this->input->post('sentencing_text'),
+                            'the_reasons' => $this->input->post('the_reasons'),
+                            'the_legal_bond' => $this->input->post('the_legal_bond'),
+                            'appeal_decision' => $this->input->post('appeal_decision'),
                             'file' => $this->_upload()
                         );
 
@@ -122,6 +133,120 @@ class Book extends Front_end {
 
 
                         $book_id = $this->Book_model->add_book($params);
+
+
+
+
+                        if (isset($_POST["textarea"])) {
+                            for ($count = 0; $count < count($_POST["textarea4"]); $count++) {
+
+
+
+                                $data = array(
+                                    'textarea' => $_POST["textarea4"][$count],
+                                    'book_id' => $book_id,
+                                );
+                                $this->Field_model->add_field($data);
+                            }
+                        }
+//                    if (isset($_POST["myRadioButtons"])) {
+//                        for ($count = 0; $count < count($_POST["myRadioButtons"]); $count++) {
+//                            $data = array(
+//                                'myradiobuttons' => $_POST["myRadioButtons"][$count],
+//                                  'myradiobuttons_label' => $_POST["myradiobuttons_label"][$count],
+//                                'book_id' => $book_id,
+//                            );
+//                            $this->Field_model->add_field($data);
+//                        }
+//                    }
+//                    if (isset($_POST["myCheckBoxes"])) {
+//                        for ($count = 0; $count < count($_POST["myCheckBoxes"]); $count++) {
+//                            $data = array(
+//                                'mycheckboxes' => $_POST["myCheckBoxes"][$count],
+//                                  'mycheckboxes_label' => $_POST["mycheckboxes_label"][$count],
+//                                'book_id' => $book_id,
+//                            );
+//
+//                            $this->Field_model->add_field($data);
+//                        }
+//                    }
+//                    if (isset($_POST["myInputs"])) {
+//                        for ($count = 0; $count < count($_POST["myInputs"]); $count++) {
+//                            $data = array(
+//                                'myinputs' => $_POST["myInputs"][$count],
+//                              'myinputs_label' => $_POST["myinputs_label"][$count],
+//                                'book_id' => $book_id,
+//                            );
+//                            $this->Field_model->add_field($data);
+//                        }
+//                    }
+
+                        if (isset($_POST["input2"])) {
+                            for ($count = 0; $count < count($_POST["input2"]); $count++) {
+                                $data = array(
+                                    'value' => $_POST["input2"][$count],
+                                    'book_id' => $book_id,
+                                    'field_id' => $_POST["input_id2"][$count]
+                                );
+                                $this->Field_model->add_field($data);
+                            }
+                        }
+                        if (isset($_POST["select2"])) {
+                            for ($count = 0; $count < count($_POST["select2"]); $count++) {
+                                $data = array(
+                                    'value' => $_POST["select2"][$count],
+                                    'book_id' => $book_id,
+                                    'field_id' => $_POST["select_id2"][$count]
+                                );
+                                $this->Field_model->add_field($data);
+                            }
+                        }
+
+
+
+                        if (isset($_POST["checkbox2"])) {
+                            for ($count = 0; $count < count($_POST["checkbox2"]); $count++) {
+                                $data = array(
+                                    'value' => $_POST["checkbox2"][$count],
+                                    'book_id' => $book_id,
+                                    'field_id' => $_POST["checkbox_id2"][$count]
+                                );
+                                $this->Field_model->add_field($data);
+                            }
+                        }
+                        if (isset($_POST["number2"])) {
+                            for ($count = 0; $count < count($_POST["number2"]); $count++) {
+                                $data = array(
+                                    'value' => $_POST["number2"][$count],
+                                    'book_id' => $book_id,
+                                    'field_id' => $_POST["number_id2"][$count]
+                                );
+                                $this->Field_model->add_field($data);
+                            }
+                        }
+                        if (isset($_POST["textarea2"])) {
+                            for ($count = 0; $count < count($_POST["textarea2"]); $count++) {
+                                $data = array(
+                                    'value' => $_POST["textarea2"][$count],
+                                    'book_id' => $book_id,
+                                    'field_id' => $_POST["textarea_id2"][$count]
+                                );
+                                $this->Field_model->add_field($data);
+                            }
+                        }
+                        if (isset($_POST["datepicker2"])) {
+                            for ($count = 0; $count < count($_POST["datepicker2"]); $count++) {
+                                $data = array(
+                                    'value' => $_POST["datepicker2"][$count],
+                                    'book_id' => $book_id,
+                                    'field_id' => $_POST["datepicker_id2"][$count]
+                                );
+                                $this->Field_model->add_field($data);
+                            }
+                        }
+
+
+
 
                         for ($count = 0; $count < $_POST["total_item"]; $count++) {
                             $data = array(
@@ -210,7 +335,122 @@ class Book extends Front_end {
                     }
 
 
+
                     $book_id = $this->Book_model->add_book($params);
+
+
+
+//        if (isset($_POST["myTextAreas"])) {
+//                        for ($count = 0; $count < count($_POST["myTextAreas"]); $count++) {
+//
+//
+//
+//                            $data = array(
+//                                'mytextareas' => $_POST["myTextAreas"][$count],
+//                                  'mytextareas_label' => $_POST["mytextareas_label"][$count],
+//                                'book_id' => $book_id,
+//                            );
+//                            $this->Field_model->add_field($data);
+//                        }
+//                    }
+//                    if (isset($_POST["myRadioButtons"])) {
+//                        for ($count = 0; $count < count($_POST["myRadioButtons"]); $count++) {
+//                            $data = array(
+//                                'myradiobuttons' => $_POST["myRadioButtons"][$count],
+//                                  'myradiobuttons_label' => $_POST["myradiobuttons_label"][$count],
+//                                'book_id' => $book_id,
+//                            );
+//                            $this->Field_model->add_field($data);
+//                        }
+//                    }
+//                    if (isset($_POST["myCheckBoxes"])) {
+//                        for ($count = 0; $count < count($_POST["myCheckBoxes"]); $count++) {
+//                            $data = array(
+//                                'mycheckboxes' => $_POST["myCheckBoxes"][$count],
+//                                  'mycheckboxes_label' => $_POST["mycheckboxes_label"][$count],
+//                                'book_id' => $book_id,
+//                            );
+//
+//                            $this->Field_model->add_field($data);
+//                        }
+//                    }
+//                    if (isset($_POST["myInputs"])) {
+//                        for ($count = 0; $count < count($_POST["myInputs"]); $count++) {
+//                            $data = array(
+//                                'myinputs' => $_POST["myInputs"][$count],
+//                              'myinputs_label' => $_POST["myinputs_label"][$count],
+//                                'book_id' => $book_id,
+//                            );
+//                            $this->Field_model->add_field($data);
+//                        }
+//                    }
+
+                    if (isset($_POST["input4"])) {
+                        for ($count = 0; $count < count($_POST["input4"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["input4"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["input_id4"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+                    if (isset($_POST["select4"])) {
+                        for ($count = 0; $count < count($_POST["select4"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["select4"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["select_id4"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+
+
+
+                    if (isset($_POST["checkbox4"])) {
+                        for ($count = 0; $count < count($_POST["checkbox4"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["checkbox4"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["checkbox_id4"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+                    if (isset($_POST["number4"])) {
+                        for ($count = 0; $count < count($_POST["number4"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["number4"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["number_id4"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+                    if (isset($_POST["textarea4"])) {
+                        for ($count = 0; $count < count($_POST["textarea4"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["textarea4"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["textarea_id4"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+                    if (isset($_POST["datepicker4"])) {
+                        for ($count = 0; $count < count($_POST["datepicker4"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["datepicker4"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["datepicker_id4"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+
+
+
                     for ($count = 0; $count < $_POST["total_item"]; $count++) {
                         $data = array(
                             'description' => $_POST["dis"][$count],
@@ -296,6 +536,117 @@ class Book extends Front_end {
                         $this->Version_model->add_version($data);
                     }
 
+
+                    if (isset($_POST["input3"])) {
+                        for ($count = 0; $count < count($_POST["input3"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["input3"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["input_id3"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+                    if (isset($_POST["select3"])) {
+                        for ($count = 0; $count < count($_POST["select3"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["select3"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["select_id3"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+
+
+
+                    if (isset($_POST["checkbox3"])) {
+                        for ($count = 0; $count < count($_POST["checkbox3"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["checkbox3"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["checkbox_id3"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+                    if (isset($_POST["number3"])) {
+                        for ($count = 0; $count < count($_POST["number3"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["number3"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["number_id3"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+                    if (isset($_POST["textarea3"])) {
+                        for ($count = 0; $count < count($_POST["textarea3"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["textarea3"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["textarea_id3"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+                    if (isset($_POST["datepicker3"])) {
+                        for ($count = 0; $count < count($_POST["datepicker3"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["datepicker3"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["datepicker_id3"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+
+
+
+
+//                    if (isset($_POST["myTextAreas"])) {
+//                        for ($count = 0; $count < count($_POST["myTextAreas"]); $count++) {
+//
+//
+//
+//                            $data = array(
+//                                'mytextareas' => $_POST["myTextAreas"][$count],
+//                                'book_id' => $book_id,
+//                            );
+//                            $this->Field_model->add_field($data);
+//                        }
+//                    }
+//                    if (isset($_POST["myRadioButtons"])) {
+//                        for ($count = 0; $count < count($_POST["myRadioButtons"]); $count++) {
+//                            $data = array(
+//                                'myradiobuttons' => $_POST["myRadioButtons"][$count],
+//                                'book_id' => $book_id,
+//                            );
+//                            $this->Field_model->add_field($data);
+//                        }
+//                    }
+//
+//
+//
+//                    if (isset($_POST["myCheckBoxes"])) {
+//                        for ($count = 0; $count < count($_POST["myCheckBoxes"]); $count++) {
+//                            $data = array(
+//                                'mycheckboxes' => $_POST["myCheckBoxes"][$count],
+//                                'book_id' => $book_id,
+//                            );
+//
+//                            $this->Field_model->add_field($data);
+//                        }
+//                    }
+//                    if (isset($_POST["myInputs"])) {
+//                        for ($count = 0; $count < count($_POST["myInputs"]); $count++) {
+//                            $data = array(
+//                                'myinputs' => $_POST["myInputs"][$count],
+//                                'book_id' => $book_id,
+//                            );
+//                            $this->Field_model->add_field($data);
+//                        }
+//                    }
 //
 //                    for ($count = 0; $count < $_POST["total_item"]; $count++) {
 //                        $data = array(
@@ -358,6 +709,80 @@ class Book extends Front_end {
 
 
                     $book_id = $this->Book_model->add_book($params);
+
+
+
+
+                    if (isset($_POST["input1"])) {
+                        for ($count = 0; $count < count($_POST["input1"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["input1"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["id1"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+                    if (isset($_POST["select1"])) {
+                        for ($count = 0; $count < count($_POST["select1"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["select1"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["select_id1"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+
+
+
+                    if (isset($_POST["checkbox1"])) {
+                        for ($count = 0; $count < count($_POST["checkbox1"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["checkbox1"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["checkbox_id1"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+                    if (isset($_POST["number1"])) {
+                        for ($count = 0; $count < count($_POST["number1"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["number1"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["number_id1"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+                    if (isset($_POST["textarea1"])) {
+                        for ($count = 0; $count < count($_POST["textarea1"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["textarea1"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["textarea_id1"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+                    if (isset($_POST["datepicker1"])) {
+                        for ($count = 0; $count < count($_POST["datepicker1"]); $count++) {
+                            $data = array(
+                                'value' => $_POST["datepicker1"][$count],
+                                'book_id' => $book_id,
+                                'field_id' => $_POST["datepicker_id1"][$count]
+                            );
+                            $this->Field_model->add_field($data);
+                        }
+                    }
+
+
+
+
+
+
+
                     for ($count = 0; $count < $_POST["total_item"]; $count++) {
                         $data = array(
                             'description' => $_POST["dis"][$count],
@@ -412,10 +837,17 @@ class Book extends Front_end {
 
             $data['get_main_section'] = $this->Section_model->get_main_section();
             $data['get_sub_section'] = $this->Section_model->get_sub_section();
-
+            $data['country'] = $this->Book_model->fetch_country();
 
 
             $this->layout->view('book/add', $data);
+        }
+    }
+
+    function fetch_city() {
+
+        if ($this->input->post('country_id')) {
+            echo $this->Book_model->fetch_city($this->input->post('country_id'));
         }
     }
 
@@ -425,13 +857,13 @@ class Book extends Front_end {
 
     function edit($book_id) {
 
-
+        $data['field'] = $data = $this->db->query("select * from fields_values ")->result_array();
 
         // check if the book exists before trying to edit it
         $data['book'] = $this->Book_model->get_book($book_id);
         $data['book_material'] = $this->Material_model->get_material_book($book_id);
         $data['book_version'] = $this->Version_model->get_version_book($book_id);
-//$data['get_tag_book']=$this->Book_model->get_tag_book($book_id);
+        //$data['get_tag_book']=$this->Book_model->get_tag_book($book_id);
 
         $data['get_main_section'] = $this->Section_model->get_main_section();
         $data['get_sub_section'] = $this->Section_model->get_sub_section();
@@ -449,6 +881,12 @@ class Book extends Front_end {
             $tag_name = implode(',', $a);
             $data['tag_name'] = $tag_name;
         }
+        $result = $this->db->query("select city,country from book where book_id= '" . $book_id . "'")->result_array();
+        $result2 = $this->db->query("select * from fields_values a,custom_fields b  where a.field_id=b.id   and   a.book_id= '" . $book_id . "'")->result_array();
+       // $data['city'] = $result->city;
+        $data['country'] = $this->Book_model->fetch_country();
+        //$data['country'] = $result->country;
+        $data['fields'] = $result2;
         $this->layout->view('book/update_data_view', $data);
     }
 
@@ -467,9 +905,9 @@ class Book extends Front_end {
 
 
 
-        if ($section_name == 'السوابق القضائية') {
+        if ($section_name == 'الأحكام والسوابق القضائية') {
 
-            
+
 
             $data = array();
 
@@ -481,7 +919,7 @@ class Book extends Front_end {
                 }
 
                 $data['file'] = null;
-                   $this->Book_model->update_book($book_id, $data);
+                $this->Book_model->update_book($book_id, $data);
             }
 
 
@@ -497,7 +935,7 @@ class Book extends Front_end {
                 $data['file'] = $upload;
                 $this->Book_model->update_book($book_id, $data);
             }
-            
+
 
 
 
@@ -513,7 +951,20 @@ class Book extends Front_end {
 
                 $params = array(
                     'section_id' => $result_result->section_id,
+                    'ruling_year' => $this->input->post('ruling_year'),
                     'book_title' => $this->input->post('book_title'),
+                    'url' => $this->input->post('url'),
+                    'country' => $this->input->post('country'),
+                    'city' => $this->input->post('city'),
+                    'ruling_year' => $this->input->post('ruling_year'),
+                    'pronounced_judgment' => $this->input->post('pronounced_judgment'),
+                    'volume_number' => $this->input->post('volume_number'),
+                    'issue_classification' => $this->input->post('issue_classification'),
+                    'summary_of_judgment' => $this->input->post('summary_of_judgment'),
+                    'sentencing_text' => $this->input->post('sentencing_text'),
+                    'the_reasons' => $this->input->post('the_reasons'),
+                    'the_legal_bond' => $this->input->post('the_legal_bond'),
+                    'appeal_decision' => $this->input->post('appeal_decision'),
                     //'file' => $picture,
                     'url' => $this->input->post('url'),
                 );
@@ -521,6 +972,10 @@ class Book extends Front_end {
 
 
             $this->Book_model->update_book($book_id, $params);
+
+
+
+
 
 
             $count = 0;
@@ -535,6 +990,62 @@ class Book extends Front_end {
                 );
                 $this->Material_model->update_material_book($_POST["material_id"][$count], $data);
             }
+
+
+
+
+            if (isset($_POST["input2"])) {
+                for ($count = 0; $count < count($_POST["input2"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["input2"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["input_id2"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["textarea2"])) {
+                for ($count = 0; $count < count($_POST["textarea2"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["textarea2"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["textarea_id2"][$count], $book_id, $data);
+                }
+            }
+
+
+
+            if (isset($_POST["number2"])) {
+                for ($count = 0; $count < count($_POST["number2"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["number2"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["number_id2"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["datepicker2"])) {
+                for ($count = 0; $count < count($_POST["datepicker2"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["datepicker2"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["datepicker_id2"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["select2"])) {
+                for ($count = 0; $count < count($_POST["select2"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["select2"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["select_id2"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["checkbox2"])) {
+                for ($count = 0; $count < count($_POST["checkbox2"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["checkbox2"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["checkbox_id2"][$count], $book_id, $data);
+                }
+            }
+
 
 
 
@@ -668,6 +1179,57 @@ class Book extends Front_end {
             }
 
 
+            if (isset($_POST["input4"])) {
+                for ($count = 0; $count < count($_POST["input4"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["input4"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["input_id4"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["textarea4"])) {
+                for ($count = 0; $count < count($_POST["textarea4"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["textarea4"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["textarea_id4"][$count], $book_id, $data);
+                }
+            }
+
+
+
+            if (isset($_POST["number4"])) {
+                for ($count = 0; $count < count($_POST["number4"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["number4"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["number_id4"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["datepicker4"])) {
+                for ($count = 0; $count < count($_POST["datepicker4"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["datepicker4"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["datepicker_id4"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["select4"])) {
+                for ($count = 0; $count < count($_POST["select4"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["select4"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["select_id4"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["checkbox4"])) {
+                for ($count = 0; $count < count($_POST["checkbox4"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["checkbox4"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["select4_id4"][$count], $book_id, $data);
+                }
+            }
 
 
 
@@ -723,9 +1285,6 @@ class Book extends Front_end {
             redirect('book/index');
         } elseif ($section_name == 'الأنظمة السعودية') {
 
-
-
-
             $data = array();
 
             if ($this->input->post('remove_photo')) {
@@ -755,11 +1314,6 @@ class Book extends Front_end {
                 $this->Book_model->update_book($book_id, $data);
             }
 
-
-
-
-
-
             if (isset($_POST) && count($_POST) > 0) {
 
                 $params = array(
@@ -786,9 +1340,6 @@ class Book extends Front_end {
                 $this->Material_model->update_material_book($_POST["material_id"][$count], $data);
             }
 
-
-
-
             for ($i = 0; $i < $_POST["total_item"]; $i++) {
                 $data1 = array(
                     'description' => $_POST["dis1"][$i],
@@ -797,13 +1348,6 @@ class Book extends Front_end {
                 );
                 $this->Material_model->add_material($data1);
             }
-
-
-
-
-
-
-
 
 
 
@@ -819,9 +1363,6 @@ class Book extends Front_end {
                 $this->Version_model->update_version_book($_POST["version_id"][$count_ver], $data_ver);
             }
 
-
-
-
             for ($j = 0; $j < $_POST["total_item_ver"]; $j++) {
                 $data2 = array(
                     'version' => $_POST["version1"][$j],
@@ -831,8 +1372,57 @@ class Book extends Front_end {
             }
 
 
+            if (isset($_POST["input3"])) {
+                for ($count = 0; $count < count($_POST["input3"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["input3"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["input_id3"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["textarea3"])) {
+                for ($count = 0; $count < count($_POST["textarea3"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["textarea3"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["textarea_id3"][$count], $book_id, $data);
+                }
+            }
 
 
+
+            if (isset($_POST["number3"])) {
+                for ($count = 0; $count < count($_POST["number3"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["number3"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["number_id3"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["datepicker3"])) {
+                for ($count = 0; $count < count($_POST["datepicker3"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["datepicker3"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["datepicker_id3"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["select3"])) {
+                for ($count = 0; $count < count($_POST["select3"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["select3"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["select_id3"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["checkbox3"])) {
+                for ($count = 0; $count < count($_POST["checkbox3"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["checkbox3"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["checkbox_id3"][$count], $book_id, $data);
+                }
+            }
 
 
 
@@ -966,6 +1556,58 @@ class Book extends Front_end {
                 $this->Material_model->update_material_book_contracts($book_id, $data);
             }
 
+            if (isset($_POST["input1"])) {
+                for ($count = 0; $count < count($_POST["input1"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["input1"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["input_id1"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["textarea1"])) {
+                for ($count = 0; $count < count($_POST["textarea1"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["textarea1"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["textarea_id1"][$count], $book_id, $data);
+                }
+            }
+
+
+
+            if (isset($_POST["number1"])) {
+                for ($count = 0; $count < count($_POST["number1"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["number1"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["number_id1"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["datepicker1"])) {
+                for ($count = 0; $count < count($_POST["datepicker1"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["datepicker1"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["datepicker_id1"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["select1"])) {
+                for ($count = 0; $count < count($_POST["select1"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["select1"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["select_id1"][$count], $book_id, $data);
+                }
+            }
+            if (isset($_POST["checkbox1"])) {
+                for ($count = 0; $count < count($_POST["checkbox1"]); $count++) {
+                    $data = array(
+                        'value' => $_POST["checkbox1"][$count],
+                    );
+                    $this->Field_model->update_field($_POST["checkbox_id1"][$count], $book_id, $data);
+                }
+            }
+
 
 
 
@@ -1057,11 +1699,11 @@ class Book extends Front_end {
 
             $this->Book_model->delete_book($book_id);
             $this->Material_model->delete_material($book_id);
-             $this->Version_model->delete_version($book_id);
-             
-             
-             
-            
+            $this->Version_model->delete_version($book_id);
+
+
+
+
 
             redirect('book/index');
         } else
@@ -1094,15 +1736,13 @@ class Book extends Front_end {
 
         for ($i = 0; $i < count($tag_name); $i++) {
 
-            $sql = "select * from tag where  tag_name  like '%".$tag_name[$i]."%'";
+            $sql = "select * from tag where  tag_name  like '%" . $tag_name[$i] . "%'";
             $query = $this->db->query($sql);
-           
-            $result=$query->result();
+
+            $result = $query->result();
             foreach ($result as $value) {
-                $arr[]=$value->tag_id;
-                
+                $arr[] = $value->tag_id;
             }
-            
         }
 
 
@@ -1142,7 +1782,7 @@ class Book extends Front_end {
 
 
 
-            if ($file == null && $url == null ) {
+            if ($file == null && $url == null) {
                 $html .= '<td>عنوان الكتاب</td>';
                 $html .= '<td>' . $value->book_title . '</td>';
                 $html .= '<td><a target="_blank" href="' . base_url() . 'book/edit/' . $value->book_id . '"> رابط الى محتوى حقول الكتاب</a> </td>';
@@ -1159,7 +1799,7 @@ class Book extends Front_end {
 
 
             $html .= '</tr>';
-$html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
+            $html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
             $html .= '<td> اسم القسم</td>';
 
             $sql2 = "SELECT c.*
@@ -1199,11 +1839,10 @@ $html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
         $this->layout->view("book/search");
     }
 
-    function search_book_api()
-    {
-        if($this->input->post()){
+    function search_book_api() {
+        if ($this->input->post()) {
             $tags_array = $this->input->post();
-            if(isset($tags_array['tags']) && !empty($tags_array['tags'])){
+            if (isset($tags_array['tags']) && !empty($tags_array['tags'])) {
                 $new_tag_name = str_replace(' ', '', $tags_array['tags']);
                 $tags_name = explode(',', $new_tag_name);
 
@@ -1211,9 +1850,9 @@ $html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
                     $this->db->like('tag_name', $tag);
                     $result[] = $this->db->get('tag')->result();
                 }
-                if($result){
+                if ($result) {
                     foreach ($result as $value => $key) {
-                        foreach ($result[$value] as $item){
+                        foreach ($result[$value] as $item) {
                             $arr[] = $item->tag_id;
                         }
                     }
@@ -1248,17 +1887,17 @@ $html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
                     // set response code - 200 OK
                     http_response_code(200);
                     echo json_encode(array("message" => "success", "books" => $books), JSON_UNESCAPED_UNICODE);
-                }else{
+                } else {
                     // set response code - 503 service unavailable
                     http_response_code(503);
                     echo json_encode(array("message" => "No data found."));
                 }
-            }else{
+            } else {
                 // set response code - 400 bad request
                 http_response_code(400);
                 echo json_encode(array("message" => "Unable to read tags. The data is incomplete."));
             }
-        }else{
+        } else {
             // set response code - 405 method not allowed
             http_response_code(405);
             echo json_encode(array("message" => "Method Not Allowed"));
@@ -1294,7 +1933,7 @@ $html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
         $data['result'] = $this->Book_model->search_via_section_k($section_id);
         $data['result2'] = $this->Book_model->search_material_book_via_section($section_id);
         $data['result3'] = $this->Book_model->search_version_book_via_section($section_id);
-        
+
 
         $this->layout->view('main_sections/saudi_regulations', $data);
     }
@@ -1435,6 +2074,69 @@ $html .= '<tr style="border-bottom:1px solid #337ab7;margin-top:20px;">';
         $data['row '] = $rowno;
         $data['get_main_section'] = $this->Section_model->get_main_section();
         echo json_encode($data);
+    }
+
+    function datelias_searh() {
+        $data['get_main_section'] = $this->Section_model->get_main_section();
+        
+        
+        $this->layout->view('datelia_search/search', $data);
+    }
+
+    function search() {
+        $section_id = $this->input->post('section_id');
+        if ($section_id = 31) {
+            if (isset($_POST) && count($_POST) > 0) {
+                $this->db->select("*");
+            $this->db->from("book");
+            $this->db->where("main_section", $section_id);
+            $this->db->like('book_title', $query);
+            $this->db->or_like('url', $query);
+          
+            $query = $this->db->get();
+            }
+        }
+             if ($section_id = 32) {
+            if (isset($_POST) && count($_POST) > 0) {
+                  $this->db->select("*");
+            $this->db->from("book");
+            $this->db->where("main_section", $section_id);
+                $this->db->like('pass', $query);
+            $this->db->or_like('dis', $query);
+
+            
+            $this->db->or_like('history_system_m', $query);
+            $this->db->or_like('date_publication_m', $query);
+            $this->db->or_like('accreditation', $query);
+            $this->db->or_like('url', $query);
+            $query = $this->db->get();
+            }
+        }
+             if ($section_id = 33) {
+            if (isset($_POST) && count($_POST) > 0) {
+                $this->db->select("*");
+            $this->db->from("book");
+            $this->db->where("main_section", $section_id);
+            $this->db->like('book_title', $query);
+            $this->db->or_like('url', $query);
+            $this->db->or_like('publisher', $query);
+            $this->db->or_like('author', $query);
+            $this->db->or_like('year_publication', $query);
+            $this->db->or_like('dis', $query);
+            $query = $this->db->get();
+            }
+        }
+             if ($section_id = 34) {
+            if (isset($_POST) && count($_POST) > 0) {
+                $this->db->select("*");
+            $this->db->from("book");
+            $this->db->where("main_section", $section_id);
+            $this->db->like('book_title', $query);
+            $this->db->or_like('url', $query);
+     
+            $query = $this->db->get();
+            }
+        }
     }
 
     function search_book_via_section() {

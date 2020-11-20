@@ -18,8 +18,71 @@
         color: white;
     }
 </style>
+
+<div id="wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-0">
+                <div>
+                    <div class="panel-body" style="background-color: white;">
+          
+                        <form>
+                     
+
+
+                            <div class="col-md-12" id="title">
+                                <label for="field_label" class="control-label">   أدخل ماتريد البحث عنه هنا  </label>
+                                <div class="form-group">
+                                    <input type="text" name="query" value="" class="form-control" id="field_search" required="true" />
+                                </div>
+                            </div>
+
+
+
+
+                  
+
+
+
+
+                            <input id="search_button" type="button" class="btn btn-primary" value="بحث">
+
+                        </form>
+<table class="table table-bordered table-sm" >
+    <thead>
+        <tr>
+            <th>التسلسل</th>
+            <th>عنوان الكتاب</th>
+            <th>الرابط</th>
+            <th>الوصف</th>
+        
+
+
+
+
+        </tr>
+    </thead>
+    <tbody id="search_result">
+
+    </tbody>
+</table>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
 <center>
-    <div id="myDIV">
+   <div id="myDIV" style="margin-top: -80px">
 
 
         <a   href="<?php echo base_url() ?>section/case_law?section_id=31" class="btnh" >السوابق القضائية</a>
@@ -222,36 +285,31 @@
                 });
             }
         });
-//            function load_book(tt) {
-//
-//
-//                $.ajax({
-//                    type: "GET",
-//                    url: "<php echo base_url() ?>book/search_via_section/" + tt,
-//                    dataType: "json",
-//                    success: function (data)
-//                    {
-//
-//
-//
-//                        var i;
-//                        //html += '<tr>';
-//                        for (i = 0; i < data.length; i++) {
-//                            // alert(data[i].book_title);
-//
-//
-//                            html += ' <p class="card-text"><img src="' + base_url + 'uploads/images/' + data[i].mini + '" width="150" height="100"><br>' + data[i].book_title + '</p>';
-//                            // html += '</tr>';
-//
-//                        }
-//
-//                        $('.book_grid').html(html);
-//                    }
-//                });
-//
-//            }
 
 
+
+
+        $('#search_button').click(function () {
+        var query = $('#field_search').val();
+          var section_id=34;
+           
+            $.ajax({
+
+                url: "<?php echo base_url(); ?>Search_section/inline_search",
+                method: "POST",
+                data: {query: query, section_id: section_id},
+                success: function (response)
+                {
+                    $('#search_result').html(response);
+
+
+                }
+            });
+
+
+
+
+        });
 
 
 

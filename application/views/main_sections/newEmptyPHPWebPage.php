@@ -27,33 +27,48 @@
 <div id="wrapper">
     <div class="content">
         <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                <div>
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel_s">
                     <div class="panel-body" style="background-color: white;">
-          
-                        <form>
-                     
+
+                        <form  id="serch_form">
+
 
 
                             <div class="col-md-12" id="title">
                                 <label for="field_label" class="control-label">   أدخل ماتريد البحث عنه هنا  </label>
                                 <div class="form-group">
                                     <input type="text" name="query" value="" class="form-control" id="field_search" required="true" />
+
                                 </div>
                             </div>
 
 
 
 
-                  
 
 
 
 
-                            <input id="search_button" type="button" class="btn btn-primary" value="بحث">
+
+                            <input id="search_button" type="submit" class="btn btn-primary" value="بحث">
 
                         </form>
-                        <table class="table table-bordered table-sm">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<h2>View data</h2>
+<table class="table table-bordered table-sm" >
     <thead>
         <tr>
             <th>التسلسل</th>
@@ -69,7 +84,7 @@
             <th> </th>
             <th>السند النظامي</th>
             <th> الاسباب</th>
-            <th> الحكم</th>
+
 
 
 
@@ -81,18 +96,6 @@
     </tbody>
 </table>
 
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
 
 
 
@@ -101,7 +104,7 @@
 
 
 <center>
-    <div id="myDIV">
+    <div id="myDIV" style="margin-top: -80px">
 
 
         <a   href="<?php echo base_url() ?>section/case_law?section_id=31" class="btnh" >السوابق القضائية</a>
@@ -248,35 +251,34 @@
             $('.node-selected').html('');
 
             $.ajax({
-            type: "GET",
-                    url: "<?php echo base_url() ?>book/search_via_section/" + tt,
-                    dataType: "json",
-                    beforeSend: function () {
+                type: "GET",
+                url: "<?php echo base_url() ?>book/search_via_section/" + tt,
+                dataType: "json",
+                beforeSend: function () {
 
                     $("#loader").show();
-                    },
-                    success: function (data)
-                    {
+                },
+                success: function (data)
+                {
 
 
 
                     var i;
-                            // html +='<ul class="list-inline">';
-                            for (i = 0; i < data.length; i++) {
-                    //  alert(data[i].book_title);
+                    // html +='<ul class="list-inline">';
+                    for (i = 0; i < data.length; i++) {
+                        //  alert(data[i].book_title);
 
 
 
 
 
 
-                    html += '<li  style="color:black;font-size:12px;padding: 10px;"  class= "list-group-item ">' + data[i].book_title + '</li>';
-                            if (data[i].file !== null){
-                    html += '<li   class= " list-group-item  "><button target="_blank"  style="color:black;float:left;margin-top:-25px"  onclick=javascript:window.open("' + base_url + 'uploads/images/' + data[i].file + '")><span class="glyphicon">&#xe025;</span></button></li>';
-                            }
-                    else{
-                    html += '<li   class= " list-group-item  "><button target="_blank"  style="color:black;float:left;margin-top:-25px"  onclick=javascript:window.open("' + data[i].url + '")><span class="glyphicon">&#xe025;</span></button></li>';
-                            }
+                        html += '<li  style="color:black;font-size:12px;padding: 10px;"  class= "list-group-item ">' + data[i].book_title + '</li>';
+                        if (data[i].file !== null) {
+                            html += '<li   class= " list-group-item  "><button target="_blank"  style="color:black;float:left;margin-top:-25px"  onclick=javascript:window.open("' + base_url + 'uploads/images/' + data[i].file + '")><span class="glyphicon">&#xe025;</span></button></li>';
+                        } else {
+                            html += '<li   class= " list-group-item  "><button target="_blank"  style="color:black;float:left;margin-top:-25px"  onclick=javascript:window.open("' + data[i].url + '")><span class="glyphicon">&#xe025;</span></button></li>';
+                        }
 
 
 
@@ -286,30 +288,23 @@
                     // html +='</ul>';
 
                     $(html).appendTo(".node-selected").text();
-                            html = '';
-                            // $('.node-selected').html(html);
+                    html = '';
+                    // $('.node-selected').html(html);
 
-                            //$('#book_list').html(html);
-                    },
-            complete: function (data) {
-            // Hide image container
-            $("#loader").hide();
-            },
+                    //$('#book_list').html(html);
+                },
+                complete: function (data) {
+                    // Hide image container
+                    $("#loader").hide();
+                },
             });
 
         }
 
-
-
-
         $('#search_button').click(function () {
         var query = $('#field_search').val();
-        if(query==''){
-            alert('أدخل كلمة للبحث عنها');
-            return false;
-        }
-          var section_id=31;
-           
+          
+            alert(query);
             $.ajax({
 
                 url: "<?php echo base_url(); ?>Search_section/inline_search",
@@ -327,9 +322,6 @@
 
 
         });
-
-
-
 
     });
 
