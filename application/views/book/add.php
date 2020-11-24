@@ -1536,7 +1536,7 @@
                 $("#ccccccc").show();
                 $("#ddddddd").show();
                 $("#ggggggg").show();
-                $("#lllll1l").show();
+               $("#lllllll").show();
                 addTinyMCE();
                 $("#fm").empty();
                 $("#title").show();
