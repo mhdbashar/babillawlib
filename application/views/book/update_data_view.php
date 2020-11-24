@@ -48,7 +48,7 @@
                                     ?>
 
 
-                                                        <!--                                        <option <php echo $select ?> value="<php echo $v->section_name; ?>" ><php echo $v->section_name; ?></option>-->
+                                                            <!--                                        <option <php echo $select ?> value="<php echo $v->section_name; ?>" ><php echo $v->section_name; ?></option>-->
 
 
                                     <?php
@@ -151,9 +151,9 @@
                             </div>
                         </div>
 
-                        
-                        
-                             <div class='col-md-6'   id='show_country' >
+
+
+                        <div class='col-md-6'   id='show_country' >
                             <label for='country' class='control-label'> البلد</label>
                             <div class='form-group'>
                                 <select  name='country'  class='form-control country' id='country'>
@@ -169,9 +169,9 @@
                                 </select>
                             </div>
                         </div>
-                        
-                        
-                        
+
+
+
 
                         <div id="fm">
 
@@ -328,20 +328,20 @@
                         </div>
                         
                         -->
-                        
-                        
-                          <div class="col-md-6" >
-                    <div class="form-group">
-                        <div align="right">
-                            <button type="button" name="add_row" id="add_row" class="btn btn-success btn-s">+</button>
+
+
+                        <div class="col-md-6" >
+                            <div class="form-group">
+                                <div align="right">
+                                    <button type="button" name="add_row" id="add_row" class="btn btn-success btn-s">+</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                        
-                        
-                        
-                        
-                        
+
+
+
+
+
 
 
                         <div id="fff">
@@ -565,7 +565,7 @@
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
 
-                                        <input type='text' name='datepicker1[]' value='<?php echo $value['value']; ?>' class=' hijri-date-input'  >
+                                        <input type='text' name='datepicker1[]' value='<?php echo $value['value']; ?>' class=' hijri-date-input form-control'  >
                                         <input type="hidden" name="datepicker_id[]"  value="<?php echo $value['id']; ?>" />
 
                                     </div>
@@ -802,7 +802,7 @@
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
 
-                                        <input type='text' name='datepicker2[]' value='<?php echo $value['value']; ?>' class=' hijri-date-input'  >
+                                        <input type='text' name='datepicker2[]' value='<?php echo $value['value']; ?>' class=' hijri-date-input form-control'  >
                                         <input type="hidden" name="datepicker_id2[]"  value="<?php echo $value['id']; ?>" />
 
                                     </div>
@@ -814,7 +814,7 @@
                         </div>    
 
 
-                       <div id="fffff">
+                        <div id="fffff">
                             <?php
                             foreach ($fields as $value) {
                                 if ($value['field_type'] == 'input' && $value['section_id'] == 32) {
@@ -1035,7 +1035,7 @@
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
 
-                                        <input type='text' name='datepicker3[]' value='<?php echo $value['value']; ?>' class=' hijri-date-input'  >
+                                        <input type='text' name='datepicker3[]' value='<?php echo $value['value']; ?>' class=' hijri-date-input form-control'  >
                                         <input type="hidden" name="datepicker_id3[]"  value="<?php echo $value['id']; ?>" />
 
                                     </div>
@@ -1051,7 +1051,7 @@
 
 
 
-                       <div id="ffffff">
+                        <div id="ffffff">
                             <?php
                             foreach ($fields as $value) {
                                 if ($value['field_type'] == 'input' && $value['section_id'] == 34) {
@@ -1272,8 +1272,240 @@
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
 
-                                        <input type='text' name='datepicker4[]' value='<?php echo $value['value']; ?>' class=' hijri-date-input'  >
+                                        <input type='text' name='datepicker4[]' value='<?php echo $value['value']; ?>' class=' hijri-date-input form-control'  >
                                         <input type="hidden" name="datepicker_id4[]"  value="<?php echo $value['id']; ?>" />
+
+                                    </div>
+
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </div>    
+                        
+                         <div id="fffffff">
+                            <?php
+                            foreach ($fields as $value) {
+                                if ($value['field_type'] == 'input' && $value['section_id'] == 35) {
+                                    ?>
+                                    <div id="custom">
+                                        <div class="col-md-6" >
+                                            <label  class="control-label"><?php echo $value['field_label']; ?></label>
+                                            <div class="form-group">
+                                                <input type='text' name='input5[]' value='<?php echo $value['value']; ?>' class='form-control' id='input' />
+                                                <input type="hidden" name="input_id5[]"  value="<?php echo $value['field_id']; ?>" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </div>
+
+                        <div id="bbbbbbb">
+
+
+                            <?php
+                            $selected = '';
+                            foreach ($fields as $value) {
+
+                                if ($value['field_type'] == 'select' && $value['section_id'] == 35) {
+                                    $arr = explode(",", $value['options']);
+                                    ?>
+                                    <div class="col-md-6" >
+                                        <label  class="control-label"><?php echo $value['field_label']; ?></label>
+                                        <div class="form-group">
+                                            <select class='form-control' name="select5[]">;
+
+                                                <?php
+                                                for ($i = 0; $i < count($arr); $i++) {
+
+                                                    $result = $this->db->query("select value from fields_values where book_id= '" . $book['book_id'] . "' and field_id ='" . $value['id'] . "'  ")->row();
+
+                                                    if ($result->value == $arr[$i]) {
+                                                        $selected = 'selected';
+                                                    } else {
+
+                                                        $selected = '';
+                                                    }
+                                                    ?>
+
+
+                                                    <option <?php echo $selected; ?> class='form-control' value="<?php echo $arr[$i] ?>" <?php echo $selected ?> ><?php echo $arr[$i] ?></option>
+
+                                                    <?php
+                                                }
+                                                ?>
+
+                                            </select>
+                                            <input type="hidden" name="select_id5[]"  value="<?php echo $value['id']; ?>" />
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+                                    <?php
+                                }
+                            }
+                            ?>
+
+                        </div>
+
+                        <br><br>
+                        <div id="ccccccc">
+
+
+                            <?php
+                            $data2 = custom_fields();
+                            $checked = '';
+                            foreach ($data2 as $value) {
+
+                                if ($value['field_type'] == 'checkbox' && $value['section_id'] == 35) {
+                                    $arr = explode(",", $value['options']);
+
+
+                                    $result = $this->db->query("select value from fields_values where book_id= '" . $book['book_id'] . "' and field_id ='" . $value['id'] . "'  ")->result_array();
+                                    foreach ($result as $v) {
+
+
+
+                                        for ($i = 0; $i < count($arr); $i++) {
+
+
+                                            if ($v['value'] == $arr[$i]) {
+                                                $checked = 'checked';
+                                                ?>
+
+                                                <div class="col-md-12" >
+
+                                                    <div class="form-group">
+
+
+
+                                                        <input    type="checkbox" <?php echo $checked; ?> value="<?php echo $arr[$i] ?>" name="checkbox5[]"> <?php echo $arr[$i]; ?>
+                                                        <input type="hidden" name="checkbox_id5[]"  value="<?php echo $value['id']; ?>" />
+
+                                                    </div>
+                                                </div>
+
+
+                                                <?php
+                                                break;
+                                            } else {
+
+                                                $checked = '';
+                                                ?>
+
+
+                                                <div class="col-md-12" >
+
+                                                    <div class="form-group">
+
+
+
+                                                        <input    type="checkbox" <?php echo $checked; ?> value="<?php echo $arr[$i] ?>" name="checkbox5[]"> <?php echo $arr[$i]; ?>
+                                                        <input type="hidden" name="checkbox_id5[]"  value="<?php echo $value['id']; ?>" />
+
+                                                    </div>
+                                                </div>          
+
+                                                <?php
+                                            }
+                                            ?>
+
+
+
+                                            <?php
+                                        }
+                                        ?>
+
+
+                                        <?php
+                                    }
+                                    ?>
+
+
+
+
+
+
+
+
+
+                                    <?php
+                                }
+                            }
+                            ?>
+
+                        </div>
+
+
+
+
+
+
+                        <div id="ddddddd">
+                            <?php
+                            foreach ($fields as $value) {
+                                if ($value['field_type'] == 'number' && $value['section_id'] == 35) {
+                                    ?>
+                                    <div id="custom">
+                                        <div class="col-md-6" >
+                                            <label  class="control-label"><?php echo $value['field_label']; ?></label>
+                                            <div class="form-group">
+                                                <input type='number' name='number5[]' value='<?php echo $value['value']; ?>' class='form-control' id='input' />
+                                                <input type="hidden" name="number_id5[]"  value="<?php echo $value['id']; ?>" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </div>
+
+
+
+                        <div id="ggggggg">
+                            <?php
+                            foreach ($fields as $value) {
+                                if ($value['field_type'] == 'textarea' && $value['section_id'] == 35) {
+                                    ?>
+                                    <div id="custom">
+                                        <div class="col-md-6" >
+                                            <label  class="control-label"><?php echo $value['field_label']; ?></label>
+                                            <div class="form-group">
+                                                <textarea  style="border:2px solid black" name="textarea5[]"> <?php echo $value['value']; ?> </textarea>
+                                                <input type="hidden" name="textarea_id5[]"  value="<?php echo $value['id']; ?>" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </div>
+
+
+                        <div id="lllllll">
+                            <?php
+                            foreach ($fields as $value) {
+                                if ($value['field_type'] == 'datepicker' && $value['section_id'] == 35) {
+                                    ?>
+
+                                    <div class='col-md-6'>
+                                        <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
+
+                                        <input type='text' name='datepicker5[]' value='<?php echo $value['value']; ?>' class=' hijri-date-input form-control'  >
+                                        <input type="hidden" name="datepicker_id5[]"  value="<?php echo $value['id']; ?>" />
 
                                     </div>
 
@@ -1290,48 +1522,50 @@
 
 
 
-                </div>
-              
-
-
-                <!--  /*         <div class="col-md-12">
-                             <label for="field" class="control-label"> الحقول المخصصة</label>
-                             <div class="form-group">
-                                 <select name='inputSelect' class='form-control'>
-     
-                                     <option value ="text">حقل نصي</option>
-                                     <option value ="radio">زر اختيار خيار واحد</option>
-                                     <option value ="checkbox">زر اختيار خيارات متعددة</option>
-                                     <option value ="textarea">حقل نصي متعدد</option>
-                                 </select>
-     
-                                 <input type="button" value="اضف الحقول المخصصة" onClick="addAllInputs('dynamicInputs', document.myForm.inputSelect.value);"><br />
-     
-                             </div>
-                         </div> */ -->
-
-
-                <div class="col-md-12">
-
-                    <div class="form-group">
-                        <div  id="dynamicInputs">
-
-
-                        </div>
 
 
                     </div>
-                </div>
 
+
+
+                    <!--  /*         <div class="col-md-12">
+                                 <label for="field" class="control-label"> الحقول المخصصة</label>
+                                 <div class="form-group">
+                                     <select name='inputSelect' class='form-control'>
+         
+                                         <option value ="text">حقل نصي</option>
+                                         <option value ="radio">زر اختيار خيار واحد</option>
+                                         <option value ="checkbox">زر اختيار خيارات متعددة</option>
+                                         <option value ="textarea">حقل نصي متعدد</option>
+                                     </select>
+         
+                                     <input type="button" value="اضف الحقول المخصصة" onClick="addAllInputs('dynamicInputs', document.myForm.inputSelect.value);"><br />
+         
+                                 </div>
+                             </div> */ -->
+
+
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+                            <div  id="dynamicInputs">
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-success save">
+                        <i class="fa fa-check"></i> حفظ
+                    </button>
+                </div>
+            </form>
         </div>
-        <div class="box-footer">
-            <button type="submit" class="btn btn-success save">
-                <i class="fa fa-check"></i> حفظ
-            </button>
-        </div>
-        </form>
     </div>
-</div>
 </div>
 
 <script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
@@ -1464,105 +1698,104 @@
 
 
         $('#tag').tokenfield({
-
         });
 
 
         var txt1 = '';
         var txt2 = '';
 
-
-           if (section_name === 'الأحكام والسوابق القضائية') {
-            var txt6='';
+var txt5='';
+        if (section_name === 'الأحكام والسوابق القضائية') {
+            var txt6 = '';
             $("#fm").empty();
 
             $("#mat").hide();
             $("#title").show();
 
-               addTinyMCE();
+            addTinyMCE();
 
-                txt6 += "<div class='col-md-6'>";
-                txt6 += "<label for='city' class='control-label'> المدينة</label>";
-                txt6 += "<div class='form-group'>";
-                txt6 += "<select  name='city'  class='form-control' id='city'>";
-                txt6 += "<option value='<?php echo $book['city'] ?>'>اختر المدينة</option>";
+            txt6 += "<div class='col-md-6'>";
+            txt6 += "<label for='city' class='control-label'> المدينة</label>";
+            txt6 += "<div class='form-group'>";
+            txt6 += "<select  name='city'  class='form-control' id='city'>";
+            txt6 += "<option value='<?php echo $book['city'] ?>'>اختر المدينة</option>";
 
-                txt6 += "</select>";
-                txt6 += "</div>";
-                txt6 += "</div>";
+            txt6 += "</select>";
+            txt6 += "</div>";
+            txt6 += "</div>";
 
-                txt6 += "<div class='col-md-6'>";
-                txt6 += "<label for='ruling_year' class='control-label'>  سنة الحكم </label>";
-                txt6 += "<div class='form-group'>";
-                txt6 += "<input type='number' name='ruling_year' value='<?php echo $book['ruling_year'] ?>' class='form-control hijri-date-input' id='ruling_year' style='text-align:right'/>";
-                txt6 += "</div>";
-                txt6 += "</div>";
-
-
-
-
-                txt6 += "<div class='col-md-6'>";
-                txt6 += "<label for='pronounced_judgment' class='control-label'>منطوق الحكم</label>";
-                txt6 += "<div class='form-group'>";
-                txt6 += "<select  name='pronounced_judgment' value='<?php echo $book['pronounced_judgment'] ?>' class='form-control' id='pronounced_judgment'>";
-                txt6 += "<option value='قابل'>قابل</option>";
-                txt6 += "<option value='غير قابل'>غير قابل</option>";
-                txt6 += "</select>";
-                txt6 += "</div>";
-                txt6 += "</div>";
-
-
-                txt6 += "<div class='col-md-6'>";
-                txt6 += "<label for='volume_number' class='control-label'> رقم الحكم</label>";
-                txt6 += "<div class='form-group'>";
-                txt6 += "<input type='text' name='volume_number' value='<?php echo $book['volume_number'] ?>' class='form-control' id='volume_number' />";
-                txt6 += "</div>";
-                txt6 += "</div>";
-
-                txt6 += "<div class='col-md-6'>";
-                txt6 += "<label for='issue_classification' class='control-label'> تصنيف القضية</label>";
-                txt6 += "<div class='form-group'>";
-                txt6 += "<select  name='issue_classification' value='<?php echo $book['issue_classification'] ?>' class='form-control' id='issue_classification'>";
-                txt6 += "<option value='تصنيف أول'>تصنيف أول</option>";
-                txt6 += "<option value=' تصنيف ثاني'> تصنيف ثاني</option>";
-                txt6 += "</select>";
-                txt6 += "</div>";
-                txt6 += "</div>";
-                addTinyMCE();
-
-
-                txt6 += " <div class='col-md-6' id='summary_of_judgment' >";
-                txt6 += "  <label for='summary_of_judgment' class='ontrol-label'> ملخص الحكم</label>";
-                txt6 += "  <div class='form-group'>";
-                txt6 += "<textarea  style='border:2px solid black' name='summary_of_judgment' id='summary_of_judgment'><?php echo $book['summary_of_judgment'] ?></textarea>";
-                txt6 += "</div>";
-                txt6 += " </div>";
+            txt6 += "<div class='col-md-6'>";
+            txt6 += "<label for='ruling_year' class='control-label'>  سنة الحكم </label>";
+            txt6 += "<div class='form-group'>";
+            txt6 += "<input type='number' name='ruling_year' value='<?php echo $book['ruling_year'] ?>' class='form-control hijri-date-input' id='ruling_year' style='text-align:right'/>";
+            txt6 += "</div>";
+            txt6 += "</div>";
 
 
 
-                txt6 += " <div class='col-md-6' id='sentencing_text' >";
-                txt6 += "  <label for='sentencing_text' class='ontrol-label'>نص الحكم</label>";
-                txt6 += "  <div class='form-group'>";
-                txt6 += "<textarea  style='border:2px solid black' name='sentencing_text' id='sentencing_text'><?php echo $book['sentencing_text'] ?>  </textarea>";
-                txt6 += "</div>";
-                txt6 += " </div>";
+
+            txt6 += "<div class='col-md-6'>";
+            txt6 += "<label for='pronounced_judgment' class='control-label'>منطوق الحكم</label>";
+            txt6 += "<div class='form-group'>";
+            txt6 += "<select  name='pronounced_judgment' value='<?php echo $book['pronounced_judgment'] ?>' class='form-control' id='pronounced_judgment'>";
+            txt6 += "<option value='قابل'>قابل</option>";
+            txt6 += "<option value='غير قابل'>غير قابل</option>";
+            txt6 += "</select>";
+            txt6 += "</div>";
+            txt6 += "</div>";
+
+
+            txt6 += "<div class='col-md-6'>";
+            txt6 += "<label for='volume_number' class='control-label'> رقم الحكم</label>";
+            txt6 += "<div class='form-group'>";
+            txt6 += "<input type='text' name='volume_number' value='<?php echo $book['volume_number'] ?>' class='form-control' id='volume_number' />";
+            txt6 += "</div>";
+            txt6 += "</div>";
+
+            txt6 += "<div class='col-md-6'>";
+            txt6 += "<label for='issue_classification' class='control-label'> تصنيف القضية</label>";
+            txt6 += "<div class='form-group'>";
+            txt6 += "<select  name='issue_classification' value='<?php echo $book['issue_classification'] ?>' class='form-control' id='issue_classification'>";
+            txt6 += "<option value='تصنيف أول'>تصنيف أول</option>";
+            txt6 += "<option value=' تصنيف ثاني'> تصنيف ثاني</option>";
+            txt6 += "</select>";
+            txt6 += "</div>";
+            txt6 += "</div>";
+            addTinyMCE();
+
+
+            txt6 += " <div class='col-md-6' id='summary_of_judgment' >";
+            txt6 += "  <label for='summary_of_judgment' class='ontrol-label'> ملخص الحكم</label>";
+            txt6 += "  <div class='form-group'>";
+            txt6 += "<textarea  style='border:2px solid black' name='summary_of_judgment' id='summary_of_judgment'><?php echo $book['summary_of_judgment'] ?></textarea>";
+            txt6 += "</div>";
+            txt6 += " </div>";
 
 
 
-                txt6 += " <div class='col-md-6' id='the_reasons' >";
-                txt6 += "  <label for='the_reasons' class='ontrol-label'>الأسباب</label>";
-                txt6 += "  <div class='form-group'>";
-                txt6 += "<textarea  style='border:2px solid black' name='the_reasons' id='the_reasons'> <?php echo $book['the_reasons'] ?> </textarea>";
-                txt6 += "</div>";
-                txt6 += " </div>";
+            txt6 += " <div class='col-md-6' id='sentencing_text' >";
+            txt6 += "  <label for='sentencing_text' class='ontrol-label'>نص الحكم</label>";
+            txt6 += "  <div class='form-group'>";
+            txt6 += "<textarea  style='border:2px solid black' name='sentencing_text' id='sentencing_text'><?php echo $book['sentencing_text'] ?>  </textarea>";
+            txt6 += "</div>";
+            txt6 += " </div>";
 
 
-                txt6 += " <div class='col-md-6' id='the_legal_bond' >";
-                txt6 += "  <label for='the_legal_bond' class='ontrol-label'>السند القانوني</label>";
-                txt6 += "  <div class='form-group'>";
-                txt6 += "<textarea  style='border:2px solid black' name='the_legal_bond' id='the_legal_bond'> <?php echo $book['the_legal_bond'] ?>  </textarea>";
-                txt6 += "</div>";
-                txt6 += " </div>";
+
+            txt6 += " <div class='col-md-6' id='the_reasons' >";
+            txt6 += "  <label for='the_reasons' class='ontrol-label'>الأسباب</label>";
+            txt6 += "  <div class='form-group'>";
+            txt6 += "<textarea  style='border:2px solid black' name='the_reasons' id='the_reasons'> <?php echo $book['the_reasons'] ?> </textarea>";
+            txt6 += "</div>";
+            txt6 += " </div>";
+
+
+            txt6 += " <div class='col-md-6' id='the_legal_bond' >";
+            txt6 += "  <label for='the_legal_bond' class='ontrol-label'>السند القانوني</label>";
+            txt6 += "  <div class='form-group'>";
+            txt6 += "<textarea  style='border:2px solid black' name='the_legal_bond' id='the_legal_bond'> <?php echo $book['the_legal_bond'] ?>  </textarea>";
+            txt6 += "</div>";
+            txt6 += " </div>";
 
 
             $("#fm").html(txt6);
@@ -1669,7 +1902,73 @@
             addTinyMCE();
 
 
-        } else if (section_name === 'نماذج وعقود') {
+        } else if (section_name === 'الأنظمة والتشريعات والقوانين') {
+
+            $("#bbbbbbb").show();
+            $("#fffffff").show();
+            $("#ccccccc").show();
+            $("#ddddddd").show();
+            $("#ggggggg").show();
+            $("#lllll1l").show();
+            addTinyMCE();
+            $("#fm").empty();
+            $("#title").show();
+            txt5 += "<div class='col-md-6'>";
+            txt5 += "<label for='legislative_type' class='control-label'>النوع التشريعي</label>";
+            txt5 += "<div class='form-group'>";
+            txt5 += "<select  name='legislative_type' value='<?php echo $book['legislative_type']; ?>' class='form-control' id='legislative_type'>";
+
+            txt5 += "<option value='النوع الاول'>النوع الاول</option>";
+            txt5 += "<option value='النوع الثاني'>النوع الثاني</option>";
+            txt5 += "</select>";
+            txt5 += "</div>";
+            txt5 += "</div>";
+
+            txt5 += "<div class='col-md-6'>";
+            txt5 += "<label for='legislative_status' class='control-label'> حالة التشريع</label>";
+            txt5 += "<div class='form-group'>";
+            txt5 += "<select  name='legislative_status' value='<?php echo $book['legislative_status']; ?>' class='form-control' id='legislative_status'>";
+
+            txt5 += "<option value='الحالة الاولى'> الحالة الاولى</option>";
+            txt5 += "<option value='الحالة الثانية'> الحالة الثانية</option>";
+            txt5 += "</select>";
+            txt5 += "</div>";
+            txt5 += "</div>";
+
+
+
+            txt5 += "<div class='col-md-6'>";
+            txt5 += "<label for='material_number_legislation' class='control-label'> رقم المادة</label>";
+            txt5 += "<div class='form-group'>";
+            txt5 += "<input type='number' name='material_number_legislation' value='<?php echo $book['material_number_legislation']; ?>' class='form-control' id='material_number_legislation' />";
+            txt5 += "</div>";
+            txt5 += "</div>";
+
+
+
+
+
+            txt5 += "<div class='col-md-6'>";
+            txt5 += "<label for='legislation_number' class='control-label'> رقم التشريع</label>";
+            txt5 += "<div class='form-group'>";
+            txt5 += "<input type='number' name='legislation_number' value='<?php echo $book['legislation_number']; ?>' class='form-control' id='legislation_number' />";
+            txt5 += "</div>";
+            txt5 += "</div>";
+
+
+
+
+            $("#show_country").show();
+
+            $("#fm").html(txt5);
+
+
+        }
+
+
+
+
+        else if (section_name === 'نماذج وعقود') {
 
             $("#fm").empty();
 

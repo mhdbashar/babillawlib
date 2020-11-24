@@ -48,7 +48,7 @@
             </div>
 
 
-            <form method="post" action="<?php echo base_url() ?>book/search" enctype="multipart/form-data" id="format" name="myForm" >
+            <form method="post" action="<?php echo base_url() ?>book/search_datelias" enctype="multipart/form-data" id="format" name="myForm" >
 
                 <input type="hidden" name="sub_section" value="" id="sub_section" class="sub_section" />
 
@@ -951,7 +951,7 @@
 
         </div>
         <div class="box-footer">
-            <button type="submit" class="btn btn-success save">
+            <button type="submit" class="btn btn-success save" id="search">
                 <i class="fa fa-check"></i> بحث
             </button>
         </div>
@@ -968,16 +968,12 @@
 
 <link rel="stylesheet" href="<?= base_url() ?>assets/tinymce/skin.min.css">
 
+
+
+  
+
 <script>
     $(document).ready(function () {
-        
-        
-        
-       
-
-
-        
-        
         var t = 0;
         $(".mini").hide();
         $("#ver_ver").hide();
@@ -1022,26 +1018,36 @@
             $("#ffff").hide();
             $("#fffff").hide();
             $("#ffffff").hide();
+             $("#fffffff").hide();
+            
             $("#bbb").hide();
             $("#bbbb").hide();
             $("#bbbbb").hide();
             $("#bbbbbb").hide();
+            $("#bbbbbbb").hide();
             $("#ccc").hide();
             $("#cccc").hide();
             $("#ccccc").hide();
             $("#cccccc").hide();
+             $("#cccccc").hide();
+             
             $("#ddd").hide();
             $("#dddd").hide();
             $("#ddddd").hide();
             $("#dddddd").hide();
+             $("#ddddddd").hide();
             $("#ggg").hide();
             $("#gggg").hide();
             $("#ggggg").hide();
             $("#gggggg").hide();
+             $("#ggggggg").hide();
+             
             $("#lll").hide();
             $("#llll").hide();
             $("#lllll").hide();
             $("#llllll").hide();
+              $("#lllllll").hide();
+            
             $("#add_row").hide();
             $("#add_row_ver").hide();
             $(".collection").hide();
@@ -1058,10 +1064,10 @@
             main_section_id = $(this).children("option:selected").val();
             var section_name = $("#sel_section option:selected").html();
 
-
-    var value = $('#sel_section :selected').val();
+  var value = $('#sel_section :selected').val();
           
             $('#section_search').val(value);
+
 
 
 
@@ -1096,7 +1102,7 @@
             var txt2 = '';
             var txt3 = '';
             var txt6 = '';
-
+            var txt5 = '';
             if (section_name === 'الأحكام والسوابق القضائية') {
                 addTinyMCE();
                 $("#fm").empty();
@@ -1147,6 +1153,21 @@
                 txt6 += "</select>";
                 txt6 += "</div>";
                 txt6 += "</div>";
+
+
+				
+					
+                txt6 += "<div class='col-md-6'>";
+                txt6 += "<label for='pronounced_judgment' class='control-label'>المحكمة </label>";
+                txt6 += "<div class='form-group'>";
+                txt6 += "<select  name='pronounced_judgment' value='' class='form-control' id='pronounced_judgment'>";
+                txt6 += "<option value='محكمة الاستئناف'>محكمة الاستئناف</option>";
+                txt6 += "<option value=' محكمة النقض'>محكمة النقض</option>";
+                txt6 += "</select>";
+                txt6 += "</div>";
+                txt6 += "</div>";
+
+
 
 
                 txt6 += "<div class='col-md-6'>";
@@ -1243,18 +1264,77 @@
                 txt2 += "</div>";
                 txt2 += "</div>";
 
-
-
-
-
-
-
                 $(".mini").show();
 
                 $("#fm").html(txt2);
 
 
-            } else if (section_name === 'الأنظمة السعودية') {
+            }
+            else if (section_name === 'الأنظمة والتشريعات والقوانين') {
+
+                $("#bbbbbbb").show();
+                $("#fffffff").show();
+                $("#ccccccc").show();
+                $("#ddddddd").show();
+                $("#ggggggg").show();
+                $("#lllll1l").show();
+                addTinyMCE();
+                $("#fm").empty();
+                $("#title").show();
+                txt5 += "<div class='col-md-6'>";
+                txt5 += "<label for='legislative_type' class='control-label'>النوع التشريعي</label>";
+                txt5 += "<div class='form-group'>";
+                txt5 += "<select  name='legislative_type' value='' class='form-control' id='legislative_type'>";
+
+                txt5 += "<option value='النوع الاول'>النوع الاول</option>";
+                txt5 += "<option value='النوع الثاني'>النوع الثاني</option>";
+                txt5 += "</select>";
+                txt5 += "</div>";
+                txt5 += "</div>";
+
+                txt5 += "<div class='col-md-6'>";
+                txt5 += "<label for='legislative_status' class='control-label'> حالة التشريع</label>";
+                txt5 += "<div class='form-group'>";
+                txt5 += "<select  name='legislative_status' value='' class='form-control' id='legislative_status'>";
+
+                txt5 += "<option value='الحالة الاولى'> الحالة الاولى</option>";
+                txt5 += "<option value='الحالة الثانية'> الحالة الثانية</option>";
+                txt5 += "</select>";
+                txt5 += "</div>";
+                txt5 += "</div>";
+                
+                
+                
+                    txt5 += "<div class='col-md-6'>";
+                txt5 += "<label for='material_number_legislation' class='control-label'> رقم المادة</label>";
+                txt5 += "<div class='form-group'>";
+                txt5 += "<input type='number' name='material_number_legislation' value='' class='form-control' id='material_number_legislation' />";
+                txt5 += "</div>";
+                txt5 += "</div>";
+                
+                
+                
+                
+                  
+                    txt5 += "<div class='col-md-6'>";
+                txt5 += "<label for='legislation_number' class='control-label'> رقم التشريع</label>";
+                txt5 += "<div class='form-group'>";
+                txt5 += "<input type='number' name='legislation_number' value='' class='form-control' id='legislation_number' />";
+                txt5 += "</div>";
+                txt5 += "</div>";
+                
+                
+                
+
+                $("#show_country").show();
+
+                $("#fm").html(txt5);
+
+
+            }
+
+
+            else if (section_name === 'الأنظمة السعودية') {
                 $("#bbbbb").show();
                 $("#fffff").show();
                 $("#ccccc").show();
@@ -1316,11 +1396,7 @@
                 $("#fm").html(txt2);
                 $("#material").html(txt3);
                 initHijrDatePickerDefault();
-//                history_system_m();
-//                history_system_h();
-//                date_publication_m();
-//                date_publication_h();
-                // addTinyMCE();
+
 
             } else if (section_name === 'نماذج وعقود') {
 
@@ -1344,67 +1420,9 @@
             }
 
         });
-        var count = 1;
+  
 
-        $(document).on('click', '#add_row', function () {
-            addTinyMCE();
-            count++;
-            $('#total_item').val(count);
-            var txt5 = '';
-            txt5 += '<div class="collection" id="row_id_' + count + '" >';
-
-            txt5 += '<div class="col-md-6">';
-            txt5 += '<label for="material_number" class="control-label"> رقم  المادة</label>';
-            txt5 += '<div class="form-group">';
-            txt5 += '<input type="text" name="material_number[]" value="" class="form-control"   id="mat' + count + '" />';
-            txt5 += '</div>';
-            txt5 += '<button type="button" name="remove_row" id="' + count + '" class="btn btn-danger btn-s remove_row">X</button>';
-            txt5 += '</div>';
-            addTinyMCE();
-
-            txt5 += ' <div class="col-md-6" >';
-            txt5 += ' <label for="dis" class="control-label">  أدخل الوصف</label>';
-            txt5 += '<div class="form-group">';
-            txt5 += '<textarea  style="border:2px solid black" name="dis[]"  id="dis' + count + '">  </textarea>';
-            txt5 += '</div>';
-            txt5 += '</div>';
-
-            txt5 += '</div>';
-
-            addTinyMCE();
-
-            $('#hide').append(txt5);
-
-            addTinyMCE();
-
-        });
-
-
-
-
-        var count_ver = 1;
-
-        $(document).on('click', '#add_row_ver', function () {
-
-            count_ver++;
-            $('#total_item_ver').val(count_ver);
-            var txt6 = '';
-
-            txt6 += ' <div class="coll" id="row_id_ver' + count_ver + '"  >';
-            txt6 += ' <div class="col-md-12">';
-
-
-            txt6 += ' <label for="version" class="control-label">الإصدار</label>';
-            txt6 += ' <div class="form-group">';
-            txt6 += '<input type="text" name="version[]" value="" class="form-control" id="version' + count_ver + '" />';
-            txt6 += '<button type="button" name="remove_row_ver" data-id="' + count_ver + '"  class="btn btn-danger btn-s remove_row_ver">X</button>';
-            txt6 += '</div>';
-            txt6 += '</div>';
-            txt6 += '</div>';
-            $('#ver_ver').append(txt6);
-
-
-        });
+ 
 
 
 
@@ -1412,10 +1430,15 @@
 
 
 
+      
 
 
 
+     
 
+
+
+   
 
 
 
@@ -1538,21 +1561,22 @@
 
 
 
+
 <script>
 
-            //tinymce.init({selector:'textarea'});
+    //tinymce.init({selector:'textarea'});
 
-                    function addTinyMCE() {
-                    tinymce.init({
-                    selector: 'textarea', // change this value according to your HTML
-                            language: 'ar',
-                            allow_unsafe_link_target: true,
-                            convert_fonts_to_spans: false
+    function addTinyMCE() {
+        tinymce.init({
+            selector: 'textarea', // change this value according to your HTML
+            language: 'ar',
+            allow_unsafe_link_target: true,
+            convert_fonts_to_spans: false
 
 
 
-                    });
-                    }
+        });
+    }
 
 </script>
 
@@ -1560,19 +1584,27 @@
 <script type="text/javascript">
 
 
-            $(function () {
+    $(function () {
 
-            //initHijrDatePicker();
+        //initHijrDatePicker();
 
-            initHijrDatePickerDefault();
-            });
-                    function initHijrDatePickerDefault() {
+        initHijrDatePickerDefault();
 
-                    $(".hijri-date-input").hijriDatePicker();
-                    }
+
+
+    });
+
+
+
+    function initHijrDatePickerDefault() {
+
+        $(".hijri-date-input").hijriDatePicker();
+    }
 
 
 </script>
+
+
 
 
 

@@ -10,6 +10,7 @@ class Section extends Front_end {
     function __construct() {
         parent::__construct();
         $this->load->model('Section_model');
+        $this->load->model('Book_model');
     }
 
     /*
@@ -72,22 +73,20 @@ class Section extends Front_end {
 
     function remove($section_id) {
 
-     
+
         $section = $this->Section_model->get_section($section_id);
 
         // check if the section exists before trying to delete it
         if (isset($section['section_id'])) {
-            
-            
-        $sql = "select * from book where section_id='" . $section_id . "'";
-        $query = $this->db->query($sql);
-        $r=$query->result();
+
+
+            $sql = "select * from book where section_id='" . $section_id . "'";
+            $query = $this->db->query($sql);
+            $r = $query->result();
             if ($r) {
-          echo "<script>alert('هذا القسم يحوي كتب لن يحذف حتى تحذف الكتب التي بداخله');</script>";
-             $data['section'] = $this->Section_model->get_parent_name();
-           $this->layout->view('section/index', $data);
-               
-                
+                echo "<script>alert('هذا القسم يحوي كتب لن يحذف حتى تحذف الكتب التي بداخله');</script>";
+                $data['section'] = $this->Section_model->get_parent_name();
+                $this->layout->view('section/index', $data);
             } else {
                 $this->Section_model->delete_section($section_id);
                 redirect('section/index');
@@ -179,6 +178,45 @@ class Section extends Front_end {
         $this->layout->view('main_sections/searches_law_books');
     }
 
+    public function regulations_legislation_and_laws() {
+       $section_id = $this->input->post('section_id');
+       // $section_id=166;
+       $legislation = $this->Book_model->country_legislation($section_id);
+        $html='';
+          $html.= ' <ol class="check-box-list">';
+                           
+                            foreach ($legislation as $value) {
+                              
+
+                           $html.=' <li class="c" style=" margin-bottom: 28px;"><a href="#" >';
+                                       
+                                       $html.=  $value['country_name'];
+                                        $html.=  '<span class="r" style="text-align: right">';
+                                        $html.= $value['allcount'];
+                                       $html.='</span></a>';
+                                        $html.='</li>';
+
+
+                                
+                            }
+                           
+                       $html.=' </ol>';
+               
+        $data=$html;
+        
+
+        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+
+        //$this->layout->view('main_sections/regulations_legislation_and_laws',$data);
+    }
+    
+    
+      public function regulations_legislation() {
+
+        $this->layout->view('main_sections/regulations_legislation_and_laws');
+    }
+    
+
     public function testtree() {
         $this->load->view('section');
     }
@@ -247,11 +285,12 @@ class Section extends Front_end {
 
         return $row1;
     }
+
     function get_main_section() {
-        $sql="select * from section where parent_id=0";
-        $query=$this->db->query($sql);
-        return $query->result()  ;
-        
+        $sql = "select * from section where parent_id=0";
+        $query = $this->db->query($sql);
+        return $query->result();
     }
+   
 
 }

@@ -107,4 +107,9 @@ ORDER BY   c.section_name ASC;";
     
     
     }
+       function get_main_section_name($id) {
+        $sql = "select * from section where section_id='".$id."'";
+        $query = $this->db->query($sql);
+        return $query->row();
+    }
 }

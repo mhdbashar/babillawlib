@@ -1,5 +1,5 @@
 
-<?= $this->layout->block('case_law') ?>
+<?= $this->layout->block('regulations_legislation_and_laws') ?>
 <style>
 
     .btnh {
@@ -17,9 +17,21 @@
         background-color: deepskyblue;
         color: white;
     }
+ 
+    .r{
+       background-color: red;
+   
+    color: yellow;
+    width: 50px;
+    padding: 2px;
+    margin: 51px;
+    padding-right: 10px;
+    padding-left: 13px;
+    }
+
 </style>
 
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 
 
@@ -30,9 +42,9 @@
             <div class="col-md-12 col-md-offset-0">
                 <div>
                     <div class="panel-body" style="background-color: white;">
-          
+
                         <form>
-                     
+
 
 
                             <div class="col-md-12" id="title">
@@ -45,44 +57,44 @@
 
 
 
-                  
 
 
 
 
-                            <input id="search_button" type="button" class="btn btn-primary" value="بحث">
+
+                            <input  id="search_button" type="button" class="btn btn-primary" value="بحث">
 
                         </form>
                         <table class="table table-bordered table-sm">
-    <thead>
-        <tr>
-            <th>التسلسل</th>
-            <th>عنوان الكتاب</th>
-            <th>الرابط</th>
-            <th>الوصف</th>
-            <th>البلد</th>
-            <th>سنة الحكم</th>
-            <th>رقم المجلد</th>
-            <th>تصنيف الحكم</th>
-            <th>ملخص الحكم</th>
-            <th>نص الحكم</th>
-            <th> </th>
-            <th>السند النظامي</th>
-            <th> الاسباب</th>
-            <th> الحكم</th>
+                            <thead>
+                                <tr>
+                                    <th>التسلسل</th>
+                                    <th>عنوان الكتاب</th>
+                                    <th>الرابط</th>
+                                    <th>الوصف</th>
+                                    <th>البلد</th>
+                                    <th>سنة الحكم</th>
+                                    <th>رقم المجلد</th>
+                                    <th>تصنيف الحكم</th>
+                                    <th>ملخص الحكم</th>
+                                    <th>نص الحكم</th>
+                                    <th> </th>
+                                    <th>السند النظامي</th>
+                                    <th> الاسباب</th>
+                                    <th> الحكم</th>
 
 
 
 
-        </tr>
-    </thead>
-    <tbody id="search_result">
+                                </tr>
+                            </thead>
+                            <tbody id="search_result">
 
-    </tbody>
-</table>
+                            </tbody>
+                        </table>
 
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -108,30 +120,63 @@
         <a href="<?php echo base_url() ?>section/saudi_regulations?section_id=32" class="btnh">الانظمة السعودية</a>
         <a href="<?php echo base_url() ?>section/models_and_contracts?section_id=33" class="btnh">نماذج وعقود</a>
         <a  href="<?php echo base_url() ?>section/searches_law_books?section_id=34"class="btnh" >الكتب القانونية والأبحاث</a>
-           <a  href="<?php echo base_url() ?>section/regulations_legislation?section_id=35"class="btnh" >  الأنظمة والتشريعات والقوانين</a>
+        <a  href="<?php echo base_url() ?>section/regulations_legislation?section_id=35"class="btnh" >  الأنظمة والتشريعات والقوانين</a>
 
 
     </div>    
 </center>
+ <div id="treeview_json"></div>
+<div id="wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-0">
+                <div>
+                    
+<!--                    <div class="panel-body" style="background-color: white; margin-top: -4px;">
+                        <h5 class="w3-bar-item">انواع التشريعات حسب البلد</h5>
+                        <ol class="check-box-list">
+                            <php
+                            foreach ($legislation as $value) {
+                                ?>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="box box-info">
-            <div class="box-header with-border">
-                <h3 class="box-title">  </h3>
-                <div id="treeview_json"></div>
-                <div id='loader' style='display: none;'>
-                    <img src='<?php echo base_url() ?>assets/dist/img/reload.gif' width='50px' height='50px' style="margin-top: -80px;">
+                            <li class="c" style=" margin-bottom: 28px;"><a href="#" ><php
+                                       
+                                        echo $value['country_name'];
+                                        echo '<span class="r">';
+                                        echo $value['allcount'];
+                                        ?></span></a>
+                                </li>
+
+
+                                <php
+                            }
+                            ?>
+                        </ol>
+                    </div>-->
+
+
+<div class="panel-body" style="background-color: white; margin-top: -4px;" id="legislation">
+<!--                        <h5 class="w3-bar-item">انواع التشريعات حسب البلد</h5>-->
+<!--                        <ol class="check-box-list">
+                          
+
+                            <li class="c" style=" margin-bottom: 28px;">
+                        
+                                
+                                
+                                </li>
+
+
+                          
+                        </ol>-->
+                    </div>
                 </div>
             </div>
-
-
         </div>
+    </div>
+</div>
 
 
-
-    </div> 
-</div> 
 
 
 <script src="<?= base_url() ?>assets/dist/js/datatables.min.js"></script>
@@ -223,21 +268,15 @@
 
 
                     if (t !== 0) {
-                        $('.node-selected').empty();
+                   
                         load_book(t);
 
-                        //   alert($('.node-selected').data('nodeid')); 
-
-                        // $('.node-selected').text("hhhh");
 
                     }
 
 
 
-                    // $("#sub_section").val(t);
-
-
-//$(html).appendTo("<li>").text();
+   
 
                 });
 
@@ -249,53 +288,24 @@
             $('.node-selected').html('');
 
             $.ajax({
-            type: "GET",
-                    url: "<?php echo base_url() ?>book/search_via_section/" + tt,
-                    dataType: "json",
-                    beforeSend: function () {
+                type: "POST",
+                url: "<?php echo base_url() ?>section/regulations_legislation_and_laws/",
+                data:{section_id:tt},
+                dataType: "json",
+                beforeSend: function () {
 
                     $("#loader").show();
-                    },
-                    success: function (data)
-                    {
+                },
+                success: function (data)
+                {
+                      $('#legislation').html(data);
 
-
-
-                    var i;
-                            // html +='<ul class="list-inline">';
-                            for (i = 0; i < data.length; i++) {
-                    //  alert(data[i].book_title);
-
-
-
-
-
-
-                    html += '<li  style="color:black;font-size:12px;padding: 10px;"  class= "list-group-item ">' + data[i].book_title + '</li>';
-                            if (data[i].file !== null){
-                    html += '<li   class= " list-group-item  "><button target="_blank"  style="color:black;float:left;margin-top:-25px"  onclick=javascript:window.open("' + base_url + 'uploads/images/' + data[i].file + '")><span class="glyphicon">&#xe025;</span></button></li>';
-                            }
-                    else{
-                    html += '<li   class= " list-group-item  "><button target="_blank"  style="color:black;float:left;margin-top:-25px"  onclick=javascript:window.open("' + data[i].url + '")><span class="glyphicon">&#xe025;</span></button></li>';
-                            }
-
-
-
-
-
-                    }
-                    // html +='</ul>';
-
-                    $(html).appendTo(".node-selected").text();
-                            html = '';
-                            // $('.node-selected').html(html);
-
-                            //$('#book_list').html(html);
-                    },
-            complete: function (data) {
-            // Hide image container
-            $("#loader").hide();
-            },
+                
+                },
+                complete: function (data) {
+                    // Hide image container
+                    $("#loader").hide();
+                },
             });
 
         }
@@ -304,15 +314,14 @@
 
 
         $('#search_button').click(function () {
-        var query = $('#field_search').val();
-        if(query==''){
-            alert('أدخل كلمة للبحث عنها');
-            return false;
-        }
-          var section_id=31;
-           
-            $.ajax({
+            var query = $('#field_search').val();
+            if (query == '') {
+                alert('أدخل كلمة للبحث عنها');
+                return false;
+            }
+            var section_id = 31;
 
+            $.ajax({
                 url: "<?php echo base_url(); ?>Search_section/inline_search",
                 method: "POST",
                 data: {query: query, section_id: section_id},

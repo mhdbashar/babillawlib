@@ -30,14 +30,14 @@
                         <h4 class="no-margin">
                    بحث سريع
                         </h4><br>
-                        <form  action="<?php echo base_url() ?>custom_fields/add_custom_field" method="post">
+                        <form  action="<?php echo base_url() ?>book/index_search" method="post">
                      
 
 
                             <div class="col-md-12" id="title">
                                 <label for="field_label" class="control-label">   أدخل ماتريد البحث عنه هنا  </label>
                                 <div class="form-group">
-                                    <input type="text" name="field_label" value="" class="form-control" id="field_label" required="true" />
+                                    <input type="text" name="query" value="" class="form-control" id="query" required="true" />
                                 </div>
                             </div>
 
@@ -88,6 +88,7 @@
                         <a href="<?php echo base_url() ?>section/saudi_regulations?section_id=32" class="btnh">الانظمة السعودية</a>
                             <a href="<?php echo base_url() ?>section/models_and_contracts?section_id=33" class="btnh">نماذج وعقود</a>
                         <a  href="<?php echo base_url() ?>section/searches_law_books?section_id=34"class="btnh" >الكتب القانونية والأبحاث</a>
+						<a  href="<?php echo base_url() ?>section/regulations_legislation?section_id=35"class="btnh" >  الأنظمة والتشريعات والقوانين</a>
                     
 
                     </div>    

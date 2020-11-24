@@ -133,7 +133,7 @@
                                 $get_main_section_via_id = '';
 
                                 $i = 0;
-                                $arr = ['case_law', 'saudi_regulations', 'models_and_contracts', 'searches_law_books','regulations_legislation_and_laws'];
+                                $arr = ['case_law', 'saudi_regulations', 'models_and_contracts', 'searches_law_books','regulations_legislation'];
 
                                 $result = get_main_section();
                                 foreach ($result as $value) {
@@ -321,6 +321,13 @@
                     <?= $this->layout->block('') ?>
                     <?= $this->layout->block('datelias_search') ?>
                     <?= $this->layout->block('') ?>
+                    <?= $this->layout->block('regulations_legislation_and_laws') ?>
+                    <?= $this->layout->block('') ?>
+                    <?= $this->layout->block('result') ?>
+                      <?= $this->layout->block('') ?>
+                    <?= $this->layout->block('index_search') ?>
+					    <?= $this->layout->block('') ?>
+                    
                     <!-- Your Page Content Here -->
 
                 </section><!-- /.content -->

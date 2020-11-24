@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2020 at 03:20 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.33
+-- Generation Time: Nov 24, 2020 at 02:03 AM
+-- Server version: 10.1.32-MariaDB
+-- PHP Version: 5.6.36
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -69,7 +70,11 @@ CREATE TABLE `book` (
   `the_reasons` varchar(500) NOT NULL,
   `the_legal_bond` varchar(500) NOT NULL,
   `appeal_decision` varchar(500) DEFAULT NULL,
-  `ruling_year` varchar(100) NOT NULL
+  `ruling_year` varchar(100) NOT NULL,
+  `legislative_type` varchar(500) NOT NULL,
+  `legislative_status` varchar(500) NOT NULL,
+  `material_number_legislation` varchar(500) NOT NULL,
+  `legislation_number` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -83,44 +88,6 @@ CREATE TABLE `book_tag` (
   `book_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `book_tag`
---
-
-INSERT INTO `book_tag` (`book_tag_id`, `book_id`, `tag_id`) VALUES
-(901, 726, 323),
-(902, 727, 323),
-(903, 728, 323),
-(904, 729, 323),
-(905, 730, 323),
-(906, 731, 323),
-(907, 732, 323),
-(908, 738, 323),
-(909, 739, 323),
-(910, 742, 323),
-(911, 743, 323),
-(912, 744, 323),
-(913, 745, 323),
-(914, 746, 323),
-(915, 747, 323),
-(916, 751, 323),
-(917, 752, 323),
-(918, 754, 323),
-(919, 755, 323),
-(920, 756, 323),
-(921, 757, 323),
-(922, 758, 323),
-(923, 759, 323),
-(925, 761, 323),
-(926, 762, 323),
-(927, 763, 323),
-(928, 764, 323),
-(929, 765, 323),
-(930, 766, 323),
-(931, 767, 323),
-(932, 768, 323),
-(933, 769, 323);
 
 -- --------------------------------------------------------
 
@@ -424,118 +391,6 @@ CREATE TABLE `materials` (
   `book_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `materials`
---
-
-INSERT INTO `materials` (`material_id`, `material_number`, `description`, `book_id`) VALUES
-(765, '', '<p>544</p>', 639),
-(766, '', '', 640),
-(767, '', '<p>678678</p>', 641),
-(768, '', '', 644),
-(769, '', '', 645),
-(770, '', '', 646),
-(771, '', '', 653),
-(772, '', '', 654),
-(773, '', '', 655),
-(774, '', '', 659),
-(775, '', '', 660),
-(776, '', '', 661),
-(777, '', '', 662),
-(778, '', '', 663),
-(779, '', '', 664),
-(780, '', '', 665),
-(781, '', '', 666),
-(782, '', '', 667),
-(783, '', '', 668),
-(784, '', '', 669),
-(785, '', '', 670),
-(786, '', '', 671),
-(787, '', '', 672),
-(788, '', '', 673),
-(789, '', '', 674),
-(790, '', '', 675),
-(791, '', '', 677),
-(792, '', '', 678),
-(793, '', '', 679),
-(794, '', '', 680),
-(795, '', '', 681),
-(796, '', '', 682),
-(797, '', '', 683),
-(798, '', '', 684),
-(799, '', '', 685),
-(800, '', '', 686),
-(801, '', '', 687),
-(802, '', '', 688),
-(803, '', '', 689),
-(804, '', '', 690),
-(805, '', '', 691),
-(806, '', '', 692),
-(807, '', '', 693),
-(808, '', '', 694),
-(809, '', '', 695),
-(810, '', '', 696),
-(811, '', '', 697),
-(812, '', '', 699),
-(813, '', '', 700),
-(814, '', '', 701),
-(815, '', '', 702),
-(816, '', '', 703),
-(817, '', '', 704),
-(818, '', '', 705),
-(819, '', '', 706),
-(820, '', '', 707),
-(821, '', '', 708),
-(822, '', '', 709),
-(823, '', '', 710),
-(824, '', '', 711),
-(825, '', '', 712),
-(826, '', '', 713),
-(827, '', '', 714),
-(828, '', '', 715),
-(829, '', '', 716),
-(830, '', '', 717),
-(831, '', '', 718),
-(832, '', '', 719),
-(833, '', '', 720),
-(834, '', '', 721),
-(835, '', '<p>رياض</p>', 722),
-(836, '', '<p>رياض</p>', 723),
-(837, '', '', 724),
-(838, '', '', 725),
-(839, '', '', 726),
-(840, '', '<p>نظام</p>', 727),
-(841, '', '', 728),
-(842, '', '', 729),
-(843, '', '', 730),
-(844, '', '', 731),
-(845, '', '', 732),
-(846, '', '', 738),
-(847, '', '', 739),
-(848, '', '', 742),
-(849, '', '', 743),
-(850, '', '', 744),
-(851, '', '', 745),
-(852, '', '', 746),
-(853, '', '', 747),
-(854, '', '', 751),
-(855, '', '', 752),
-(856, '', '', 754),
-(857, '', '', 755),
-(858, '', '', 756),
-(859, '', '', 757),
-(860, '', '', 758),
-(861, '', '', 759),
-(863, '', '<p>jjhj</p>', 761),
-(864, '', '<p>tamer</p>', 762),
-(865, '', '<p>tamer</p>', 763),
-(866, '', '', 764),
-(867, '', '', 765),
-(868, '', '', 766),
-(869, '', '', 767),
-(870, '', '', 768),
-(871, '', '', 769);
-
 -- --------------------------------------------------------
 
 --
@@ -571,7 +426,9 @@ INSERT INTO `section` (`section_id`, `section_name`, `parent_id`, `section_discr
 (162, 'نظام الحوافز', 32, ''),
 (163, 'نظام المكافئات', 32, ''),
 (164, 'العقد الجزئي', 33, ''),
-(165, 'البحث السادس', 34, '');
+(165, 'البحث السادس', 34, ''),
+(166, 'تشريع اول', 35, ''),
+(167, 'تشريع  ثاني', 35, '');
 
 -- --------------------------------------------------------
 
@@ -584,16 +441,6 @@ CREATE TABLE `tag` (
   `tag_name` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tag`
---
-
-INSERT INTO `tag` (`tag_id`, `tag_name`) VALUES
-(320, 'cccc'),
-(321, 'xccd'),
-(322, 'يسليبل'),
-(323, '');
-
 -- --------------------------------------------------------
 
 --
@@ -605,32 +452,6 @@ CREATE TABLE `version` (
   `version` varchar(1200) NOT NULL,
   `book_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `version`
---
-
-INSERT INTO `version` (`version_id`, `version`, `book_id`) VALUES
-(124, '', 700),
-(125, '', 702),
-(126, '', 704),
-(127, '', 705),
-(128, '', 711),
-(129, '', 712),
-(130, '', 713),
-(131, '', 714),
-(132, '', 715),
-(133, '', 716),
-(134, '', 717),
-(135, '', 721),
-(136, '', 722),
-(137, '', 727),
-(138, '', 732),
-(139, '', 743),
-(140, '', 744),
-(141, '', 757),
-(142, '', 762),
-(143, '', 763);
 
 --
 -- Indexes for dumped tables
@@ -704,13 +525,13 @@ ALTER TABLE `version`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=770;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=802;
 
 --
 -- AUTO_INCREMENT for table `book_tag`
 --
 ALTER TABLE `book_tag`
-  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=934;
+  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=965;
 
 --
 -- AUTO_INCREMENT for table `city`
@@ -728,37 +549,37 @@ ALTER TABLE `country`
 -- AUTO_INCREMENT for table `custom_fields`
 --
 ALTER TABLE `custom_fields`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `fields_values`
 --
 ALTER TABLE `fields_values`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=399;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=872;
+  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=903;
 
 --
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
-  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
+  MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
 
 --
 -- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=324;
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=328;
 
 --
 -- AUTO_INCREMENT for table `version`
 --
 ALTER TABLE `version`
-  MODIFY `version_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `version_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

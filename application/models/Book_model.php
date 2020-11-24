@@ -277,5 +277,12 @@ class Book_model extends CI_Model {
             return $query->result();
         }
     }
+    function country_legislation($section_id) {
+          $result = $this->db->query( 'SELECT c.country_name,c.country_id,b.legislative_type, count(b.country) as allcount  FROM country c, book b where (b.country=c.country_id ) and(b.section_id="' . $section_id . '")  group by b.country ')->result_array();
+          return $result;
+    }
+    
+    
+    
 
 }

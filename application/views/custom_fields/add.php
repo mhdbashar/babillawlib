@@ -68,10 +68,10 @@
                                         <option value="number"> Number</option>
                                         <option value="textarea">  Textarea</option>
                                         <option value="select">  Select</option>
-                                        <option value="multiselect">  Multi select</option>
-                                        <option value="checkbox">  Checkbox</option>
+                                       <!--  <option value="multiselect">  Multi select</option>
+                                        <option value="checkbox">  Checkbox</option> -->
                                         <option value="datepicker">  Date Picker</option>
-                                        <option value="datetimepicker">  Datetime Picker</option>
+                                       <!--  <option value="datetimepicker">  Datetime Picker</option> -->
 
                                     </select>
                                 </div>

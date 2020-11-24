@@ -1,5 +1,5 @@
 
-<?= $this->layout->block('book_add_view') ?>
+<?= $this->layout->block('datelias_search') ?>
 <link rel="stylesheet" href="<?= base_url() ?>assets/convert_date/css/bootstrap-datetimepicker.css">
 
 
@@ -43,12 +43,12 @@
     <div class="col-md-12">
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">إضافة كتاب</h3>
+                <h3 class="box-title">بحث تفصيلي عن الكتاب</h3>
                 <span id="u"></span>
             </div>
 
 
-            <form method="post" action="<?php echo base_url() ?>book/add" enctype="multipart/form-data" id="format" name="myForm" >
+            <form method="post" action="<?php echo base_url() ?>book/search_datelias" enctype="multipart/form-data" id="format" name="myForm" >
 
                 <input type="hidden" name="sub_section" value="" id="sub_section" class="sub_section" />
 
@@ -62,7 +62,7 @@
                             <label for="section_id" class="control-label">إختر القـــســـــم</label>
                             <div class="form-group">
                                 <select  name="section_id"  class="form-control section" style="border-bottom: 2px #3c8dbc solid;" id="sel_section" >
-                                    <option value="-1">اختر القسم</option>
+                                    <option value="">اختر القسم</option>
 
                                     <?php
                                     foreach ($get_main_section as $value) {
@@ -78,6 +78,10 @@
 
 
                                 </select>
+
+                                <input type="hidden" name="section_id" value="" id="section_search">
+
+
                             </div>
                         </div>
 
@@ -85,7 +89,7 @@
 
                     </div>
 
-                    <div style="background-color:#9cd8fb;margin-bottom: 10px; width: 50% ">   إختر القـــسســم الفرعي <?php echo validation_errors(); ?>  </div>
+                    
 
 
                     <div class="col-md-8" id="treeview_json">
@@ -102,34 +106,16 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <label for="tag" class="control-label" >الكلمات الدلالية  </label>
-                            <div class="form-group">
-                                <input type="text" name="tag_name" value="" class="form-control" id="tag"  />
-                            </div>
-                        </div>
 
 
 
 
 
 
-                        <div class="col-md-6">
-                            <label for="picture" class="control-label">تحميل الكتاب</label>
-                            <div class="form-group">
 
-                                <input class="form-control m" type="file" name="picture" id="picture"   />
-                            </div>
-                        </div>
 
-                        <div class='col-md-6 mini'>
-                            <label for='mini' class='control-label'>تحميل الصورة</label>
-                            <div class='form-group'>
-                                <input class='form-control' type='file' name='mini' id='mini'/>
-                            </div>
-                            <div class='uploadForm'>
-                            </div>
-                        </div>
+
+
 
                         <div class="col-md-6">
                             <label for="url" class="control-label"> أدخل رابط</label>
@@ -179,13 +165,6 @@
 
 
 
-                        <div class="col-md-12" >
-                            <div class="form-group">
-                                <div align="right">
-                                    <button type="button" name="add_row_ver" id="add_row_ver" class="btn btn-success btn-s">+</button>
-                                </div>
-                            </div>
-                        </div>
 
 
 
@@ -209,13 +188,6 @@
                                 <textarea  style="border:2px solid black" name="dis[]" id="dis1">  </textarea>
                             </div>
                         </div>
-
-                        <div class="col-md-6" >
-
-                            <div align="right">
-                                <button type="button" name="add_row" id="add_row" class="btn btn-success btn-s">+</button>
-                            </div>
-                        </div><br><br><br><br>
 
                         <div id="fff">
                             <?php
@@ -387,10 +359,10 @@
 
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
-										  <div class="form-group">
-                                        <input type='text' name='datepicker1[]' value='' class=' hijri-date-input form-control'  >
+
+                                        <input type='text' name='datepicker1[]' value='' class=' hijri-date-input'  >
                                         <input type="hidden" name="datepicker_id1[]"  value="<?php echo $value['id']; ?>" />
-										 </div>
+
                                     </div>
 
                                     <?php
@@ -414,8 +386,8 @@
                                         <div class="col-md-12" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <input type='text' name='input4[]' value='' class='form-control' id='input' />
-                                                <input type="hidden" name="input_id4[]"  value="<?php echo $value['id']; ?>" />
+                                                <input type='text' name='input2[]' value='' class='form-control' id='input' />
+                                                <input type="hidden" name="id2[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
                                     </div>
@@ -439,7 +411,7 @@
                                     <div class="col-md-12" >
                                         <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                         <div class="form-group">
-                                            <select class='form-control' name="select4[]">;
+                                            <select class='form-control' name="select2[]">;
                                                 <?php
                                                 for ($i = 0; $i < count($arr); $i++) {
                                                     ?>
@@ -451,7 +423,7 @@
                                                 ?>
 
                                             </select>
-                                            <input type="hidden" name="select_id4[]"  value="<?php echo $value['id']; ?>" />
+                                            <input type="hidden" name="id2[]"  value="<?php echo $value['id']; ?>" />
                                         </div>
                                     </div>
 
@@ -485,7 +457,7 @@
                                         <div class="col-md-12" >
 
                                             <div class="form-group">
-                                                <input type="checkbox" name="checkbox4[]" value="<?php echo $arr[$i] ?>"> <?php echo $arr[$i]; ?>
+                                                <input type="checkbox" name="checkbox2[]" value="<?php echo $arr[$i] ?>"> <?php echo $arr[$i]; ?>
 
                                             </div>
                                         </div>
@@ -494,7 +466,7 @@
                                     ?>
 
 
-                                    <input type="hidden" name="checkbox_id4[]"  value="<?php echo $value['id']; ?>" />
+                                    <input type="hidden" name="id2[]"  value="<?php echo $value['id']; ?>" />
 
 
 
@@ -517,8 +489,8 @@
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <input type='number' name='number4[]' value='' class='form-control' id='input' />
-                                                <input type="hidden" name="number_id4[]"  value="<?php echo $value['id']; ?>" />
+                                                <input type='number' name='input2[]' value='' class='form-control' id='input' />
+                                                <input type="hidden" name="id2[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
                                     </div>
@@ -543,8 +515,8 @@
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <textarea  style="border:2px solid black" name="textarea4[]">  </textarea>
-                                                <input type="hidden" name="textarea_id4[]"  value="<?php echo $value['id']; ?>" />
+                                                <textarea  style="border:2px solid black" name="textarea2[]">  </textarea>
+                                                <input type="hidden" name="id2[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
                                     </div>
@@ -564,10 +536,10 @@
 
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
-  <div class="form-group">
-                                        <input type='text' name='datepicker4[]' value='' class=' hijri-date-input form-control'  >
-                                        <input type="hidden" name="datepicker_id4[]"  value="<?php echo $value['id']; ?>" />
-</div>
+
+                                        <input type='text' name='datepicker2[]' value='' class=' hijri-date-input'  >
+                                        <input type="hidden" name="id2[]"  value="<?php echo $value['id']; ?>" />
+
                                     </div>
 
                                     <?php
@@ -736,10 +708,10 @@
 
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
-										 <div class="form-group">
-                                        <input type='text' name='datepicker3[]' value='' class=' hijri-date-input form-control'  >
+
+                                        <input type='text' name='datepicker3[]' value='' class=' hijri-date-input'  >
                                         <input type="hidden" name="datepicker_id3[]"  value="<?php echo $value['id']; ?>" />
-										 </div>
+
                                     </div>
 
                                     <?php
@@ -758,8 +730,8 @@
                                         <div class="col-md-12" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <input type='text' name='input2[]' value='' class='form-control' id='input' />
-                                                <input type="hidden" name="input_id2[]"  value="<?php echo $value['id']; ?>" />
+                                                <input type='text' name='input4[]' value='' class='form-control' id='input' />
+                                                <input type="hidden" name="id4[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
                                     </div>
@@ -783,7 +755,7 @@
                                     <div class="col-md-12" >
                                         <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                         <div class="form-group">
-                                            <select class='form-control' name="select2[]">;
+                                            <select class='form-control' name="select4[]">;
                                                 <?php
                                                 for ($i = 0; $i < count($arr); $i++) {
                                                     ?>
@@ -795,7 +767,7 @@
                                                 ?>
 
                                             </select>
-                                            <input type="hidden" name="select_id2[]"  value="<?php echo $value['id']; ?>" />
+                                            <input type="hidden" name="id4[]"  value="<?php echo $value['id']; ?>" />
                                         </div>
                                     </div>
 
@@ -829,7 +801,7 @@
                                         <div class="col-md-12" >
 
                                             <div class="form-group">
-                                                <input type="checkbox" name="checbox2[]"  value="<?php echo $arr[$i] ?>"> <?php echo $arr[$i]; ?>
+                                                <input type="checkbox" name="checbox4[]"  value="<?php echo $arr[$i] ?>"> <?php echo $arr[$i]; ?>
 
                                             </div>
                                         </div>
@@ -861,8 +833,8 @@
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <input type='number' name='number2[]' value='' class='form-control' id='input' />
-                                                <input type="hidden" name="number_id2[]"  value="<?php echo $value['id']; ?>" />
+                                                <input type='number' name='input4[]' value='' class='form-control' id='input' />
+                                                <input type="hidden" name="id4[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
                                     </div>
@@ -883,8 +855,8 @@
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <textarea  style="border:2px solid black" name="textarea2[]">  </textarea>
-                                                <input type="hidden" name="textarea_id2[]"  value="<?php echo $value['id']; ?>" />
+                                                <textarea  style="border:2px solid black" name="textarea4[]">  </textarea>
+                                                <input type="hidden" name="id4[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
                                     </div>
@@ -904,12 +876,11 @@
 
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
-											  <div class="form-group">
-                                        <input type='text' name='datepicker2[]' value='' class=' hijri-date-input form-control'  >
-                                        <input type="hidden" name="datepicker_id2[]"  value="<?php echo $value['id']; ?>" />
+
+                                        <input type='text' name='datepicker4[]' value='' class=' hijri-date-input'  >
+                                        <input type="hidden" name="id4[]"  value="<?php echo $value['id']; ?>" />
 
                                     </div>
-									 </div>
 
                                     <?php
                                 }
@@ -923,56 +894,6 @@
 
 
 
-                    <div id="fffffff">
-                        <?php
-                        $data18 = custom_fields();
-                        foreach ($data18 as $value) {
-                            if ($value['field_type'] == 'input' && $value['section_id'] == 35) {
-                                ?>
-                                <div>
-                                    <div class="col-md-12" >
-                                        <label  class="control-label"><?php echo $value['field_label']; ?></label>
-                                        <div class="form-group">
-                                            <input type='text' name='input5[]' value='' class='form-control' id='input' />
-                                            <input type="hidden" name="input_id5[]"  value="<?php echo $value['id']; ?>" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <?php
-                            }
-                        }
-                        ?>
-                    </div>
-
-                    <div id="bbbbbbb">
-
-
-                        <?php
-                        $data19 = custom_fields();
-                        foreach ($data19 as $value) {
-
-                            if ($value['field_type'] == 'select' && $value['section_id'] == 35) {
-                                $arr = explode(",", $value['options']);
-                                ?>
-                                <div class="col-md-12" >
-                                    <label  class="control-label"><?php echo $value['field_label']; ?></label>
-                                    <div class="form-group">
-                                        <select class='form-control' name="select5[]">;
-                                            <?php
-                                            for ($i = 0; $i < count($arr); $i++) {
-                                                ?>
-
-                                                <option class='form-control' value="<?php echo $arr[$i] ?>"><?php echo $arr[$i] ?></option>
-
-                                                <?php
-                                            }
-                                            ?>
-
-                                        </select>
-                                        <input type="hidden" name="select_id5[]"  value="<?php echo $value['id']; ?>" />
-                                    </div>
-                                </div>
 
 
 
@@ -980,116 +901,45 @@
 
 
 
-                                <?php
-                            }
-                        }
-                        ?>
-
-                    </div>
-                    <div id="ccccccc">
-
-
-                        <?php
-                        $data20 = custom_fields();
-                        foreach ($data20 as $value) {
-
-                            if ($value['field_type'] == 'checkbox' && $value['section_id'] == 35) {
-                                $arr = explode(",", $value['options']);
-                                ?>
-
-                                <label  class="control-label"><?php echo $value['field_label']; ?></label>
-                                <?php
-                                for ($i = 0; $i < count($arr); $i++) {
-                                    ?>
-                                    <div class="col-md-12" >
-
-                                        <div class="form-group">
-                                            <input type="checkbox" name="checbox5[]"  value="<?php echo $arr[$i] ?>"> <?php echo $arr[$i]; ?>
-
-                                        </div>
-                                    </div>
-                                    <?php
-                                }
-                                ?>
+                </div>
+                <div class="col-md-6" >
 
 
 
 
 
 
+                    <!--                    
+                                        <div class="col-md-12">
+                                            <label for="field" class="control-label"> الحقول المخصصة</label>
+                                            <div class="form-group">
+                                                <select name='inputSelect' class='form-control'>
+                    
+                                                    <option value ="text">حقل نصي</option>
+                                                    <option value ="radio">زر اختيار خيار واحد</option>
+                                                    <option value ="checkbox">زر اختيار خيارات متعددة</option>
+                                                    <option value ="textarea">حقل نصي متعدد</option>
+                                                </select>
+                    
+                                                <input type="button" value="اضف الحقول المخصصة" onClick="addAllInputs('dynamicInputs', document.myForm.inputSelect.value);"><br />
+                    
+                                            </div>
+                                        </div>-->
 
 
+                    <!--                    <div class="col-md-12">
+                    
+                                            <div class="form-group">
+                                                <div  id="dynamicInputs">
+                    
+                    
+                                                </div>
+                    
+                    
+                                            </div>
+                                        </div>-->
 
-                                <?php
-                            }
-                        }
-                        ?>
 
-                    </div>
-                    <div id="ddddddd">
-                        <?php
-                        $data21 = custom_fields();
-                        foreach ($data21 as $value) {
-                            if ($value['field_type'] == 'number' && $value['section_id'] == 35) {
-                                ?>
-                                <div id="custom">
-                                    <div class="col-md-6" >
-                                        <label  class="control-label"><?php echo $value['field_label']; ?></label>
-                                        <div class="form-group">
-                                            <input type='number' name='number5[]' value='' class='form-control' id='input' />
-                                            <input type="hidden" name="number_id5[]"  value="<?php echo $value['id']; ?>" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <?php
-                            }
-                        }
-                        ?>
-                    </div>
-
-                    <div id="ggggggg">
-                        <?php
-                        $data22 = custom_fields();
-                        foreach ($data22 as $value) {
-                            if ($value['field_type'] == 'textarea' && $value['section_id'] == 35) {
-                                ?>
-                                <div id="custom">
-                                    <div class="col-md-6" >
-                                        <label  class="control-label"><?php echo $value['field_label']; ?></label>
-                                        <div class="form-group">
-                                            <textarea  style="border:2px solid black" name="textarea5[]">  </textarea>
-                                            <input type="hidden" name="textarea_id5[]"  value="<?php echo $value['id']; ?>" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <?php
-                            }
-                        }
-                        ?>
-                    </div>
-
-                    <div id="lllllll">
-                        <?php
-                        $data23 = custom_fields();
-                        foreach ($data23 as $value) {
-                            if ($value['field_type'] == 'datepicker' && $value['section_id'] == 35) {
-                                ?>
-
-                                <div class='col-md-6'>
-                                    <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
-								 <div class="form-group">
-                                    <input type='text' name='datepicker5[]' value='' class=' hijri-date-input form-control  '  >
-                                    <input type="hidden" name="datepicker_id5[]"  value="<?php echo $value['id']; ?>" />
-								 </div>
-                                </div>
-
-                                <?php
-                            }
-                        }
-                        ?>
-                    </div>  
 
                 </div>
 
@@ -1099,67 +949,15 @@
 
 
 
-
-
-
-
-
-
         </div>
-
-
-
-
-
-        <!--                    
-                            <div class="col-md-12">
-                                <label for="field" class="control-label"> الحقول المخصصة</label>
-                                <div class="form-group">
-                                    <select name='inputSelect' class='form-control'>
-        
-                                        <option value ="text">حقل نصي</option>
-                                        <option value ="radio">زر اختيار خيار واحد</option>
-                                        <option value ="checkbox">زر اختيار خيارات متعددة</option>
-                                        <option value ="textarea">حقل نصي متعدد</option>
-                                    </select>
-        
-                                    <input type="button" value="اضف الحقول المخصصة" onClick="addAllInputs('dynamicInputs', document.myForm.inputSelect.value);"><br />
-        
-                                </div>
-                            </div>-->
-
-
-        <!--                    <div class="col-md-12">
-        
-                                <div class="form-group">
-                                    <div  id="dynamicInputs">
-        
-        
-                                    </div>
-        
-        
-                                </div>
-                            </div>-->
-
-
+        <div class="box-footer">
+            <button type="submit" class="btn btn-success save" id="search">
+                <i class="fa fa-check"></i> بحث
+            </button>
+        </div>
+        </form>
 
     </div>
-
-
-
-
-
-
-
-</div>
-<div class="box-footer">
-    <button type="submit" class="btn btn-success save">
-        <i class="fa fa-check"></i> حفظ
-    </button>
-</div>
-</form>
-
-</div>
 </div>
 </div>
 
@@ -1172,6 +970,9 @@
 
 <script>
     $(document).ready(function () {
+        
+        
+        
         var t = 0;
         $(".mini").hide();
         $("#ver_ver").hide();
@@ -1216,36 +1017,26 @@
             $("#ffff").hide();
             $("#fffff").hide();
             $("#ffffff").hide();
-             $("#fffffff").hide();
-            
             $("#bbb").hide();
             $("#bbbb").hide();
             $("#bbbbb").hide();
             $("#bbbbbb").hide();
-            $("#bbbbbbb").hide();
             $("#ccc").hide();
             $("#cccc").hide();
             $("#ccccc").hide();
             $("#cccccc").hide();
-             $("#cccccc").hide();
-             
             $("#ddd").hide();
             $("#dddd").hide();
             $("#ddddd").hide();
             $("#dddddd").hide();
-             $("#ddddddd").hide();
             $("#ggg").hide();
             $("#gggg").hide();
             $("#ggggg").hide();
             $("#gggggg").hide();
-             $("#ggggggg").hide();
-             
             $("#lll").hide();
             $("#llll").hide();
             $("#lllll").hide();
             $("#llllll").hide();
-              $("#lllllll").hide();
-            
             $("#add_row").hide();
             $("#add_row_ver").hide();
             $(".collection").hide();
@@ -1263,71 +1054,10 @@
             var section_name = $("#sel_section option:selected").html();
 
 
+    var value = $('#sel_section :selected').val();
+          
+            $('#section_search').val(value);
 
-            $.ajax({
-                type: "GET",
-                url: "<?php echo base_url() ?>section/getItem/" + main_section_id,
-                dataType: "json",
-                success: function (response)
-                {
-
-                    change = 'yes';
-                    var i = 0;
-                    var j = 0;
-                    var r = [];
-
-                    var k = '';
-                    for (i = 0; i < response.result.length; i++) {
-
-
-                        r[i] = response.result[i].section_id;
-
-                    }
-
-
-                    $('#treeview_json').treeview({data: response});
-                    t = 0;
-                    $("#sub_section").val(t);
-                    $('#treeview_json').on('nodeSelected', function (event, data) {
-
-                        t = 0;
-                        $("#sub_section").val(t);
-                        for (j = 0; j < r.length; j++) {
-
-
-                            if (r[j] === data.id) {
-                                //  alert(data.id);
-                                t = data.id;
-                                //  alert(data.id);
-                                $("#sub_section").val(t);
-                                break;
-
-
-                            }
-
-                        }
-
-                    });
-
-                    $(".save").click(function () {
-
-                        if (t === 0) {
-                            alert("  اختر اخر عقدة في كل قسم رئيسي");
-                            $("#format").trigger("reset");
-                            //return false;
-
-                        } else {
-
-
-                            return true;
-                        }
-
-
-                    });
-
-
-                }
-            });
 
 
             var txt4 = '';
@@ -1361,7 +1091,7 @@
             var txt2 = '';
             var txt3 = '';
             var txt6 = '';
-            var txt5 = '';
+
             if (section_name === 'الأحكام والسوابق القضائية') {
                 addTinyMCE();
                 $("#fm").empty();
@@ -1412,21 +1142,6 @@
                 txt6 += "</select>";
                 txt6 += "</div>";
                 txt6 += "</div>";
-
-
-				
-					
-                txt6 += "<div class='col-md-6'>";
-                txt6 += "<label for='pronounced_judgment' class='control-label'>المحكمة </label>";
-                txt6 += "<div class='form-group'>";
-                txt6 += "<select  name='pronounced_judgment' value='' class='form-control' id='pronounced_judgment'>";
-                txt6 += "<option value='محكمة الاستئناف'>محكمة الاستئناف</option>";
-                txt6 += "<option value=' محكمة النقض'>محكمة النقض</option>";
-                txt6 += "</select>";
-                txt6 += "</div>";
-                txt6 += "</div>";
-
-
 
 
                 txt6 += "<div class='col-md-6'>";
@@ -1523,77 +1238,18 @@
                 txt2 += "</div>";
                 txt2 += "</div>";
 
+
+
+
+
+
+
                 $(".mini").show();
 
                 $("#fm").html(txt2);
 
 
-            }
-            else if (section_name === 'الأنظمة والتشريعات والقوانين') {
-
-                $("#bbbbbbb").show();
-                $("#fffffff").show();
-                $("#ccccccc").show();
-                $("#ddddddd").show();
-                $("#ggggggg").show();
-                $("#lllll1l").show();
-                addTinyMCE();
-                $("#fm").empty();
-                $("#title").show();
-                txt5 += "<div class='col-md-6'>";
-                txt5 += "<label for='legislative_type' class='control-label'>النوع التشريعي</label>";
-                txt5 += "<div class='form-group'>";
-                txt5 += "<select  name='legislative_type' value='' class='form-control' id='legislative_type'>";
-
-                txt5 += "<option value='النوع الاول'>النوع الاول</option>";
-                txt5 += "<option value='النوع الثاني'>النوع الثاني</option>";
-                txt5 += "</select>";
-                txt5 += "</div>";
-                txt5 += "</div>";
-
-                txt5 += "<div class='col-md-6'>";
-                txt5 += "<label for='legislative_status' class='control-label'> حالة التشريع</label>";
-                txt5 += "<div class='form-group'>";
-                txt5 += "<select  name='legislative_status' value='' class='form-control' id='legislative_status'>";
-
-                txt5 += "<option value='الحالة الاولى'> الحالة الاولى</option>";
-                txt5 += "<option value='الحالة الثانية'> الحالة الثانية</option>";
-                txt5 += "</select>";
-                txt5 += "</div>";
-                txt5 += "</div>";
-                
-                
-                
-                    txt5 += "<div class='col-md-6'>";
-                txt5 += "<label for='material_number_legislation' class='control-label'> رقم المادة</label>";
-                txt5 += "<div class='form-group'>";
-                txt5 += "<input type='number' name='material_number_legislation' value='' class='form-control' id='material_number_legislation' />";
-                txt5 += "</div>";
-                txt5 += "</div>";
-                
-                
-                
-                
-                  
-                    txt5 += "<div class='col-md-6'>";
-                txt5 += "<label for='legislation_number' class='control-label'> رقم التشريع</label>";
-                txt5 += "<div class='form-group'>";
-                txt5 += "<input type='number' name='legislation_number' value='' class='form-control' id='legislation_number' />";
-                txt5 += "</div>";
-                txt5 += "</div>";
-                
-                
-                
-
-                $("#show_country").show();
-
-                $("#fm").html(txt5);
-
-
-            }
-
-
-            else if (section_name === 'الأنظمة السعودية') {
+            } else if (section_name === 'الأنظمة السعودية') {
                 $("#bbbbb").show();
                 $("#fffff").show();
                 $("#ccccc").show();
@@ -1655,7 +1311,11 @@
                 $("#fm").html(txt2);
                 $("#material").html(txt3);
                 initHijrDatePickerDefault();
-
+//                history_system_m();
+//                history_system_h();
+//                date_publication_m();
+//                date_publication_h();
+                // addTinyMCE();
 
             } else if (section_name === 'نماذج وعقود') {
 
@@ -1673,7 +1333,71 @@
                 initHijrDatePickerDefault();
 
 
-            } else {
+            }    
+			
+			
+			else if (section_name === 'الأنظمة والتشريعات والقوانين') {
+
+                $("#bbbbbbb").show();
+                $("#fffffff").show();
+                $("#ccccccc").show();
+                $("#ddddddd").show();
+                $("#ggggggg").show();
+                $("#lllll1l").show();
+                addTinyMCE();
+                $("#fm").empty();
+                $("#title").show();
+                txt9 += "<div class='col-md-6'>";
+                txt9 += "<label for='legislative_type' class='control-label'>النوع التشريعي</label>";
+                txt9 += "<div class='form-group'>";
+                txt9 += "<select  name='legislative_type' value='' class='form-control' id='legislative_type'>";
+
+                txt9 += "<option value='النوع الاول'>النوع الاول</option>";
+                txt9 += "<option value='النوع الثاني'>النوع الثاني</option>";
+                txt9 += "</select>";
+                txt9 += "</div>";
+                txt9 += "</div>";
+
+                txt9 += "<div class='col-md-6'>";
+                txt9 += "<label for='legislative_status' class='control-label'> حالة التشريع</label>";
+                txt9 += "<div class='form-group'>";
+                txt9 += "<select  name='legislative_status' value='' class='form-control' id='legislative_status'>";
+
+                txt9 += "<option value='الحالة الاولى'> الحالة الاولى</option>";
+                txt9 += "<option value='الحالة الثانية'> الحالة الثانية</option>";
+                txt9 += "</select>";
+                txt9 += "</div>";
+                txt9 += "</div>";
+                
+                
+                
+                    txt9 += "<div class='col-md-6'>";
+                txt9 += "<label for='material_number_legislation' class='control-label'> رقم المادة</label>";
+                txt9 += "<div class='form-group'>";
+                txt9 += "<input type='number' name='material_number_legislation' value='' class='form-control' id='material_number_legislation' />";
+                txt9 += "</div>";
+                txt9 += "</div>";
+                
+                 txt9 += "<div class='col-md-6'>";
+                txt9 += "<label for='legislation_number' class='control-label'> رقم التشريع</label>";
+                txt9 += "<div class='form-group'>";
+                txt9 += "<input type='number' name='legislation_number' value='' class='form-control' id='legislation_number' />";
+                txt9 += "</div>";
+                txt9 += "</div>";
+                
+                
+                
+
+                $("#show_country").show();
+
+                $("#fm").html(txt9);
+
+
+            }
+			
+			
+			
+			else {
 
                 $("#fm").empty();
             }
@@ -1741,75 +1465,15 @@
 
         });
 
-        $(document).on('click', '.remove_row', function () {
-            addTinyMCE();
-            var row_id = $(this).attr("id");
-
-            $('#row_id_' + row_id).remove();
-            count--;
-            $('#total_item').val(count);
-            addTinyMCE();
-        });
-
-        $(document).on('click', '.remove_row_ver', function () {
-
-            var row_id_ver = $(this).attr("data-id");
-
-
-            $('#row_id_ver' + row_id_ver).remove();
-            count_ver--;
-            $('#total_item_ver').val(count_ver);
-        });
 
 
 
-        function filePreview(input) {
-
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('.uploadForm + img').remove();
-                    $('.uploadForm').after('<img src="' + e.target.result + '" width="120" height="150"/>');
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        $("#mini").change(function () {
-
-            filePreview(this);
-        });
 
 
-//
-//        $(".save").click(function () {
-//
-//            if (change === 'no') {
-//                alert("اختر القسم في البداية");
-//                $("#format").trigger("reset");
-//                window.location.reload();
-//            } else {
-//
-//
-//                return true;
-//            }
-//
-//
-//        });
-        $(".save").click(function () {
-
-            if (t === 0 || t === '') {
-                alert("إختر القسم الرئيسي");
-                $("#format").trigger("reset");
-                //return false;
-
-            } else {
 
 
-                return true;
-            }
 
 
-        });
 
 
 
@@ -1831,76 +1495,17 @@
 
 <script>
 
+ $(document).ready(function () {
+     
+      $("#search").click(function () {
+   var sel_section = $('#sel_section :selected').val();
+   
+   $("#section_search").val(sel_section);
+   
+ 
 
-
-    function addAllInputs(divName, inputType) {
-
-        var newdiv = document.createElement('div');
-        var lbl = '';
-        var chck = '';
-        var radio = '';
-        switch (inputType) {
-            case 'text':
-                lbl = prompt("أدخل عنوان الحقل المخصص", "");
-                newdiv.innerHTML = " <div class='col-md-6'><div class='form-group'><label>" + lbl + "</label><input type='text' name='myInputs[]'  class='form-control'></div></div><input type='hidden' name='myinputs_label[]' value='" + lbl + "'>";
-
-//                                            var newArray = new Array();
-//                                            newArray.push(lbl);
-//                                      
-//
-//                                            $.ajax({
-//                                                type: "POST",
-//                                                url: <php echo base_url() ?>book/add,
-//                                                data: JSON.stringify(newArray),
-//                                                contentType: "application/json"
-//                                            });
-
-                break;
-
-
-//                                        case 'select':
-//
-//                                          var  lbl = prompt("أدخل عنوان الحقل المخصص", "");
-//                                              var  id = prompt("أدخل المعرف", "");
-//                                         newdiv.innerHTML = " <br><label>" + lbl + "</label><select id='" + id + "'  name='selectvalue[]'></select>"; 
-//                                           
-//                                               var value_variable = prompt("أدخل عنوان الحقل المخصص", "");
-//                                                var    text_variable = prompt("أدخل قيمة الحقل المخصص", "");
-//                                           
-//                                            $('#selectID').append($('<option>',
-//                                                    {
-//                                                        value: value_variable,
-//                                                        text: text_variable
-//                                                    }));
-//
-//                                            break;
-
-
-
-            case 'radio':
-                lbl = prompt("أدخل عنوان الحقل المخصص", "");
-                radio = prompt("أدخل قيمة الحقل المخصص", "");
-                newdiv.innerHTML = "<div class='col-md-6'><div class='form-group'><label>" + lbl + "</label> <input type='radio' name='myRadioButtons[]' value='" + radio + "'  ></div></div><input type='hidden' name='myradiobuttons_label[]' value='" + lbl + "'>";
-                $(".myradiobuttons_label").val(lbl);
-                break;
-            case 'checkbox':
-                lbl = prompt("أدخل عنوان الحقل المخصص", "");
-                chck = prompt("أدخل قيمة الحقل المخصص", "");
-                newdiv.innerHTML = "<div class='col-md-6'><div class='form-group'><label>" + lbl + "</label><input type='checkbox' name='myCheckBoxes[]' value='" + chck + "' ></div></div><input type='hidden' name='mycheckboxes_label[]' value='" + lbl + "'>";
-                $(".mycheckboxes_label").val(lbl);
-                break;
-            case 'textarea':
-                lbl = prompt("أدخل عنوان الحقل المخصص", "");
-
-                newdiv.innerHTML = "<div class='col-md-6'><div class='form-group'><label>" + lbl + "</label><br><textarea name='myTextAreas[]'>ادخل النص هنا</textarea></div></div><input type='hidden' name='mytextareas_label[]' value='" + lbl + "'>";
-
-                $(".mytextareas_label").val(lbl);
-                break;
-        }
-
-        document.getElementById(divName).appendChild(newdiv);
-        addTinyMCE();
-    }
+    });
+     });
 </script>
 
 <script>
@@ -1934,21 +1539,22 @@
 
 
 
+
 <script>
 
-    //tinymce.init({selector:'textarea'});
+            //tinymce.init({selector:'textarea'});
 
-    function addTinyMCE() {
-        tinymce.init({
-            selector: 'textarea', // change this value according to your HTML
-            language: 'ar',
-            allow_unsafe_link_target: true,
-            convert_fonts_to_spans: false
+                    function addTinyMCE() {
+                    tinymce.init({
+                    selector: 'textarea', // change this value according to your HTML
+                            language: 'ar',
+                            allow_unsafe_link_target: true,
+                            convert_fonts_to_spans: false
 
 
 
-        });
-    }
+                    });
+                    }
 
 </script>
 
@@ -1956,22 +1562,16 @@
 <script type="text/javascript">
 
 
-    $(function () {
+            $(function () {
 
-        //initHijrDatePicker();
+            //initHijrDatePicker();
 
-        initHijrDatePickerDefault();
+            initHijrDatePickerDefault();
+            });
+                    function initHijrDatePickerDefault() {
 
-
-
-    });
-
-
-
-    function initHijrDatePickerDefault() {
-
-        $(".hijri-date-input").hijriDatePicker();
-    }
+                    $(".hijri-date-input").hijriDatePicker();
+                    }
 
 
 </script>
