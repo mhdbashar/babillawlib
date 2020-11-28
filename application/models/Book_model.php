@@ -239,7 +239,21 @@ class Book_model extends CI_Model {
             $query = $this->db->get();
             return $query->result();
             
-        } elseif (($query != '') && $section_id == 32) {
+        }elseif (($query != '') && $section_id == 35) {
+            $this->db->select("*");
+            $this->db->from("book");
+            $this->db->where("main_section", $section_id);
+
+            $this->db->like('book_title', $query);
+            $this->db->or_like('url', $query);
+            $this->db->or_like('dis', $query);
+            $query = $this->db->get();
+            return $query->result();
+
+
+
+
+		}elseif (($query != '') && $section_id == 32) {
             $this->db->select("*");
             $this->db->from("book");
             $this->db->where("main_section", $section_id);
@@ -281,6 +295,12 @@ class Book_model extends CI_Model {
           $result = $this->db->query( 'SELECT c.country_name,c.country_id,b.legislative_type, count(b.country) as allcount  FROM country c, book b where (b.country=c.country_id ) and(b.section_id="' . $section_id . '")  group by b.country ')->result_array();
           return $result;
     }
+	
+	function load_book_via_country_name($section_id,$country_name){
+	        $result = $this->db->query( 'SELECT   *  from book b , country c  where   c.country_id = b.country and c.country_name= "'.$country_name.'"  and  section_id="' . $section_id . '"   ')->result_array();
+          return $result;
+		
+	}
     
     
     

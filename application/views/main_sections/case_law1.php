@@ -1,5 +1,5 @@
 
-<?= $this->layout->block('searches_law_books') ?>
+<?= $this->layout->block('case_law') ?>
 <style>
 
     .btnh {
@@ -18,6 +18,15 @@
         color: white;
     }
 </style>
+
+	<style>
+			.question{font-size:0.9em;padding:10px;margin:1px;background-color:#B24926;cursor:pointer;}
+			.answer{display:none;padding:10px;margin:1px;background-color:#CCC;}
+		</style>
+	
+
+
+
 
 <div id="wrapper">
     <div class="content">
@@ -48,14 +57,23 @@
                             <input id="search_button" type="button" class="btn btn-primary" value="بحث">
 
                         </form>
-<table class="table table-bordered table-sm" >
+                        <table class="table table-bordered table-sm">
     <thead>
         <tr>
             <th>التسلسل</th>
             <th>عنوان الكتاب</th>
             <th>الرابط</th>
             <th>الوصف</th>
-        
+            <th>البلد</th>
+            <th>سنة الحكم</th>
+            <th>رقم المجلد</th>
+            <th>تصنيف الحكم</th>
+            <th>ملخص الحكم</th>
+            <th>نص الحكم</th>
+            <th> </th>
+            <th>السند النظامي</th>
+            <th> الاسباب</th>
+            <th> الحكم</th>
 
 
 
@@ -81,8 +99,13 @@
 
 
 
+
+
+
+
+
 <center>
-   <div id="myDIV"">
+    <div id="myDIV">
 
 
         <a   href="<?php echo base_url() ?>section/case_law?section_id=31" class="btnh" >السوابق القضائية</a>
@@ -91,15 +114,9 @@
         <a  href="<?php echo base_url() ?>section/searches_law_books?section_id=34"class="btnh" >الكتب القانونية والأبحاث</a>
            <a  href="<?php echo base_url() ?>section/regulations_legislation?section_id=35"class="btnh" >  الأنظمة والتشريعات والقوانين</a>
 
+
     </div>    
 </center>
-<style>
-
-    div #pagination_in_section a:focus{
-        background-color: #46b8da;
-    }
-</style>
-
 
 <div class="row">
     <div class="col-md-12">
@@ -107,31 +124,26 @@
             <div class="box-header with-border">
                 <h3 class="box-title">  </h3>
                 <div id="treeview_json"></div>
-
-                <div class="product-grid-area">
-                    <ul class="products-grid" style="list-style-type: none;">
-
-                        <div id='loader' style='display: none;'>
-                            <img src='<?php echo base_url() ?>assets/dist/img/reload.gif' width='50px' height='50px'>
-                        </div>
-
-                        <div id="books_in_section">
-
-
-                        </div>
-
-                    </ul>
+                <div id='loader' style='display: none;'>
+                    <img src='<?php echo base_url() ?>assets/dist/img/reload.gif' width='50px' height='50px' style="margin-top: -80px;">
                 </div>
-                <div class="pagination-area" id="pagination_in_section">
+            </div>
+<div>
 
-                </div>
+</div>
 
-
-            </div> 
         </div>
+
+
 
     </div> 
 </div> 
+
+
+<div class="panel-body" style="background-color: white; margin-top: -4px;" id="legislation">
+
+                    </div>
+
 
 
 <script src="<?= base_url() ?>assets/dist/js/datatables.min.js"></script>
@@ -143,32 +155,49 @@
 
 <script src="<?= base_url() ?>assets/dist/js/bootstrap-tokenfield.js"></script>
 
-
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script>
     var base_url = '<?php echo base_url(); ?>';
     $(document).ready(function () {
-        var section_id = '';
+
+$( "#accordion" ).accordion();
         var getUrlParameter = function getUrlParameter(sParam) {
 
             var sPageURL = decodeURIComponent(window.location.search.substring(1)),
                     sURLVariables = sPageURL.split('&'),
                     sParameterName,
                     i;
+
+
             for (i = 0; i < sURLVariables.length; i++) {
 
                 sParameterName = sURLVariables[i].split('=');
+
+
                 if (sParameterName[0] === sParam) {
 
                     return sParameterName[1] === undefined ? true : sParameterName[1];
+
                 }
             }
         };
+
+
         var main_section_id = getUrlParameter('section_id');
+
         //alert(main_section_id);
 
 
 
         var t = '';
+        var html = '';
+
+
+
+
+
+
         $.ajax({
             type: "GET",
             url: "<?php echo base_url() ?>section/getItem/" + main_section_id,
@@ -179,16 +208,20 @@
                 var i = 0;
                 var j = 0;
                 var r = [];
+
+
                 for (i = 0; i < response.result.length; i++) {
 
 
                     r[i] = response.result[i].section_id;
+
                 }
 
                 $('#treeview_json').treeview({data: response});
+
                 $('#treeview_json').on('nodeSelected', function (event, data) {
-                    t = '';
-                    html = '';
+
+                    t = 0;
                     for (j = 0; j < r.length; j++) {
 
                         if (r[j] === data.id) {
@@ -196,102 +229,105 @@
 
 
                             t = data.id;
+
                         }
 
                     }
 
-                    // alert(t);
 
+                    if (t !== 0) {
+                        $('.node-selected').empty();
+                        load_book(t);
 
-                    section_id = t;
-                    function loadPagination(pagno, section_id) {
+                        //   alert($('.node-selected').data('nodeid')); 
 
+                        // $('.node-selected').text("hhhh");
 
-                        $.ajax({
-
-                            url: "<?php echo base_url() ?>book/book_pagination/" + pagno,
-                            type: 'post',
-                            dataType: 'json',
-                            data: {section_id: section_id},
-                            beforeSend: function () {
-
-                                $("#loader").show();
-                            },
-                            success: function (response) {
-
-                                //  alert(response.pagination);
-
-                                $('#pagination_in_section').html(response.pagination);
-                                createTable(response.result, response.row);
-                            },
-                            complete: function (data) {
-                                // Hide image container
-                                $("#loader").hide();
-                            },
-
-                            error: function () {
-                                alert("error in loadPagination");
-                            }
-                        });
                     }
 
 
 
+                    // $("#sub_section").val(t);
 
 
-//  Create table list';
-                    function createTable(result, sno) {
-                        sno = Number(sno);
-                        $('#books_in_section').empty();
-                        var output = '';
-                        for (index in result) {
+//$(html).appendTo("<li>").text();
 
-
-
-                            var book_title = result[index].book_title;
-                            var file = result[index].file;
-                            var mini = result[index].mini;
-                            var url = result[index].url;
-
-
-
-
-
-                            sno += 1;
-                            output += '<li class="item col-lg-2 col-md-4 col-sm-6 col-xs-6 "></a>';
-                            if (file !== null) {
-                                output += '<a target="_blank" href="' + base_url + 'uploads/images/' + file + '"><img src="' + base_url + 'uploads/images/' + mini + '" width="120" height="150"  >';
-                            } else {
-                                output += '<a target="_blank" href="' + url + '"><img src="' + base_url + 'uploads/images/' + mini + '" width="120" height="150"  >';
-                            }
-
-
-
-                            output += '<div>' + book_title + '</div>';
-                            output += '</li>';
-                        }
-                        $('#books_in_section').append(output);
-                    }
-
-
-
-
-                    loadPagination(0, section_id);
-                    $('#pagination_in_section').on('click', 'a', function (e) {
-                        e.preventDefault();
-                        var pageno = $(this).attr('data-ci-pagination-page');
-                        loadPagination(pageno, section_id);
-                    });
                 });
+
             }
         });
+
+
+        function load_book(tt) {
+            $('.node-selected').html('');
+
+            $.ajax({
+            type: "GET",
+                    url: "<?php echo base_url() ?>book/search_via_section/" + tt,
+                    dataType: "json",
+                    beforeSend: function () {
+
+                    $("#loader").show();
+                    },
+                    success: function (data)
+                    {
+
+
+
+                    var i;
+     
+                            for (i = 0; i < data.length; i++) {
+                 
+
+
+                html += ' <div id="accordion">';
+					
+	       html += '  <div class="question">What is PHP?</div>';
+	        html += ' <div class="answer">A server side scripting language.</div>';
+ html += '  <div class="question">What is PHP?</div>';
+	        html += ' <div class="answer">A server side scripting language.</div>';
+
+			 html += '  <div class="question">What is PHP?</div>';
+	        html += ' <div class="answer">A server side scripting language.</div>';
+
+	  
+     html += '</div>';
+
+
+
+
+                    }
+                    // html +='</ul>';
+
+                 //   $(html).appendTo(".node-selected").text();
+				 
+				  $('#legislation').html(html);
+                            html = '';
+                            // $('.node-selected').html(html);
+
+                            //$('#book_list').html(html);
+							$( "#accordion" ).accordion();
+							
+                    },
+            complete: function (data) {
+            // Hide image container
+            $("#loader").hide();
+			
+            },
+            });
+
+        }
 
 
 
 
         $('#search_button').click(function () {
         var query = $('#field_search').val();
-          var section_id=34;
+        if(query==''){
+            alert('أدخل كلمة للبحث عنها');
+            return false;
+        }
+          var section_id=31;
            
             $.ajax({
 
@@ -313,11 +349,16 @@
 
 
 
+
     });
 
 </script>
 
-
+		<script>
+		$(function() {
+		$( "#accordion" ).accordion();
+		});
+		</script>
 
 
 <?= $this->layout->block() ?>

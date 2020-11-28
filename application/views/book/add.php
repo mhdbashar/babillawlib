@@ -1387,19 +1387,31 @@
                 txt6 += "</div>";
                 txt6 += "</div>";
 
-
-
-
-
-
-
-                txt6 += "<div class='col-md-6'>";
-                txt6 += "<label for='ruling_year' class='control-label'>  سنة الحكم </label>";
+                 txt6 += "<div class='col-md-6'>";
+                txt6 += "<label for='issuer' class='control-label'>جهة الاصدار</label>";
                 txt6 += "<div class='form-group'>";
-                txt6 += "<input type='text' name='ruling_year' value='' class='form-control hijri-date-input' id='ruling_year' style='text-align:right'/>";
+                txt6 += "<select  name='issuer'  class='form-control' id='issuer'>";
+                txt6 += "<option value='الجهة الاولى'>الجهة الاولى </option>";
+			    txt6 += "<option value='الجهة الثانية'> الجهة الثانية</option>";
+                txt6 += "</select>";
                 txt6 += "</div>";
                 txt6 += "</div>";
 
+             
+                txt6 += "<div class='col-md-6'>";
+                txt6 += "<label for='ruling_year' class='control-label'> سنة الحكم </label>";
+                txt6 += "<div class='form-group'>";
+                txt6 += "<input type='text' name='ruling_year' value='' class='hijri-date-input  form-control' id='ruling_year' style='text-align:right'/>";
+                txt6 += "</div>";
+                txt6 += "</div>";
+
+			    txt6 += "<div class='col-md-6'>";
+                txt6 += "<label for='decision' class='control-label'> قرار الاستئناف  </label>";
+                txt6 += "<div class='form-group'>";
+                txt6 += "<input type='text' name='decision' value='' class='form-control' id='decision' style='text-align:right'/>";
+                txt6 += "</div>";
+                txt6 += "</div>";
+				
 
 
 
@@ -1417,9 +1429,9 @@
 				
 					
                 txt6 += "<div class='col-md-6'>";
-                txt6 += "<label for='pronounced_judgment' class='control-label'>المحكمة </label>";
+                txt6 += "<label for='court' class='control-label'>المحكمة </label>";
                 txt6 += "<div class='form-group'>";
-                txt6 += "<select  name='pronounced_judgment' value='' class='form-control' id='pronounced_judgment'>";
+                txt6 += "<select  name='court' value='' class='form-control' id='court'>";
                 txt6 += "<option value='محكمة الاستئناف'>محكمة الاستئناف</option>";
                 txt6 += "<option value=' محكمة النقض'>محكمة النقض</option>";
                 txt6 += "</select>";
@@ -1493,6 +1505,9 @@
                 $("#fm").html(txt6);
 
                 addTinyMCE();
+				 initHijrDatePickerDefault();
+
+          
 
             } else if (section_name === 'الكتب القانونية والأبحاث') {
                 $("#bbbb").show();
@@ -1536,7 +1551,7 @@
                 $("#ccccccc").show();
                 $("#ddddddd").show();
                 $("#ggggggg").show();
-               $("#lllllll").show();
+                $("#lllll1l").show();
                 addTinyMCE();
                 $("#fm").empty();
                 $("#title").show();

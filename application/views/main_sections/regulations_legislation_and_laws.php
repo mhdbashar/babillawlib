@@ -28,9 +28,22 @@
     padding-right: 10px;
     padding-left: 13px;
     }
+	
+	
+
+.float-child {
+    width: 50%;
+    float: left;
+    padding: 20px;
+    
+} 
 
 </style>
-
+	<style>
+			.question{font-size:0.9em;padding:10px;margin:1px;background-color:#B24926;cursor:pointer;}
+			.answer{display:none;padding:10px;margin:1px;background-color:#CCC;}
+		</style>
+	
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 
@@ -125,7 +138,9 @@
 
     </div>    
 </center>
- <div id="treeview_json"></div>
+ <div id="treeview_json">
+ 
+ </div>
 <div id="wrapper">
     <div class="content">
         <div class="row">
@@ -153,23 +168,39 @@
                             ?>
                         </ol>
                     </div>-->
+				
 
 
-<div class="panel-body" style="background-color: white; margin-top: -4px;" id="legislation">
-<!--                        <h5 class="w3-bar-item">انواع التشريعات حسب البلد</h5>-->
-<!--                        <ol class="check-box-list">
-                          
-
-                            <li class="c" style=" margin-bottom: 28px;">
-                        
-                                
-                                
-                                </li>
 
 
-                          
-                        </ol>-->
-                    </div>
+
+
+
+					
+					
+
+
+					<div class="float-container">
+					
+					
+					
+  <div class="float-child" class="panel-body" style="background-color: white; margin-top: -4px;" id="legislation_child">
+    <div class="blue"></div>
+  </div>
+					
+					
+
+  <div class="float-child" class="panel-body" style="background-color: white; margin-top: -4px;" id="legislation">
+    <div class="green"></div>
+  </div>
+  
+
+  
+  
+</div>
+					
+					
+					
                 </div>
             </div>
         </div>
@@ -189,6 +220,7 @@
 <script src="<?= base_url() ?>assets/dist/js/bootstrap-tokenfield.js"></script>
 
 
+	
 <script>
     var base_url = '<?php echo base_url(); ?>';
     $(document).ready(function () {
@@ -225,11 +257,6 @@
         var t = '';
         var html = '';
 
-
-
-
-
-
         $.ajax({
             type: "GET",
             url: "<?php echo base_url() ?>section/getItem/" + main_section_id,
@@ -252,7 +279,7 @@
                 $('#treeview_json').treeview({data: response});
 
                 $('#treeview_json').on('nodeSelected', function (event, data) {
-
+						$('#legislation_child').html('');
                     t = 0;
                     for (j = 0; j < r.length; j++) {
 
@@ -292,24 +319,56 @@
                 url: "<?php echo base_url() ?>section/regulations_legislation_and_laws/",
                 data:{section_id:tt},
                 dataType: "json",
-                beforeSend: function () {
+               /*  beforeSend: function () {
 
                     $("#loader").show();
-                },
+                }, */
                 success: function (data)
                 {
                       $('#legislation').html(data);
 
-                
+             	$('.get_book').click(function () { 
+		
+		var country=$(this).data("country")
+		load_book_via_country_name(country,tt);
+		
+		
+		
+		});
                 },
-                complete: function (data) {
+               /*  complete: function (data) {
                     // Hide image container
                     $("#loader").hide();
-                },
+                }, */
             });
 
         }
+		function load_book_via_country_name(country_name,section_id){
+			$('#legislation_child').html('');
+			
+			     $.ajax({
+                type: "POST",
+                url: "<?php echo base_url() ?>section/load_book_via_country_name/",
+                data:{country_name:country_name,section_id:section_id},
+                dataType: "json",
+           
+                success: function (data)
+                {
+				
+				
+                      $('#legislation_child').html(data);
 
+                },
+             
+            });
+			
+		}
+		
+		
+		
+	
+		
+		
 
 
 
@@ -319,7 +378,7 @@
                 alert('أدخل كلمة للبحث عنها');
                 return false;
             }
-            var section_id = 31;
+            var section_id = 35;
 
             $.ajax({
                 url: "<?php echo base_url(); ?>Search_section/inline_search",

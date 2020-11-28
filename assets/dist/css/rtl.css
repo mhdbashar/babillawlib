@@ -154,5 +154,7 @@ background-color: #ecf0f5;
 	#no-more-tables td:before { content: attr(data-title); }
 }
 
-
+div {
+  word-wrap: break-word;
+}
 

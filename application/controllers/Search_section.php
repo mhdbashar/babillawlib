@@ -35,24 +35,17 @@ class Search_section extends Front_end {
        
         foreach ($data as $row) {
 
-            echo "<tr>";
-            echo "<td>" . $i . "</td>";
-            echo "<td>" . $row->book_title . "</td>";
-            echo "<td><a href='#'>" . $row->url . "</a></td>";
-            echo "<td>" . $row->dis . "</td>";
-            echo "<td>" . $row->country . "</td>";
-            echo "<td>" . $row->city . "</td>";
-            echo "<td>" . $row->ruling_year . "</td>";
-            echo "<td>" . $row->volume_number . "</td>";
-
-            echo "<td>" . $row->issue_classification . "</td>";
-            echo "<td>" . $row->summary_of_judgment . "</td>";
-            echo "<td>" . $row->sentencing_text . "</td>";
-            echo "<td>" . $row->the_reasons . "</td>";
-            echo "<td>" . $row->the_legal_bond . "</td>";
-            echo "<td>" . $row->pronounced_judgment . "</td>";
-            echo "</tr>";
-            $i++;
+          echo "<div style='border-bottom:1px solid #3c8dbc'>";
+		  echo "<h5 style='color:red'>العنوان </h5><br>";
+          echo $row->book_title . "<br>";
+		
+          echo "<h5 style='color:red'>ملخص الحكم</h5><br>";
+          echo  $row->summary_of_judgment . "<br>";
+          echo "<h5 style='color:red'>الاسباب</h5><br>";
+          echo $row->the_reasons . "<br>";
+          echo "</div>";
+           
+       
          
         }
          }
@@ -70,6 +63,24 @@ class Search_section extends Front_end {
          
         }
      }
+	 
+	      elseif ($section_id==35) {
+            foreach ($data as $row) {
+
+            echo "<tr>";
+            echo "<td>" . $i . "</td>";
+            echo "<td>" . $row->book_title . "</td>";
+//            echo "<td><a href='#'>" . $row->url . "</a></td>";
+            echo "<td>" . $row->dis . "</td>";
+   echo "<td>" . $row->url . "</td>";
+            echo "</tr>";
+            $i++;
+         
+        }
+     }
+     
+	 
+	 
      
             elseif ($section_id==34) {
             foreach ($data as $row) {

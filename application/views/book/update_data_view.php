@@ -36,6 +36,7 @@
 
 
                                 <?php
+
                                 foreach ($get_main_section as $v) {
 
                                     if ($book['main_section'] == $v->section_id) {
@@ -59,7 +60,7 @@
 
 
                                 <!--</select>-->
-                                <input type="text" name="section_name" value="<?php echo $main_section; ?>" class="form-control" id="book_title" readonly="" />
+                                <input type="text" name="section_name" value="<?php if(isset($main_section))echo $main_section; ?>" class="form-control" id="book_title" readonly="" />
 
                             </div>
                         </div>
@@ -90,7 +91,7 @@
                         <div class="col-md-6">
                             <label for="tag_name" class="control-label">الكلمات الدلالية </label>
                             <div class="form-group">
-                                <input type="text" name="tag_name" value="<?php echo $tag_name; ?>" class="form-control" id="tag"  />
+                                <input type="text" name="tag_name" value="<?php if(isset($tag_name))echo $tag_name; ?>" class="form-control" id="tag"  />
                             </div>
                         </div>
 
@@ -151,16 +152,42 @@
                             </div>
                         </div>
 
+<?php
 
+$result=$this->db->query("select country_name,country_id from country where country_id='".$book['country']."'")->row();
+
+ 
+
+ ?>
+ 
+ 
 
                         <div class='col-md-6'   id='show_country' >
                             <label for='country' class='control-label'> البلد</label>
                             <div class='form-group'>
-                                <select  name='country'  class='form-control country' id='country'>
-                                    <option value=''>Select Country</option>
+                                <select  name='country'  class='form-control country' id='country'  required >
+                                   
                                     <?php
                                     foreach ($country as $row) {
-                                        echo "<option value='" . $row->country_id . "'>" . $row->country_name . "</option>";
+										if($row->country_id ==  $result->country_id ){
+											$selected='selected';
+											
+										}
+										else{
+											
+											$selected='';
+										}
+										
+										
+										?>
+										
+										
+                                        <option value='<?php echo $row->country_id; ?> '   <?php echo $selected ?> ><?php echo $row->country_name ?></option>;
+										<?php
+										
+										
+										
+										
                                     }
                                     ?>
 
@@ -171,7 +198,339 @@
                         </div>
 
 
+						
+						
+						
+						  <div class='col-md-6'  id='status' >
+            <label for='legislative_status' class='control-label'> حالة التشريع</label>
+           <div class='form-group'>
+            <select  name='legislative_status' value='' class='form-control' id='legislative_status'>
 
+				   <?php
+        
+        $status = array("الحالة الاولى", "الحالة الثانية",);
+        
+        // Iterating through the product array
+        foreach($status as $item){
+			
+				if($item ==  $book['legislative_status'] ){
+					$selected='selected';
+											
+				}
+			else{
+											
+			$selected='';
+				}
+										
+										
+				?>
+			
+			
+			
+			
+			?>
+			
+			<option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
+			<?php
+            
+
+        }
+        ?>
+		
+            </select>
+            </div>
+            </div>
+						
+						
+						
+						
+			 <div class='col-md-6'  id='type' >
+            <label for='legislative_type' class='control-label'>النوع التشريعي</label>
+           <div class='form-group'>
+           <select  name='legislative_type'  class='form-control' id='legislative_type'>
+
+				   <?php
+        
+        $type = array("النوع الاول", "النوع الثاني",);
+        
+        foreach($type as $item){
+         		if($item ==  $book['legislative_type'] ){
+					$selected='selected';
+											
+				}
+			else{
+											
+			$selected='';
+				}
+										
+										
+				?>
+			
+			
+			
+			
+			?>
+			
+			<option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
+			<?php
+            
+
+        }
+        ?>
+		
+            </select>
+            </div>
+            </div>
+						
+						
+	
+
+						
+						
+						 <div class='col-md-6'  id='pronounced' >
+            <label for='pronounced_judgment' class='control-label'>منطوق الحكم</label>
+           <div class='form-group'>
+           <select  name='pronounced_judgment' value='' class='form-control' id='pronounced_judgment'>
+
+				   <?php
+        
+        $pronounced = array("قابل", "غير قابل",);
+        
+        foreach($pronounced as $item){
+         		if($item ==  $book['pronounced_judgment'] ){
+					$selected='selected';
+											
+				}
+			else{
+											
+			$selected='';
+				}
+										
+										
+				?>
+			
+			
+			
+			
+			?>
+			
+			<option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
+			<?php
+            
+
+        }
+        ?>
+		
+            </select>
+            </div>
+            </div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+						
+						 <div class='col-md-6'  id='issuer' >
+            <label for='issuer' class='control-label'>جهة الاصدار</label>
+           <div class='form-group'>
+           <select  name='issuer'  class='form-control' id='issuer'>
+
+				   <?php
+        
+        $issuer = array("الجهة الثانية", "الجهة الاولى",);
+        
+        foreach($issuer as $item){
+         		if($item ==  $book['issuer'] ){
+					$selected='selected';
+											
+				}
+			else{
+											
+			$selected='';
+				}
+										
+										
+				?>
+			
+			
+			
+			
+			?>
+			
+			<option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
+			<?php
+            
+
+        }
+        ?>
+		
+            </select>
+            </div>
+            </div>
+			
+			
+			
+			
+			
+			
+							 <div class='col-md-6'  id='issue' >
+           <label for='issue_classification' class='control-label'> تصنيف القضية</label>
+           <div class='form-group'>
+           <select  name='issue_classification' value='' class='form-control' id='issue_classification'>
+
+				   <?php
+        
+        $issue = array("تصنيف ثاني", "تصنيف اول",);
+        
+        foreach($issue as $item){
+         		if($item ==  $book['issue_classification'] ){
+					$selected='selected';
+											
+				}
+			else{
+											
+			$selected='';
+				}
+										
+										
+				?>
+			
+			
+			
+			
+			?>
+			
+			<option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
+			<?php
+            
+
+        }
+        ?>
+		
+            </select>
+            </div>
+            </div>
+			
+			
+			
+								 <div class='col-md-6'  id='court_court' >
+          <label for='court' class='control-label'>المحكمة </label>
+           <div class='form-group'>
+           <select  name='court' value='' class='form-control' id='court'>
+
+				   <?php
+        
+        $court_court = array("محكمة النقض", "محكمة الاستئناف",);
+        
+        foreach($court_court as $item){
+         		if($item ==  $book['court'] ){
+					$selected='selected';
+											
+				}
+			else{
+											
+			$selected='';
+				}
+										
+										
+				?>
+			
+			
+			
+			
+			?>
+			
+			<option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
+			<?php
+            
+
+        }
+        ?>
+		
+            </select>
+            </div>
+            </div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<div class='col-md-6'  id='pass_pass' >
+          <label for='pass' class='control-label'>النفاذ</label>
+           <div class='form-group'>
+        <select  name='pass' value='' class='form-control' id='pass'>
+
+				   <?php
+        
+        $pass = array("غير ساري", "ساري",);
+        
+        foreach($pass as $item){
+         		if($item ==  $book['pass'] ){
+					$selected='selected';
+											
+				}
+			else{
+											
+			$selected='';
+				}
+										
+										
+				?>
+			
+			
+			
+			
+			?>
+			
+			<option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
+			<?php
+            
+
+        }
+        ?>
+		
+            </select>
+            </div>
+            </div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
 
                         <div id="fm">
 
@@ -1576,13 +1935,30 @@
 <link rel="stylesheet" href="<?= base_url() ?>assets/tinymce/skin.min.css">
 <script>
     $(document).ready(function () {
-        var section_name = "<?php echo $main_section; ?>";
-        var section_id = "<?php echo $section_id; ?>";
+		
+		
+		
+        var section_name = "<?php if(isset($main_section))echo $main_section; ?>";
+        var section_id = "<?php if(isset($section_id))echo $section_id; ?>";
         addTinyMCE();
         //$("#mat").hide();
         $("#add_row").hide();
         $(".mini").hide();
         $("#add_row_ver").hide();
+		$("#status").hide();
+		$("#type").hide();
+		$("#pronounced").hide();
+		$("#issue").hide();
+	    $("#issuer").hide();
+		 $("#court_court").hide();
+		  $("#pass_pass").hide();
+		  $("#show_country").hide();
+		  	 
+		
+		
+		
+		
+		
 
         //        function date_publication_h() {
         //
@@ -1704,21 +2080,28 @@
         var txt1 = '';
         var txt2 = '';
 
-var txt5='';
+        var txt5='';
         if (section_name === 'الأحكام والسوابق القضائية') {
             var txt6 = '';
             $("#fm").empty();
 
             $("#mat").hide();
             $("#title").show();
-
+			
+		
+		 
+			
             addTinyMCE();
 
             txt6 += "<div class='col-md-6'>";
             txt6 += "<label for='city' class='control-label'> المدينة</label>";
             txt6 += "<div class='form-group'>";
             txt6 += "<select  name='city'  class='form-control' id='city'>";
-            txt6 += "<option value='<?php echo $book['city'] ?>'>اختر المدينة</option>";
+		
+			
+            txt6 += "<option value='<?php echo $city1['city']?>'><?php echo $city1['city_name']?></option>";
+			
+			
 
             txt6 += "</select>";
             txt6 += "</div>";
@@ -1727,22 +2110,14 @@ var txt5='';
             txt6 += "<div class='col-md-6'>";
             txt6 += "<label for='ruling_year' class='control-label'>  سنة الحكم </label>";
             txt6 += "<div class='form-group'>";
-            txt6 += "<input type='number' name='ruling_year' value='<?php echo $book['ruling_year'] ?>' class='form-control hijri-date-input' id='ruling_year' style='text-align:right'/>";
+            txt6 += "<input type='text' name='ruling_year' value='<?php echo $book['ruling_year'] ?>' class='form-control hijri-date-input' id='ruling_year' style='text-align:right'/>";
             txt6 += "</div>";
             txt6 += "</div>";
 
 
 
 
-            txt6 += "<div class='col-md-6'>";
-            txt6 += "<label for='pronounced_judgment' class='control-label'>منطوق الحكم</label>";
-            txt6 += "<div class='form-group'>";
-            txt6 += "<select  name='pronounced_judgment' value='<?php echo $book['pronounced_judgment'] ?>' class='form-control' id='pronounced_judgment'>";
-            txt6 += "<option value='قابل'>قابل</option>";
-            txt6 += "<option value='غير قابل'>غير قابل</option>";
-            txt6 += "</select>";
-            txt6 += "</div>";
-            txt6 += "</div>";
+           
 
 
             txt6 += "<div class='col-md-6'>";
@@ -1752,15 +2127,7 @@ var txt5='';
             txt6 += "</div>";
             txt6 += "</div>";
 
-            txt6 += "<div class='col-md-6'>";
-            txt6 += "<label for='issue_classification' class='control-label'> تصنيف القضية</label>";
-            txt6 += "<div class='form-group'>";
-            txt6 += "<select  name='issue_classification' value='<?php echo $book['issue_classification'] ?>' class='form-control' id='issue_classification'>";
-            txt6 += "<option value='تصنيف أول'>تصنيف أول</option>";
-            txt6 += "<option value=' تصنيف ثاني'> تصنيف ثاني</option>";
-            txt6 += "</select>";
-            txt6 += "</div>";
-            txt6 += "</div>";
+          
             addTinyMCE();
 
 
@@ -1796,6 +2163,27 @@ var txt5='';
             txt6 += "<textarea  style='border:2px solid black' name='the_legal_bond' id='the_legal_bond'> <?php echo $book['the_legal_bond'] ?>  </textarea>";
             txt6 += "</div>";
             txt6 += " </div>";
+		
+			$("#show_country").show();
+		     
+			$("#pronounced").show();
+			$("#issue").show();
+			$("#issuer").show();
+			 $("#court_court").show();
+				
+				
+				
+				
+				
+				txt6 += "<div class='col-md-6'>";
+                txt6 += "<label for='decision' class='control-label'> قرار الاستئناف  </label>";
+                txt6 += "<div class='form-group'>";
+                txt6 += "<input type='text' name='decision' value='<?php echo $book['decision'] ?> ' class='form-control' id='decision' style='text-align:right'/>";
+                txt6 += "</div>";
+                txt6 += "</div>";
+				
+			
+			
 
 
             $("#fm").html(txt6);
@@ -1845,6 +2233,7 @@ var txt5='';
             $("#title").hide();
             $("#add_row").show();
             $("#add_row_ver").show();
+			 $("#pass_pass").show();
             initHijrDatePickerDefault();
 
 
@@ -1883,16 +2272,7 @@ var txt5='';
 //                    txt2 += "</div>";
 
 
-            txt2 += "<div class='col-md-6'>";
-            txt2 += "<label for='pass' class='control-label'>النفاذ</label>";
-            txt2 += "<div class='form-group'>";
-            txt2 += "<select  name='pass' value='<?php echo $book['pass']; ?>' class='form-control' id='pass'>";
-
-            txt2 += "<option value='ساري'>ساري</option>";
-            txt2 += "<option value='غير ساري'>غير ساري</option>";
-            txt2 += "</select>";
-            txt2 += "</div>";
-            txt2 += "</div>";
+        
             $("#fm").html(txt2);
 
 
@@ -1910,30 +2290,20 @@ var txt5='';
             $("#ddddddd").show();
             $("#ggggggg").show();
             $("#lllll1l").show();
+			$("#status").show();
+			  $("#type").show();
             addTinyMCE();
             $("#fm").empty();
             $("#title").show();
-            txt5 += "<div class='col-md-6'>";
-            txt5 += "<label for='legislative_type' class='control-label'>النوع التشريعي</label>";
-            txt5 += "<div class='form-group'>";
-            txt5 += "<select  name='legislative_type' value='<?php echo $book['legislative_type']; ?>' class='form-control' id='legislative_type'>";
-
-            txt5 += "<option value='النوع الاول'>النوع الاول</option>";
-            txt5 += "<option value='النوع الثاني'>النوع الثاني</option>";
-            txt5 += "</select>";
-            txt5 += "</div>";
-            txt5 += "</div>";
-
-            txt5 += "<div class='col-md-6'>";
-            txt5 += "<label for='legislative_status' class='control-label'> حالة التشريع</label>";
-            txt5 += "<div class='form-group'>";
-            txt5 += "<select  name='legislative_status' value='<?php echo $book['legislative_status']; ?>' class='form-control' id='legislative_status'>";
-
-            txt5 += "<option value='الحالة الاولى'> الحالة الاولى</option>";
-            txt5 += "<option value='الحالة الثانية'> الحالة الثانية</option>";
-            txt5 += "</select>";
-            txt5 += "</div>";
-            txt5 += "</div>";
+         $("#mat").hide();
+			
+		
+   
+			
+			
+			
+			
+          
 
 
 
@@ -2108,79 +2478,7 @@ var txt5='';
 <script src="<?= base_url() ?>assets/convert_date/js/bootstrap-hijri-datetimepicker.js"></script>
 
 
-<script>
 
-
-
-    function addAllInputs(divName, inputType) {
-
-        var newdiv = document.createElement('div');
-        var lbl = '';
-        var chck = '';
-        var radio = '';
-        switch (inputType) {
-            case 'text':
-                lbl = prompt("أدخل عنوان الحقل المخصص", "");
-                newdiv.innerHTML = " <div class='col-md-6'><div class='form-group'><label>" + lbl + "</label><input type='text' name='myInputs[]'  class='form-control'></div></div><input type='hidden' name='myinputs_label[]' value='" + lbl + "'>";
-
-//                                            var newArray = new Array();
-//                                            newArray.push(lbl);
-//                                      
-//
-//                                            $.ajax({
-//                                                type: "POST",
-//                                                url: <php echo base_url() ?>book/add,
-//                                                data: JSON.stringify(newArray),
-//                                                contentType: "application/json"
-//                                            });
-
-                break;
-
-
-//                                        case 'select':
-//
-//                                          var  lbl = prompt("أدخل عنوان الحقل المخصص", "");
-//                                              var  id = prompt("أدخل المعرف", "");
-//                                         newdiv.innerHTML = " <br><label>" + lbl + "</label><select id='" + id + "'  name='selectvalue[]'></select>"; 
-//                                           
-//                                               var value_variable = prompt("أدخل عنوان الحقل المخصص", "");
-//                                                var    text_variable = prompt("أدخل قيمة الحقل المخصص", "");
-//                                           
-//                                            $('#selectID').append($('<option>',
-//                                                    {
-//                                                        value: value_variable,
-//                                                        text: text_variable
-//                                                    }));
-//
-//                                            break;
-
-
-
-            case 'radio':
-                lbl = prompt("أدخل عنوان الحقل المخصص", "");
-                radio = prompt("أدخل قيمة الحقل المخصص", "");
-                newdiv.innerHTML = "<div class='col-md-6'><div class='form-group'><label>" + lbl + "</label> <input type='radio' name='myRadioButtons[]' value='" + radio + "'  ></div></div><input type='hidden' name='myradiobuttons_label[]' value='" + lbl + "'>";
-                $(".myradiobuttons_label").val(lbl);
-                break;
-            case 'checkbox':
-                lbl = prompt("أدخل عنوان الحقل المخصص", "");
-                chck = prompt("أدخل قيمة الحقل المخصص", "");
-                newdiv.innerHTML = "<div class='col-md-6'><div class='form-group'><label>" + lbl + "</label><input type='checkbox' name='myCheckBoxes[]' value='" + chck + "' ></div></div><input type='hidden' name='mycheckboxes_label[]' value='" + lbl + "'>";
-                $(".mycheckboxes_label").val(lbl);
-                break;
-            case 'textarea':
-                lbl = prompt("أدخل عنوان الحقل المخصص", "");
-
-                newdiv.innerHTML = "<div class='col-md-6'><div class='form-group'><label>" + lbl + "</label><br><textarea name='myTextAreas[]'>ادخل النص هنا</textarea></div></div><input type='hidden' name='mytextareas_label[]' value='" + lbl + "'>";
-
-                $(".mytextareas_label").val(lbl);
-                break;
-        }
-
-        document.getElementById(divName).appendChild(newdiv);
-        addTinyMCE();
-    }
-</script>
 
 
 <script>

@@ -4491,4 +4491,6 @@ ul.wysihtml5-toolbar > li {
 	*/
 	#no-more-tables td:before { content: attr(data-title); }
 }
-
+div {
+  word-wrap: break-word;
+}

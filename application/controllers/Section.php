@@ -188,7 +188,7 @@ class Section extends Front_end {
                             foreach ($legislation as $value) {
                               
 
-                           $html.=' <li class="c" style=" margin-bottom: 28px;"><a href="#" >';
+                           $html.=' <li class="c" style=" margin-bottom: 28px;"><a  class="get_book" href="#" data-country="'.$value['country_name'].'">';
                                        
                                        $html.=  $value['country_name'];
                                         $html.=  '<span class="r" style="text-align: right">';
@@ -210,6 +210,59 @@ class Section extends Front_end {
         //$this->layout->view('main_sections/regulations_legislation_and_laws',$data);
     }
     
+	
+	
+	function load_book_via_country_name(){
+		
+		
+		 $section_id = $this->input->post('section_id');
+		  $country_name = $this->input->post('country_name');
+		 
+
+       $book = $this->Book_model->load_book_via_country_name($section_id,$country_name);
+		   $html='';
+        
+                           
+                            foreach ($book as $value) {
+                              
+
+                          
+                                       
+                                       $html.=  $value['legislative_status'];
+                                  
+                                    
+                                   
+                                        $html.='</br></br>';
+										
+										
+										
+										  $html.=  $value['legislative_type'];
+                                  $html.='</br>';
+                                    
+                                   
+                                       $html.='--------------------------------------------------';
+										 $html.='</br></br></br>';
+										
+
+
+                                
+                            }
+                           
+                    
+               
+        $data=$html;
+        
+
+        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+		
+		
+	}
+	
+	
+	
+	
+	
+	
     
       public function regulations_legislation() {
 

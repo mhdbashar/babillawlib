@@ -17,6 +17,10 @@
         background-color: deepskyblue;
         color: white;
     }
+	
+	div {
+  word-wrap: break-word;
+}
 </style>
 
 
@@ -53,33 +57,40 @@
                             <input id="search_button" type="button" class="btn btn-primary" value="بحث">
 
                         </form>
-                        <table class="table table-bordered table-sm">
+                        <table class="table table-bordered table-sm" style="display:none;">
     <thead>
         <tr>
             <th>التسلسل</th>
             <th>عنوان الكتاب</th>
             <th>الرابط</th>
-            <th>الوصف</th>
-            <th>البلد</th>
-            <th>سنة الحكم</th>
-            <th>رقم المجلد</th>
-            <th>تصنيف الحكم</th>
+      
             <th>ملخص الحكم</th>
-            <th>نص الحكم</th>
-            <th> </th>
-            <th>السند النظامي</th>
+         
+          
+          
             <th> الاسباب</th>
-            <th> الحكم</th>
+    
 
 
 
 
         </tr>
     </thead>
-    <tbody id="search_result">
+    <tbody id="">
 
     </tbody>
 </table>
+
+
+
+<div id="search_result1">
+
+
+
+
+</div>
+
+
 
                     </div>
                     
@@ -134,6 +145,11 @@
 </div> 
 
 
+<div class="panel-body" style="background-color: white; margin-top: -4px;" id="legislation">
+
+                    </div>
+
+
 <script src="<?= base_url() ?>assets/dist/js/datatables.min.js"></script>
 <script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/dist/css/bootstrap-tokenfield.min.css">
@@ -143,7 +159,8 @@
 
 <script src="<?= base_url() ?>assets/dist/js/bootstrap-tokenfield.js"></script>
 
-
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script>
     var base_url = '<?php echo base_url(); ?>';
     $(document).ready(function () {
@@ -226,18 +243,12 @@
                         $('.node-selected').empty();
                         load_book(t);
 
-                        //   alert($('.node-selected').data('nodeid')); 
-
-                        // $('.node-selected').text("hhhh");
+               
 
                     }
 
 
 
-                    // $("#sub_section").val(t);
-
-
-//$(html).appendTo("<li>").text();
 
                 });
 
@@ -262,29 +273,71 @@
 
 
                     var i;
-                            // html +='<ul class="list-inline">';
+					
+					 html += ' <div id="accordion">';
+                          
                             for (i = 0; i < data.length; i++) {
-                    //  alert(data[i].book_title);
+           
 
 
 
 
+      html += '  <div class="question">عنوان الكتاب</div>';
+	       
+			   html += '  <div class="answer">' + data[i].book_title + '</div>';
+					
+	       html += '  <div class="question">الاصدار</div>';
+	       
+			   html += '  <div class="answer">' + data[i].issue_classification + '</div>';
+			
+		
+				  
+	  
+    
+					
+      html += '  <div class="question">سنة الحكم </div>';
+	       
+			   html += '  <div class="answer">' + data[i].ruling_year + '</div>';
+					
+	       html += '  <div class="question">جهةالاصدار</div>';
+	       
+			   html += '  <div class="answer">' + data[i].issuer + '</div>';
 
 
-                    html += '<li  style="color:black;font-size:12px;padding: 10px;"  class= "list-group-item ">' + data[i].book_title + '</li>';
-                            if (data[i].file !== null){
-                    html += '<li   class= " list-group-item  "><button target="_blank"  style="color:black;float:left;margin-top:-25px"  onclick=javascript:window.open("' + base_url + 'uploads/images/' + data[i].file + '")><span class="glyphicon">&#xe025;</span></button></li>';
-                            }
-                    else{
-                    html += '<li   class= " list-group-item  "><button target="_blank"  style="color:black;float:left;margin-top:-25px"  onclick=javascript:window.open("' + data[i].url + '")><span class="glyphicon">&#xe025;</span></button></li>';
-                            }
+				
+	  
+    
+					
+      html += '  <div class="question">ملخص الحكم  </div>';
+	       
+			   html += '  <div class="answer">' + data[i].summary_of_judgment + '</div>';
+					
+	       html += '  <div class="question">نص الحكم</div>';
+	       
+			   html += '  <div class="answer">' + data[i].sentencing_text + '</div>';
 
 
+				 
+	  
+    
+					
+      html += '  <div class="question">الاسباب   </div>';
+	       
+			   html += '  <div class="answer">' + data[i].the_reasons + '</div>';
+					
+	       html += '  <div class="question">السند القانوني </div>';
+	       
+			   html += '  <div class="answer">' + data[i].the_legal_bond + '</div>';
 
-
+html += ' --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------';
 
                     }
-                    // html +='</ul>';
+					
+					 html += '</div>';
+             $('#legislation').html(html);
+                            html = '';
+                        
+							$( "#accordion" ).accordion();
 
                     $(html).appendTo(".node-selected").text();
                             html = '';
@@ -318,7 +371,7 @@
                 data: {query: query, section_id: section_id},
                 success: function (response)
                 {
-                    $('#search_result').html(response);
+                    $('#search_result1').html(response);
 
 
                 }

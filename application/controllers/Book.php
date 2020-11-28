@@ -117,15 +117,41 @@ class Book extends Front_end {
                             'url' => $this->input->post('url'),
                             'country' => $this->input->post('country'),
                             'city' => $this->input->post('city'),
+							
+							
+							
                             'ruling_year' => $this->input->post('ruling_year'),
+							'issuer'=> $this->input->post('issuer'),
+							'decision'=> $this->input->post('decision'),
+							
+							
                             'pronounced_judgment' => $this->input->post('pronounced_judgment'),
+							
+							'court' => $this->input->post('court'),
+							
                             'volume_number' => $this->input->post('volume_number'),
+							
+							
                             'issue_classification' => $this->input->post('issue_classification'),
+							
+							
+							
                             'summary_of_judgment' => $this->input->post('summary_of_judgment'),
+							
+							
                             'sentencing_text' => $this->input->post('sentencing_text'),
+							
+							
                             'the_reasons' => $this->input->post('the_reasons'),
+							
+							
                             'the_legal_bond' => $this->input->post('the_legal_bond'),
+							
+							
                             'appeal_decision' => $this->input->post('appeal_decision'),
+							
+							
+							
                             'file' => $this->_upload()
                         );
 
@@ -902,11 +928,14 @@ class Book extends Front_end {
             $tag_name = implode(',', $a);
             $data['tag_name'] = $tag_name;
         }
-        $result = $this->db->query("select city,country from book where book_id= '" . $book_id . "'")->result_array();
+        $result3 = $this->db->query("select book.city,book.country,city.city_name,country.country_name from book,country,city where book_id= '" . $book_id . "' and book.country=country.country_id and book.city=city.city_id ")->row_array();
         $result2 = $this->db->query("select * from fields_values a,custom_fields b  where a.field_id=b.id   and   a.book_id= '" . $book_id . "'")->result_array();
-        // $data['city'] = $result->city;
+		
+		
+         $data['city1'] = $result3;
+		 //$data['country1'] = $result3->country_name;
         $data['country'] = $this->Book_model->fetch_country();
-        //$data['country'] = $result->country;
+       
         $data['fields'] = $result2;
         $this->layout->view('book/update_data_view', $data);
     }
@@ -986,6 +1015,10 @@ class Book extends Front_end {
                     'the_reasons' => $this->input->post('the_reasons'),
                     'the_legal_bond' => $this->input->post('the_legal_bond'),
                     'appeal_decision' => $this->input->post('appeal_decision'),
+					'issuer'=> $this->input->post('issuer'),
+					'decision'=> $this->input->post('decision'),
+					'court'=> $this->input->post('court'),
+					
                     //'file' => $picture,
                     'url' => $this->input->post('url'),
                 );
@@ -1567,6 +1600,7 @@ class Book extends Front_end {
                     'legislative_status' => $this->input->post('legislative_status'),
                     'material_number_legislation' => $this->input->post('material_number_legislation'),
                     'legislation_number' => $this->input->post('legislation_number'),
+					 'country' => $this->input->post('country'),
                         //'file' => $picture,
                 );
 
@@ -2495,7 +2529,8 @@ class Book extends Front_end {
                 $this->db->where("the_reasons", $the_reasons);
                 $this->db->where("the_legal_bond", $the_legal_bond);
                 $this->db->where("appeal_decision", $appeal_decision);
-
+				$this->db->where("main_section", $section_id);
+				
                 $query = $this->db->get();
                  $data['section_name']=$section_name;
                 $data['result']= $query->result();
