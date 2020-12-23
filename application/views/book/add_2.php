@@ -217,65 +217,79 @@
                             </div>
                         </div><br><br><br><br>
 
+                        
+						
+						
+						<div id="dis_case_law">
+						
+						
+                <div class='col-md-6' id='summary_of_judgment' >
+             <label for='summary_of_judgment' class='ontrol-label'> ملخص الحكم</label>
+               <div class='form-group'>
+             <textarea  style='border:2px solid black' name='summary_of_judgment' id='summary_of_judgment'>  </textarea>
+             </div>
+              </div>
+
+
+                     <div class='col-md-6' id='sentencing_text' >
+                <label for='sentencing_text' class='ontrol-label'>نص الحكم</label>
+               <div class='form-group'>
+               <textarea  style='border:2px solid black' name='sentencing_text' id='sentencing_text'>  </textarea>
+             </div>
+               </div>
 
 
 
-                        <div id="dis_case_law">
+               <div class='col-md-6' id='the_reasons' >
+                 <label for='the_reasons' class='ontrol-label'>الأسباب</label>
+                 <div class='form-group'>
+               <textarea  style='border:2px solid black' name='the_reasons' id='the_reasons'>  </textarea>
+              </div>
+                </div>
 
 
-                            <div class='col-md-6' id='summary_of_judgment' >
-                                <label for='summary_of_judgment' class='ontrol-label'> ملخص الحكم</label>
-                                <div class='form-group'>
-                                    <textarea  style='border:2px solid black' name='summary_of_judgment' id='summary_of_judgment'>  </textarea>
-                                </div>
-                            </div>
-
-
-                            <div class='col-md-6' id='sentencing_text' >
-                                <label for='sentencing_text' class='ontrol-label'>نص الحكم</label>
-                                <div class='form-group'>
-                                    <textarea  style='border:2px solid black' name='sentencing_text' id='sentencing_text'>  </textarea>
-                                </div>
-                            </div>
-
-
-
-                            <div class='col-md-6' id='the_reasons' >
-                                <label for='the_reasons' class='ontrol-label'>الأسباب</label>
-                                <div class='form-group'>
-                                    <textarea  style='border:2px solid black' name='the_reasons' id='the_reasons'>  </textarea>
-                                </div>
-                            </div>
-
-
-                            <div class='col-md-6' id='the_legal_bond' >
-                                <label for='the_legal_bond' class='ontrol-label'>السند القانوني</label>
-                                <div class='form-group'>
-                                    <textarea  style='border:2px solid black' name='the_legal_bond' id='the_legal_bond'>  </textarea>
-                                </div>
-                            </div>
-
-
-                        </div>	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+               <div class='col-md-6' id='the_legal_bond' >
+             <label for='the_legal_bond' class='ontrol-label'>السند القانوني</label>
+              <div class='form-group'>
+              <textarea  style='border:2px solid black' name='the_legal_bond' id='the_legal_bond'>  </textarea>
+              </div>
+               </div>
+						
+						
+					</div>	
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						<div id="checkbox_case_law">
+						
+						
+                        <div class='col-md-6' id="div_linked">
+                <label for='linked' >مرتبط</label>
+              <div class='form-group'>
+                <input type='checkbox' name='linked' value='linked'  id='linked'   class='get_value'>
+               </div>
+                    <div id="tree_linked">
+                            
+                            
+                            
+                        </div>
+                </div>
+                    
+					
+					<div id="#case_law">
+					
+					</div>
+                        </div>
+                        
+                        
+                        
                         <div id="fff">
                             <?php
                             $data = custom_fields();
@@ -446,10 +460,10 @@
 
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
-                                        <div class="form-group">
-                                            <input type='text' name='datepicker1[]' value='' class=' hijri-date-input form-control'  >
-                                            <input type="hidden" name="datepicker_id1[]"  value="<?php echo $value['id']; ?>" />
-                                        </div>
+										  <div class="form-group">
+                                        <input type='text' name='datepicker1[]' value='' class=' hijri-date-input form-control'  >
+                                        <input type="hidden" name="datepicker_id1[]"  value="<?php echo $value['id']; ?>" />
+										 </div>
                                     </div>
 
                                     <?php
@@ -623,10 +637,10 @@
 
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
-                                        <div class="form-group">
-                                            <input type='text' name='datepicker4[]' value='' class=' hijri-date-input form-control'  >
-                                            <input type="hidden" name="datepicker_id4[]"  value="<?php echo $value['id']; ?>" />
-                                        </div>
+  <div class="form-group">
+                                        <input type='text' name='datepicker4[]' value='' class=' hijri-date-input form-control'  >
+                                        <input type="hidden" name="datepicker_id4[]"  value="<?php echo $value['id']; ?>" />
+</div>
                                     </div>
 
                                     <?php
@@ -795,10 +809,10 @@
 
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
-                                        <div class="form-group">
-                                            <input type='text' name='datepicker3[]' value='' class=' hijri-date-input form-control'  >
-                                            <input type="hidden" name="datepicker_id3[]"  value="<?php echo $value['id']; ?>" />
-                                        </div>
+										 <div class="form-group">
+                                        <input type='text' name='datepicker3[]' value='' class=' hijri-date-input form-control'  >
+                                        <input type="hidden" name="datepicker_id3[]"  value="<?php echo $value['id']; ?>" />
+										 </div>
                                     </div>
 
                                     <?php
@@ -963,12 +977,12 @@
 
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
-                                        <div class="form-group">
-                                            <input type='text' name='datepicker2[]' value='' class=' hijri-date-input form-control'  >
-                                            <input type="hidden" name="datepicker_id2[]"  value="<?php echo $value['id']; ?>" />
+											  <div class="form-group">
+                                        <input type='text' name='datepicker2[]' value='' class=' hijri-date-input form-control'  >
+                                        <input type="hidden" name="datepicker_id2[]"  value="<?php echo $value['id']; ?>" />
 
-                                        </div>
                                     </div>
+									 </div>
 
                                     <?php
                                 }
@@ -1138,10 +1152,10 @@
 
                                 <div class='col-md-6'>
                                     <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
-                                    <div class="form-group">
-                                        <input type='text' name='datepicker5[]' value='' class=' hijri-date-input form-control  '  >
-                                        <input type="hidden" name="datepicker_id5[]"  value="<?php echo $value['id']; ?>" />
-                                    </div>
+								 <div class="form-group">
+                                    <input type='text' name='datepicker5[]' value='' class=' hijri-date-input form-control  '  >
+                                    <input type="hidden" name="datepicker_id5[]"  value="<?php echo $value['id']; ?>" />
+								 </div>
                                 </div>
 
                                 <?php
@@ -1149,43 +1163,6 @@
                         }
                         ?>
                     </div>  
-
-
-                    <div id="checkbox_case_law" class='col-md-12'>
-
-
-                        <div class='col-md-6' id="div_linked">
-                            <label for='linked' >مرتبط</label>
-                            <div class='form-group'>
-                                <input type='checkbox' name='linked' value='linked'  id='linked'   class='get_value'>
-                            </div>
-                            <div id="tree_linked">
-
-
-
-                            </div>
-                        </div>
-
-                        <table class="table table-striped table-bordered" id="case_law_table">
-                            <thead>
-                                <tr id="head">
-                                    <th>عنوان النظام</th>
-
-
-                                    <th>رقم المادة</th>
-
-
-                                </tr>
-                            </thead>
-                            <tbody id="case_law">
-                            </tbody>
-                        </table> 
-
-                    </div>
-
-
-                    <input type="hidden" name="material_number_legislation_in_case_value" id="material_number_legislation_in_case_value" value=''>
-                    <input type="hidden" name="system_id" id="system_id" value=''>
 
                 </div>
 
@@ -1207,7 +1184,7 @@
 
 
 
-
+   
 
 
 
@@ -1270,13 +1247,12 @@
         $("#lllll").hide();
         $("#llllll").hide();
         $("#div_linked").hide();
-        $("#case_law").hide();
-        $("#dis_case_law").hide();
-
-        $("#checkbox_case_law").hide();
-        $("#case_law_table").hide();
-
-
+		 $("#case_law").hide();
+		 $("#dis_case_law").hide();
+		 
+		  $("#checkbox_case_law").hide();
+        
+       
         addTinyMCE();
         var change = 'no';
         var main_section_id = '';
@@ -1292,8 +1268,8 @@
             $("#ffff").hide();
             $("#fffff").hide();
             $("#ffffff").hide();
-            $("#fffffff").hide();
-
+             $("#fffffff").hide();
+            
             $("#bbb").hide();
             $("#bbbb").hide();
             $("#bbbbb").hide();
@@ -1303,41 +1279,41 @@
             $("#cccc").hide();
             $("#ccccc").hide();
             $("#cccccc").hide();
-            $("#cccccc").hide();
-
+             $("#cccccc").hide();
+             
             $("#ddd").hide();
             $("#dddd").hide();
             $("#ddddd").hide();
             $("#dddddd").hide();
-            $("#ddddddd").hide();
+             $("#ddddddd").hide();
             $("#ggg").hide();
             $("#gggg").hide();
             $("#ggggg").hide();
             $("#gggggg").hide();
-            $("#ggggggg").hide();
-
+             $("#ggggggg").hide();
+             
             $("#lll").hide();
             $("#llll").hide();
             $("#lllll").hide();
             $("#llllll").hide();
-            $("#lllllll").hide();
-            $("#case_law").hide();
+             $("#lllllll").hide();
+             $("#case_law").hide();
             $("#add_row").hide();
             $("#add_row_ver").hide();
             $(".collection").hide();
             $(".coll").hide();
             $("#show_country").hide();
             $(".uploadForm").html('');
-            $("#checkbox_case_law").hide();
-            $("#dis_case_law").hide();
-            $("#case_law_table").hide();
+				$("#checkbox_case_law").hide();
+				 $("#dis_case_law").hide();
+				
             $(".mini").hide();
 
             $("#ver_ver").hide();
             $("#div_linked").hide();
-
-
-
+            
+            
+            
             $("#dynamicInputs").html('');
             addTinyMCE();
 
@@ -1368,7 +1344,7 @@
 
 
                     $('#treeview_json').treeview({data: response});
-
+					
                     t = 0;
                     $("#sub_section").val(t);
                     $('#treeview_json').on('nodeSelected', function (event, data) {
@@ -1387,13 +1363,13 @@
 
 
                             }
-
+							
 
                         }
-
-
-
-
+						
+						
+						
+						
 
                     });
 
@@ -1463,7 +1439,6 @@
                 $("#dddddd").show();
                 $("#gggggg").show();
                 $("#llllll").show();
-                $("#case_law_table").hide();
                 addTinyMCE();
 
                 txt6 += "<div class='col-md-6'>";
@@ -1476,17 +1451,17 @@
                 txt6 += "</div>";
                 txt6 += "</div>";
 
-                txt6 += "<div class='col-md-6'>";
+                 txt6 += "<div class='col-md-6'>";
                 txt6 += "<label for='issuer' class='control-label'>جهة الاصدار</label>";
                 txt6 += "<div class='form-group'>";
                 txt6 += "<select  name='issuer'  class='form-control' id='issuer'>";
                 txt6 += "<option value='الجهة الاولى'>الجهة الاولى </option>";
-                txt6 += "<option value='الجهة الثانية'> الجهة الثانية</option>";
+			    txt6 += "<option value='الجهة الثانية'> الجهة الثانية</option>";
                 txt6 += "</select>";
                 txt6 += "</div>";
                 txt6 += "</div>";
 
-
+             
                 txt6 += "<div class='col-md-6'>";
                 txt6 += "<label for='ruling_year' class='control-label'> سنة الحكم </label>";
                 txt6 += "<div class='form-group'>";
@@ -1494,13 +1469,13 @@
                 txt6 += "</div>";
                 txt6 += "</div>";
 
-                txt6 += "<div class='col-md-6'>";
+			    txt6 += "<div class='col-md-6'>";
                 txt6 += "<label for='decision' class='control-label'> قرار الاستئناف  </label>";
                 txt6 += "<div class='form-group'>";
                 txt6 += "<input type='text' name='decision' value='' class='form-control' id='decision' style='text-align:right'/>";
                 txt6 += "</div>";
                 txt6 += "</div>";
-
+				
 
 
 
@@ -1515,8 +1490,8 @@
                 txt6 += "</div>";
 
 
-
-
+				
+					
                 txt6 += "<div class='col-md-6'>";
                 txt6 += "<label for='court' class='control-label'>المحكمة </label>";
                 txt6 += "<div class='form-group'>";
@@ -1552,19 +1527,19 @@
 
 
                 $("#show_country").show();
-                $("#div_linked").show();
+                  $("#div_linked").show();
 
-                $("#case_law").show();
+					 $("#case_law").show();
 
-                $("#dis_case_law").show();
-                $("#checkbox_case_law").show();
+					 $("#dis_case_law").show();
+						$("#checkbox_case_law").show();
 
                 $("#fm").html(txt6);
 
                 addTinyMCE();
-                initHijrDatePickerDefault();
+				 initHijrDatePickerDefault();
 
-
+          
 
             } else if (section_name === 'الكتب القانونية والأبحاث') {
                 $("#bbbb").show();
@@ -1600,7 +1575,8 @@
                 $("#fm").html(txt2);
 
 
-            } else if (section_name === 'الأنظمة والتشريعات والقوانين') {
+            }
+            else if (section_name === 'الأنظمة والتشريعات والقوانين') {
 
                 $("#bbbbbbb").show();
                 $("#fffffff").show();
@@ -1632,40 +1608,43 @@
                 txt5 += "</select>";
                 txt5 += "</div>";
                 txt5 += "</div>";
-
-
-
-                txt5 += "<div class='col-md-6'>";
+                
+                
+                
+                    txt5 += "<div class='col-md-6'>";
                 txt5 += "<label for='material_number_legislation' class='control-label'> رقم المادة</label>";
                 txt5 += "<div class='form-group'>";
                 txt5 += "<input type='number' name='material_number_legislation' value='' class='form-control' id='material_number_legislation' />";
                 txt5 += "</div>";
                 txt5 += "</div>";
-
-
-
-
-
-                txt5 += "<div class='col-md-6'>";
+                
+               
+                
+                
+                  
+                    txt5 += "<div class='col-md-6'>";
                 txt5 += "<label for='legislation_number' class='control-label'> رقم التشريع</label>";
                 txt5 += "<div class='form-group'>";
                 txt5 += "<input type='number' name='legislation_number' value='' class='form-control' id='legislation_number' />";
                 txt5 += "</div>";
                 txt5 += "</div>";
-
-
-
-
-
-
-
+                
+                
+          
+                
+                
+                
+                
 
                 $("#show_country").show();
-
+                    
                 $("#fm").html(txt5);
 
 
-            } else if (section_name === 'الأنظمة السعودية') {
+            }
+
+
+            else if (section_name === 'الأنظمة السعودية') {
                 $("#bbbbb").show();
                 $("#fffff").show();
                 $("#ccccc").show();
@@ -1932,240 +1911,241 @@
 </script>
 
 
-<script>
-    var base_url = '<?php echo base_url(); ?>';
-    $(document).ready(function () {
+ <script>  
+            $(document).ready(function(){  
+    
+  
+                       $('#linked').click(function(){
+            
+            
+                   if($(this).is(":checked"))  
+                {  
+		    $.ajax({
+                type: "GET",
+                url: "<?php echo base_url() ?>section/getItem/" + 35,
+                dataType: "json",
+                success: function (response)
+                {
+
+                    change = 'yes';
+                    var i = 0;
+                    var j = 0;
+                    var r = [];
+
+                    var k = '';
+                    for (i = 0; i < response.result.length; i++) {
 
 
-        var section_id = '';
+                        r[i] = response.result[i].section_id;
 
-        var main_section_id = 35;
-        //alert(main_section_id);
-
+                    }
 
 
-        var t = '';
+                    $('#tree_linked').treeview({data: response});
+					
+                    t = 0;
+                    $("#sub_section").val(t);
+                    $('#treeview_json').on('nodeSelected', function (event, data) {
 
-        $('#linked').click(function () {
-            $("#case_law_table").show();
-            $('#tree_linked').show();
-            if ($('#linked').is(":checked"))
-            {
-                $.ajax({
-                    type: "GET",
-                    url: "<?php echo base_url() ?>section/getItem/" + main_section_id,
-                    dataType: "json",
-                    success: function (response)
-                    {
-
-                        var i = 0;
-                        var j = 0;
-                        var r = [];
-                        for (i = 0; i < response.result.length; i++) {
+                        t = 0;
+                        $("#sub_section").val(t);
+                        for (j = 0; j < r.length; j++) {
 
 
-                            r[i] = response.result[i].section_id;
+                            if (r[j] === data.id) {
+                                 alert(data.id);
+                                t = data.id;
+                                //  alert(data.id);
+                                $("#sub_section").val(t);
+                                break;
+
+
+                            }
+
                         }
 
-                        $('#tree_linked').treeview({data: response});
+                    });
+
+                    $(".save").click(function () {
+
+                        if (t === 0) {
+                            alert("  اختر اخر عقدة في كل قسم رئيسي");
+                            $("#format").trigger("reset");
+                            //return false;
+
+                        } else {
+
+
+			$.ajax({
+                    url: "<?php echo base_url(); ?>book/search_book_via_section",
+                    method: "POST",
+                    data: {section_id:t},
+                    success: function (data)
+                    {
+                        alert(data);
+                        $('#case_law').html(data);
+
+                    }
+					
+                    });
 
 
 
+                            return true;
+							
+							
+							
+							
+                        }
 
 
-                        $('#tree_linked').on('nodeSelected', function (event, data) {
+                    });
 
 
-                            t = '';
-                            html = '';
-                            for (j = 0; j < r.length; j++) {
+                }
+            });	
+                    
+                }
+                else{
+                 $('#tree_linked').empty();
+                
+                }
+	
+	
+          
+      });  
+        
+     
+ });  
+ </script>
+ 
+ 
+<!-- <script>
+ 
+        var t = '';
+        $.ajax({
+            type: "GET",
+            url: "<?php echo base_url() ?>section/getItem/" + main_section_id,
+            dataType: "json",
+            success: function (response)
+            {
 
-                                if (r[j] === data.id) {
+                var i = 0;
+                var j = 0;
+                var r = [];
+                for (i = 0; i < response.result.length; i++) {
+
+
+                    r[i] = response.result[i].section_id;
+                }
+
+                $('#treeview_json').treeview({data: response});
+                $('#treeview_json').on('nodeSelected', function (event, data) {
+                    t = '';
+                    html = '';
+                    for (j = 0; j < r.length; j++) {
+
+                        if (r[j] === data.id) {
 
 
 
-                                    t = data.id;
-                                }
+                            t = data.id;
+                        }
 
+                    }
+
+                    // alert(t);
+
+
+                    section_id = t;
+                    function loadPagination(pagno, section_id) {
+
+
+                        $.ajax({
+
+                            url: "<?php echo base_url() ?>book/book_pagination/" + pagno,
+                            type: 'post',
+                            dataType: 'json',
+                            data: {section_id: section_id},
+                            beforeSend: function () {
+
+                                $("#loader").show();
+                            },
+                            success: function (response) {
+
+                                //  alert(response.pagination);
+
+                                $('#pagination_in_section').html(response.pagination);
+                                createTable(response.result, response.row);
+                            },
+                            complete: function (data) {
+                                // Hide image container
+                                $("#loader").hide();
+                            },
+
+                            error: function () {
+                                alert("error in loadPagination");
                             }
-
-                            // alert(t);
-
-
-                            section_id = t;
-                            function loadPagination(pagno, section_id) {
-
-
-                                $.ajax({
-
-                                    url: "<?php echo base_url() ?>book/book_pagination/" + pagno,
-                                    type: 'post',
-                                    dataType: 'json',
-                                    data: {section_id: section_id},
-                                    beforeSend: function () {
-
-                                        $("#loader").show();
-                                    },
-                                    success: function (response) {
-
-                                        //  alert(response.pagination);
-
-                                        $('#pagination_in_section').html(response.pagination);
-                                        createTable(response.result, response.row);
-                                    },
-                                    complete: function (data) {
-                                        // Hide image container
-                                        $("#loader").hide();
-                                    },
-
-                                    error: function () {
-                                        alert("error in loadPagination");
-                                    }
-                                });
-                            }
+                        });
+                    }
 
 
 
 
 
 //  Create table list';
-                            function createTable(result, sno) {
-                                sno = Number(sno);
-                                //   $('#books_in_section').empty();
-
-                                var html = '';
-
-
-
-
-                                var index = '';
-                                for (index in result) {
+                    function createTable(result, sno) {
+                        sno = Number(sno);
+                        $('#books_in_section').empty();
+                        var output = '';
+                        for (index in result) {
 
 
 
-                                    html += '<tr>';
-
-                                    html += '<td>' + result[index].book_title + '</td>';
-                                    html += '<td><input type="checkbox" name="material_number_legislation_in_case" value="' + result[index].material_number_legislation + '" id="material_number_legislation_in_case">' + result[index].material_number_legislation + '</td>';
-                                    html += '<td><input type="hidden" name="system_id" value="' + result[index].book_id + '" id="system_id_id"></td>';
+                            var book_title = result[index].book_title;
+                            var file = result[index].file;
+                            var mini = result[index].mini;
+                            var url = result[index].url;
 
 
 
 
 
-
-
-
-
-
-
-
-                                    html += '</tr>';
-
-                                }
-
-
-
-
-
-
-
-
-
-                                $('#case_law').html(html);
-                                $('#material_number_legislation_in_case').click(function () {
-
-
-
-                                    if ($('#linked').prop("checked") == true) {
-
-                                        var material_number_legislation_in_case = $('#material_number_legislation_in_case').val();
-
-                                        $('#material_number_legislation_in_case_value').val(material_number_legislation_in_case);
-
-                                        var system_id = $('#system_id_id').val();
-										
-										
-                                        $('#system_id').val(system_id);
-                                    }
-
-                              
-                                });
-
-
-
-
-
+                            sno += 1;
+                            output += '<li class="item col-lg-2 col-md-4 col-sm-6 col-xs-6 "></a>';
+                            if (file !== null) {
+                                output += '<a target="_blank" href="' + base_url + 'uploads/images/' + file + '"><img src="' + base_url + 'uploads/images/' + mini + '" width="120" height="150"  >';
+                            } else {
+                                output += '<a target="_blank" href="' + url + '"><img src="' + base_url + 'uploads/images/' + mini + '" width="120" height="150"  >';
                             }
 
 
 
-
-                            loadPagination(0, section_id);
-                            $('#pagination_in_section').on('click', 'a', function (e) {
-                                e.preventDefault();
-                                var pageno = $(this).attr('data-ci-pagination-page');
-                                loadPagination(pageno, section_id);
-                            });
-
-
-
-
-                        });
-
-
-
-
+                            output += '<div>' + book_title + '</div>';
+                            output += '</li>';
+                        }
+                        $('#books_in_section').append(output);
                     }
 
 
 
+
+                    loadPagination(0, section_id);
+                    $('#pagination_in_section').on('click', 'a', function (e) {
+                        e.preventDefault();
+                        var pageno = $(this).attr('data-ci-pagination-page');
+                        loadPagination(pageno, section_id);
+                    });
                 });
-
-
-
-
-            } else {
-                $('#tree_linked').hide();
-                $('#case_law_table').hide();
-
             }
-
-
         });
-
-
-
-
-        //alert("gg");
-        var book_id = $(this).data('row_id');
-        var table_column = $(this).data('column_name');
-        var value = $(this).text();
-        var description = $(this).data('description');
-        var description_value = $(this).text();
-
-
-
-        var section_name = "نماذج وعقود";
-        $.ajax({
-            url: "<?php echo base_url(); ?>book/update/" + book_id,
-            method: "POST",
-            data: {book_id: book_id, table_column: table_column, value: value, sub_section: section_id, section_name: section_name, description: description, description_value: description_value},
-            success: function (data)
-            {
-
-                loadPagination(0, section_id);
-            }
-
-        });
-
-
-
-
-
-    });
-
-</script>
+ 
+ 
+ 
+ </script>-->
+ 
+ 
+ 
 
 <script>
 

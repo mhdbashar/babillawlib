@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2020 at 06:25 PM
+-- Generation Time: Dec 23, 2020 at 05:49 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -78,6 +78,17 @@ CREATE TABLE `book` (
   `decision` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `book`
+--
+
+INSERT INTO `book` (`book_id`, `book_name`, `jurisdiction`, `author`, `publisher`, `year_publication`, `subject`, `volume_number`, `year`, `book_title`, `the_main_domain`, `subdomain`, `history_system_m`, `accreditation`, `date_publication_m`, `adjustments`, `accessories`, `pass`, `section_id`, `file`, `main_section`, `url`, `dis`, `history_system_h`, `date_publication_h`, `mini`, `pdf`, `interview`, `country`, `city`, `court`, `issuer`, `pronounced_judgment`, `referee_number`, `issue_classification`, `sub-classification`, `summary_of_judgment`, `sentencing_text`, `the_reasons`, `the_legal_bond`, `appeal_decision`, `ruling_year`, `legislative_type`, `legislative_status`, `material_number_legislation`, `legislation_number`, `decision`) VALUES
+(926, '', '', '', '', 0000, '', 0, 0000, 'رياض', '', '', '', '', '', '', '', '', 166, NULL, 35, '', '', '0000-00-00', '0000-00-00', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, '', 'النوع الاول', 'الحالة الاولى', '14', '', ''),
+(927, '', '', '', '', 0000, '', 0, 0000, 'سامر', '', '', '', '', '', '', '', '', 167, NULL, 35, '', '', '0000-00-00', '0000-00-00', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, '', 'النوع الاول', 'الحالة الاولى', '55', '', ''),
+(928, '', '', '', '', 0000, '', 0, 0000, 'vvv', '', '', '', '', '', '', '', '', 131, NULL, 31, '', '', '0000-00-00', '0000-00-00', '', NULL, '', '', '', 'محكمة الاستئناف', 'الجهة الاولى', 'قابل', '', 'تصنيف أول', '', '', '', '', '', NULL, '', '', '', '', '', ''),
+(929, '', '', '', '', 0000, '', 0, 0000, 'fghfgh', '', '', '', '', '', '', '', '', 132, NULL, 31, '', '', '0000-00-00', '0000-00-00', '', NULL, '', '', '', 'محكمة الاستئناف', 'الجهة الاولى', 'قابل', '', 'تصنيف أول', '', '', '', '', '', NULL, '', '', '', '', '', ''),
+(930, '', '', '', '', 0000, '', 0, 0000, 'tyyrt', '', '', '', '', '', '', '', '', 132, NULL, 31, 'https://www.youtube.com/', '', '0000-00-00', '0000-00-00', '', NULL, '', '113', '395', 'محكمة الاستئناف', 'الجهة الاولى', 'قابل', '', 'تصنيف أول', '', '', '', '', '', NULL, '', '', '', '', '', '');
+
 -- --------------------------------------------------------
 
 --
@@ -89,6 +100,76 @@ CREATE TABLE `book_tag` (
   `book_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `book_tag`
+--
+
+INSERT INTO `book_tag` (`book_tag_id`, `book_id`, `tag_id`) VALUES
+(1053, 887, 353),
+(1054, 888, 353),
+(1055, 889, 353),
+(1056, 890, 353),
+(1057, 891, 353),
+(1058, 892, 353),
+(1059, 893, 353),
+(1060, 894, 353),
+(1061, 895, 353),
+(1062, 896, 353),
+(1063, 897, 353),
+(1064, 898, 353),
+(1065, 899, 353),
+(1066, 900, 353),
+(1067, 901, 353),
+(1068, 902, 353),
+(1069, 903, 353),
+(1070, 904, 353),
+(1071, 905, 353),
+(1072, 906, 353),
+(1073, 907, 353),
+(1074, 908, 353),
+(1075, 909, 353),
+(1076, 910, 353),
+(1077, 911, 353),
+(1078, 912, 353),
+(1079, 913, 353),
+(1080, 914, 353),
+(1081, 915, 353),
+(1082, 916, 353),
+(1083, 917, 353),
+(1084, 918, 353),
+(1085, 919, 353),
+(1086, 920, 353),
+(1087, 921, 353),
+(1088, 922, 353),
+(1089, 923, 353),
+(1090, 924, 353),
+(1091, 925, 353),
+(1092, 926, 353),
+(1093, 927, 353),
+(1094, 928, 353),
+(1095, 929, 353),
+(1096, 930, 353);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `case_law_system`
+--
+
+CREATE TABLE `case_law_system` (
+  `id` int(11) NOT NULL,
+  `case_law_id` int(11) NOT NULL,
+  `system_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `case_law_system`
+--
+
+INSERT INTO `case_law_system` (`id`, `case_law_id`, `system_id`) VALUES
+(47, 928, 22),
+(48, 929, 23);
 
 -- --------------------------------------------------------
 
@@ -382,6 +463,25 @@ CREATE TABLE `fields_values` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `linked_system`
+--
+
+CREATE TABLE `linked_system` (
+  `id` int(11) NOT NULL,
+  `linked_system_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `linked_system`
+--
+
+INSERT INTO `linked_system` (`id`, `linked_system_id`) VALUES
+(22, 926),
+(23, 927);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `materials`
 --
 
@@ -391,6 +491,56 @@ CREATE TABLE `materials` (
   `description` mediumtext NOT NULL,
   `book_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `materials`
+--
+
+INSERT INTO `materials` (`material_id`, `material_number`, `description`, `book_id`) VALUES
+(989, '', '', 887),
+(990, '', '', 888),
+(991, '', '', 889),
+(992, '', '', 890),
+(993, '', '', 891),
+(994, '', '', 892),
+(995, '', '', 893),
+(996, '', '', 894),
+(997, '', '', 895),
+(998, '', '', 896),
+(999, '', '', 897),
+(1000, '', '', 898),
+(1001, '', '', 899),
+(1002, '', '', 900),
+(1003, '', '', 901),
+(1004, '', '', 902),
+(1005, '', '', 903),
+(1006, '', '', 904),
+(1007, '', '', 905),
+(1008, '', '', 906),
+(1009, '', '', 907),
+(1010, '', '', 908),
+(1011, '', '', 909),
+(1012, '', '', 910),
+(1013, '', '', 911),
+(1014, '', '', 912),
+(1015, '', '', 913),
+(1016, '', '', 914),
+(1017, '', '', 915),
+(1018, '', '', 916),
+(1019, '', '', 917),
+(1020, '', '', 918),
+(1021, '', '', 919),
+(1022, '', '', 920),
+(1023, '', '', 921),
+(1024, '', '', 922),
+(1025, '', '', 923),
+(1026, '', '', 924),
+(1027, '', '', 925),
+(1028, '', '', 926),
+(1029, '', '', 927),
+(1030, '', '', 928),
+(1031, '', '', 929),
+(1032, '', '', 930);
 
 -- --------------------------------------------------------
 
@@ -442,6 +592,13 @@ CREATE TABLE `tag` (
   `tag_name` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tag`
+--
+
+INSERT INTO `tag` (`tag_id`, `tag_name`) VALUES
+(353, '');
+
 -- --------------------------------------------------------
 
 --
@@ -471,6 +628,12 @@ ALTER TABLE `book_tag`
   ADD PRIMARY KEY (`book_tag_id`);
 
 --
+-- Indexes for table `case_law_system`
+--
+ALTER TABLE `case_law_system`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `city`
 --
 ALTER TABLE `city`
@@ -492,6 +655,12 @@ ALTER TABLE `custom_fields`
 -- Indexes for table `fields_values`
 --
 ALTER TABLE `fields_values`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `linked_system`
+--
+ALTER TABLE `linked_system`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -526,13 +695,19 @@ ALTER TABLE `version`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=847;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=931;
 
 --
 -- AUTO_INCREMENT for table `book_tag`
 --
 ALTER TABLE `book_tag`
-  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1013;
+  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1097;
+
+--
+-- AUTO_INCREMENT for table `case_law_system`
+--
+ALTER TABLE `case_law_system`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `city`
@@ -550,19 +725,25 @@ ALTER TABLE `country`
 -- AUTO_INCREMENT for table `custom_fields`
 --
 ALTER TABLE `custom_fields`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `fields_values`
 --
 ALTER TABLE `fields_values`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `linked_system`
+--
+ALTER TABLE `linked_system`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=949;
+  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1033;
 
 --
 -- AUTO_INCREMENT for table `section`
@@ -574,7 +755,7 @@ ALTER TABLE `section`
 -- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
-  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=352;
+  MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=354;
 
 --
 -- AUTO_INCREMENT for table `version`

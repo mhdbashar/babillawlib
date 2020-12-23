@@ -36,7 +36,6 @@
 
 
                                 <?php
-
                                 foreach ($get_main_section as $v) {
 
                                     if ($book['main_section'] == $v->section_id) {
@@ -49,7 +48,7 @@
                                     ?>
 
 
-                                                            <!--                                        <option <php echo $select ?> value="<php echo $v->section_name; ?>" ><php echo $v->section_name; ?></option>-->
+                                                                        <!--                                        <option <php echo $select ?> value="<php echo $v->section_name; ?>" ><php echo $v->section_name; ?></option>-->
 
 
                                     <?php
@@ -60,7 +59,7 @@
 
 
                                 <!--</select>-->
-                                <input type="text" name="section_name" value="<?php if(isset($main_section))echo $main_section; ?>" class="form-control" id="book_title" readonly="" />
+                                <input type="text" name="section_name" value="<?php if (isset($main_section)) echo $main_section; ?>" class="form-control" id="book_title" readonly="" />
 
                             </div>
                         </div>
@@ -91,7 +90,7 @@
                         <div class="col-md-6">
                             <label for="tag_name" class="control-label">الكلمات الدلالية </label>
                             <div class="form-group">
-                                <input type="text" name="tag_name" value="<?php if(isset($tag_name))echo $tag_name; ?>" class="form-control" id="tag"  />
+                                <input type="text" name="tag_name" value="<?php if (isset($tag_name)) echo $tag_name; ?>" class="form-control" id="tag"  />
                             </div>
                         </div>
 
@@ -152,42 +151,30 @@
                             </div>
                         </div>
 
-<?php
+                        <?php
+                        $result = $this->db->query("select country_name,country_id from country where country_id='" . $book['country'] . "'")->row();
+                        ?>
 
-$result=$this->db->query("select country_name,country_id from country where country_id='".$book['country']."'")->row();
 
- 
-
- ?>
- 
- 
 
                         <div class='col-md-6'   id='show_country' >
                             <label for='country' class='control-label'> البلد</label>
                             <div class='form-group'>
                                 <select  name='country'  class='form-control country' id='country'  required >
-                                   
+
                                     <?php
                                     foreach ($country as $row) {
-										if($row->country_id ==  $result->country_id ){
-											$selected='selected';
-											
-										}
-										else{
-											
-											$selected='';
-										}
-										
-										
-										?>
-										
-										
+                                        if ($row->country_id == $result->country_id) {
+                                            $selected = 'selected';
+                                        } else {
+
+                                            $selected = '';
+                                        }
+                                        ?>
+
+
                                         <option value='<?php echo $row->country_id; ?> '   <?php echo $selected ?> ><?php echo $row->country_name ?></option>;
-										<?php
-										
-										
-										
-										
+                                        <?php
                                     }
                                     ?>
 
@@ -198,339 +185,265 @@ $result=$this->db->query("select country_name,country_id from country where coun
                         </div>
 
 
-						
-						
-						
-						  <div class='col-md-6'  id='status' >
-            <label for='legislative_status' class='control-label'> حالة التشريع</label>
-           <div class='form-group'>
-            <select  name='legislative_status' value='' class='form-control' id='legislative_status'>
 
-				   <?php
-        
-        $status = array("الحالة الاولى", "الحالة الثانية",);
-        
-        // Iterating through the product array
-        foreach($status as $item){
-			
-				if($item ==  $book['legislative_status'] ){
-					$selected='selected';
-											
-				}
-			else{
-											
-			$selected='';
-				}
-										
-										
-				?>
-			
-			
-			
-			
-			?>
-			
-			<option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
-			<?php
-            
 
-        }
-        ?>
-		
-            </select>
-            </div>
-            </div>
-						
-						
-						
-						
-			 <div class='col-md-6'  id='type' >
-            <label for='legislative_type' class='control-label'>النوع التشريعي</label>
-           <div class='form-group'>
-           <select  name='legislative_type'  class='form-control' id='legislative_type'>
 
-				   <?php
-        
-        $type = array("النوع الاول", "النوع الثاني",);
-        
-        foreach($type as $item){
-         		if($item ==  $book['legislative_type'] ){
-					$selected='selected';
-											
-				}
-			else{
-											
-			$selected='';
-				}
-										
-										
-				?>
-			
-			
-			
-			
-			?>
-			
-			<option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
-			<?php
-            
+                        <div class='col-md-6'  id='status' >
+                            <label for='legislative_status' class='control-label'> حالة التشريع</label>
+                            <div class='form-group'>
+                                <select  name='legislative_status' value='' class='form-control' id='legislative_status'>
 
-        }
-        ?>
-		
-            </select>
-            </div>
-            </div>
-						
-						
-	
+                                    <?php
+                                    $status = array("الحالة الاولى", "الحالة الثانية",);
 
-						
-						
-						 <div class='col-md-6'  id='pronounced' >
-            <label for='pronounced_judgment' class='control-label'>منطوق الحكم</label>
-           <div class='form-group'>
-           <select  name='pronounced_judgment' value='' class='form-control' id='pronounced_judgment'>
+// Iterating through the product array
+                                    foreach ($status as $item) {
 
-				   <?php
-        
-        $pronounced = array("قابل", "غير قابل",);
-        
-        foreach($pronounced as $item){
-         		if($item ==  $book['pronounced_judgment'] ){
-					$selected='selected';
-											
-				}
-			else{
-											
-			$selected='';
-				}
-										
-										
-				?>
-			
-			
-			
-			
-			?>
-			
-			<option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
-			<?php
-            
+                                        if ($item == $book['legislative_status']) {
+                                            $selected = 'selected';
+                                        } else {
 
-        }
-        ?>
-		
-            </select>
-            </div>
-            </div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-						
-						 <div class='col-md-6'  id='issuer' >
-            <label for='issuer' class='control-label'>جهة الاصدار</label>
-           <div class='form-group'>
-           <select  name='issuer'  class='form-control' id='issuer'>
+                                            $selected = '';
+                                        }
+                                        ?>
 
-				   <?php
-        
-        $issuer = array("الجهة الثانية", "الجهة الاولى",);
-        
-        foreach($issuer as $item){
-         		if($item ==  $book['issuer'] ){
-					$selected='selected';
-											
-				}
-			else{
-											
-			$selected='';
-				}
-										
-										
-				?>
-			
-			
-			
-			
-			?>
-			
-			<option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
-			<?php
-            
 
-        }
-        ?>
-		
-            </select>
-            </div>
-            </div>
-			
-			
-			
-			
-			
-			
-							 <div class='col-md-6'  id='issue' >
-           <label for='issue_classification' class='control-label'> تصنيف القضية</label>
-           <div class='form-group'>
-           <select  name='issue_classification' value='' class='form-control' id='issue_classification'>
 
-				   <?php
-        
-        $issue = array("تصنيف ثاني", "تصنيف اول",);
-        
-        foreach($issue as $item){
-         		if($item ==  $book['issue_classification'] ){
-					$selected='selected';
-											
-				}
-			else{
-											
-			$selected='';
-				}
-										
-										
-				?>
-			
-			
-			
-			
-			?>
-			
-			<option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
-			<?php
-            
 
-        }
-        ?>
-		
-            </select>
-            </div>
-            </div>
-			
-			
-			
-								 <div class='col-md-6'  id='court_court' >
-          <label for='court' class='control-label'>المحكمة </label>
-           <div class='form-group'>
-           <select  name='court' value='' class='form-control' id='court'>
+                                        ?>
 
-				   <?php
-        
-        $court_court = array("محكمة النقض", "محكمة الاستئناف",);
-        
-        foreach($court_court as $item){
-         		if($item ==  $book['court'] ){
-					$selected='selected';
-											
-				}
-			else{
-											
-			$selected='';
-				}
-										
-										
-				?>
-			
-			
-			
-			
-			?>
-			
-			<option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
-			<?php
-            
+                                        <option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
+                                        <?php
+                                    }
+                                    ?>
 
-        }
-        ?>
-		
-            </select>
-            </div>
-            </div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			<div class='col-md-6'  id='pass_pass' >
-          <label for='pass' class='control-label'>النفاذ</label>
-           <div class='form-group'>
-        <select  name='pass' value='' class='form-control' id='pass'>
+                                </select>
+                            </div>
+                        </div>
 
-				   <?php
-        
-        $pass = array("غير ساري", "ساري",);
-        
-        foreach($pass as $item){
-         		if($item ==  $book['pass'] ){
-					$selected='selected';
-											
-				}
-			else{
-											
-			$selected='';
-				}
-										
-										
-				?>
-			
-			
-			
-			
-			?>
-			
-			<option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
-			<?php
-            
 
-        }
-        ?>
-		
-            </select>
-            </div>
-            </div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-	
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		
+
+
+                        <div class='col-md-6'  id='type' >
+                            <label for='legislative_type' class='control-label'>النوع التشريعي</label>
+                            <div class='form-group'>
+                                <select  name='legislative_type'  class='form-control' id='legislative_type'>
+
+                                    <?php
+                                    $type = array("النوع الاول", "النوع الثاني",);
+
+                                    foreach ($type as $item) {
+                                        if ($item == $book['legislative_type']) {
+                                            $selected = 'selected';
+                                        } else {
+
+                                            $selected = '';
+                                        }
+                                        ?>
+
+
+
+
+                                        ?>
+
+                                        <option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
+                                        <?php
+                                    }
+                                    ?>
+
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        <div class='col-md-6'  id='pronounced' >
+                            <label for='pronounced_judgment' class='control-label'>منطوق الحكم</label>
+                            <div class='form-group'>
+                                <select  name='pronounced_judgment' value='' class='form-control' id='pronounced_judgment'>
+
+                                    <?php
+                                    $pronounced = array("قابل", "غير قابل",);
+
+                                    foreach ($pronounced as $item) {
+                                        if ($item == $book['pronounced_judgment']) {
+                                            $selected = 'selected';
+                                        } else {
+
+                                            $selected = '';
+                                        }
+                                        ?>
+
+
+
+
+                                        ?>
+
+                                        <option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
+                                        <?php
+                                    }
+                                    ?>
+
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class='col-md-6'  id='issuer' >
+                            <label for='issuer' class='control-label'>جهة الاصدار</label>
+                            <div class='form-group'>
+                                <select  name='issuer'  class='form-control' id='issuer'>
+
+                                    <?php
+                                    $issuer = array("الجهة الثانية", "الجهة الاولى",);
+
+                                    foreach ($issuer as $item) {
+                                        if ($item == $book['issuer']) {
+                                            $selected = 'selected';
+                                        } else {
+
+                                            $selected = '';
+                                        }
+                                        ?>
+
+
+
+
+                                        ?>
+
+                                        <option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
+                                        <?php
+                                    }
+                                    ?>
+
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        <div class='col-md-6'  id='issue' >
+                            <label for='issue_classification' class='control-label'> تصنيف القضية</label>
+                            <div class='form-group'>
+                                <select  name='issue_classification' value='' class='form-control' id='issue_classification'>
+
+                                    <?php
+                                    $issue = array("تصنيف ثاني", "تصنيف اول",);
+
+                                    foreach ($issue as $item) {
+                                        if ($item == $book['issue_classification']) {
+                                            $selected = 'selected';
+                                        } else {
+
+                                            $selected = '';
+                                        }
+                                        ?>
+
+
+
+
+                                        ?>
+
+                                        <option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
+                                        <?php
+                                    }
+                                    ?>
+
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <div class='col-md-6'  id='court_court' >
+                            <label for='court' class='control-label'>المحكمة </label>
+                            <div class='form-group'>
+                                <select  name='court' value='' class='form-control' id='court'>
+
+                                    <?php
+                                    $court_court = array("محكمة النقض", "محكمة الاستئناف",);
+
+                                    foreach ($court_court as $item) {
+                                        if ($item == $book['court']) {
+                                            $selected = 'selected';
+                                        } else {
+
+                                            $selected = '';
+                                        }
+                                        ?>
+
+
+
+
+                                        ?>
+
+                                        <option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
+                                        <?php
+                                    }
+                                    ?>
+
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+                        <div class='col-md-6'  id='pass_pass' >
+                            <label for='pass' class='control-label'>النفاذ</label>
+                            <div class='form-group'>
+                                <select  name='pass' value='' class='form-control' id='pass'>
+
+                                    <?php
+                                    $pass = array("غير ساري", "ساري",);
+
+                                    foreach ($pass as $item) {
+                                        if ($item == $book['pass']) {
+                                            $selected = 'selected';
+                                        } else {
+
+                                            $selected = '';
+                                        }
+                                        ?>
+
+
+
+
+                                        ?>
+
+                                        <option value='<?php echo $item; ?>'  <?php echo $selected ?>  ><?php echo $item; ?></option>;
+                                        <?php
+                                    }
+                                    ?>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--    loop for checkbox material            -->
+
+
 
                         <div id="fm">
 
@@ -1641,8 +1554,8 @@ $result=$this->db->query("select country_name,country_id from country where coun
                             }
                             ?>
                         </div>    
-                        
-                         <div id="fffffff">
+
+                        <div id="fffffff">
                             <?php
                             foreach ($fields as $value) {
                                 if ($value['field_type'] == 'input' && $value['section_id'] == 35) {
@@ -1887,34 +1800,57 @@ $result=$this->db->query("select country_name,country_id from country where coun
 
 
 
-                    <!--  /*         <div class="col-md-12">
-                                 <label for="field" class="control-label"> الحقول المخصصة</label>
-                                 <div class="form-group">
-                                     <select name='inputSelect' class='form-control'>
-         
-                                         <option value ="text">حقل نصي</option>
-                                         <option value ="radio">زر اختيار خيار واحد</option>
-                                         <option value ="checkbox">زر اختيار خيارات متعددة</option>
-                                         <option value ="textarea">حقل نصي متعدد</option>
-                                     </select>
-         
-                                     <input type="button" value="اضف الحقول المخصصة" onClick="addAllInputs('dynamicInputs', document.myForm.inputSelect.value);"><br />
-         
-                                 </div>
-                             </div> */ -->
 
 
-                    <div class="col-md-12">
+                    <div id="checkbox_case_law" class='col-md-12'>
 
-                        <div class="form-group">
-                            <div  id="dynamicInputs">
+
+                        <div class='col-md-6' id="div_linked">
+                            <label for='linked' >مرتبط بنظام تشريعي</label>
+                            <div class='form-group'>
+							<?php
+							if(isset($mat['material_number_legislation'])){
+								$checkedd='checked';
+								
+							}
+							else{
+								$checkedd='';
+								
+							}
+							
+							
+							?>
+							
+                                <input type='checkbox' name='linked' value='linked'  id='linked'  <?php echo $checkedd?> class='get_value'>
+                            </div>
+                            <div id="tree_linked">
+
 
 
                             </div>
-
-
                         </div>
+
+                        <table class="table table-striped table-bordered" id="case_law_table">
+                            <thead>
+                                <tr id="head">
+                                    <th>عنوان النظام</th>
+
+
+                                    <th>رقم المادة</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody id="case_law">
+                            </tbody>
+                        </table> 
+
                     </div>
+
+
+                    <input type="hidden" name="material_number_legislation_in_case_value" id="material_number_legislation_in_case_value" value=''>
+                    <input type="hidden" name="system_id" id="system_id" value=''>
+
 
                 </div>
                 <div class="box-footer">
@@ -1934,31 +1870,36 @@ $result=$this->db->query("select country_name,country_id from country where coun
 
 <link rel="stylesheet" href="<?= base_url() ?>assets/tinymce/skin.min.css">
 <script>
+							var sss= "<?php echo $checkedd ;?>";
+						
+							</script>
+
+<script>
     $(document).ready(function () {
-		
-		
-		
-        var section_name = "<?php if(isset($main_section))echo $main_section; ?>";
-        var section_id = "<?php if(isset($section_id))echo $section_id; ?>";
+
+
+
+        var section_name = "<?php if (isset($main_section)) echo $main_section; ?>";
+        var section_id = "<?php if (isset($section_id)) echo $section_id; ?>";
         addTinyMCE();
         //$("#mat").hide();
         $("#add_row").hide();
         $(".mini").hide();
         $("#add_row_ver").hide();
-		$("#status").hide();
-		$("#type").hide();
-		$("#pronounced").hide();
-		$("#issue").hide();
-	    $("#issuer").hide();
-		 $("#court_court").hide();
-		  $("#pass_pass").hide();
-		  $("#show_country").hide();
-		  	 
-		
-		
-		
-		
-		
+        $("#status").hide();
+        $("#type").hide();
+        $("#pronounced").hide();
+        $("#issue").hide();
+        $("#issuer").hide();
+        $("#court_court").hide();
+        $("#pass_pass").hide();
+        $("#show_country").hide();
+
+
+
+
+
+
 
         //        function date_publication_h() {
         //
@@ -2080,28 +2021,28 @@ $result=$this->db->query("select country_name,country_id from country where coun
         var txt1 = '';
         var txt2 = '';
 
-        var txt5='';
+        var txt5 = '';
         if (section_name === 'الأحكام والسوابق القضائية') {
             var txt6 = '';
             $("#fm").empty();
 
             $("#mat").hide();
             $("#title").show();
-			
-		
-		 
-			
+
+
+
+
             addTinyMCE();
 
             txt6 += "<div class='col-md-6'>";
             txt6 += "<label for='city' class='control-label'> المدينة</label>";
             txt6 += "<div class='form-group'>";
             txt6 += "<select  name='city'  class='form-control' id='city'>";
-		
-			
-            txt6 += "<option value='<?php echo $city1['city']?>'><?php echo $city1['city_name']?></option>";
-			
-			
+
+
+            txt6 += "<option value='<?php echo $city1['city'] ?>'><?php echo $city1['city_name'] ?></option>";
+
+
 
             txt6 += "</select>";
             txt6 += "</div>";
@@ -2117,7 +2058,7 @@ $result=$this->db->query("select country_name,country_id from country where coun
 
 
 
-           
+
 
 
             txt6 += "<div class='col-md-6'>";
@@ -2127,7 +2068,7 @@ $result=$this->db->query("select country_name,country_id from country where coun
             txt6 += "</div>";
             txt6 += "</div>";
 
-          
+
             addTinyMCE();
 
 
@@ -2163,27 +2104,27 @@ $result=$this->db->query("select country_name,country_id from country where coun
             txt6 += "<textarea  style='border:2px solid black' name='the_legal_bond' id='the_legal_bond'> <?php echo $book['the_legal_bond'] ?>  </textarea>";
             txt6 += "</div>";
             txt6 += " </div>";
-		
-			$("#show_country").show();
-		     
-			$("#pronounced").show();
-			$("#issue").show();
-			$("#issuer").show();
-			 $("#court_court").show();
-				
-				
-				
-				
-				
-				txt6 += "<div class='col-md-6'>";
-                txt6 += "<label for='decision' class='control-label'> قرار الاستئناف  </label>";
-                txt6 += "<div class='form-group'>";
-                txt6 += "<input type='text' name='decision' value='<?php echo $book['decision'] ?> ' class='form-control' id='decision' style='text-align:right'/>";
-                txt6 += "</div>";
-                txt6 += "</div>";
-				
-			
-			
+
+            $("#show_country").show();
+
+            $("#pronounced").show();
+            $("#issue").show();
+            $("#issuer").show();
+            $("#court_court").show();
+
+
+
+
+
+            txt6 += "<div class='col-md-6'>";
+            txt6 += "<label for='decision' class='control-label'> قرار الاستئناف  </label>";
+            txt6 += "<div class='form-group'>";
+            txt6 += "<input type='text' name='decision' value='<?php echo $book['decision'] ?> ' class='form-control' id='decision' style='text-align:right'/>";
+            txt6 += "</div>";
+            txt6 += "</div>";
+
+
+
 
 
             $("#fm").html(txt6);
@@ -2233,7 +2174,7 @@ $result=$this->db->query("select country_name,country_id from country where coun
             $("#title").hide();
             $("#add_row").show();
             $("#add_row_ver").show();
-			 $("#pass_pass").show();
+            $("#pass_pass").show();
             initHijrDatePickerDefault();
 
 
@@ -2272,7 +2213,7 @@ $result=$this->db->query("select country_name,country_id from country where coun
 //                    txt2 += "</div>";
 
 
-        
+
             $("#fm").html(txt2);
 
 
@@ -2290,20 +2231,20 @@ $result=$this->db->query("select country_name,country_id from country where coun
             $("#ddddddd").show();
             $("#ggggggg").show();
             $("#lllll1l").show();
-			$("#status").show();
-			  $("#type").show();
+            $("#status").show();
+            $("#type").show();
             addTinyMCE();
             $("#fm").empty();
             $("#title").show();
-         $("#mat").hide();
-			
-		
-   
-			
-			
-			
-			
-          
+            $("#mat").hide();
+
+
+
+
+
+
+
+
 
 
 
@@ -2333,12 +2274,7 @@ $result=$this->db->query("select country_name,country_id from country where coun
             $("#fm").html(txt5);
 
 
-        }
-
-
-
-
-        else if (section_name === 'نماذج وعقود') {
+        } else if (section_name === 'نماذج وعقود') {
 
             $("#fm").empty();
 
@@ -2352,6 +2288,219 @@ $result=$this->db->query("select country_name,country_id from country where coun
 
             $("#fm").empty();
         }
+
+
+
+
+
+
+        var base_url = '<?php echo base_url(); ?>';
+        $(document).ready(function () {
+
+
+
+            var section_id = '';
+
+            var main_section_id = 35;
+            //alert(main_section_id);
+
+
+
+            var t = '';
+
+           if(sss){
+			   
+			   
+		 
+                $("#case_law_table").show();
+                $('#tree_linked').show();
+                if ($('#linked').is(":checked"))
+                {
+                    $.ajax({
+                        type: "GET",
+                        url: "<?php echo base_url() ?>section/getItem/" + main_section_id,
+                        dataType: "json",
+                        success: function (response)
+                        {
+
+                            var i = 0;
+                            var j = 0;
+                            var r = [];
+                            for (i = 0; i < response.result.length; i++) {
+
+
+                                r[i] = response.result[i].section_id;
+                            }
+							
+							
+								
+								 $('#tree_linked').treeview({data: response});
+								
+							
+                           
+
+
+
+
+
+                            $('#tree_linked').on('nodeSelected', function (event, data) {
+
+
+                                t = '';
+                                html = '';
+                                for (j = 0; j < r.length; j++) {
+
+                                    if (r[j] === data.id) {
+
+
+
+                                        t = data.id;
+                                    }
+
+                                }
+
+                                // alert(t);
+
+
+                                section_id = t;
+                                function loadPagination(pagno, section_id) {
+
+
+                                    $.ajax({
+
+                                        url: "<?php echo base_url() ?>book/book_pagination/" + pagno,
+                                        type: 'post',
+                                        dataType: 'json',
+                                        data: {section_id: section_id},
+                                        beforeSend: function () {
+
+                                            $("#loader").show();
+                                        },
+                                        success: function (response) {
+
+                                            //  alert(response.pagination);
+
+                                            $('#pagination_in_section').html(response.pagination);
+                                            createTable(response.result, response.row);
+                                        },
+                                        complete: function (data) {
+                                            // Hide image container
+                                            $("#loader").hide();
+                                        },
+
+                                        error: function () {
+                                            alert("error in loadPagination");
+                                        }
+                                    });
+                                }
+
+
+
+
+
+//  Create table list';
+                                function createTable(result, sno) {
+                                    sno = Number(sno);
+                                    //   $('#books_in_section').empty();
+
+                                    var html = '';
+
+
+
+										var checked='';
+                                    var index = '';
+                                    for (index in result) {
+						
+                                        html += '<tr>';
+
+                                        html += '<td>' + result[index].book_title + '</td>';
+									if((result[index].material_number_legislation) == <?php echo $mat['material_number_legislation']; ?>){
+											 checked='checked';
+											
+											
+										}
+										else{
+											
+											checked='';
+										}
+										
+										
+                                        html += '<td><input type="checkbox" name="material_number_legislation_in_case" value="' + result[index].material_number_legislation + '" id="material_number_legislation_in_case"  '+checked+'>' + result[index].material_number_legislation + '</td>';
+                                        html += '<td><input type="hidden" name="system_id" value="' + result[index].book_id + '" id="system_id_id"></td>';
+
+									
+
+
+                                        html += '</tr>';
+
+                                    }
+
+                                    $('#case_law').html(html);
+                                    $('#material_number_legislation_in_case').click(function () {
+
+
+
+                                        if ($('#linked').prop("checked") == true) {
+
+                                            var material_number_legislation_in_case = $('#material_number_legislation_in_case').val();
+
+                                            $('#material_number_legislation_in_case_value').val(material_number_legislation_in_case);
+
+                                            var system_id = $('#system_id_id').val();
+                                            $('#system_id').val(system_id);
+
+
+                                        }
+
+
+                                    });
+
+
+
+
+
+                                }
+
+
+
+
+                                loadPagination(0, section_id);
+                                $('#pagination_in_section').on('click', 'a', function (e) {
+                                    e.preventDefault();
+                                    var pageno = $(this).attr('data-ci-pagination-page');
+                                    loadPagination(pageno, section_id);
+                                });
+
+
+
+
+                            });
+
+
+
+
+                        }
+
+
+
+                    });
+
+
+
+
+                } else {
+                    $('#tree_linked').hide();
+                    $('#case_law_table').hide();
+                    }
+                }
+
+
+         
+
+
+
+        });
+
 
 
 

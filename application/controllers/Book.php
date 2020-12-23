@@ -159,6 +159,8 @@ class Book extends Front_end {
 
 
                         $book_id = $this->Book_model->add_book($params);
+						
+						 
 
 
 
@@ -288,7 +290,40 @@ class Book extends Front_end {
                                 $this->Book_tag_model->add_book_tag($tag_book);
                             }
                         }
-
+                        
+                        $system_id_id=$this->input->post('system_id');
+                        if((isset($system_id_id)) && (!empty($system_id_id))){
+							
+								
+								 $system_id = array(
+                                    
+                                    'linked_system_id' =>   $this->input->post('system_id')
+                                );
+								
+								 $insert_id=$this->Book_model->add_linked_case($system_id);
+								 
+								    $case = array(
+                                    'case_law_id' => $book_id,
+									'system_id'=>$insert_id
+                                  
+                                );
+								 
+								 
+								 
+						$this->Book_model->add_system_case($case);
+						 
+						 
+						
+								
+							
+						}
+                        
+                         
+								
+                        
+                     
+                        
+                            
                         redirect('book/index');
                     }
                 } elseif ($section_name == 'الكتب القانونية والأبحاث') {
@@ -903,6 +938,9 @@ class Book extends Front_end {
      */
 
     function edit($book_id) {
+        
+      
+         $result5=$this->db->query("select * from book,case_law_system,linked_system   where  linked_system.id=case_law_system.system_id and linked_system.linked_system_id=book.book_id  ")->row_array();
 
         $data['field'] = $data = $this->db->query("select * from fields_values ")->result_array();
 
@@ -928,11 +966,12 @@ class Book extends Front_end {
             $tag_name = implode(',', $a);
             $data['tag_name'] = $tag_name;
         }
-        $result3 = $this->db->query("select book.city,book.country,city.city_name,country.country_name from book,country,city where book_id= '" . $book_id . "' and book.country=country.country_id and book.city=city.city_id ")->row_array();
+    $result3 = $this->db->query("select book.city,book.country,city.city_name,country.country_name from book,country,city where book_id= '" . $book_id . "' and book.country=country.country_id and book.city=city.city_id ")->row_array();
         $result2 = $this->db->query("select * from fields_values a,custom_fields b  where a.field_id=b.id   and   a.book_id= '" . $book_id . "'")->result_array();
 		
-		
+		$data['mat'] = $result5;
          $data['city1'] = $result3;
+		 
 		 //$data['country1'] = $result3->country_name;
         $data['country'] = $this->Book_model->fetch_country();
        

@@ -18,6 +18,10 @@ class Book_model extends CI_Model {
     function get_book($book_id) {
         return $this->db->get_where('book', array('book_id' => $book_id))->row_array();
     }
+	
+	function get_material_sys_case($book_id) {
+        return $this->db->query("select book.material_number_legislation from book,case_law_system where case_law_system.case_law_id=book.book_id and case_law_system.system_id=book.book_id and book.book_id='" . $book_id . "'  ")->row();
+    }
 
     /*
      * Get all book
@@ -301,6 +305,17 @@ class Book_model extends CI_Model {
           return $result;
 		
 	}
+        
+        function add_system_case($params) {
+          $this->db->insert('case_law_system', $params);
+          return $this->db->insert_id();
+        }
+		  function add_linked_case($params) {
+          $this->db->insert('linked_system', $params);
+          return $this->db->insert_id();
+        }
+		
+		
     
     
     
