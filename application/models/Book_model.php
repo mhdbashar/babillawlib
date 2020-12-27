@@ -306,12 +306,16 @@ class Book_model extends CI_Model {
 		
 	}
         
-        function add_system_case($params) {
-          $this->db->insert('case_law_system', $params);
+        function add_linked_case_law($params) {
+          $this->db->insert('linked_case_law', $params);
           return $this->db->insert_id();
         }
-		  function add_linked_case($params) {
+		  function add_linked_system($params) {
           $this->db->insert('linked_system', $params);
+          return $this->db->insert_id();
+        }
+		  function case_law_system($params) {
+          $this->db->insert('case_law_system', $params);
           return $this->db->insert_id();
         }
 		

@@ -56,6 +56,9 @@
 
                 <input type="hidden" name="total_item_ver" id="total_item_ver" value="1" />
 
+                <input type="hidden" name="total_item_system" id="total_item_system" value="0" />
+
+
                 <div class="box-body" id="box-body">
                     <div class="row clearfix">
                         <div class="col-md-6">
@@ -1178,14 +1181,17 @@
                                 </tr>
                             </thead>
                             <tbody id="case_law">
+
+
+
                             </tbody>
                         </table> 
 
                     </div>
 
 
-                    <input type="hidden" name="material_number_legislation_in_case_value" id="material_number_legislation_in_case_value" value=''>
-                    <input type="hidden" name="system_id" id="system_id" value=''>
+                   <!--  <input type="hidden" name="material_number_legislation_in_case_value" id="material_number_legislation_in_case_value" value=''>
+                    <input type="hidden" name="system_id" id="system_id" value=''> -->
 
                 </div>
 
@@ -1272,18 +1278,14 @@
         $("#div_linked").hide();
         $("#case_law").hide();
         $("#dis_case_law").hide();
-
         $("#checkbox_case_law").hide();
         $("#case_law_table").hide();
-
-
         addTinyMCE();
         var change = 'no';
         var main_section_id = '';
         $("#mat").hide();
         $("#add_row").hide();
         $("#add_row_ver").hide();
-
         $("select.section").change(function () {
             addTinyMCE();
             $("#title").show();
@@ -1293,7 +1295,6 @@
             $("#fffff").hide();
             $("#ffffff").hide();
             $("#fffffff").hide();
-
             $("#bbb").hide();
             $("#bbbb").hide();
             $("#bbbbb").hide();
@@ -1304,7 +1305,6 @@
             $("#ccccc").hide();
             $("#cccccc").hide();
             $("#cccccc").hide();
-
             $("#ddd").hide();
             $("#dddd").hide();
             $("#ddddd").hide();
@@ -1315,7 +1315,6 @@
             $("#ggggg").hide();
             $("#gggggg").hide();
             $("#ggggggg").hide();
-
             $("#lll").hide();
             $("#llll").hide();
             $("#lllll").hide();
@@ -1332,20 +1331,12 @@
             $("#dis_case_law").hide();
             $("#case_law_table").hide();
             $(".mini").hide();
-
             $("#ver_ver").hide();
             $("#div_linked").hide();
-
-
-
             $("#dynamicInputs").html('');
             addTinyMCE();
-
             main_section_id = $(this).children("option:selected").val();
             var section_name = $("#sel_section option:selected").html();
-
-
-
             $.ajax({
                 type: "GET",
                 url: "<?php echo base_url() ?>section/getItem/" + main_section_id,
@@ -1357,18 +1348,15 @@
                     var i = 0;
                     var j = 0;
                     var r = [];
-
                     var k = '';
                     for (i = 0; i < response.result.length; i++) {
 
 
                         r[i] = response.result[i].section_id;
-
                     }
 
 
                     $('#treeview_json').treeview({data: response});
-
                     t = 0;
                     $("#sub_section").val(t);
                     $('#treeview_json').on('nodeSelected', function (event, data) {
@@ -1384,8 +1372,6 @@
                                 //  alert(data.id);
                                 $("#sub_section").val(t);
                                 break;
-
-
                             }
 
 
@@ -1396,7 +1382,6 @@
 
 
                     });
-
                     $(".save").click(function () {
 
                         if (t === 0) {
@@ -1412,14 +1397,9 @@
 
 
                     });
-
-
                 }
             });
-
-
             var txt4 = '';
-
             txt4 += "<div class=}'col-md-6'>";
             txt4 += "<label for='year' class='control-label' >السنة</label>";
             txt4 += "<div class='form-group'>";
@@ -1439,13 +1419,8 @@
             txt4 += "</div>";
             txt4 += "</div>";
             $("#fm").html(txt4);
-
             $('#tag').tokenfield({
             });
-
-
-
-
             var txt2 = '';
             var txt3 = '';
             var txt6 = '';
@@ -1453,10 +1428,7 @@
             if (section_name === 'الأحكام والسوابق القضائية') {
                 addTinyMCE();
                 $("#fm").empty();
-
-
                 $("#title").show();
-
                 $("#bbbbbb").show();
                 $("#ffffff").show();
                 $("#cccccc").show();
@@ -1465,17 +1437,14 @@
                 $("#llllll").show();
                 $("#case_law_table").hide();
                 addTinyMCE();
-
                 txt6 += "<div class='col-md-6'>";
                 txt6 += "<label for='city' class='control-label'> المدينة</label>";
                 txt6 += "<div class='form-group'>";
                 txt6 += "<select  name='city'  class='form-control' id='city'>";
                 txt6 += "<option value=''>اختر المدينة</option>";
-
                 txt6 += "</select>";
                 txt6 += "</div>";
                 txt6 += "</div>";
-
                 txt6 += "<div class='col-md-6'>";
                 txt6 += "<label for='issuer' class='control-label'>جهة الاصدار</label>";
                 txt6 += "<div class='form-group'>";
@@ -1485,25 +1454,18 @@
                 txt6 += "</select>";
                 txt6 += "</div>";
                 txt6 += "</div>";
-
-
                 txt6 += "<div class='col-md-6'>";
                 txt6 += "<label for='ruling_year' class='control-label'> سنة الحكم </label>";
                 txt6 += "<div class='form-group'>";
                 txt6 += "<input type='text' name='ruling_year' value='' class='hijri-date-input  form-control' id='ruling_year' style='text-align:right'/>";
                 txt6 += "</div>";
                 txt6 += "</div>";
-
                 txt6 += "<div class='col-md-6'>";
                 txt6 += "<label for='decision' class='control-label'> قرار الاستئناف  </label>";
                 txt6 += "<div class='form-group'>";
                 txt6 += "<input type='text' name='decision' value='' class='form-control' id='decision' style='text-align:right'/>";
                 txt6 += "</div>";
                 txt6 += "</div>";
-
-
-
-
                 txt6 += "<div class='col-md-6'>";
                 txt6 += "<label for='pronounced_judgment' class='control-label'>منطوق الحكم</label>";
                 txt6 += "<div class='form-group'>";
@@ -1513,10 +1475,6 @@
                 txt6 += "</select>";
                 txt6 += "</div>";
                 txt6 += "</div>";
-
-
-
-
                 txt6 += "<div class='col-md-6'>";
                 txt6 += "<label for='court' class='control-label'>المحكمة </label>";
                 txt6 += "<div class='form-group'>";
@@ -1526,17 +1484,12 @@
                 txt6 += "</select>";
                 txt6 += "</div>";
                 txt6 += "</div>";
-
-
-
-
                 txt6 += "<div class='col-md-6'>";
                 txt6 += "<label for='volume_number' class='control-label'> رقم الحكم</label>";
                 txt6 += "<div class='form-group'>";
                 txt6 += "<input type='number' name='volume_number' value='' class='form-control' id='volume_number' />";
                 txt6 += "</div>";
                 txt6 += "</div>";
-
                 txt6 += "<div class='col-md-6'>";
                 txt6 += "<label for='issue_classification' class='control-label'> تصنيف القضية</label>";
                 txt6 += "<div class='form-group'>";
@@ -1547,25 +1500,14 @@
                 txt6 += "</div>";
                 txt6 += "</div>";
                 addTinyMCE();
-
-
-
-
                 $("#show_country").show();
                 $("#div_linked").show();
-
                 $("#case_law").show();
-
                 $("#dis_case_law").show();
                 $("#checkbox_case_law").show();
-
                 $("#fm").html(txt6);
-
                 addTinyMCE();
                 initHijrDatePickerDefault();
-
-
-
             } else if (section_name === 'الكتب القانونية والأبحاث') {
                 $("#bbbb").show();
                 $("#ffff").show();
@@ -1594,12 +1536,8 @@
                 txt2 += "<input type='number' min='1900' max='2099' step='1' value='2016' name='year_publication' class='form-control'/>";
                 txt2 += "</div>";
                 txt2 += "</div>";
-
                 $(".mini").show();
-
                 $("#fm").html(txt2);
-
-
             } else if (section_name === 'الأنظمة والتشريعات والقوانين') {
 
                 $("#bbbbbbb").show();
@@ -1615,56 +1553,34 @@
                 txt5 += "<label for='legislative_type' class='control-label'>النوع التشريعي</label>";
                 txt5 += "<div class='form-group'>";
                 txt5 += "<select  name='legislative_type' value='' class='form-control' id='legislative_type'>";
-
                 txt5 += "<option value='النوع الاول'>النوع الاول</option>";
                 txt5 += "<option value='النوع الثاني'>النوع الثاني</option>";
                 txt5 += "</select>";
                 txt5 += "</div>";
                 txt5 += "</div>";
-
                 txt5 += "<div class='col-md-6'>";
                 txt5 += "<label for='legislative_status' class='control-label'> حالة التشريع</label>";
                 txt5 += "<div class='form-group'>";
                 txt5 += "<select  name='legislative_status' value='' class='form-control' id='legislative_status'>";
-
                 txt5 += "<option value='الحالة الاولى'> الحالة الاولى</option>";
                 txt5 += "<option value='الحالة الثانية'> الحالة الثانية</option>";
                 txt5 += "</select>";
                 txt5 += "</div>";
                 txt5 += "</div>";
-
-
-
                 txt5 += "<div class='col-md-6'>";
                 txt5 += "<label for='material_number_legislation' class='control-label'> رقم المادة</label>";
                 txt5 += "<div class='form-group'>";
                 txt5 += "<input type='number' name='material_number_legislation' value='' class='form-control' id='material_number_legislation' />";
                 txt5 += "</div>";
                 txt5 += "</div>";
-
-
-
-
-
                 txt5 += "<div class='col-md-6'>";
                 txt5 += "<label for='legislation_number' class='control-label'> رقم التشريع</label>";
                 txt5 += "<div class='form-group'>";
                 txt5 += "<input type='number' name='legislation_number' value='' class='form-control' id='legislation_number' />";
                 txt5 += "</div>";
                 txt5 += "</div>";
-
-
-
-
-
-
-
-
                 $("#show_country").show();
-
                 $("#fm").html(txt5);
-
-
             } else if (section_name === 'الأنظمة السعودية') {
                 $("#bbbbb").show();
                 $("#fffff").show();
@@ -1680,7 +1596,6 @@
 //                $("#mor_textarea").show();
                 $("#add_row").show();
                 $("#add_row_ver").show();
-
                 $("#ver_ver").show();
                 txt2 += "<div class='col-md-6'>";
                 txt2 += "<label for='history_system_m' class='control-label'> تاريخ النظام </label>";
@@ -1706,29 +1621,19 @@
                 txt2 += "<input type='text' name='date_publication_m' value='' class='form-control hijri-date-input' id='date_publication_m'  />";
                 txt2 += "</div>";
                 txt2 += "</div>";
-
-
-
                 txt2 += "<div class='col-md-6'>";
                 txt2 += "<label for='pass' class='control-label'>النفاذ</label>";
                 txt2 += "<div class='form-group'>";
                 txt2 += "<select  name='pass' value='' class='form-control' id='pass'>";
-
                 txt2 += "<option value='ساري'>ساري</option>";
                 txt2 += "<option value='غير ساري'>غير ساري</option>";
                 txt2 += "</select>";
                 txt2 += "</div>";
                 txt2 += "</div>";
-
-
-
                 txt3 += "<div class='col-md-3'>";
-
                 $("#fm").html(txt2);
                 $("#material").html(txt3);
                 initHijrDatePickerDefault();
-
-
             } else if (section_name === 'نماذج وعقود') {
 
                 $("#fm").empty();
@@ -1738,13 +1643,10 @@
                 $("#ddd").show();
                 $("#ggg").show();
                 $("#lll").show();
-
                 $("#ffff").hide();
                 $("#pdf_div").hide();
                 addTinyMCE();
                 initHijrDatePickerDefault();
-
-
             } else {
 
                 $("#fm").empty();
@@ -1752,14 +1654,12 @@
 
         });
         var count = 1;
-
         $(document).on('click', '#add_row', function () {
             addTinyMCE();
             count++;
             $('#total_item').val(count);
             var txt5 = '';
             txt5 += '<div class="collection" id="row_id_' + count + '" >';
-
             txt5 += '<div class="col-md-6">';
             txt5 += '<label for="material_number" class="control-label"> رقم  المادة</label>';
             txt5 += '<div class="form-group">';
@@ -1768,39 +1668,25 @@
             txt5 += '<button type="button" name="remove_row" id="' + count + '" class="btn btn-danger btn-s remove_row">X</button>';
             txt5 += '</div>';
             addTinyMCE();
-
             txt5 += ' <div class="col-md-6" >';
             txt5 += ' <label for="dis" class="control-label">  أدخل الوصف</label>';
             txt5 += '<div class="form-group">';
             txt5 += '<textarea  style="border:2px solid black" name="dis[]"  id="dis' + count + '">  </textarea>';
             txt5 += '</div>';
             txt5 += '</div>';
-
             txt5 += '</div>';
-
             addTinyMCE();
-
             $('#hide').append(txt5);
-
             addTinyMCE();
-
         });
-
-
-
-
         var count_ver = 1;
-
         $(document).on('click', '#add_row_ver', function () {
 
             count_ver++;
             $('#total_item_ver').val(count_ver);
             var txt6 = '';
-
             txt6 += ' <div class="coll" id="row_id_ver' + count_ver + '"  >';
             txt6 += ' <div class="col-md-12">';
-
-
             txt6 += ' <label for="version" class="control-label">الإصدار</label>';
             txt6 += ' <div class="form-group">';
             txt6 += '<input type="text" name="version[]" value="" class="form-control" id="version' + count_ver + '" />';
@@ -1809,32 +1695,22 @@
             txt6 += '</div>';
             txt6 += '</div>';
             $('#ver_ver').append(txt6);
-
-
         });
-
         $(document).on('click', '.remove_row', function () {
             addTinyMCE();
             var row_id = $(this).attr("id");
-
             $('#row_id_' + row_id).remove();
             count--;
             $('#total_item').val(count);
             addTinyMCE();
         });
-
         $(document).on('click', '.remove_row_ver', function () {
 
             var row_id_ver = $(this).attr("data-id");
-
-
             $('#row_id_ver' + row_id_ver).remove();
             count_ver--;
             $('#total_item_ver').val(count_ver);
         });
-
-
-
         function filePreview(input) {
 
             if (input.files && input.files[0]) {
@@ -1850,8 +1726,6 @@
 
             filePreview(this);
         });
-
-
 //
 //        $(".save").click(function () {
 //
@@ -1882,14 +1756,7 @@
 
 
         });
-
-
-
-
-
-    });
-
-</script>
+    });</script>
 
 
 <script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
@@ -1918,7 +1785,6 @@
                     success: function (data)
                     {
                         $('#city').html(data);
-
                     }
                 });
             } else
@@ -1927,9 +1793,7 @@
                 $('#city').html('<option value="">Select City</option>');
             }
         });
-
-    });
-</script>
+    });</script>
 
 
 <script>
@@ -1938,14 +1802,12 @@
 
 
         var section_id = '';
-
         var main_section_id = 35;
         //alert(main_section_id);
 
 
 
         var t = '';
-
         $('#linked').click(function () {
             $("#case_law_table").show();
             $('#tree_linked').show();
@@ -1968,11 +1830,6 @@
                         }
 
                         $('#tree_linked').treeview({data: response});
-
-
-
-
-
                         $('#tree_linked').on('nodeSelected', function (event, data) {
 
 
@@ -1997,7 +1854,6 @@
 
 
                                 $.ajax({
-
                                     url: "<?php echo base_url() ?>book/book_pagination/" + pagno,
                                     type: 'post',
                                     dataType: 'json',
@@ -2017,7 +1873,6 @@
                                         // Hide image container
                                         $("#loader").hide();
                                     },
-
                                     error: function () {
                                         alert("error in loadPagination");
                                     }
@@ -2029,74 +1884,67 @@
 
 
 //  Create table list';
-                            function createTable(result, sno) {
-                                sno = Number(sno);
+
+
+                            function createTable(result) {
+
+                         
+
                                 //   $('#books_in_section').empty();
 
                                 var html = '';
-
-
-
-
                                 var index = '';
                                 for (index in result) {
 
 
 
+
+
+
                                     html += '<tr>';
-
                                     html += '<td>' + result[index].book_title + '</td>';
-                                    html += '<td><input type="checkbox" name="material_number_legislation_in_case" value="' + result[index].material_number_legislation + '" id="material_number_legislation_in_case">' + result[index].material_number_legislation + '</td>';
-                                    html += '<td><input type="hidden" name="system_id" value="' + result[index].book_id + '" id="system_id_id"></td>';
-
-
-
-
-
-
-
-
-
-
-
-
+                                    html += '<td><input type="checkbox" name="material_number_legislation_in_case[]" value="' + result[index].material_number_legislation + '" class="material_number_legislation_in_case">' + result[index].material_number_legislation + '</td>';
+                                    html += '<td><input type="hidden" name="system_id[]" value="' + result[index].book_id + '" class="system_id_id"></td>';
                                     html += '</tr>';
+
+
+
+
+
 
                                 }
 
 
 
 
-
-
-
-
-
                                 $('#case_law').html(html);
-                                $('#material_number_legislation_in_case').click(function () {
 
 
 
-                                    if ($('#linked').prop("checked") == true) {
-
-                                        var material_number_legislation_in_case = $('#material_number_legislation_in_case').val();
-
-                                        $('#material_number_legislation_in_case_value').val(material_number_legislation_in_case);
-
-                                        var system_id = $('#system_id_id').val();
-										
-										
-                                        $('#system_id').val(system_id);
-                                    }
-
-                              
-                                });
 
 
 
 
 
                             }
+                            var count_c = 0;
+
+
+
+                            $(".save").click(function () {
+                                $.each($(".material_number_legislation_in_case:checked"), function () {
+
+
+
+                                    count_c++;
+
+                                });
+                             
+
+                                $('#total_item_system').val(count_c);
+                            });
+
+
 
 
 
@@ -2107,45 +1955,25 @@
                                 var pageno = $(this).attr('data-ci-pagination-page');
                                 loadPagination(pageno, section_id);
                             });
-
-
-
-
                         });
-
-
-
-
                     }
 
 
 
                 });
-
-
-
-
             } else {
                 $('#tree_linked').hide();
                 $('#case_law_table').hide();
-
             }
 
 
         });
-
-
-
-
         //alert("gg");
         var book_id = $(this).data('row_id');
         var table_column = $(this).data('column_name');
         var value = $(this).text();
         var description = $(this).data('description');
         var description_value = $(this).text();
-
-
-
         var section_name = "نماذج وعقود";
         $.ajax({
             url: "<?php echo base_url(); ?>book/update/" + book_id,
@@ -2158,14 +1986,7 @@
             }
 
         });
-
-
-
-
-
-    });
-
-</script>
+    });</script>
 
 <script>
 
@@ -2194,13 +2015,7 @@
         //initHijrDatePicker();
 
         initHijrDatePickerDefault();
-
-
-
     });
-
-
-
     function initHijrDatePickerDefault() {
 
         $(".hijri-date-input").hijriDatePicker();

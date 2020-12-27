@@ -117,41 +117,18 @@ class Book extends Front_end {
                             'url' => $this->input->post('url'),
                             'country' => $this->input->post('country'),
                             'city' => $this->input->post('city'),
-							
-							
-							
                             'ruling_year' => $this->input->post('ruling_year'),
-							'issuer'=> $this->input->post('issuer'),
-							'decision'=> $this->input->post('decision'),
-							
-							
+                            'issuer' => $this->input->post('issuer'),
+                            'decision' => $this->input->post('decision'),
                             'pronounced_judgment' => $this->input->post('pronounced_judgment'),
-							
-							'court' => $this->input->post('court'),
-							
+                            'court' => $this->input->post('court'),
                             'volume_number' => $this->input->post('volume_number'),
-							
-							
                             'issue_classification' => $this->input->post('issue_classification'),
-							
-							
-							
                             'summary_of_judgment' => $this->input->post('summary_of_judgment'),
-							
-							
                             'sentencing_text' => $this->input->post('sentencing_text'),
-							
-							
                             'the_reasons' => $this->input->post('the_reasons'),
-							
-							
                             'the_legal_bond' => $this->input->post('the_legal_bond'),
-							
-							
                             'appeal_decision' => $this->input->post('appeal_decision'),
-							
-							
-							
                             'file' => $this->_upload()
                         );
 
@@ -159,8 +136,8 @@ class Book extends Front_end {
 
 
                         $book_id = $this->Book_model->add_book($params);
-						
-						 
+
+
 
 
 
@@ -290,40 +267,57 @@ class Book extends Front_end {
                                 $this->Book_tag_model->add_book_tag($tag_book);
                             }
                         }
-                        
-                        $system_id_id=$this->input->post('system_id');
-                        if((isset($system_id_id)) && (!empty($system_id_id))){
-							
-								
-								 $system_id = array(
-                                    
-                                    'linked_system_id' =>   $this->input->post('system_id')
+
+
+
+
+
+
+
+
+                        if ((isset($_POST["system_id"])) && (!empty($_POST["system_id"]))) {
+
+
+
+                            $case_law = array(
+                                'case_law_id' => $book_id,
+                            );
+
+                            $last_id_case_law_linked = $this->Book_model->add_linked_case_law($case_law);
+
+
+                            $r = $this->input->post("total_item_system");
+
+
+
+
+
+
+                            for ($count = 0; $count < $_POST["total_item_system"]; $count++) {
+
+
+                                $data = array(
+                                    'material_number_legislation' => $_POST["material_number_legislation_in_case"][$count],
+                                    'linked_system_id' => $_POST["system_id"][$count],
                                 );
-								
-								 $insert_id=$this->Book_model->add_linked_case($system_id);
-								 
-								    $case = array(
-                                    'case_law_id' => $book_id,
-									'system_id'=>$insert_id
-                                  
+                                $last_linked_system_id = $this->Book_model->add_linked_system($data);
+
+                                $d = array(
+                                    'system_id' => $last_linked_system_id,
+                                    'case_law_id' => $last_id_case_law_linked,
                                 );
-								 
-								 
-								 
-						$this->Book_model->add_system_case($case);
-						 
-						 
-						
-								
-							
-						}
-                        
-                         
-								
-                        
-                     
-                        
-                            
+
+                                $this->Book_model->case_law_system($d);
+                            }
+                        }
+
+
+
+
+
+
+
+
                         redirect('book/index');
                     }
                 } elseif ($section_name == 'الكتب القانونية والأبحاث') {
@@ -938,9 +932,9 @@ class Book extends Front_end {
      */
 
     function edit($book_id) {
-        
-      
-         $result5=$this->db->query("select * from book,case_law_system,linked_system   where  linked_system.id=case_law_system.system_id and linked_system.linked_system_id=book.book_id  ")->row_array();
+
+
+     
 
         $data['field'] = $data = $this->db->query("select * from fields_values ")->result_array();
 
@@ -966,16 +960,17 @@ class Book extends Front_end {
             $tag_name = implode(',', $a);
             $data['tag_name'] = $tag_name;
         }
-    $result3 = $this->db->query("select book.city,book.country,city.city_name,country.country_name from book,country,city where book_id= '" . $book_id . "' and book.country=country.country_id and book.city=city.city_id ")->row_array();
+        $result3 = $this->db->query("select book.city,book.country,city.city_name,country.country_name from book,country,city where book_id= '" . $book_id . "' and book.country=country.country_id and book.city=city.city_id ")->row_array();
         $result2 = $this->db->query("select * from fields_values a,custom_fields b  where a.field_id=b.id   and   a.book_id= '" . $book_id . "'")->result_array();
-		
-		$data['mat'] = $result5;
-         $data['city1'] = $result3;
-		 
-		 //$data['country1'] = $result3->country_name;
+
+        
+        $data['city1'] = $result3;
+
+        //$data['country1'] = $result3->country_name;
         $data['country'] = $this->Book_model->fetch_country();
-       
+
         $data['fields'] = $result2;
+        $data['mat']  = $this->db->query("select * from linked_system,linked_case_law,case_law_system   where  linked_case_law.id=case_law_system.case_law_id and linked_system.id=case_law_system.system_id  ")->result_array();
         $this->layout->view('book/update_data_view', $data);
     }
 
@@ -1054,10 +1049,9 @@ class Book extends Front_end {
                     'the_reasons' => $this->input->post('the_reasons'),
                     'the_legal_bond' => $this->input->post('the_legal_bond'),
                     'appeal_decision' => $this->input->post('appeal_decision'),
-					'issuer'=> $this->input->post('issuer'),
-					'decision'=> $this->input->post('decision'),
-					'court'=> $this->input->post('court'),
-					
+                    'issuer' => $this->input->post('issuer'),
+                    'decision' => $this->input->post('decision'),
+                    'court' => $this->input->post('court'),
                     //'file' => $picture,
                     'url' => $this->input->post('url'),
                 );
@@ -1639,7 +1633,7 @@ class Book extends Front_end {
                     'legislative_status' => $this->input->post('legislative_status'),
                     'material_number_legislation' => $this->input->post('material_number_legislation'),
                     'legislation_number' => $this->input->post('legislation_number'),
-					 'country' => $this->input->post('country'),
+                    'country' => $this->input->post('country'),
                         //'file' => $picture,
                 );
 
@@ -2359,7 +2353,7 @@ class Book extends Front_end {
     }
 
     function datelias_searh() {
-            $data['country'] = $this->Book_model->fetch_country();
+        $data['country'] = $this->Book_model->fetch_country();
         $data['get_main_section'] = $this->Section_model->get_main_section();
 
 
@@ -2523,12 +2517,12 @@ class Book extends Front_end {
     }
 
     function search_datelias() {
-        $section_id=  $this->input->post('section_id');
-        
-        
+        $section_id = $this->input->post('section_id');
+
+
         $dat = $this->Section_model->get_main_section_name($section_id);
-        $section_name=$dat->section_name;
-        
+        $section_name = $dat->section_name;
+
         if ($section_name == 'الأحكام والسوابق القضائية') {
 
 
@@ -2568,16 +2562,13 @@ class Book extends Front_end {
                 $this->db->where("the_reasons", $the_reasons);
                 $this->db->where("the_legal_bond", $the_legal_bond);
                 $this->db->where("appeal_decision", $appeal_decision);
-				$this->db->where("main_section", $section_id);
-				
+                $this->db->where("main_section", $section_id);
+
                 $query = $this->db->get();
-                 $data['section_name']=$section_name;
-                $data['result']= $query->result();
+                $data['section_name'] = $section_name;
+                $data['result'] = $query->result();
             }
-        }
-        
-        
-                elseif ($section_name == 'الكتب القانونية والأبحاث') {
+        } elseif ($section_name == 'الكتب القانونية والأبحاث') {
 
 
 
@@ -2591,8 +2582,8 @@ class Book extends Front_end {
                 $author = $this->input->post('author');
                 $publisher = $this->input->post('publisher');
                 $year_publication = $this->input->post('year_publication');
-               
-             
+
+
 
 
                 $this->db->select("*");
@@ -2602,15 +2593,13 @@ class Book extends Front_end {
                 $this->db->where("author", $author);
                 $this->db->where("publisher", $publisher);
                 $this->db->where("year_publication", $year_publication);
-            
+
 
                 $query = $this->db->get();
-                 $data['section_name']=$section_name;
-               $data['result']= $query->result();
+                $data['section_name'] = $section_name;
+                $data['result'] = $query->result();
             }
-        }
-        
-               elseif ($section_name == 'الأنظمة السعودية') {
+        } elseif ($section_name == 'الأنظمة السعودية') {
 
 
 
@@ -2618,33 +2607,31 @@ class Book extends Front_end {
 
 
 
-       
+
                 $url = $this->input->post('url');
                 $history_system_m = $this->input->post('history_system_m');
                 $accreditation = $this->input->post('accreditation');
                 $date_publication_m = $this->input->post('date_publication_m');
                 $pass = $this->input->post('pass');
-                
-               
+
+
 
                 $this->db->select("*");
                 $this->db->from("book");
-             
+
                 $this->db->where("url", $url);
                 $this->db->where("history_system_m", $history_system_m);
                 $this->db->where("accreditation", $accreditation);
                 $this->db->where("date_publication_m", $date_publication_m);
-                
+
                 $this->db->where("pass", $pass);
-                
+
 
                 $query = $this->db->get();
-                 $data['section_name']=$section_name;
-                 $data['result']= $query->result();
+                $data['section_name'] = $section_name;
+                $data['result'] = $query->result();
             }
-        }
-        
-          elseif ($section_name == 'نماذج وعقود') {
+        } elseif ($section_name == 'نماذج وعقود') {
 
 
 
@@ -2655,21 +2642,20 @@ class Book extends Front_end {
 
                 $book_title = $this->input->post('book_title');
                 $url = $this->input->post('url');
-           
+
 
 
                 $this->db->select("*");
                 $this->db->from("book");
                 $this->db->where("book_title", $book_title);
                 $this->db->where("url", $url);
-               
+
 
                 $query = $this->db->get();
-              $data['section_name']=$section_name;
-            $data['result']= $query->result();
+                $data['section_name'] = $section_name;
+                $data['result'] = $query->result();
             }
-        }
-                elseif ($section_name == 'الأنظمة والتشريعات والقوانين') {
+        } elseif ($section_name == 'الأنظمة والتشريعات والقوانين') {
 
 
 
@@ -2677,7 +2663,7 @@ class Book extends Front_end {
             if (isset($_POST) && count($_POST) > 0) {
 
 
-                
+
 
                 $book_title = $this->input->post('book_title');
                 $url = $this->input->post('url');
@@ -2687,7 +2673,7 @@ class Book extends Front_end {
                 $legislative_status = $this->input->post('legislative_status');
                 $material_number_legislation = $this->input->post('material_number_legislation');
                 $legislation_number = $this->input->post('legislation_number');
-             
+
 
 
                 $this->db->select("*");
@@ -2700,24 +2686,22 @@ class Book extends Front_end {
                 $this->db->where("legislative_status", $legislative_status);
                 $this->db->where("material_number_legislation", $material_number_legislation);
                 $this->db->where("legislation_number", $legislation_number);
-                
+
 
                 $query = $this->db->get();
-                 $data['result']= $query->result();
-                 $data['section_name']=$section_name;
+                $data['result'] = $query->result();
+                $data['section_name'] = $section_name;
             }
         }
-        
-        $this->layout->view('datelia_search/result',$data);
-        
+
+        $this->layout->view('datelia_search/result', $data);
     }
-	
-	function index_search(){
-		
-		$query=$this->input->post('query');
-		   $data['result']  = $this->db->query("select * from book  where book_title  LIKE '%" . $query . "%' or url LIKE '%" . $query . "%' ;  ")->result_array();
-		   $this->layout->view('datelia_search/index_search',$data);
-		
-	}
+
+    function index_search() {
+
+        $query = $this->input->post('query');
+        $data['result'] = $this->db->query("select * from book  where book_title  LIKE '%" . $query . "%' or url LIKE '%" . $query . "%' ;  ")->result_array();
+        $this->layout->view('datelia_search/index_search', $data);
+    }
 
 }

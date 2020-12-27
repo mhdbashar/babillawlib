@@ -1809,7 +1809,8 @@
                             <label for='linked' >مرتبط بنظام تشريعي</label>
                             <div class='form-group'>
 							<?php
-							if(isset($mat['material_number_legislation'])){
+                                                        $r=9;
+							if(isset($r)){
 								$checkedd='checked';
 								
 							}
@@ -2410,11 +2411,15 @@
 										var checked='';
                                     var index = '';
                                     for (index in result) {
-						
-                                        html += '<tr>';
-
-                                        html += '<td>' + result[index].book_title + '</td>';
-									if((result[index].material_number_legislation) == <?php echo $mat['material_number_legislation']; ?>){
+                                          html += '<tr>';
+                                        
+                                        <?php
+                                        
+                                                            foreach ($mat as $value) {
+                                                                ?>
+                                                                                                        
+                                                                               html += '<td>' + result[index].book_title + '</td>';
+									if((result[index].material_number_legislation) == <?php echo $value['material_number_legislation']; ?>){
 											 checked='checked';
 											
 											
@@ -2423,9 +2428,21 @@
 											
 											checked='';
 										}
+                                                                                  html += '<td><input type="checkbox" name="material_number_legislation_in_case" value="' + result[index].material_number_legislation + '" id="material_number_legislation_in_case"  '+checked+'>' + result[index].material_number_legislation + '</td>';
+                                                                                                        
+                                                                                                        <?php
+                                                            
+                                                                                                            
+                                                                
+                                                            }
+                                        ?>
+						
+                                      
+
+                                     
 										
 										
-                                        html += '<td><input type="checkbox" name="material_number_legislation_in_case" value="' + result[index].material_number_legislation + '" id="material_number_legislation_in_case"  '+checked+'>' + result[index].material_number_legislation + '</td>';
+                                      
                                         html += '<td><input type="hidden" name="system_id" value="' + result[index].book_id + '" id="system_id_id"></td>';
 
 									
