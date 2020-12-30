@@ -294,17 +294,18 @@ class Book extends Front_end {
 
 
                             for ($count = 0; $count < $_POST["total_item_system"]; $count++) {
-                                if( isset($_POST["material_number_legislation_in_case"][$count]) && !empty($_POST["material_number_legislation_in_case"][$count]) ){
-                            
-                                    
-                             
+                                if (isset($_POST["material_number_legislation_in_case"][$count]) && !empty($_POST["material_number_legislation_in_case"][$count])) {
+                                   $system_id= $_POST["system_id"][$count];
+                                }
+
+
 
                                 $data = array(
                                     'material_number_legislation' => $_POST["material_number_legislation_in_case"][$count],
-                                    'linked_system_id' => $_POST["system_id"][$count],
+                                    'linked_system_id' => $system_id,
                                 );
-                                    
-                                   }
+
+
                                 $last_linked_system_id = $this->Book_model->add_linked_system($data);
 
                                 $d = array(
@@ -939,7 +940,7 @@ class Book extends Front_end {
     function edit($book_id) {
 
 
-     
+
 
         $data['field'] = $data = $this->db->query("select * from fields_values ")->result_array();
 
@@ -968,14 +969,14 @@ class Book extends Front_end {
         $result3 = $this->db->query("select book.city,book.country,city.city_name,country.country_name from book,country,city where book_id= '" . $book_id . "' and book.country=country.country_id and book.city=city.city_id ")->row_array();
         $result2 = $this->db->query("select * from fields_values a,custom_fields b  where a.field_id=b.id   and   a.book_id= '" . $book_id . "'")->result_array();
 
-        
+
         $data['city1'] = $result3;
 
         //$data['country1'] = $result3->country_name;
         $data['country'] = $this->Book_model->fetch_country();
 
         $data['fields'] = $result2;
-      
+
         $this->layout->view('book/update_data_view', $data);
     }
 
@@ -2292,9 +2293,9 @@ class Book extends Front_end {
         $data['result'] = $users_record;
         $data['row '] = $rowno;
         $data['get_main_section'] = $this->Section_model->get_main_section();
-        
-        $data['linked_system']=  $this->db->query("select * from linked_system,linked_case_law,case_law_system   where  linked_case_law.id=case_law_system.case_law_id and linked_system.id=case_law_system.system_id  ")->result_array();
-        
+
+        $data['linked_system'] = $this->db->query("select * from linked_system,linked_case_law,case_law_system   where  linked_case_law.id=case_law_system.case_law_id and linked_system.id=case_law_system.system_id  ")->result_array();
+
         echo json_encode($data);
     }
 
