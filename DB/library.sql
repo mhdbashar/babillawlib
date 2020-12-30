@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2020 at 06:12 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.33
+-- Generation Time: Dec 30, 2020 at 09:20 AM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -82,9 +81,12 @@ CREATE TABLE `book` (
 --
 
 INSERT INTO `book` (`book_id`, `book_name`, `jurisdiction`, `author`, `publisher`, `year_publication`, `subject`, `volume_number`, `year`, `book_title`, `the_main_domain`, `subdomain`, `history_system_m`, `accreditation`, `date_publication_m`, `adjustments`, `accessories`, `pass`, `section_id`, `file`, `main_section`, `url`, `dis`, `history_system_h`, `date_publication_h`, `mini`, `pdf`, `interview`, `country`, `city`, `court`, `issuer`, `pronounced_judgment`, `referee_number`, `issue_classification`, `sub-classification`, `summary_of_judgment`, `sentencing_text`, `the_reasons`, `the_legal_bond`, `appeal_decision`, `ruling_year`, `legislative_type`, `legislative_status`, `material_number_legislation`, `legislation_number`, `decision`) VALUES
-(94, '', '', '', '', 0000, '', 0, 0000, 'fgdfg', '', '', '', '', '', '', '', '', 166, NULL, 35, '', '', '0000-00-00', '0000-00-00', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, '', 'النوع الاول', 'الحالة الاولى', '4', '', ''),
-(95, '', '', '', '', 0000, '', 0, 0000, 'fdgdfgdfg', '', '', '', '', '', '', '', '', 166, NULL, 35, '', '', '0000-00-00', '0000-00-00', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, '', 'النوع الاول', 'الحالة الاولى', '5', '', ''),
-(96, '', '', '', '', 0000, '', 0, 0000, 'hghghh', '', '', '', '', '', '', '', '', 166, NULL, 35, '', '', '0000-00-00', '0000-00-00', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, '', 'النوع الاول', 'الحالة الاولى', '10', '', '');
+(122, '', '', '', '', 0000, '', 0, 0000, 'dfg', '', '', '', '', '', '', '', '', 166, NULL, 35, '', '', '0000-00-00', '0000-00-00', '', NULL, '', '4', '', '', '', '', '', '', '', '', '', '', '', NULL, '', 'النوع الاول', 'الحالة الاولى', '1', '', ''),
+(123, '', '', '', '', 0000, '', 0, 0000, 'dfg', '', '', '', '', '', '', '', '', 166, NULL, 35, '', '', '0000-00-00', '0000-00-00', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, '', 'النوع الاول', 'الحالة الاولى', '2', '', ''),
+(124, '', '', '', '', 0000, '', 0, 0000, '', '', '', '', '', '', '', '', '', 166, NULL, 35, '', '', '0000-00-00', '0000-00-00', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, '', 'النوع الاول', 'الحالة الاولى', '3', '', ''),
+(126, '', '', '', '', 0000, '', 0, 0000, 'dfgdfg', '', '', '', '', '', '', '', '', 131, NULL, 31, '', '', '0000-00-00', '0000-00-00', '', NULL, '', '', '', 'محكمة الاستئناف', 'الجهة الاولى', 'قابل', '', 'تصنيف أول', '', '', '', '', '', NULL, '', '', '', '', '', ''),
+(127, '', '', '', '', 0000, '', 0, 0000, '', '', '', '', '', '', '', '', '', 132, NULL, 31, '', '', '0000-00-00', '0000-00-00', '', NULL, '', '', '', 'محكمة الاستئناف', 'الجهة الاولى', 'قابل', '', 'تصنيف أول', '', '', '', '', '', NULL, '', '', '', '', '', ''),
+(128, '', '', '', '', 0000, '', 0, 0000, '', '', '', '', '', '', '', '', '', 131, NULL, 31, '', '', '0000-00-00', '0000-00-00', '', NULL, '', '', '', 'محكمة الاستئناف', 'الجهة الاولى', 'قابل', '', 'تصنيف أول', '', '', '', '', '', NULL, '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -244,8 +246,31 @@ INSERT INTO `book_tag` (`book_tag_id`, `book_id`, `tag_id`) VALUES
 (1203, 98, 353),
 (1204, 99, 353),
 (1207, 102, 353),
-(1208, 103, 353),
-(1209, 104, 353);
+(1209, 104, 353),
+(1210, 105, 353),
+(1211, 106, 353),
+(1212, 107, 353),
+(1213, 108, 353),
+(1214, 109, 353),
+(1215, 110, 353),
+(1216, 111, 353),
+(1217, 112, 353),
+(1218, 113, 353),
+(1219, 114, 353),
+(1220, 115, 353),
+(1221, 116, 353),
+(1222, 117, 353),
+(1223, 118, 353),
+(1224, 119, 353),
+(1225, 120, 353),
+(1226, 121, 353),
+(1227, 122, 353),
+(1228, 123, 353),
+(1229, 124, 353),
+(1230, 125, 353),
+(1231, 126, 353),
+(1232, 127, 353),
+(1233, 128, 353);
 
 -- --------------------------------------------------------
 
@@ -258,6 +283,18 @@ CREATE TABLE `case_law_system` (
   `case_law_id` int(11) NOT NULL,
   `system_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `case_law_system`
+--
+
+INSERT INTO `case_law_system` (`id`, `case_law_id`, `system_id`) VALUES
+(70, 102, 105),
+(71, 102, 106),
+(72, 103, 107),
+(73, 103, 108),
+(74, 104, 109),
+(75, 104, 110);
 
 -- --------------------------------------------------------
 
@@ -556,8 +593,17 @@ CREATE TABLE `fields_values` (
 
 CREATE TABLE `linked_case_law` (
   `id` int(11) NOT NULL,
-  `case_law_id` int(11) NOT NULL
+  `case_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `linked_case_law`
+--
+
+INSERT INTO `linked_case_law` (`id`, `case_id`) VALUES
+(102, 126),
+(103, 127),
+(104, 128);
 
 -- --------------------------------------------------------
 
@@ -570,6 +616,18 @@ CREATE TABLE `linked_system` (
   `linked_system_id` int(11) NOT NULL,
   `material_number_legislation` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `linked_system`
+--
+
+INSERT INTO `linked_system` (`id`, `linked_system_id`, `material_number_legislation`) VALUES
+(105, 122, 1),
+(106, 123, 3),
+(107, 122, 1),
+(108, 123, 3),
+(109, 122, 1),
+(110, 123, 3);
 
 -- --------------------------------------------------------
 
@@ -730,8 +788,31 @@ INSERT INTO `materials` (`material_id`, `material_number`, `description`, `book_
 (1139, '', '', 98),
 (1140, '', '  ', 99),
 (1143, '', '', 102),
-(1144, '', '', 103),
-(1145, '', '', 104);
+(1145, '', '', 104),
+(1146, '', '', 105),
+(1147, '', '', 106),
+(1148, '', '', 107),
+(1149, '', '', 108),
+(1150, '', '', 109),
+(1151, '', '', 110),
+(1152, '', '', 111),
+(1153, '', '', 112),
+(1154, '', '', 113),
+(1155, '', '', 114),
+(1156, '', '', 115),
+(1157, '', '', 116),
+(1158, '', '', 117),
+(1159, '', '', 118),
+(1160, '', '', 119),
+(1161, '', '', 120),
+(1162, '', '', 121),
+(1163, '', '', 122),
+(1164, '', '', 123),
+(1165, '', '<p>dfg</p>', 124),
+(1166, '', '', 125),
+(1167, '', '', 126),
+(1168, '', '', 127),
+(1169, '', '', 128);
 
 -- --------------------------------------------------------
 
@@ -892,81 +973,67 @@ ALTER TABLE `version`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
-
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 --
 -- AUTO_INCREMENT for table `book_tag`
 --
 ALTER TABLE `book_tag`
-  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1210;
-
+  MODIFY `book_tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1234;
 --
 -- AUTO_INCREMENT for table `case_law_system`
 --
 ALTER TABLE `case_law_system`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT for table `city`
 --
 ALTER TABLE `city`
   MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=458;
-
 --
 -- AUTO_INCREMENT for table `country`
 --
 ALTER TABLE `country`
   MODIFY `country_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=228;
-
 --
 -- AUTO_INCREMENT for table `custom_fields`
 --
 ALTER TABLE `custom_fields`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `fields_values`
 --
 ALTER TABLE `fields_values`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `linked_case_law`
 --
 ALTER TABLE `linked_case_law`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 --
 -- AUTO_INCREMENT for table `linked_system`
 --
 ALTER TABLE `linked_system`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 --
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1146;
-
+  MODIFY `material_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1170;
 --
 -- AUTO_INCREMENT for table `section`
 --
 ALTER TABLE `section`
   MODIFY `section_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
-
 --
 -- AUTO_INCREMENT for table `tag`
 --
 ALTER TABLE `tag`
   MODIFY `tag_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=354;
-
 --
 -- AUTO_INCREMENT for table `version`
 --
 ALTER TABLE `version`
   MODIFY `version_id` int(11) NOT NULL AUTO_INCREMENT;
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

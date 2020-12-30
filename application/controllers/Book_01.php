@@ -280,7 +280,7 @@ class Book extends Front_end {
 
 
                             $case_law = array(
-                                'case_id' => $book_id,
+                                'case_law_id' => $book_id,
                             );
 
                             $last_id_case_law_linked = $this->Book_model->add_linked_case_law($case_law);
@@ -294,17 +294,12 @@ class Book extends Front_end {
 
 
                             for ($count = 0; $count < $_POST["total_item_system"]; $count++) {
-                                if( isset($_POST["material_number_legislation_in_case"][$count]) && !empty($_POST["material_number_legislation_in_case"][$count]) ){
-                            
-                                    
-                             
+
 
                                 $data = array(
                                     'material_number_legislation' => $_POST["material_number_legislation_in_case"][$count],
                                     'linked_system_id' => $_POST["system_id"][$count],
                                 );
-                                    
-                                   }
                                 $last_linked_system_id = $this->Book_model->add_linked_system($data);
 
                                 $d = array(
@@ -975,7 +970,7 @@ class Book extends Front_end {
         $data['country'] = $this->Book_model->fetch_country();
 
         $data['fields'] = $result2;
-      
+        $data['mat']  = $this->db->query("select * from linked_system,linked_case_law,case_law_system   where  linked_case_law.id=case_law_system.case_law_id and linked_system.id=case_law_system.system_id  ")->result_array();
         $this->layout->view('book/update_data_view', $data);
     }
 
@@ -2292,9 +2287,6 @@ class Book extends Front_end {
         $data['result'] = $users_record;
         $data['row '] = $rowno;
         $data['get_main_section'] = $this->Section_model->get_main_section();
-        
-        $data['linked_system']=  $this->db->query("select * from linked_system,linked_case_law,case_law_system   where  linked_case_law.id=case_law_system.case_law_id and linked_system.id=case_law_system.system_id  ")->result_array();
-        
         echo json_encode($data);
     }
 

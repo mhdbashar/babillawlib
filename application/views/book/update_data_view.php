@@ -48,7 +48,7 @@
                                     ?>
 
 
-                                                                        <!--                                        <option <php echo $select ?> value="<php echo $v->section_name; ?>" ><php echo $v->section_name; ?></option>-->
+                                                                                <!--                                        <option <php echo $select ?> value="<php echo $v->section_name; ?>" ><php echo $v->section_name; ?></option>-->
 
 
                                     <?php
@@ -1808,21 +1808,16 @@
                         <div class='col-md-6' id="div_linked">
                             <label for='linked' >مرتبط بنظام تشريعي</label>
                             <div class='form-group'>
-							<?php
-                                                        $r=9;
-							if(isset($r)){
-								$checkedd='checked';
-								
-							}
-							else{
-								$checkedd='';
-								
-							}
-							
-							
-							?>
-							
-                                <input type='checkbox' name='linked' value='linked'  id='linked'  <?php echo $checkedd?> class='get_value'>
+                                <?php
+                                $r = 9;
+                                if (isset($r)) {
+                                    $checkedd = 'checked';
+                                } else {
+                                    $checkedd = '';
+                                }
+                                ?>
+
+                                <input type='checkbox' name='linked' value='linked'  id='linked'  <?php echo $checkedd ?> class='get_value'>
                             </div>
                             <div id="tree_linked">
 
@@ -1871,9 +1866,9 @@
 
 <link rel="stylesheet" href="<?= base_url() ?>assets/tinymce/skin.min.css">
 <script>
-							var sss= "<?php echo $checkedd ;?>";
-						
-							</script>
+    var sss = "<?php echo $checkedd; ?>";
+
+</script>
 
 <script>
     $(document).ready(function () {
@@ -2309,10 +2304,10 @@
 
             var t = '';
 
-           if(sss){
-			   
-			   
-		 
+            if (sss) {
+
+
+
                 $("#case_law_table").show();
                 $('#tree_linked').show();
                 if ($('#linked').is(":checked"))
@@ -2332,13 +2327,13 @@
 
                                 r[i] = response.result[i].section_id;
                             }
-							
-							
-								
-								 $('#tree_linked').treeview({data: response});
-								
-							
-                           
+
+
+
+                            $('#tree_linked').treeview({data: response});
+
+
+
 
 
 
@@ -2382,7 +2377,7 @@
                                             //  alert(response.pagination);
 
                                             $('#pagination_in_section').html(response.pagination);
-                                            createTable(response.result, response.row);
+                                            createTable(response.result, response.linked_system, response.row);
                                         },
                                         complete: function (data) {
                                             // Hide image container
@@ -2397,80 +2392,66 @@
 
 
 
+                                var custom_arr = [];
+                                var jj = 0;
+
+
+
+
+
+
 
 
 //  Create table list';
-                                function createTable(result, sno) {
+
+                                function createTable(result, linked_system, sno) {
                                     sno = Number(sno);
                                     //   $('#books_in_section').empty();
 
                                     var html = '';
+                                    var checked='';
 
 
 
-										var checked='';
+
                                     var index = '';
                                     for (index in result) {
-                                          html += '<tr>';
+
+                                        var index_x = '';
+
+                                        for (index_x in linked_system) {
+
+
+                                            if ((result[index].book_id == linked_system[index_x].linked_system_id) ) {
+
+                                              //  custom_arr.push(linked_system[index_x].linked_system_id);
+                                               checked='checked';
+                            
+
+
+
+
+                                            }
+
+                                        }
                                         
-                                        <?php
-                                        
-                                                            foreach ($mat as $value) {
-                                                                ?>
-                                                                                                        
-                                                                               html += '<td>' + result[index].book_title + '</td>';
-									if((result[index].material_number_legislation) == <?php echo $value['material_number_legislation']; ?>){
-											 checked='checked';
-											
-											
-										}
-										else{
-											
-											checked='';
-										}
-                                                                                  html += '<td><input type="checkbox" name="material_number_legislation_in_case" value="' + result[index].material_number_legislation + '" id="material_number_legislation_in_case"  '+checked+'>' + result[index].material_number_legislation + '</td>';
-                                                                                                        
-                                                                                                        <?php
-                                                            
-                                                                                                            
-                                                                
-                                                            }
-                                        ?>
-						
-                                      
-
-                                     
-										
-										
-                                      
-                                        html += '<td><input type="hidden" name="system_id" value="' + result[index].book_id + '" id="system_id_id"></td>';
-
-									
+                                                             html += '<tr>';
+                                    html += '<td>' + result[index].book_title + '</td>';
+                                    html += '<td><input type="checkbox" name="material_number_legislation_in_case[]" value="' + result[index].material_number_legislation + '" class="material_number_legislation_in_case" '+checked+'>' + result[index].material_number_legislation + '</td>';
+                                    html += '<td><input type="hidden" name="system_id[]" value="' + result[index].book_id + '" class="system_id_id"></td>';
+                                    html += '</tr>';
 
 
-                                        html += '</tr>';
 
                                     }
 
+                                      
+
+
+
+
                                     $('#case_law').html(html);
-                                    $('#material_number_legislation_in_case').click(function () {
 
-
-
-                                        if ($('#linked').prop("checked") == true) {
-
-                                            var material_number_legislation_in_case = $('#material_number_legislation_in_case').val();
-
-                                            $('#material_number_legislation_in_case_value').val(material_number_legislation_in_case);
-
-                                            var system_id = $('#system_id_id').val();
-                                            $('#system_id').val(system_id);
-
-
-                                        }
-
-
-                                    });
 
 
 
@@ -2508,11 +2489,11 @@
                 } else {
                     $('#tree_linked').hide();
                     $('#case_law_table').hide();
-                    }
                 }
+            }
 
 
-         
+
 
 
 

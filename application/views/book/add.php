@@ -1888,7 +1888,7 @@
 
                             function createTable(result) {
 
-                         
+
 
                                 //   $('#books_in_section').empty();
 
@@ -1907,6 +1907,7 @@
                                     html += '<td><input type="hidden" name="system_id[]" value="' + result[index].book_id + '" class="system_id_id"></td>';
                                     html += '</tr>';
 
+                                   
 
 
 
@@ -1939,7 +1940,7 @@
                                     count_c++;
 
                                 });
-                             
+
 
                                 $('#total_item_system').val(count_c);
                             });
