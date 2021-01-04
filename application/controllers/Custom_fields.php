@@ -38,10 +38,12 @@ class Custom_fields extends Front_end {
         $field_label = $this->input->post('field_label');
         $field_type = $this->input->post('field_type');
         $options = $this->input->post('options');
+        $requerd_field= $this->input->post('requerd_field');
         $data = array(
             'field_label' => $field_label,
             'field_type' => $field_type,
              'section_id' => $section_id,
+             'requered' => $requerd_field,
              'options' => $options
         );
 

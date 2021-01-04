@@ -289,7 +289,7 @@
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <input type='text' name='input1[]' value='' class='form-control' id='input' />
+                                                <input type='text' name='input1[]' value='' class='form-control' id='input' <?php echo $value['requered']; ?> />
                                                 <input type="hidden" name="id1[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
@@ -314,7 +314,7 @@
                                     <div class="col-md-6" >
                                         <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                         <div class="form-group">
-                                            <select class='form-control' name="select1[]">;
+                                            <select class='form-control' name="select1[]" <?php echo $value['requered']; ?>>;
 
                                                 <?php
                                                 for ($i = 0; $i < count($arr); $i++) {
@@ -364,7 +364,7 @@
                                         <div class="col-md-12" >
 
                                             <div class="form-group">
-                                                <input  type="checkbox"  value="<?php echo $arr[$i] ?>" name="checkbox1[]"> <?php echo $arr[$i]; ?>
+                                                <input  type="checkbox"  value="<?php echo $arr[$i] ?>" name="checkbox1[]" <?php echo $value['requered']; ?>> <?php echo $arr[$i]; ?>
                                                 <input type="hidden" name="checkbox_id1[]"  value="<?php echo $value['id']; ?>" />
 
                                             </div>
@@ -403,7 +403,7 @@
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <input type='number' name='number1[]' value='' class='form-control' id='input' />
+                                                <input type='number' name='number1[]' value='' class='form-control' id='input' <?php echo $value['requered']; ?> />
                                                 <input type="hidden" name="number_id1[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
@@ -427,7 +427,7 @@
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <textarea  style="border:2px solid black" name="textarea1[]">  </textarea>
+                                                <textarea  style="border:2px solid black" name="textarea1[]" <?php echo $value['requered']; ?>>  </textarea>
                                                 <input type="hidden" name="textarea_id1[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
@@ -450,7 +450,7 @@
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
                                         <div class="form-group">
-                                            <input type='text' name='datepicker1[]' value='' class=' hijri-date-input form-control'  >
+                                            <input type='text' name='datepicker1[]' value='' class=' hijri-date-input form-control' <?php echo $value['requered']; ?> >
                                             <input type="hidden" name="datepicker_id1[]"  value="<?php echo $value['id']; ?>" />
                                         </div>
                                     </div>
@@ -476,7 +476,7 @@
                                         <div class="col-md-12" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <input type='text' name='input4[]' value='' class='form-control' id='input' />
+                                                <input type='text' name='input4[]' value='' class='form-control' id='input' <?php echo $value['requered']; ?> />
                                                 <input type="hidden" name="input_id4[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
@@ -501,7 +501,7 @@
                                     <div class="col-md-12" >
                                         <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                         <div class="form-group">
-                                            <select class='form-control' name="select4[]">;
+                                            <select class='form-control' name="select4[]" <?php echo $value['requered']; ?>>;
                                                 <?php
                                                 for ($i = 0; $i < count($arr); $i++) {
                                                     ?>
@@ -547,7 +547,7 @@
                                         <div class="col-md-12" >
 
                                             <div class="form-group">
-                                                <input type="checkbox" name="checkbox4[]" value="<?php echo $arr[$i] ?>"> <?php echo $arr[$i]; ?>
+                                                <input type="checkbox" name="checkbox4[]" value="<?php echo $arr[$i] ?>" <?php echo $value['requered']; ?>> <?php echo $arr[$i]; ?>
 
                                             </div>
                                         </div>
@@ -579,7 +579,7 @@
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <input type='number' name='number4[]' value='' class='form-control' id='input' />
+                                                <input type='number' name='number4[]' value='' class='form-control' id='input'  <?php echo $value['requered']; ?> />
                                                 <input type="hidden" name="number_id4[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
@@ -605,7 +605,7 @@
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <textarea  style="border:2px solid black" name="textarea4[]">  </textarea>
+                                                <textarea  style="border:2px solid black" name="textarea4[]" <?php echo $value['requered']; ?>>  </textarea>
                                                 <input type="hidden" name="textarea_id4[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
@@ -627,7 +627,7 @@
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
                                         <div class="form-group">
-                                            <input type='text' name='datepicker4[]' value='' class=' hijri-date-input form-control'  >
+                                            <input type='text' name='datepicker4[]' value='' class=' hijri-date-input form-control' <?php echo $value['requered']; ?> >
                                             <input type="hidden" name="datepicker_id4[]"  value="<?php echo $value['id']; ?>" />
                                         </div>
                                     </div>
@@ -649,7 +649,7 @@
                                         <div class="col-md-12" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <input type='text' name='input3[]' value='' class='form-control' id='input' />
+                                                <input type='text' name='input3[]' value='' class='form-control' id='input'  <?php echo $value['requered']; ?> />
                                                 <input type="hidden" name="input_id3[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
@@ -674,7 +674,7 @@
                                     <div class="col-md-12" >
                                         <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                         <div class="form-group">
-                                            <select class='form-control' name="select3[]">;
+                                            <select class='form-control' name="select3[]" <?php echo $value['requered']; ?>>;
                                                 <?php
                                                 for ($i = 0; $i < count($arr); $i++) {
                                                     ?>
@@ -720,7 +720,7 @@
                                         <div class="col-md-12" >
 
                                             <div class="form-group">
-                                                <input type="checkbox" name="checkbox3[]" value="<?php echo $arr[$i] ?>"> <?php echo $arr[$i]; ?>
+                                                <input type="checkbox" name="checkbox3[]" value="<?php echo $arr[$i] ?>" <?php echo $value['field_label']; ?> <?php echo $value['requered']; ?>> <?php echo $arr[$i]; ?>
 
                                             </div>
                                         </div>
@@ -753,7 +753,7 @@
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <input type='number' name='number3[]' value='' class='form-control' id='input' />
+                                                <input type='number' name='number3[]' value='' class='form-control' id='input' <?php echo $value['requered']; ?> />
                                                 <input type="hidden" name="number_id3[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
@@ -777,7 +777,7 @@
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <textarea  style="border:2px solid black" name="textarea3[]">  </textarea>
+                                                <textarea  style="border:2px solid black" name="textarea3[]" <?php echo $value['requered']; ?>>  </textarea>
                                                 <input type="hidden" name="textarea_id3[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
@@ -799,7 +799,7 @@
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
                                         <div class="form-group">
-                                            <input type='text' name='datepicker3[]' value='' class=' hijri-date-input form-control'  >
+                                            <input type='text' name='datepicker3[]' value='' class=' hijri-date-input form-control' <?php echo $value['requered']; ?> >
                                             <input type="hidden" name="datepicker_id3[]"  value="<?php echo $value['id']; ?>" />
                                         </div>
                                     </div>
@@ -820,7 +820,7 @@
                                         <div class="col-md-12" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <input type='text' name='input2[]' value='' class='form-control' id='input' />
+                                                <input type='text' name='input2[]' value='' class='form-control' id='input'  <?php echo $value['requered']; ?>  />
                                                 <input type="hidden" name="input_id2[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
@@ -845,7 +845,7 @@
                                     <div class="col-md-12" >
                                         <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                         <div class="form-group">
-                                            <select class='form-control' name="select2[]">;
+                                            <select class='form-control' name="select2[]" <?php echo $value['field_label']; ?>>;
                                                 <?php
                                                 for ($i = 0; $i < count($arr); $i++) {
                                                     ?>
@@ -891,7 +891,7 @@
                                         <div class="col-md-12" >
 
                                             <div class="form-group">
-                                                <input type="checkbox" name="checbox2[]"  value="<?php echo $arr[$i] ?>"> <?php echo $arr[$i]; ?>
+                                                <input type="checkbox" name="checbox2[]"  value="<?php echo $arr[$i] ?>" <?php echo $value['field_label']; ?>> <?php echo $arr[$i]; ?>
 
                                             </div>
                                         </div>
@@ -923,7 +923,7 @@
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <input type='number' name='number2[]' value='' class='form-control' id='input' />
+                                                <input type='number' name='number2[]' value='' class='form-control' id='input' <?php echo $value['field_label']; ?> />
                                                 <input type="hidden" name="number_id2[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
@@ -945,7 +945,7 @@
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                             <div class="form-group">
-                                                <textarea  style="border:2px solid black" name="textarea2[]">  </textarea>
+                                                <textarea  style="border:2px solid black" name="textarea2[]" <?php echo $value['field_label']; ?>>  </textarea>
                                                 <input type="hidden" name="textarea_id2[]"  value="<?php echo $value['id']; ?>" />
                                             </div>
                                         </div>
@@ -967,7 +967,7 @@
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
                                         <div class="form-group">
-                                            <input type='text' name='datepicker2[]' value='' class=' hijri-date-input form-control'  >
+                                            <input type='text' name='datepicker2[]' value='' class=' hijri-date-input form-control' <?php echo $value['field_label']; ?> >
                                             <input type="hidden" name="datepicker_id2[]"  value="<?php echo $value['id']; ?>" />
 
                                         </div>
@@ -995,7 +995,7 @@
                                     <div class="col-md-12" >
                                         <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                         <div class="form-group">
-                                            <input type='text' name='input5[]' value='' class='form-control' id='input' />
+                                            <input type='text' name='input5[]' value='' class='form-control' id='input' <?php echo $value['field_label']; ?> />
                                             <input type="hidden" name="input_id5[]"  value="<?php echo $value['id']; ?>" />
                                         </div>
                                     </div>
@@ -1020,7 +1020,7 @@
                                 <div class="col-md-12" >
                                     <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                     <div class="form-group">
-                                        <select class='form-control' name="select5[]">;
+                                        <select class='form-control' name="select5[]" <?php echo $value['field_label']; ?>>;
                                             <?php
                                             for ($i = 0; $i < count($arr); $i++) {
                                                 ?>
@@ -1066,7 +1066,7 @@
                                     <div class="col-md-12" >
 
                                         <div class="form-group">
-                                            <input type="checkbox" name="checbox5[]"  value="<?php echo $arr[$i] ?>"> <?php echo $arr[$i]; ?>
+                                            <input type="checkbox" name="checbox5[]"  value="<?php echo $arr[$i] ?>" <?php echo $value['field_label']; ?>> <?php echo $arr[$i]; ?>
 
                                         </div>
                                     </div>
@@ -1098,7 +1098,7 @@
                                     <div class="col-md-6" >
                                         <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                         <div class="form-group">
-                                            <input type='number' name='number5[]' value='' class='form-control' id='input' />
+                                            <input type='number' name='number5[]' value='' class='form-control' id='input' <?php echo $value['field_label']; ?> />
                                             <input type="hidden" name="number_id5[]"  value="<?php echo $value['id']; ?>" />
                                         </div>
                                     </div>
@@ -1120,7 +1120,7 @@
                                     <div class="col-md-6" >
                                         <label  class="control-label"><?php echo $value['field_label']; ?></label>
                                         <div class="form-group">
-                                            <textarea  style="border:2px solid black" name="textarea5[]">  </textarea>
+                                            <textarea  style="border:2px solid black" name="textarea5[]" <?php echo $value['field_label']; ?>>  </textarea>
                                             <input type="hidden" name="textarea_id5[]"  value="<?php echo $value['id']; ?>" />
                                         </div>
                                     </div>
@@ -1142,7 +1142,7 @@
                                 <div class='col-md-6'>
                                     <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
                                     <div class="form-group">
-                                        <input type='text' name='datepicker5[]' value='' class=' hijri-date-input form-control  '  >
+                                        <input type='text' name='datepicker5[]' value='' class=' hijri-date-input form-control  ' <?php echo $value['field_label']; ?>  >
                                         <input type="hidden" name="datepicker_id5[]"  value="<?php echo $value['id']; ?>" />
                                     </div>
                                 </div>

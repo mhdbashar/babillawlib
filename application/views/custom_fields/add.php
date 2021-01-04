@@ -58,25 +58,31 @@
 
 
 
+
                             <div class="col-md-12">
                                 <label for="section_id" class="control-label"> النوع </label>
                                 <div class="form-group">
                                     <select id="field_type"  name="field_type"  class="form-control section" style="border-bottom: 2px #3c8dbc solid;"  required="true">
-                                    
+
                                         <option value="">اختر نوع الحقل</option>
                                         <option value="input"> Input</option>
                                         <option value="number"> Number</option>
                                         <option value="textarea">  Textarea</option>
                                         <option value="select">  Select</option>
-                                       <!--  <option value="multiselect">  Multi select</option>
-                                        <option value="checkbox">  Checkbox</option> -->
+                                        <!--  <option value="multiselect">  Multi select</option>
+                                         <option value="checkbox">  Checkbox</option> -->
                                         <option value="datepicker">  Date Picker</option>
-                                       <!--  <option value="datetimepicker">  Datetime Picker</option> -->
+                                        <!--  <option value="datetimepicker">  Datetime Picker</option> -->
 
                                     </select>
                                 </div>
                             </div>
-
+                            <div class="col-md-12" id="requered">
+                                <label for="requerd_field" class="control-label"> حقل مطلوب   </label>
+                                <div class="form-group">
+                                    <input type="checkbox" name="requerd_field" value="required" id="field_required" required="true" />
+                                </div>
+                            </div>
 
 
                             <div class="col-md-12 fas fa-question-circle fa-2x" style="font-size: 1em;" id="options" data-toggle="tooltip" data-placement="right" title="استخدم فقط مع تحديد ، أنواع خانة الاختيار. قم بملء الحقل بفصل الخيارات عن طريق الفاصلة. مثال. احمر,أزرق,أخضر">
@@ -104,33 +110,29 @@
 <script type="text/javascript">
     $(function () {
         $("#field_type").change(function () {
-         
+
             if ($(this).val() == "number") {
                 $("#options").hide();
-                
-                
-            } else if($(this).val() == "input") {
+
+
+            } else if ($(this).val() == "input") {
                 $("#options").hide();
-            }
-            else if($(this).val() == "textarea") {
+            } else if ($(this).val() == "textarea") {
                 $("#options").hide();
-            }
-             else if($(this).val() == "datepicker") {
+            } else if ($(this).val() == "datepicker") {
                 $("#options").hide();
-            }
-              else if($(this).val() == "datetime") {
+            } else if ($(this).val() == "datetime") {
                 $("#options").hide();
-            }
-            else{
-                 $("#options").show();
+            } else {
+                $("#options").show();
             }
         });
     });
-    
-    
-    $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
-});
+
+
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>
 
 <?= $this->layout->block('') ?>
