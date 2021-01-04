@@ -1336,6 +1336,7 @@
             $("#dynamicInputs").html('');
             addTinyMCE();
             main_section_id = $(this).children("option:selected").val();
+
             var section_name = $("#sel_section option:selected").html();
             $.ajax({
                 type: "GET",
@@ -1907,7 +1908,6 @@
                                     html += '<td><input type="hidden" name="system_id[]" value="' + result[index].book_id + '" class="system_id_id"></td>';
                                     html += '</tr>';
 
-                                   
 
 
 
@@ -2023,6 +2023,29 @@
     }
 
 
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("select.section").change(function () {
+            var main_section_id_id = $('#sel_section').children("option:selected").val();
+            alert(main_section_id_id);
+              $.ajax({
+                    url: "<?php echo base_url(); ?>book/sub_section_json",
+                    method: "POST",
+                    data: {main_section_id_id: main_section_id_id},
+                    success: function (data)
+                    {
+                        for(var j=0;j<data.length;j++){
+                            
+                              alert(data[i].section_id);
+                        }
+                      
+                    }
+                });
+
+        });
+    });
 </script>
 
 

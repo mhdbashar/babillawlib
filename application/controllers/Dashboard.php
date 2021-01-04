@@ -16,13 +16,27 @@ class Dashboard extends Front_end {
           $this->load->model('Book_model');
     }
 
-    function index()
+    function index($parent_id=0)
     {
+        
+              $data['result'] = $this->db->query("select * from section where parent_id= $parent_id")->result_array();
+         $data['current_uri'] = $this->uri->segment(3);
         
 //       $data['book'] = $this->Book_model->get_all_book();
 //        
 //               $data['book'] = $this->Book_model->get_all_book();
 //      $data['get_sub_section'] = $this->Section_model->get_sub_section();
-        $this->layout->view('dashboard');
+        $this->layout->view('dashboard',$data);
     }
+    
+    
+     function dashboard($parent_id=0) {
+        
+          $data['result'] = $this->db->query("select * from section where parent_id= $parent_id")->result_array();
+         $data['current_uri'] = $this->uri->segment(3);
+         // $data['book'] = $this->db->db->query("select * from book where section_id= $section_id")->result_array();
+          
+          $this->layout->view('book/tree_in_grid', $data);
+    }
+    
 }

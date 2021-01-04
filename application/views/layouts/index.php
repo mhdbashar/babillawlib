@@ -327,6 +327,8 @@
                       <?= $this->layout->block('') ?>
                     <?= $this->layout->block('index_search') ?>
 					    <?= $this->layout->block('') ?>
+                    <?= $this->layout->block('tree_in_grid') ?>
+                    <?= $this->layout->block('') ?>
                     
                     <!-- Your Page Content Here -->
 

@@ -74,12 +74,12 @@ class Book extends Front_end {
     }
 
     function add() {
+        
+        
+        
 
         $section_id = $this->input->post('section_id');
         if (isset($section_id)) {
-
-
-
 
             $sql = "select * from section where section_id='" . $section_id . "'";
             $query = $this->db->query($sql);
@@ -297,6 +297,7 @@ class Book extends Front_end {
                                 if (isset($_POST["material_number_legislation_in_case"][$count]) && !empty($_POST["material_number_legislation_in_case"][$count])) {
                                    $system_id= $_POST["system_id"][$count];
                                 }
+                              
 
 
 
@@ -920,7 +921,9 @@ class Book extends Front_end {
             $data['get_main_section'] = $this->Section_model->get_main_section();
             $data['get_sub_section'] = $this->Section_model->get_sub_section();
             $data['country'] = $this->Book_model->fetch_country();
-
+          
+            
+         
 
             $this->layout->view('book/add', $data);
         }
@@ -2712,5 +2715,25 @@ class Book extends Front_end {
         $data['result'] = $this->db->query("select * from book  where book_title  LIKE '%" . $query . "%' or url LIKE '%" . $query . "%' ;  ")->result_array();
         $this->layout->view('datelia_search/index_search', $data);
     }
+    function sub_section($parent_id=0) {
+        
+          $data['result'] = $this->db->query("select * from section where parent_id= $parent_id")->result_array();
+         $data['current_uri'] = $this->uri->segment(3);
+         // $data['book'] = $this->db->db->query("select * from book where section_id= $section_id")->result_array();
+          
+          $this->layout->view('book/tree_in_grid', $data);
+    }
+        function sub_section_json() {
+            
+          $main_section_id_id = $this->input->post('main_section_id_id');
+          $data['result'] = $this->db->query("select * from section where parent_id= '".$main_section_id_id."'")->result_array();
+         $data['current_uri'] = $this->uri->segment(3);
+       echo json_encode($data);
+          
+          
+    }
+    
+   
+   
 
 }

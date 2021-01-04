@@ -20,5 +20,17 @@ if (!function_exists('get_main_section')) {
       
         
     }
+       function get_book($section_id) {
+
+        $CI = & get_instance();
+          $data = $CI->db->query("select * from book where section_id= $section_id")->result_array();
+          return $data;
+    }
+    function get_last_node(){
+         $CI = & get_instance();
+          $data = $CI->db->query("select * from section where section_id not in (select parent_id from section)")->result_array();
+        return $data;
+    }
+    
 
 }
