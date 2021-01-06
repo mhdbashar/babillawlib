@@ -294,16 +294,16 @@ class Book extends Front_end {
 
 
                             for ($count = 0; $count < $_POST["total_item_system"]; $count++) {
-                                if (isset($_POST["material_number_legislation_in_case"][$count]) && !empty($_POST["material_number_legislation_in_case"][$count])) {
-                                   $system_id= $_POST["system_id"][$count];
-                                }
+                               
+                                  
+                               
                               
 
 
 
                                 $data = array(
                                     'material_number_legislation' => $_POST["material_number_legislation_in_case"][$count],
-                                    'linked_system_id' => $system_id,
+                                    'linked_system_id' => $_POST["system_id"][$count],
                                 );
 
 
