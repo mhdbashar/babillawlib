@@ -161,6 +161,7 @@
 
 	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+                
 <script>
     var base_url = '<?php echo base_url(); ?>';
     $(document).ready(function () {

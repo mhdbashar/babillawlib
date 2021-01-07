@@ -2029,7 +2029,7 @@
     $(document).ready(function () {
         $("select.section").change(function () {
             var main_section_id_id = $('#sel_section').children("option:selected").val();
-            alert(main_section_id_id);
+           // alert(main_section_id_id);
               $.ajax({
                     url: "<?php echo base_url(); ?>book/sub_section_json",
                     method: "POST",

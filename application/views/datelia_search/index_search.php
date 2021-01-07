@@ -20,6 +20,7 @@
                             <tr>
                                 <th> رقم الكتاب</th>
                                 <th>  عنوان الكتاب</th>
+                                 <th>   شرح الكتاب</th>
                                 <th> رابط الكتاب</th>
 
 
@@ -30,6 +31,7 @@
                                 <tr>
                                     <td><?php echo $value['book_id']; ?></td>
                                     <td><?php echo $value['book_title']; ?></td>
+                                       <td><?php echo $value['description']; ?></td>
                                     <td><?php echo $value['url']; ?></td>
 
 
@@ -38,8 +40,9 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th> رقم الكتاب</th>
+                                 <th> رقم الكتاب</th>
                                 <th>  عنوان الكتاب</th>
+                                 <th>   شرح الكتاب</th>
                                 <th> رابط الكتاب</th>
 
                             </tr>

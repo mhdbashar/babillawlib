@@ -2712,7 +2712,7 @@ class Book extends Front_end {
     function index_search() {
 
         $query = $this->input->post('query');
-        $data['result'] = $this->db->query("select * from book  where book_title  LIKE '%" . $query . "%' or url LIKE '%" . $query . "%' ;  ")->result_array();
+        $data['result'] = $this->db->query("select * from book,materials  where book.book_id = materials.book_id and (book_title  LIKE '%" . $query . "%' or materials.description  LIKE '%" . $query . "%' or url LIKE '%" . $query . "%')  ;  ")->result_array();
         $this->layout->view('datelia_search/index_search', $data);
     }
     function sub_section($parent_id=0) {

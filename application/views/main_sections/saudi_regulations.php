@@ -337,7 +337,7 @@ echo '</tr>';
 
 <script src="<?= base_url() ?>assets/dist/js/bootstrap-tokenfield.js"></script>
 
-
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <script>
     var base_url = '<?php echo base_url(); ?>';
