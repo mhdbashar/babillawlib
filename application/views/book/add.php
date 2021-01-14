@@ -1904,8 +1904,8 @@
 
                                     html += '<tr>';
                                     html += '<td>' + result[index].book_title + '</td>';
-                                    html += '<td><input type="checkbox" name="material_number_legislation_in_case[]" value="' + result[index].material_number_legislation + '" class="material_number_legislation_in_case">' + result[index].material_number_legislation + '</td>';
-                                    html += '<td><input type="hidden" name="system_id[]" value="' + result[index].book_id + '" class="system_id_id"></td>';
+                                    html += '<td><input type="checkbox" name="system_id[]" value="' + result[index].book_id + '" class="material_number_legislation_in_case">' + result[index].material_number_legislation + '</td>';
+                                
                                     html += '</tr>';
 
 
@@ -1921,29 +1921,29 @@
                                 $('#case_law').html(html);
 
 
+ $('.save').click(function() {
+    var checkboxes = $('.material_number_legislation_in_case:checked').length;
+     $('#total_item_system').val(checkboxes);
 
+  })
 
 
 
 
 
                             }
-                            var count_c = 0;
+                    
 
 
 
-                            $(".save").click(function () {
-                                $.each($(".material_number_legislation_in_case:checked"), function () {
-
-
-
-                                    count_c++;
-
-                                });
-
-
-                                $('#total_item_system').val(count_c);
-                            });
+                    
+              
+                        
+                         
+                               
+                         
+                              
+                        
 
 
 
@@ -2048,6 +2048,8 @@
     });
 </script>
 
+
+ 
 
 
 

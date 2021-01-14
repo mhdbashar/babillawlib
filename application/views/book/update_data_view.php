@@ -1,5 +1,21 @@
 
 <?= $this->layout->block('update_data_view') ?>
+
+
+<?php
+$arr = array();
+
+
+foreach ($system_id as $v) {
+
+    $arr[] = $v['linked_system_id'];
+}
+?>
+
+
+
+
+
 <link rel="stylesheet" href="<?= base_url() ?>assets/convert_date/css/bootstrap-datetimepicker.css">
 
 
@@ -26,6 +42,7 @@
                 <input type="hidden" name="sub_section" value="<?php echo $book['section_id']; ?>" id="sub_section" class="sub_section" />
                 <input type="hidden" name="total_item" id="total_item" value="0"  />
                 <input type="hidden" name="total_item_ver" id="total_item_ver" value="0"  />
+                <input type="hidden" name="total_item_system" id="total_item_system" value="0" />
                 <div class="box-body">
                     <div class="row clearfix">
                         <div class="col-md-6">
@@ -35,20 +52,20 @@
 
 
 
-                                <?php
-                                foreach ($get_main_section as $v) {
+<?php
+foreach ($get_main_section as $v) {
 
-                                    if ($book['main_section'] == $v->section_id) {
-                                        $select = "selected";
-                                        $main_section = $v->section_name;
-                                        $section_id = $v->section_id;
-                                    } else {
-                                        $select = "";
-                                    }
-                                    ?>
+    if ($book['main_section'] == $v->section_id) {
+        $select = "selected";
+        $main_section = $v->section_name;
+        $section_id = $v->section_id;
+    } else {
+        $select = "";
+    }
+    ?>
 
 
-                                                                                <!--                                        <option <php echo $select ?> value="<php echo $v->section_name; ?>" ><php echo $v->section_name; ?></option>-->
+                                                                                        <!--                                        <option <php echo $select ?> value="<php echo $v->section_name; ?>" ><php echo $v->section_name; ?></option>-->
 
 
                                     <?php
@@ -96,15 +113,15 @@
 
 
                         <div class="col-md-6">
-                            <?php
-                            if (isset($book['file'])) {
-                                ?>
+<?php
+if (isset($book['file'])) {
+    ?>
                                 <div style="margin-right:5px"><a target="_blank" href="<?php echo base_url() ?>uploads/images/<?php echo $book['file']; ?>">الملف القديم : <span style="font-size: 20px" class="glyphicon">&#xe025;</span></a></div> <br>
                                 <div> <input type="checkbox" name="remove_photo" value="<?php echo $book['file']; ?>"/>حذف الملف القديم</div><br>
 
-                                <?php
-                            }
-                            ?>
+    <?php
+}
+?>
 
 
 
@@ -126,15 +143,15 @@
 
                             <div class='uploadForm'>
 
-                                <?php
-                                if (isset($book['mini'])) {
-                                    ?>
+<?php
+if (isset($book['mini'])) {
+    ?>
                                     <img width="120" height="150" src="<?= site_url('uploads/images/') ?><?php echo $book['mini']; ?>"/>
 
 
-                                    <?php
-                                }
-                                ?>
+    <?php
+}
+?>
 
 
 
@@ -151,9 +168,9 @@
                             </div>
                         </div>
 
-                        <?php
-                        $result = $this->db->query("select country_name,country_id from country where country_id='" . $book['country'] . "'")->row();
-                        ?>
+<?php
+$result = $this->db->query("select country_name,country_id from country where country_id='" . $book['country'] . "'")->row();
+?>
 
 
 
@@ -162,15 +179,15 @@
                             <div class='form-group'>
                                 <select  name='country'  class='form-control country' id='country'  required >
 
-                                    <?php
-                                    foreach ($country as $row) {
-                                        if ($row->country_id == $result->country_id) {
-                                            $selected = 'selected';
-                                        } else {
+                        <?php
+                        foreach ($country as $row) {
+                            if ($row->country_id == $result->country_id) {
+                                $selected = 'selected';
+                            } else {
 
-                                            $selected = '';
-                                        }
-                                        ?>
+                                $selected = '';
+                            }
+                            ?>
 
 
                                         <option value='<?php echo $row->country_id; ?> '   <?php echo $selected ?> ><?php echo $row->country_name ?></option>;
@@ -193,19 +210,19 @@
                             <div class='form-group'>
                                 <select  name='legislative_status' value='' class='form-control' id='legislative_status'>
 
-                                    <?php
-                                    $status = array("الحالة الاولى", "الحالة الثانية",);
+<?php
+$status = array("الحالة الاولى", "الحالة الثانية",);
 
 // Iterating through the product array
-                                    foreach ($status as $item) {
+foreach ($status as $item) {
 
-                                        if ($item == $book['legislative_status']) {
-                                            $selected = 'selected';
-                                        } else {
+    if ($item == $book['legislative_status']) {
+        $selected = 'selected';
+    } else {
 
-                                            $selected = '';
-                                        }
-                                        ?>
+        $selected = '';
+    }
+    ?>
 
 
 
@@ -229,17 +246,17 @@
                             <div class='form-group'>
                                 <select  name='legislative_type'  class='form-control' id='legislative_type'>
 
-                                    <?php
-                                    $type = array("النوع الاول", "النوع الثاني",);
+<?php
+$type = array("النوع الاول", "النوع الثاني",);
 
-                                    foreach ($type as $item) {
-                                        if ($item == $book['legislative_type']) {
-                                            $selected = 'selected';
-                                        } else {
+foreach ($type as $item) {
+    if ($item == $book['legislative_type']) {
+        $selected = 'selected';
+    } else {
 
-                                            $selected = '';
-                                        }
-                                        ?>
+        $selected = '';
+    }
+    ?>
 
 
 
@@ -265,17 +282,17 @@
                             <div class='form-group'>
                                 <select  name='pronounced_judgment' value='' class='form-control' id='pronounced_judgment'>
 
-                                    <?php
-                                    $pronounced = array("قابل", "غير قابل",);
+<?php
+$pronounced = array("قابل", "غير قابل",);
 
-                                    foreach ($pronounced as $item) {
-                                        if ($item == $book['pronounced_judgment']) {
-                                            $selected = 'selected';
-                                        } else {
+foreach ($pronounced as $item) {
+    if ($item == $book['pronounced_judgment']) {
+        $selected = 'selected';
+    } else {
 
-                                            $selected = '';
-                                        }
-                                        ?>
+        $selected = '';
+    }
+    ?>
 
 
 
@@ -307,17 +324,17 @@
                             <div class='form-group'>
                                 <select  name='issuer'  class='form-control' id='issuer'>
 
-                                    <?php
-                                    $issuer = array("الجهة الثانية", "الجهة الاولى",);
+<?php
+$issuer = array("الجهة الثانية", "الجهة الاولى",);
 
-                                    foreach ($issuer as $item) {
-                                        if ($item == $book['issuer']) {
-                                            $selected = 'selected';
-                                        } else {
+foreach ($issuer as $item) {
+    if ($item == $book['issuer']) {
+        $selected = 'selected';
+    } else {
 
-                                            $selected = '';
-                                        }
-                                        ?>
+        $selected = '';
+    }
+    ?>
 
 
 
@@ -343,17 +360,17 @@
                             <div class='form-group'>
                                 <select  name='issue_classification' value='' class='form-control' id='issue_classification'>
 
-                                    <?php
-                                    $issue = array("تصنيف ثاني", "تصنيف اول",);
+<?php
+$issue = array("تصنيف ثاني", "تصنيف اول",);
 
-                                    foreach ($issue as $item) {
-                                        if ($item == $book['issue_classification']) {
-                                            $selected = 'selected';
-                                        } else {
+foreach ($issue as $item) {
+    if ($item == $book['issue_classification']) {
+        $selected = 'selected';
+    } else {
 
-                                            $selected = '';
-                                        }
-                                        ?>
+        $selected = '';
+    }
+    ?>
 
 
 
@@ -376,17 +393,17 @@
                             <div class='form-group'>
                                 <select  name='court' value='' class='form-control' id='court'>
 
-                                    <?php
-                                    $court_court = array("محكمة النقض", "محكمة الاستئناف",);
+<?php
+$court_court = array("محكمة النقض", "محكمة الاستئناف",);
 
-                                    foreach ($court_court as $item) {
-                                        if ($item == $book['court']) {
-                                            $selected = 'selected';
-                                        } else {
+foreach ($court_court as $item) {
+    if ($item == $book['court']) {
+        $selected = 'selected';
+    } else {
 
-                                            $selected = '';
-                                        }
-                                        ?>
+        $selected = '';
+    }
+    ?>
 
 
 
@@ -415,17 +432,17 @@
                             <div class='form-group'>
                                 <select  name='pass' value='' class='form-control' id='pass'>
 
-                                    <?php
-                                    $pass = array("غير ساري", "ساري",);
+<?php
+$pass = array("غير ساري", "ساري",);
 
-                                    foreach ($pass as $item) {
-                                        if ($item == $book['pass']) {
-                                            $selected = 'selected';
-                                        } else {
+foreach ($pass as $item) {
+    if ($item == $book['pass']) {
+        $selected = 'selected';
+    } else {
 
-                                            $selected = '';
-                                        }
-                                        ?>
+        $selected = '';
+    }
+    ?>
 
 
 
@@ -450,11 +467,11 @@
 
                         </div>
                         <div id="ver_ver">
-                            <?php
-                            $v = 0;
-                            foreach ($book_version as $b) {
-                                $v = $v + 1;
-                                ?> 
+<?php
+$v = 0;
+foreach ($book_version as $b) {
+    $v = $v + 1;
+    ?> 
 
                                 <div class="col-md-12" id="ver">
                                     <label for='version' class='control-label'> الاصدار  </label>
@@ -466,9 +483,9 @@
 
 
 
-                                <?php
-                            }
-                            ?>
+    <?php
+}
+?>
                         </div>
                         <div class="col-md-12" >
                             <div class="form-group">
@@ -479,11 +496,11 @@
                         </div>
                         <input type="hidden" name="vv" value="<?php echo $v; ?>">
 
-                        <?php
-                        $m = 0;
-                        foreach ($book_material as $b) {
-                            $m = $m + 1;
-                            ?> 
+<?php
+$m = 0;
+foreach ($book_material as $b) {
+    $m = $m + 1;
+    ?> 
 
                             <div class="col-md-6" id="mat">
                                 <label for='material_number' class='control-label'> رقم  المادة</label>
@@ -500,9 +517,9 @@
                             </div>
 
 
-                            <?php
-                        }
-                        ?>
+    <?php
+}
+?>
                         <input type="hidden" name="mmm" value="<?php echo $m; ?>">
 
                         <!--  <php
@@ -617,10 +634,10 @@
 
 
                         <div id="fff">
-                            <?php
-                            foreach ($fields as $value) {
-                                if ($value['field_type'] == 'input' && $value['section_id'] == 33) {
-                                    ?>
+<?php
+foreach ($fields as $value) {
+    if ($value['field_type'] == 'input' && $value['section_id'] == 33) {
+        ?>
                                     <div id="custom">
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
@@ -631,10 +648,10 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
                         <div id="bbb">
@@ -652,18 +669,18 @@
                                         <div class="form-group">
                                             <select class='form-control' name="select1[]">;
 
-                                                <?php
-                                                for ($i = 0; $i < count($arr); $i++) {
+                                    <?php
+                                    for ($i = 0; $i < count($arr); $i++) {
 
-                                                    $result = $this->db->query("select value from fields_values where book_id= '" . $book['book_id'] . "' and field_id ='" . $value['id'] . "'  ")->row();
+                                        $result = $this->db->query("select value from fields_values where book_id= '" . $book['book_id'] . "' and field_id ='" . $value['id'] . "'  ")->row();
 
-                                                    if ($result->value == $arr[$i]) {
-                                                        $selected = 'selected';
-                                                    } else {
+                                        if ($result->value == $arr[$i]) {
+                                            $selected = 'selected';
+                                        } else {
 
-                                                        $selected = '';
-                                                    }
-                                                    ?>
+                                            $selected = '';
+                                        }
+                                        ?>
 
 
                                                     <option <?php echo $selected; ?> class='form-control' value="<?php echo $arr[$i] ?>" <?php echo $selected ?> ><?php echo $arr[$i] ?></option>
@@ -683,10 +700,10 @@
 
 
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
 
                         </div>
 
@@ -728,12 +745,12 @@
                                                 </div>
 
 
-                                                <?php
-                                                break;
-                                            } else {
+                    <?php
+                    break;
+                } else {
 
-                                                $checked = '';
-                                                ?>
+                    $checked = '';
+                    ?>
 
 
                                                 <div class="col-md-12" >
@@ -748,15 +765,15 @@
                                                     </div>
                                                 </div>          
 
-                                                <?php
-                                            }
-                                            ?>
+                    <?php
+                }
+                ?>
 
 
 
-                                            <?php
-                                        }
-                                        ?>
+                <?php
+            }
+            ?>
 
 
                                         <?php
@@ -798,10 +815,10 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
 
@@ -821,18 +838,18 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
 
                         <div id="lll">
-                            <?php
-                            foreach ($fields as $value) {
-                                if ($value['field_type'] == 'datepicker' && $value['section_id'] == 33) {
-                                    ?>
+<?php
+foreach ($fields as $value) {
+    if ($value['field_type'] == 'datepicker' && $value['section_id'] == 33) {
+        ?>
 
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
@@ -868,10 +885,10 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
                         <div id="bbbb">
@@ -889,18 +906,18 @@
                                         <div class="form-group">
                                             <select class='form-control' name="select2[]">;
 
-                                                <?php
-                                                for ($i = 0; $i < count($arr); $i++) {
+                                    <?php
+                                    for ($i = 0; $i < count($arr); $i++) {
 
-                                                    $result = $this->db->query("select value from fields_values where book_id= '" . $book['book_id'] . "' and field_id ='" . $value['id'] . "'  ")->row();
+                                        $result = $this->db->query("select value from fields_values where book_id= '" . $book['book_id'] . "' and field_id ='" . $value['id'] . "'  ")->row();
 
-                                                    if ($result->value == $arr[$i]) {
-                                                        $selected = 'selected';
-                                                    } else {
+                                        if ($result->value == $arr[$i]) {
+                                            $selected = 'selected';
+                                        } else {
 
-                                                        $selected = '';
-                                                    }
-                                                    ?>
+                                            $selected = '';
+                                        }
+                                        ?>
 
 
                                                     <option <?php echo $selected; ?> class='form-control' value="<?php echo $arr[$i] ?>" <?php echo $selected ?> ><?php echo $arr[$i] ?></option>
@@ -920,10 +937,10 @@
 
 
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
 
                         </div>
 
@@ -965,12 +982,12 @@
                                                 </div>
 
 
-                                                <?php
-                                                break;
-                                            } else {
+                    <?php
+                    break;
+                } else {
 
-                                                $checked = '';
-                                                ?>
+                    $checked = '';
+                    ?>
 
 
                                                 <div class="col-md-12" >
@@ -985,15 +1002,15 @@
                                                     </div>
                                                 </div>          
 
-                                                <?php
-                                            }
-                                            ?>
+                    <?php
+                }
+                ?>
 
 
 
-                                            <?php
-                                        }
-                                        ?>
+                <?php
+            }
+            ?>
 
 
                                         <?php
@@ -1035,10 +1052,10 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
 
@@ -1058,18 +1075,18 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
 
                         <div id="llll">
-                            <?php
-                            foreach ($fields as $value) {
-                                if ($value['field_type'] == 'datepicker' && $value['section_id'] == 31) {
-                                    ?>
+<?php
+foreach ($fields as $value) {
+    if ($value['field_type'] == 'datepicker' && $value['section_id'] == 31) {
+        ?>
 
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
@@ -1087,10 +1104,10 @@
 
 
                         <div id="fffff">
-                            <?php
-                            foreach ($fields as $value) {
-                                if ($value['field_type'] == 'input' && $value['section_id'] == 32) {
-                                    ?>
+<?php
+foreach ($fields as $value) {
+    if ($value['field_type'] == 'input' && $value['section_id'] == 32) {
+        ?>
                                     <div id="custom">
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
@@ -1101,10 +1118,10 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
                         <div id="bbbbb">
@@ -1122,18 +1139,18 @@
                                         <div class="form-group">
                                             <select class='form-control' name="select3[]">;
 
-                                                <?php
-                                                for ($i = 0; $i < count($arr); $i++) {
+                                    <?php
+                                    for ($i = 0; $i < count($arr); $i++) {
 
-                                                    $result = $this->db->query("select value from fields_values where book_id= '" . $book['book_id'] . "' and field_id ='" . $value['id'] . "'  ")->row();
+                                        $result = $this->db->query("select value from fields_values where book_id= '" . $book['book_id'] . "' and field_id ='" . $value['id'] . "'  ")->row();
 
-                                                    if ($result->value == $arr[$i]) {
-                                                        $selected = 'selected';
-                                                    } else {
+                                        if ($result->value == $arr[$i]) {
+                                            $selected = 'selected';
+                                        } else {
 
-                                                        $selected = '';
-                                                    }
-                                                    ?>
+                                            $selected = '';
+                                        }
+                                        ?>
 
 
                                                     <option <?php echo $selected; ?> class='form-control' value="<?php echo $arr[$i] ?>" <?php echo $selected ?> ><?php echo $arr[$i] ?></option>
@@ -1153,10 +1170,10 @@
 
 
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
 
                         </div>
 
@@ -1198,12 +1215,12 @@
                                                 </div>
 
 
-                                                <?php
-                                                break;
-                                            } else {
+                    <?php
+                    break;
+                } else {
 
-                                                $checked = '';
-                                                ?>
+                    $checked = '';
+                    ?>
 
 
                                                 <div class="col-md-12" >
@@ -1218,15 +1235,15 @@
                                                     </div>
                                                 </div>          
 
-                                                <?php
-                                            }
-                                            ?>
+                    <?php
+                }
+                ?>
 
 
 
-                                            <?php
-                                        }
-                                        ?>
+                <?php
+            }
+            ?>
 
 
                                         <?php
@@ -1268,10 +1285,10 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
 
@@ -1291,18 +1308,18 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
 
                         <div id="lllll">
-                            <?php
-                            foreach ($fields as $value) {
-                                if ($value['field_type'] == 'datepicker' && $value['section_id'] == 32) {
-                                    ?>
+<?php
+foreach ($fields as $value) {
+    if ($value['field_type'] == 'datepicker' && $value['section_id'] == 32) {
+        ?>
 
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
@@ -1338,10 +1355,10 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
                         <div id="bbbbbb">
@@ -1359,18 +1376,18 @@
                                         <div class="form-group">
                                             <select class='form-control' name="select4[]">;
 
-                                                <?php
-                                                for ($i = 0; $i < count($arr); $i++) {
+                                    <?php
+                                    for ($i = 0; $i < count($arr); $i++) {
 
-                                                    $result = $this->db->query("select value from fields_values where book_id= '" . $book['book_id'] . "' and field_id ='" . $value['id'] . "'  ")->row();
+                                        $result = $this->db->query("select value from fields_values where book_id= '" . $book['book_id'] . "' and field_id ='" . $value['id'] . "'  ")->row();
 
-                                                    if ($result->value == $arr[$i]) {
-                                                        $selected = 'selected';
-                                                    } else {
+                                        if ($result->value == $arr[$i]) {
+                                            $selected = 'selected';
+                                        } else {
 
-                                                        $selected = '';
-                                                    }
-                                                    ?>
+                                            $selected = '';
+                                        }
+                                        ?>
 
 
                                                     <option <?php echo $selected; ?> class='form-control' value="<?php echo $arr[$i] ?>" <?php echo $selected ?> ><?php echo $arr[$i] ?></option>
@@ -1390,10 +1407,10 @@
 
 
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
 
                         </div>
 
@@ -1435,12 +1452,12 @@
                                                 </div>
 
 
-                                                <?php
-                                                break;
-                                            } else {
+                    <?php
+                    break;
+                } else {
 
-                                                $checked = '';
-                                                ?>
+                    $checked = '';
+                    ?>
 
 
                                                 <div class="col-md-12" >
@@ -1455,15 +1472,15 @@
                                                     </div>
                                                 </div>          
 
-                                                <?php
-                                            }
-                                            ?>
+                    <?php
+                }
+                ?>
 
 
 
-                                            <?php
-                                        }
-                                        ?>
+                <?php
+            }
+            ?>
 
 
                                         <?php
@@ -1505,10 +1522,10 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
 
@@ -1528,18 +1545,18 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
 
                         <div id="llllll">
-                            <?php
-                            foreach ($fields as $value) {
-                                if ($value['field_type'] == 'datepicker' && $value['section_id'] == 34) {
-                                    ?>
+<?php
+foreach ($fields as $value) {
+    if ($value['field_type'] == 'datepicker' && $value['section_id'] == 34) {
+        ?>
 
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
@@ -1556,10 +1573,10 @@
                         </div>    
 
                         <div id="fffffff">
-                            <?php
-                            foreach ($fields as $value) {
-                                if ($value['field_type'] == 'input' && $value['section_id'] == 35) {
-                                    ?>
+<?php
+foreach ($fields as $value) {
+    if ($value['field_type'] == 'input' && $value['section_id'] == 35) {
+        ?>
                                     <div id="custom">
                                         <div class="col-md-6" >
                                             <label  class="control-label"><?php echo $value['field_label']; ?></label>
@@ -1570,10 +1587,10 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
                         <div id="bbbbbbb">
@@ -1591,18 +1608,18 @@
                                         <div class="form-group">
                                             <select class='form-control' name="select5[]">;
 
-                                                <?php
-                                                for ($i = 0; $i < count($arr); $i++) {
+                                    <?php
+                                    for ($i = 0; $i < count($arr); $i++) {
 
-                                                    $result = $this->db->query("select value from fields_values where book_id= '" . $book['book_id'] . "' and field_id ='" . $value['id'] . "'  ")->row();
+                                        $result = $this->db->query("select value from fields_values where book_id= '" . $book['book_id'] . "' and field_id ='" . $value['id'] . "'  ")->row();
 
-                                                    if ($result->value == $arr[$i]) {
-                                                        $selected = 'selected';
-                                                    } else {
+                                        if ($result->value == $arr[$i]) {
+                                            $selected = 'selected';
+                                        } else {
 
-                                                        $selected = '';
-                                                    }
-                                                    ?>
+                                            $selected = '';
+                                        }
+                                        ?>
 
 
                                                     <option <?php echo $selected; ?> class='form-control' value="<?php echo $arr[$i] ?>" <?php echo $selected ?> ><?php echo $arr[$i] ?></option>
@@ -1622,10 +1639,10 @@
 
 
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
 
                         </div>
 
@@ -1667,12 +1684,12 @@
                                                 </div>
 
 
-                                                <?php
-                                                break;
-                                            } else {
+                    <?php
+                    break;
+                } else {
 
-                                                $checked = '';
-                                                ?>
+                    $checked = '';
+                    ?>
 
 
                                                 <div class="col-md-12" >
@@ -1687,15 +1704,15 @@
                                                     </div>
                                                 </div>          
 
-                                                <?php
-                                            }
-                                            ?>
+                    <?php
+                }
+                ?>
 
 
 
-                                            <?php
-                                        }
-                                        ?>
+                <?php
+            }
+            ?>
 
 
                                         <?php
@@ -1737,10 +1754,10 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
 
@@ -1760,18 +1777,18 @@
                                         </div>
                                     </div>
 
-                                    <?php
-                                }
-                            }
-                            ?>
+        <?php
+    }
+}
+?>
                         </div>
 
 
                         <div id="lllllll">
-                            <?php
-                            foreach ($fields as $value) {
-                                if ($value['field_type'] == 'datepicker' && $value['section_id'] == 35) {
-                                    ?>
+<?php
+foreach ($fields as $value) {
+    if ($value['field_type'] == 'datepicker' && $value['section_id'] == 35) {
+        ?>
 
                                     <div class='col-md-6'>
                                         <label for='ruling_year' class='control-label'>   <?php echo $value['field_label']; ?> </label>
@@ -1808,14 +1825,14 @@
                         <div class='col-md-6' id="div_linked">
                             <label for='linked' >مرتبط بنظام تشريعي</label>
                             <div class='form-group'>
-                                <?php
-                                $r = 9;
-                                if (isset($r)) {
-                                    $checkedd = 'checked';
-                                } else {
-                                    $checkedd = '';
-                                }
-                                ?>
+<?php
+$r = 9;
+if (isset($r)) {
+    $checkedd = 'checked';
+} else {
+    $checkedd = '';
+}
+?>
 
                                 <input type='checkbox' name='linked' value='linked'  id='linked'  <?php echo $checkedd ?> class='get_value'>
                             </div>
@@ -2293,7 +2310,7 @@
         var base_url = '<?php echo base_url(); ?>';
         $(document).ready(function () {
 
-
+            var arr = <?php echo json_encode($arr); ?>;
 
             var section_id = '';
 
@@ -2308,92 +2325,90 @@
 
 
 
-                $("#case_law_table").show();
-                $('#tree_linked').show();
-                if ($('#linked').is(":checked"))
-                {
-                    $.ajax({
-                        type: "GET",
-                        url: "<?php echo base_url() ?>section/getItem/" + main_section_id,
-                        dataType: "json",
-                        success: function (response)
-                        {
+            $("#case_law_table").show();
+                    $('#tree_linked').show();
+                    if ($('#linked').is(":checked"))
+            {
+            $.ajax({
+            type: "GET",
+                    url: "<?php echo base_url() ?>section/getItem/" + main_section_id,
+                    dataType: "json",
+                    success: function (response)
+                    {
 
-                            var i = 0;
-                            var j = 0;
-                            var r = [];
-                            for (i = 0; i < response.result.length; i++) {
+                        var i = 0;
+                        var j = 0;
+                        var r = [];
+                        for (i = 0; i < response.result.length; i++) {
 
 
-                                r[i] = response.result[i].section_id;
+                            r[i] = response.result[i].section_id;
+                        }
+
+
+
+                        $('#tree_linked').treeview({data: response});
+
+
+
+
+
+
+
+
+                        $('#tree_linked').on('nodeSelected', function (event, data) {
+
+
+                            t = '';
+                            html = '';
+                            for (j = 0; j < r.length; j++) {
+
+                                if (r[j] === data.id) {
+
+
+
+                                    t = data.id;
+                                }
+
+                            }
+
+                            // alert(t);
+
+
+                            section_id = t;
+                            function loadPagination(pagno, section_id) {
+
+
+                                $.ajax({
+                                    url: "<?php echo base_url() ?>book/book_pagination/" + pagno,
+                                    type: 'post',
+                                    dataType: 'json',
+                                    data: {section_id: section_id},
+                                    beforeSend: function () {
+
+                                        $("#loader").show();
+                                    },
+                                    success: function (response) {
+
+                                        //  alert(response.pagination);
+
+                                        $('#pagination_in_section').html(response.pagination);
+                                        createTable(response.result, response.row);
+                                    },
+                                    complete: function (data) {
+                                        // Hide image container
+                                        $("#loader").hide();
+                                    },
+                                    error: function () {
+                                        alert("error in loadPagination");
+                                    }
+                                });
                             }
 
 
 
-                            $('#tree_linked').treeview({data: response});
-
-
-
-
-
-
-
-
-                            $('#tree_linked').on('nodeSelected', function (event, data) {
-
-
-                                t = '';
-                                html = '';
-                                for (j = 0; j < r.length; j++) {
-
-                                    if (r[j] === data.id) {
-
-
-
-                                        t = data.id;
-                                    }
-
-                                }
-
-                                // alert(t);
-
-
-                                section_id = t;
-                                function loadPagination(pagno, section_id) {
-
-
-                                    $.ajax({
-
-                                        url: "<?php echo base_url() ?>book/book_pagination/" + pagno,
-                                        type: 'post',
-                                        dataType: 'json',
-                                        data: {section_id: section_id},
-                                        beforeSend: function () {
-
-                                            $("#loader").show();
-                                        },
-                                        success: function (response) {
-
-                                            //  alert(response.pagination);
-
-                                            $('#pagination_in_section').html(response.pagination);
-                                            createTable(response.result, response.linked_system, response.row);
-                                        },
-                                        complete: function (data) {
-                                            // Hide image container
-                                            $("#loader").hide();
-                                        },
-
-                                        error: function () {
-                                            alert("error in loadPagination");
-                                        }
-                                    });
-                                }
-
-
-
-                                var custom_arr = [];
-                                var jj = 0;
+                            var custom_arr = [];
+                            var jj = 0;
 
 
 
@@ -2404,48 +2419,40 @@
 
 //  Create table list';
 
-                                function createTable(result, linked_system, sno) {
-                                    sno = Number(sno);
-                                    //   $('#books_in_section').empty();
+                            function createTable(result, linked_system, sno) {
+                                sno = Number(sno);
+                                //   $('#books_in_section').empty();
 
-                                    var html = '';
-                                    var checked='';
-
-
-
-
-                                    var index = '';
-                                    for (index in result) {
-
-                                        var index_x = '';
-
-                                        for (index_x in linked_system) {
-
-
-                                            if ((result[index].book_id == linked_system[index_x].linked_system_id) ) {
-
-                                              //  custom_arr.push(linked_system[index_x].linked_system_id);
-                                               checked='checked';
-                            
+                                var html = '';
+                                var checked = '';
+                                var index_x = '';
 
 
 
+                                var index = '';
+                                for (index in result) {
 
-                                            }
 
-                                        }
-                                        
-                                                             html += '<tr>';
-                                    html += '<td>' + result[index].book_title + '</td>';
-                                    html += '<td><input type="checkbox" name="material_number_legislation_in_case[]" value="' + result[index].material_number_legislation + '" class="material_number_legislation_in_case" '+checked+'>' + result[index].material_number_legislation + '</td>';
-                                    html += '<td><input type="hidden" name="system_id[]" value="' + result[index].book_id + '" class="system_id_id"></td>';
-                                    html += '</tr>';
+                                    if (arr.includes(result[index].book_id)) {
 
+                                        html += '<tr>';
+                                        html += '<td>' + result[index].book_title + '</td>';
+                                        html += '<td><input type="checkbox" name="system_id[]" value="' + result[index].book_id + '" class="material_number_legislation_in_case" checked>' + result[index].material_number_legislation + '</td>';
+
+                                        html += '</tr>';
+
+                                    }
+                                    else {
+                                        html += '<tr>';
+                                        html += '<td>' + result[index].book_title + '</td>';
+                                        html += '<td><input type="checkbox" name="system_id[]" value="' + result[index].book_id + '" class="material_number_legislation_in_case" >' + result[index].material_number_legislation + '</td>';
+
+                                        html += '</tr>';
 
 
                                     }
 
-                                      
+
 
 
 
@@ -2453,7 +2460,11 @@
                                     $('#case_law').html(html);
 
 
+                                    $('.save').click(function () {
+                                        var checkboxes = $('.material_number_legislation_in_case:checked').length;
+                                        $('#total_item_system').val(checkboxes);
 
+                                    })
 
 
 
@@ -2472,25 +2483,18 @@
 
 
 
-                            });
-
-
-
-
+                            }
+                            );
                         }
 
 
 
-                    });
-
-
-
-
-                } else {
-                    $('#tree_linked').hide();
-                    $('#case_law_table').hide();
-                }
+                        });
+                    } else {
+            $('#tree_linked').hide();
+            $('#case_law_table').hide();
             }
+        }
 
 
 
@@ -2498,11 +2502,7 @@
 
 
         });
-
-
-
-
-        var count = 0;
+                var count = 0;
 
         $(document).on('click', '#add_row', function () {
 

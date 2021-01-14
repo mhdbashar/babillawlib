@@ -74,9 +74,9 @@ class Book extends Front_end {
     }
 
     function add() {
-        
-        
-        
+
+
+
 
         $section_id = $this->input->post('section_id');
         if (isset($section_id)) {
@@ -294,15 +294,14 @@ class Book extends Front_end {
 
 
                             for ($count = 0; $count < $_POST["total_item_system"]; $count++) {
-                               
-                                  
-                               
-                              
+
+
+
+
 
 
 
                                 $data = array(
-                                    'material_number_legislation' => $_POST["material_number_legislation_in_case"][$count],
                                     'linked_system_id' => $_POST["system_id"][$count],
                                 );
 
@@ -317,6 +316,7 @@ class Book extends Front_end {
                                 $this->Book_model->case_law_system($d);
                             }
                         }
+
 
 
 
@@ -921,9 +921,9 @@ class Book extends Front_end {
             $data['get_main_section'] = $this->Section_model->get_main_section();
             $data['get_sub_section'] = $this->Section_model->get_sub_section();
             $data['country'] = $this->Book_model->fetch_country();
-          
-            
-         
+
+
+
 
             $this->layout->view('book/add', $data);
         }
@@ -979,6 +979,9 @@ class Book extends Front_end {
         $data['country'] = $this->Book_model->fetch_country();
 
         $data['fields'] = $result2;
+
+        $data['system_id'] = $this->db->query('select * from case_law_system ,linked_case_law,linked_system where linked_case_law.id=case_law_system.case_law_id and linked_system.id=case_law_system.system_id  and linked_case_law.case_id="' . $book_id . '"  ')->result_array();
+
 
         $this->layout->view('book/update_data_view', $data);
     }
@@ -1142,6 +1145,21 @@ class Book extends Front_end {
                 }
             }
 
+            if ((isset($_POST["system_id"])) && (!empty($_POST["system_id"]))) {
+
+                for ($count = 0; $count < $_POST["total_item_system"]; $count++) {
+
+                    $data = array(
+                        'linked_system_id' => $_POST["system_id"][$count],
+                    );
+
+
+                    $last_linked_system_id = $this->Book_model->update_linked_system($_POST["system_id"][$count],$data);
+
+            
+                }
+                
+            }
 
 
 
@@ -1190,6 +1208,11 @@ class Book extends Front_end {
                     }
                 }
             }
+
+
+
+
+
 
 
             redirect('book/index');
@@ -2715,25 +2738,22 @@ class Book extends Front_end {
         $data['result'] = $this->db->query("select * from book,materials  where book.book_id = materials.book_id and (book_title  LIKE '%" . $query . "%' or materials.description  LIKE '%" . $query . "%' or url LIKE '%" . $query . "%')  ;  ")->result_array();
         $this->layout->view('datelia_search/index_search', $data);
     }
-    function sub_section($parent_id=0) {
-        
-          $data['result'] = $this->db->query("select * from section where parent_id= $parent_id")->result_array();
-         $data['current_uri'] = $this->uri->segment(3);
-         // $data['book'] = $this->db->db->query("select * from book where section_id= $section_id")->result_array();
-          
-          $this->layout->view('book/tree_in_grid', $data);
+
+    function sub_section($parent_id = 0) {
+
+        $data['result'] = $this->db->query("select * from section where parent_id= $parent_id")->result_array();
+        $data['current_uri'] = $this->uri->segment(3);
+        // $data['book'] = $this->db->db->query("select * from book where section_id= $section_id")->result_array();
+
+        $this->layout->view('book/tree_in_grid', $data);
     }
-        function sub_section_json() {
-            
-          $main_section_id_id = $this->input->post('main_section_id_id');
-          $data['result'] = $this->db->query("select * from section where parent_id= '".$main_section_id_id."'")->result_array();
-         $data['current_uri'] = $this->uri->segment(3);
-       echo json_encode($data);
-          
-          
+
+    function sub_section_json() {
+
+        $main_section_id_id = $this->input->post('main_section_id_id');
+        $data['result'] = $this->db->query("select * from section where parent_id= '" . $main_section_id_id . "'")->result_array();
+        $data['current_uri'] = $this->uri->segment(3);
+        echo json_encode($data);
     }
-    
-   
-   
 
 }

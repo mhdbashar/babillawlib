@@ -242,7 +242,7 @@
                 }
                 
                 else if(main_section == 35){
-                  alert(data);
+              
                     
                          $('#legislation_system').html(data);
 

@@ -18,8 +18,8 @@ class Book_model extends CI_Model {
     function get_book($book_id) {
         return $this->db->get_where('book', array('book_id' => $book_id))->row_array();
     }
-	
-	function get_material_sys_case($book_id) {
+
+    function get_material_sys_case($book_id) {
         return $this->db->query("select book.material_number_legislation from book,case_law_system where case_law_system.case_law_id=book.book_id and case_law_system.system_id=book.book_id and book.book_id='" . $book_id . "'  ")->row();
     }
 
@@ -211,16 +211,16 @@ class Book_model extends CI_Model {
 
     function fetch_data($query = '', $section_id) {
 
-          
-           
+
+
 
         if (($query != '') && $section_id == 34) {
-            
+
             $result = $this->db->query("select * from book k, fields_values a,custom_fields b  where a.field_id=b.id   and   b.section_id= '" . $section_id . "'")->result_array();
-            
-            
-            
-            
+
+
+
+
             $this->db->select("*");
             $this->db->from("book");
             $this->db->where("main_section", $section_id);
@@ -242,8 +242,7 @@ class Book_model extends CI_Model {
             $this->db->or_like('dis', $query);
             $query = $this->db->get();
             return $query->result();
-            
-        }elseif (($query != '') && $section_id == 35) {
+        } elseif (($query != '') && $section_id == 35) {
             $this->db->select("*");
             $this->db->from("book");
             $this->db->where("main_section", $section_id);
@@ -253,27 +252,22 @@ class Book_model extends CI_Model {
             $this->db->or_like('dis', $query);
             $query = $this->db->get();
             return $query->result();
-
-
-
-
-		}elseif (($query != '') && $section_id == 32) {
+        } elseif (($query != '') && $section_id == 32) {
             $this->db->select("*");
             $this->db->from("book");
             $this->db->where("main_section", $section_id);
-                $this->db->like('pass', $query);
+            $this->db->like('pass', $query);
             $this->db->or_like('dis', $query);
 
-            
+
             $this->db->or_like('history_system_m', $query);
             $this->db->or_like('date_publication_m', $query);
             $this->db->or_like('accreditation', $query);
             $this->db->or_like('url', $query);
-           //$this->db->or_like('version', $query);
-            
+            //$this->db->or_like('version', $query);
+
             $query = $this->db->get();
             return $query->result();
-            
         } elseif (($query != '') && $section_id == 31) {
             $this->db->select("*");
             $this->db->from("book");
@@ -295,33 +289,40 @@ class Book_model extends CI_Model {
             return $query->result();
         }
     }
+
     function country_legislation($section_id) {
-          $result = $this->db->query( 'SELECT c.country_name,c.country_id,b.legislative_type, count(b.country) as allcount  FROM country c, book b where (b.country=c.country_id ) and(b.section_id="' . $section_id . '")  group by b.country ')->result_array();
-          return $result;
+        $result = $this->db->query('SELECT c.country_name,c.country_id,b.legislative_type, count(b.country) as allcount  FROM country c, book b where (b.country=c.country_id ) and(b.section_id="' . $section_id . '")  group by b.country ')->result_array();
+        return $result;
     }
-	
-	function load_book_via_country_name($section_id,$country_name){
-	        $result = $this->db->query( 'SELECT   *  from book b , country c  where   c.country_id = b.country and c.country_name= "'.$country_name.'"  and  section_id="' . $section_id . '"   ')->result_array();
-          return $result;
-		
-	}
-        
-        function add_linked_case_law($params) {
-          $this->db->insert('linked_case_law', $params);
-          return $this->db->insert_id();
-        }
-		  function add_linked_system($params) {
-          $this->db->insert('linked_system', $params);
-          return $this->db->insert_id();
-        }
-		  function case_law_system($params) {
-          $this->db->insert('case_law_system', $params);
-          return $this->db->insert_id();
-        }
-		
-		
-    
-    
-    
+
+    function load_book_via_country_name($section_id, $country_name) {
+        $result = $this->db->query('SELECT   *  from book b , country c  where   c.country_id = b.country and c.country_name= "' . $country_name . '"  and  section_id="' . $section_id . '"   ')->result_array();
+        return $result;
+    }
+
+    function add_linked_case_law($params) {
+        $this->db->insert('linked_case_law', $params);
+        return $this->db->insert_id();
+    }
+
+    function add_linked_system($params) {
+        $this->db->insert('linked_system', $params);
+        return $this->db->insert_id();
+    }
+
+    function case_law_system($params) {
+        $this->db->insert('case_law_system', $params);
+        return $this->db->insert_id();
+    }
+
+    function update_linked_case_law($book_id, $params) {
+        $this->db->where('case_id', $book_id);
+        return $this->db->update('linked_case_law', $params);
+    }
+
+    function update_linked_system($book_id, $params) {
+        $this->db->where('linked_system_id', $book_id);
+        return $this->db->update('linked_system', $params);
+    }
 
 }
