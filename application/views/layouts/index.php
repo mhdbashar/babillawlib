@@ -113,13 +113,13 @@
                         </li>
 
 
-
+<!-- 
                         <li>
                             <a href="#">
                                 <i class="fa fa-desktop"></i> <span>الأقسام الرئيسية</span>
                             </a>
                             <ul class="treeview-menu">
-                                <?php
+                                <php
                                 $get_main_section_via_id = '';
 
                                 $i = 0;
@@ -130,15 +130,15 @@
                                     ?>0
 
                                     <li>
-                                        <a href="<?php echo site_url('section'); ?>/<?php echo $arr[$i] ?>?section_id=<?php echo $value->section_id; ?>"><i class="fa fa-list-ul"></i>  <?php echo $value->section_name ?></a>
+                                        <a href="<php echo site_url('section'); ?>/<php echo $arr[$i] ?>?section_id=<php echo $value->section_id; ?>"><i class="fa fa-list-ul"></i>  <php echo $value->section_name ?></a>
                                     </li>
 
-                                    <?php
+                                    <php
                                     $i++;
                                 }
                                 ?>
                             </ul>
-                        </li>
+                        </li> -->
 
                         <li>
                             <a href="#">
