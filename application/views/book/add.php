@@ -1582,7 +1582,7 @@
                 txt5 += "</div>";
                 $("#show_country").show();
                 $("#fm").html(txt5);
-            } else if (section_name === 'الأنظمة السعودية') {
+            } else if (section_name === 'الأنظمة الرياضية') {
                 $("#bbbbb").show();
                 $("#fffff").show();
                 $("#ccccc").show();

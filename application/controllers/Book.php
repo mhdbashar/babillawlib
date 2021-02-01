@@ -483,7 +483,7 @@ class Book extends Front_end {
                     }
 
                     redirect('book/index');
-                } elseif ($section_name == 'الأنظمة السعودية') {
+                } elseif ($section_name == 'الأنظمة الرياضية') {
 
                     if (isset($_POST) && count($_POST) > 0) {
                         $params = array(
@@ -1399,7 +1399,7 @@ class Book extends Front_end {
 
 
             redirect('book/index');
-        } elseif ($section_name == 'الأنظمة السعودية') {
+        } elseif ($section_name == 'الأنظمة الرياضية') {
 
             $data = array();
 
@@ -2630,7 +2630,7 @@ class Book extends Front_end {
                 $data['section_name'] = $section_name;
                 $data['result'] = $query->result();
             }
-        } elseif ($section_name == 'الأنظمة السعودية') {
+        } elseif ($section_name == 'الأنظمة الرياضية') {
 
 
 
@@ -2767,7 +2767,7 @@ class Book extends Front_end {
 
     public function loadRecord($parent_id = 0) {
         $data['current_uri'] = $this->uri->segment(3);
-	$rowno=$this->uri->segment(4);
+			$rowno=$this->uri->segment(4);
 			
         // Search text
         $search_text = "";
@@ -2814,14 +2814,14 @@ class Book extends Front_end {
       
 
         // Load view
-	$main_section= $this->db->query("select main_section from book where section_id= '" . $parent_id . "' ")->row();
+		 //$main_section= $this->db->query("select main_section from book where section_id= '" . $parent_id . "' ")->row();
 		
 	
 		
 		
-	$section_id = $this->uri->segment(3);
+		  $section_id = $this->uri->segment(3);
 
-        $data['result1'] = $this->Book_model->search_via_section_k($section_id);
+        $data['result1'] = $this->Book_model->search_via_section_single($section_id);
         $data['result2'] = $this->Book_model->search_material_book_via_section($section_id);
         $data['result3'] = $this->Book_model->search_version_book_via_section($section_id);
 		
@@ -2832,7 +2832,7 @@ class Book extends Front_end {
 		
 		
 		
-        $this->layout->view('book/tree_in_grid', $data, $main_section);
+        $this->layout->view('book/tree_in_grid', $data);
     }
 
     function sub_section_json() {

@@ -177,7 +177,7 @@
 
 
                 <?php
-                if ($section_name == 'الأنظمة السعودية') {
+                if ($section_name == 'الأنظمة الرياضية') {
                     ?>
 
                     <table class="table table-bordered table-striped" id="mytable">

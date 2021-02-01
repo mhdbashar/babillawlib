@@ -1249,7 +1249,7 @@
                 $("#fm").html(txt2);
 
 
-            } else if (section_name === 'الأنظمة السعودية') {
+            } else if (section_name === 'الأنظمة الرياضية') {
                 $("#bbbbb").show();
                 $("#fffff").show();
                 $("#ccccc").show();

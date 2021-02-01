@@ -226,7 +226,7 @@ class Book extends Front_end {
                     }
 
                     redirect('book/index');
-                } elseif ($section_name == 'الأنظمة السعودية') {
+                } elseif ($section_name == 'الأنظمة الرياضية') {
 
                     if (isset($_POST) && count($_POST) > 0) {
                         $params = array(
@@ -641,7 +641,7 @@ class Book extends Front_end {
 
 
             redirect('book/index');
-        } elseif ($section_name == 'الأنظمة السعودية') {
+        } elseif ($section_name == 'الأنظمة الرياضية') {
 
             if (isset($_POST) && count($_POST) > 0) {
 

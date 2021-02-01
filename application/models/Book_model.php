@@ -97,6 +97,19 @@ class Book_model extends CI_Model {
 
         return $query->result();
     }
+	
+	 function search_via_section_single($section_id) {
+
+
+        $sql = "select * from book   where section_id='" . $section_id . "' ";
+
+
+        $query = $this->db->query($sql);
+
+        return $query->row();
+    }
+	
+	
 
     function search_via_section_to_edit($section_id) {
 
