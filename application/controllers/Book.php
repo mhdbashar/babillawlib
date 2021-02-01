@@ -1154,11 +1154,8 @@ class Book extends Front_end {
                     );
 
 
-                    $last_linked_system_id = $this->Book_model->update_linked_system($_POST["system_id"][$count],$data);
-
-            
+                    $last_linked_system_id = $this->Book_model->update_linked_system($_POST["system_id"][$count], $data);
                 }
-                
             }
 
 
@@ -2237,7 +2234,6 @@ class Book extends Front_end {
 
         $section_id = $this->input->post('section_id');
 
-
         $data['result'] = $this->Book_model->search_via_section_k($section_id);
         $data['result2'] = $this->Book_model->search_material_book_via_section($section_id);
         $data['result3'] = $this->Book_model->search_version_book_via_section($section_id);
@@ -2739,13 +2735,104 @@ class Book extends Front_end {
         $this->layout->view('datelia_search/index_search', $data);
     }
 
-    function sub_section($parent_id = 0) {
+//    function sub_section($parent_id = 0) {
+//
+//        //$data['result'] = $this->db->query("select * from section where parent_id= $parent_id")->result_array();
+//        $data['current_uri'] = $this->uri->segment(3);
+//        // $data['book'] = $this->db->db->query("select * from book where section_id= $section_id")->result_array();
+//
+//       $config['total_rows'] = $this->Book_model->getallsectionlistcount($parent_id);
+//        $data['total_count'] = $config['total_rows'];
+//        $config['suffix'] = '';
+//        if ($config['total_rows'] > 0) {
+//        $page_number = $this->uri->segment(4);
+//        if ($page_number > 0) {
+//          $config['base_url'] = base_url() . 'book/sub_section/'.$parent_id;
+//            } else {
+//                $config['base_url'] = base_url() . 'book/sub_section/'.$parent_id;
+//            }
+//            if (empty($page_number))
+//                $page_number = 1;
+//            $offset = ($page_number - 1) * $this->pagination->per_page;
+//            $this->Book_model->setPageNumber($this->pagination->per_page);
+//            $this->Book_model->setOffset($offset);
+//            $this->pagination->cur_page = $offset;
+//            $config['attributes'] = array('class' => 'page-link');
+//            $this->pagination->initialize($config);
+//            $data['page_links'] = $this->pagination->create_links();
+//            $data['result'] = $this->Book_model->sectionList($parent_id);
+//        }
+//        $this->layout->view('book/tree_in_grid', $data);
+//    }
 
-        $data['result'] = $this->db->query("select * from section where parent_id= $parent_id")->result_array();
+    public function loadRecord($parent_id = 0) {
         $data['current_uri'] = $this->uri->segment(3);
-        // $data['book'] = $this->db->db->query("select * from book where section_id= $section_id")->result_array();
+	$rowno=$this->uri->segment(4);
+			
+        // Search text
+        $search_text = "";
+        if ($this->input->post('submit') != NULL) {
+            $search_text = $this->input->post('search');
+            $this->session->set_userdata(array("search" => $search_text));
+        } else {
+            if ($this->session->userdata('search') != NULL) {
+                $search_text = $this->session->userdata('search');
+            }
+        }
 
-        $this->layout->view('book/tree_in_grid', $data);
+        // Row per page
+        $rowperpage = 2;
+
+        // Row position
+        if ($rowno != 0) {
+            $rowno = ($rowno - 1) * $rowperpage;
+        }
+
+        // All records count
+        $allcount = $this->Book_model->getrecordCount($parent_id);
+
+        // Get  records
+		
+	
+		
+        $users_record = $this->Book_model->getData($parent_id,$rowno , $rowperpage);
+
+        // Pagination Configuration
+        
+        $config['base_url'] = base_url() . 'book/loadRecord/'.$parent_id.'/';
+		$config['first_url']=base_url() . 'book/loadRecord/'.$parent_id.'/0';
+        $config['use_page_numbers'] = TRUE;
+        $config['total_rows'] = $allcount;
+        $config['per_page'] = $rowperpage;
+
+        // Initialize
+        $this->pagination->initialize($config);
+
+        $data['pagination'] = $this->pagination->create_links();
+        $data['result'] = $users_record;
+        $data['row'] = $rowno;
+      
+
+        // Load view
+	$main_section= $this->db->query("select main_section from book where section_id= '" . $parent_id . "' ")->row();
+		
+	
+		
+		
+	$section_id = $this->uri->segment(3);
+
+        $data['result1'] = $this->Book_model->search_via_section_k($section_id);
+        $data['result2'] = $this->Book_model->search_material_book_via_section($section_id);
+        $data['result3'] = $this->Book_model->search_version_book_via_section($section_id);
+		
+		
+		
+		
+		
+		
+		
+		
+        $this->layout->view('book/tree_in_grid', $data, $main_section);
     }
 
     function sub_section_json() {
@@ -2755,5 +2842,70 @@ class Book extends Front_end {
         $data['current_uri'] = $this->uri->segment(3);
         echo json_encode($data);
     }
+	
+	
+	
+	function fetch()
+	{
+		$output = '';
+		$query = '';
+
+		
+		$parent_id = $this->input->post('parent_id');
+		
+	
+	
+		if($this->input->post('query'))
+		{
+			
+			$query = $this->input->post('query');
+			
+		}
+	
+		$data =  $this->Book_model->getData_tree($parent_id, $query);
+		
+		
+		if($data->num_rows() > 0)
+		{
+			foreach($data->result() as $row_r)
+			{
+				$output .= '
+						  <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-red">
+                            <div class="inner">
+                                <h3>-</h3>
+                                <p>القسم الرئيسي</p>
+								 <h4> <a style="color: #f8fdff;"  href="'.base_url().'book/loadRecord/'.$row_r->section_id.'/"> '.$row_r->section_name.'  </a> </h4>
+								
+						                          <div class="icon">
+                                    <i class="fa fa-book"></i>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+						
+						
+				';
+			}
+		}
+		else
+		{
+			$output .= '<tr>
+							<td colspan="5">No Data Found</td>
+						</tr>';
+		}
+		
+		echo $output;
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }

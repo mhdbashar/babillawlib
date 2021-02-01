@@ -16,8 +16,13 @@
         <div class="box-body">
 
             <div class="row clearfix" id="hide">
-
-
+<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon">Search</span>
+					<input type="text" name="search_text" id="search_text" placeholder="Search by Customer Details" class="form-control" />
+				</div>
+			</div>
+<div id='grid_section'>
                 <?php
                 $array = get_last_node();
 
@@ -35,14 +40,14 @@
 
 
 
-                    <div class="col-lg-3 col-xs-6">
+                    <div class="col-lg-3 col-xs-6" >
                         <!-- small box -->
                         <div class="small-box bg-red">
                             <div class="inner">
                                 <h3>-</h3>
                                 <p>القسم الرئيسي</p>
 
-                                <h4> <a style="color: #f8fdff;"  href="<?php echo base_url() ?>book/sub_section/<?php echo $r['section_id']; ?>"> <?php echo $r['section_name']; ?>  </a> </h4>
+                                <h4> <a style="color: #f8fdff;"  href="<?php echo base_url() ?>book/loadRecord/<?php echo $r['section_id']; ?>"> <?php echo $r['section_name']; ?>  </a> </h4>
                                 <div class="icon">
                                     <i class="fa fa-book"></i>
                                 </div>
@@ -54,29 +59,20 @@
 
 
                     <?php
-//                        foreach ($array as $value) {
-//                          
-//                          
-//                   
-//                        
-//                      
-//                                $book = get_book($r['section_id']);
-//
-//                                foreach ($book as $value_v) {
-//                                    echo $value_v['book_id'];
-//                                    echo '<br>';
-//                                }
-//                            
-//                        }
+
                 }
                 ?>
 
 
 
+	
 
 
             </div>
-
+			</div>
+<div style='margin-top: 10px;' id='pagination'>
+		<?= $pagination; ?>
+	</div>
             <?php
             if ($rr != 0) {
                 ?>
@@ -103,6 +99,200 @@
 
     </div>
 </div>
+
+
+<?php
+
+
+	
+	?>
+	
+	<div class="row">
+    <div class="col-md-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">  </h3>
+	
+	<center>
+
+                    <table style="border: 6px solid #eaeaea;text-align: right;width: 56.06%; height: 204px;">
+
+
+
+
+
+
+
+
+                        <?php
+                        if (isset($result1) && !empty($result1)) {
+                            echo '<tr>';
+                            echo '<td class="h">';
+                            echo "الاعتماد:";
+                            echo '</td>';
+                            echo '<td>';
+                            echo $result1->accreditation;
+                            echo '</td>';
+
+                            echo '</tr>';
+
+
+
+
+
+                            echo '<tr>';
+                            echo '<td class="h">';
+                            echo "تاريخ النشر :";
+                            echo '</td>';
+                            echo '<td>';
+                            echo $result1->date_publication_m;
+                            echo '</td>';
+                            echo '</tr>';
+
+
+
+
+
+
+
+                            echo '<td class="h">';
+                            echo "تاريخ النظام :";
+                            echo '</td>';
+                            echo '<td>';
+                            echo $result1->history_system_m;
+                            echo '</td>';
+                            echo '</tr>';
+
+
+
+
+            
+                      
+                          
+                            
+                              if (isset($result3) && !empty($result3)) {
+                            $c=0;
+                                 foreach ($result3 as $value) {
+                                     $c++;
+                                         echo '<tr>';
+                                      echo '<td class="h">';
+                            echo "الإصدار";
+                            echo '&nbsp'; 
+                            echo $c;
+                            echo ':';
+                            echo '</td>';
+                                 
+                                       echo '<td>';
+                                     echo $value->version;
+                            echo '</td>';
+echo '</tr>';
+                     
+                                  
+                                 }
+                                 }
+                                   
+                            
+
+
+
+
+
+
+                            echo '<tr>';
+                            echo '<td class="h">';
+                            echo "النفاذ:";
+                            echo '</td>';
+                            echo '<td>';
+                            echo $result1->pass;
+                            echo '</td>';
+                            echo '</tr>';
+                            echo '<tr>';
+                            echo '<td class="h">';
+                            echo "الرابط:";
+                            echo '</td>';
+                            echo '<td>';
+                            echo $result1->url;
+                            echo '</td>';
+                            echo '</tr>';
+                            ?>
+
+
+
+                            <?php
+                        }
+                        ?>
+
+                    </table>
+                </center>
+                <br><br><br><br>
+                <center>
+
+
+
+                    <table>
+
+
+
+                        <?php
+                        if (isset($result2) && !empty($result2)) {
+
+
+
+                            foreach ($result2 as $value) {
+
+
+
+                                echo '<div style="text-align: right;  color: #4587ae; font-weight: 900;  font-size: 12px;">';
+
+
+
+                                echo 'رقم المادة :';
+                                echo $value->material_number;
+                                echo '<br>';
+                                echo '</div>';
+                                echo '<div style="text-align: right;  color: #4587ae; font-weight: 900;  font-size: 12px;">';
+                               
+                                echo '</div>';
+
+
+
+
+                                echo htmlspecialchars_decode(stripslashes($value->description));
+                                echo '<br>';
+                                ?>
+
+
+
+                                <?php
+                            }
+                        }
+                        ?>
+
+                    </table>
+                </center>
+				</div></div></div></div>
+	
+	
+	
+	
+	
+	
+	<?php
+	
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <script src="<?= base_url() ?>assets/dist/js/datatables.min.js"></script>
@@ -241,7 +431,7 @@
                // }
                 }
                 
-                else if(main_section == 35){
+                
               
                     
                          $('#legislation_system').html(data);
@@ -254,7 +444,7 @@
 
 
                     });
-                }
+              
                 },
                 complete: function (data) {
                     // Hide image container
@@ -273,7 +463,7 @@
                 alert('أدخل كلمة للبحث عنها');
                 return false;
             }
-            var section_id = 31;
+         
 
             $.ajax({
 
@@ -293,6 +483,33 @@
 
 
 
+
+	function load_data(query)
+	{
+		$.ajax({
+			url:"<?php echo base_url(); ?>book/fetch",
+			method:"POST",
+			data:{query:query,parent_id:section_id},
+			success:function(data){
+			
+				$('#grid_section').html('');
+				$('#pagination').html('');
+				
+				$('#grid_section').html(data);
+			}
+		})
+	}
+
+	$('#search_text').keyup(function(){
+		$('#grid_section').html('');
+		var search = $(this).val();
+		
+		if(search != '')
+		{
+			load_data(search);
+		}
+		
+	});
 
 
 

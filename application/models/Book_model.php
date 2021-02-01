@@ -6,7 +6,13 @@
  */
 
 class Book_model extends CI_Model {
-
+	
+	
+   private $_limit;
+        private $_pageNumber;
+        private $_offset;
+		
+		
     function __construct() {
         parent::__construct();
     }
@@ -324,5 +330,53 @@ class Book_model extends CI_Model {
         $this->db->where('linked_system_id', $book_id);
         return $this->db->update('linked_system', $params);
     }
+	
+			public function setLimit($limit) {
+        $this->_limit = $limit;
+    }
+
+    public function getData($parent_id=0,$rowno, $rowperpage) {
+
+        $this->db->select('*');
+        $this->db->from('section');
+        $this->db->where('parent_id', $parent_id);
+     
+
+        $this->db->limit($rowperpage, $rowno);
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+    // Select total records
+    public function getrecordCount($parent_id=0) {
+
+        $this->db->select('count(*) as allcount');
+        $this->db->from('section');
+   $this->db->where('parent_id', $parent_id);
+     
+
+        $query = $this->db->get();
+        $result = $query->result_array();
+
+        return $result[0]['allcount'];
+    }
+	
+	
+	    public function getData_tree($parent_id=0, $query = "") {
+
+         $this->db->select("*");
+		$this->db->from("section");
+		$this->db->where("parent_id",$parent_id);
+		if($query != '')
+		{
+			$this->db->like('section_name', $query);
+		
+		}
+	
+		return $this->db->get();
+    }
+	
+	
 
 }

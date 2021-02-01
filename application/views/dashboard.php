@@ -141,7 +141,7 @@
                                     <h3>-</h3>
                                     <p>القسم الرئيسي</p>
 
-                                    <h4> <a style="color: #f8fdff;"  href="<?php echo base_url() ?>book/sub_section/<?php echo $r['section_id']; ?>"> <?php echo $r['section_name']; ?>  </a> </h4>
+                                    <h4> <a style="color: #f8fdff;"  href="<?php echo base_url() ?>book/loadRecord/<?php echo $r['section_id']; ?>"> <?php echo $r['section_name']; ?>  </a> </h4>
                                     <div class="icon">
                                         <i class="fa fa-book"></i>
                                     </div>
