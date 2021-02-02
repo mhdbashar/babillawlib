@@ -2180,7 +2180,7 @@ if (isset($r)) {
             $("#fm").html(txt2);
 
 
-        } else if (section_name === 'الأنظمة الرياضية') {
+        } else if (section_name === 'الأنظمة السعودية') {
 
             $("#fm").empty();
 

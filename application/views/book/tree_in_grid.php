@@ -1,4 +1,21 @@
+<?php
 
+$data=get_main_section_via_section_id($current_uri);
+if(isset($data) && !empty($data))
+{
+	
+	
+	if($data->main_section ==33){
+		$this->load->view('main_sections/models_and_contracts');
+		
+		
+		
+}
+
+}
+
+
+?>
 <?= $this->layout->block('tree_in_grid') ?>
 <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/bootstrap-datepicker.css">
 <script src="<?= base_url() ?>assets/dist/js/jquery.min.js"></script>
@@ -102,9 +119,19 @@
 
 
 <?php
-
-
+$data=get_main_section_via_section_id($current_uri);
+if(isset($data) && !empty($data))
+{
 	
+	
+	if($data->main_section ==32){
+		
+		
+	
+	
+	
+
+
 	?>
 	
 	<div class="row">
@@ -279,7 +306,8 @@ echo '</tr>';
 	
 	<?php
 	
-
+}
+}
 ?>
 
 
@@ -315,6 +343,9 @@ echo '</tr>';
         var section_id = '<?php echo $current_uri ?>';
 
       
+var main_section="<?php echo $data->main_section ?>";
+        if(main_section == 31){
+
 
      
         var html = '';
@@ -351,7 +382,7 @@ echo '</tr>';
 
                     var i;
                     
-               if(main_section==31){
+              
                         
                         
                    
@@ -429,7 +460,7 @@ echo '</tr>';
 
                     //$('#book_list').html(html);
                // }
-                }
+                
                 
                 
               
@@ -456,7 +487,7 @@ echo '</tr>';
 
         load_book(section_id);
 
-
+}
         $('#search_button').click(function () {
             var query = $('#field_search').val();
             if (query == '') {
@@ -519,5 +550,6 @@ echo '</tr>';
 
 
 
-
 <?= $this->layout->block('') ?>
+
+

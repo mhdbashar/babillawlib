@@ -1334,7 +1334,7 @@
             }
 
 
-            else if (section_name === 'الأنظمة الرياضية') {
+            else if (section_name === 'الأنظمة السعودية') {
                 $("#bbbbb").show();
                 $("#fffff").show();
                 $("#ccccc").show();

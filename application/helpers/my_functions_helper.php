@@ -31,6 +31,15 @@ if (!function_exists('get_main_section')) {
           $data = $CI->db->query("select * from section where section_id not in (select parent_id from section)")->result_array();
         return $data;
     }
+	
+	function get_main_section_via_section_id($section_id){
+		$CI = & get_instance();
+          $data = $CI->db->query("select main_section from book where section_id= $section_id")->row();
+		  return $data;
+		
+		
+	}
+	
     
 
 }
